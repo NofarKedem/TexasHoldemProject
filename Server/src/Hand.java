@@ -98,4 +98,9 @@ public class Hand {
     public boolean isValidGameMove(Round.GameMoves LastGameMove){
         return currRound.isValidGameMove(LastGameMove);
     }
+
+    public int getLastBetOfTheCurrPlayer()
+    {
+        return currRound.getLastBetOfTheCurrPlayer();
+    }
 }

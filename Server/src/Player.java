@@ -95,4 +95,9 @@ public class Player {
     {
         this.actionService = round;
     }
+
+    int getBet()
+    {
+        return this.bet;
+    }
 }

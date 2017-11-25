@@ -141,4 +141,9 @@ public class Round implements PlayerActionService{
         else{return false;}
     }
 
+    public int getLastBetOfTheCurrPlayer()
+    {
+        return playersRef.get(currPlayerIndex).getBet();
+    }
+
 }

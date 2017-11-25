@@ -11,10 +11,12 @@ public class UI {
     public void menu() {
         //תחילת המשחק כאילו לחצו 1
         //  loadFile();
+        server.initializeHand();
+        server.initializePlayers(1,3);
         // printState(); // הפלט של 1 זה פקודה 3
         Boolean endGame = false;
         Boolean isGameStarted = false;
-        while(endGame)
+        while(!endGame)
         {
             if(!isGameStarted)
             {
@@ -35,6 +37,8 @@ public class UI {
                     if(!isGameStarted)
                     {
                         loadFile();
+                        server.initializePlayers(1,3);
+                        server.initializeHand();
                         printState();
                     }
                     else
@@ -44,7 +48,7 @@ public class UI {
                 case 2:
                     if(!isGameStarted)
                     {
-                        //StartGame();
+                        printState();
                         isGameStarted = true;
                     }
                     else
@@ -52,15 +56,22 @@ public class UI {
                     break;
 
                 case 3: printState();
+                    break;
                 case 4: StartHand();
+                    break;
                 case 5: printStatistics();
+                    break;
                 case 6 : buyChips();
+                    break;
                 case 7 : PlayerQuit();
                     isGameStarted = false;
                     System.out.println("1. Start New Game");
                     System.out.println("2. Restart the current game");
+                    break;
                 case 8 : PlayerQuit();
+                    break;
                 default: System.out.println("Invalid input, try again");
+                    break;
             }
         }
 
@@ -240,7 +251,7 @@ public class UI {
     {
         //server.playHand();
         //printDetailsInTheGame();
-        server.initializeHand();
+        //server.initializeHand(); //לבדוק
         server.cardDistribusionToPlayer();
         server.blindBet();
         playOneRound();
@@ -265,25 +276,28 @@ public class UI {
 
     private void playOneRound()
     {
-        int res=0;
+        boolean endOfRound=false;
         server.initRound();
-        while(res == 0)
+        while(!endOfRound)
         {
             if(server.getTypeOfPlayer(4) == 'H')
             {
-                playWithHumen();
+                endOfRound = playWithHumen();
+                printDetailsInTheGame();
             }
             else if(server.getTypeOfPlayer(4) == 'C')
             {
-                res = server.playWithComputer();
+                endOfRound = server.playWithComputer();
             }
         }
     }
-    private int playWithHumen()
+
+    private boolean playWithHumen()
     {
-        int res =0;
-        boolean flag = false;
-        while(flag) {
+        boolean endOfRound = false;
+        boolean isValidMove = false;
+        boolean isValidAmount = false;
+        while(isValidMove) {
             System.out.println("Choose which move do you want to do:");
             System.out.println("1. Fold");
             System.out.println("2. Bet");
@@ -292,20 +306,28 @@ public class UI {
             System.out.println("5. Raise");
             Scanner s = new Scanner(System.in);
             int numOfMove = s.nextInt();
-            if (!server.validateMove())
+            if (!server.validateMove(numOfMove))
                 System.out.println("Invalid move for this Player, please try again");
 
-            else {
-
-                flag = true;
+            else
+            {
+                isValidMove = true;
                 int amount = 0;
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
                         break;
                     case 2:
-                        System.out.println("You choose to bet, for how much do you want to bet?");
-                        amount = (new Scanner(System.in)).nextInt();
+                        while(!isValidAmount) {
+                            System.out.println("You choose to bet, for how much do you want to bet?");
+                            amount = (new Scanner(System.in)).nextInt();
+                            if(isValidAmount = server.validAmount(amount)) {
+                                System.out.println("Your bet worked ");
+                                isValidAmount = true;
+                            }
+                            else
+                                System.out.println("The amount you enter is invalid, please try again");
+                        }
                         break;
                     case 3:
                         System.out.println("You choose to call");
@@ -314,16 +336,23 @@ public class UI {
                         System.out.println("You choose to check");
                         break;
                     case 5:
-                        System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBet()
-                                "for how much do you want to raise your bet?");
-                        amount = (new Scanner(System.in)).nextInt();
+                        while(!isValidAmount) {
+                            System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBet() +
+                                    "for how much do you want to raise your bet?");
+                            amount = (new Scanner(System.in)).nextInt();
+                            if (isValidAmount = server.validAmount(amount)) {
+                                System.out.println("Your raise worked ");
+                                isValidAmount = true;
+                            } else
+                                System.out.println("The amount you enter is invalid, please try again");
+                        }
+                        
                         break;
                 }
-                res = server.gameMove("bet", amount);
-                printState();
+                endOfRound = server.gameMove(numOfMove, amount);
             }
         }
-        return res;
+        return endOfRound;
     }
 
 }

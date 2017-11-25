@@ -40,7 +40,7 @@ public class Server {
     public void initializeHand(){
         deck.allCardsInDeck();
 
-        Hand currHand = new Hand(deck);
+       // Hand currHand = new Hand(deck);
         totalnumOfHands++;
         currHand = new Hand(deck);
         totalnumOfHands++;
@@ -78,16 +78,16 @@ public class Server {
     }
 
 
-    public boolean gameMove(Round.GameMoves gameMove, int amount){
-        return currHand.gameMove(gameMove, amount);
+    public boolean gameMove(int LastGameMove, int amount){
+        return currHand.gameMove(convertIntToMove(LastGameMove), amount);
     }
 
     public boolean playWithComputer(){
         return currHand.playWithComputer();
     }
 
-    public boolean validateMove(Round.GameMoves LastGameMove){
-        return currHand.isValidGameMove(LastGameMove);
+    public boolean validateMove(int LastGameMove){
+        return currHand.isValidGameMove(convertIntToMove(LastGameMove));
     }
 
     //hadar changes
@@ -172,5 +172,32 @@ public class Server {
                 break;
             }
         }
+    }
+    private Round.GameMoves convertIntToMove(int numOfMove)
+    {
+        Round.GameMoves res = null;
+        switch(numOfMove)
+        {
+            case 1: res= Round.GameMoves.FOLD;
+                break;
+            case 2: res= Round.GameMoves.BET;
+                break;
+            case 3: res= Round.GameMoves.CALL;
+                break;
+            case 4: res= Round.GameMoves.CHECK;
+                break;
+            case 5: res= Round.GameMoves.RAISE;
+                break;
+
+        }
+        return res;
+    }
+    public boolean validAmount(int amount)
+    {
+        return true;
+    }
+    public int getLastBet()
+    {
+        return currHand.getLastBetOfTheCurrPlayer();
     }
 }

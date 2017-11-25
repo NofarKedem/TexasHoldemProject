@@ -36,6 +36,16 @@ public class Hand {
         else return false;
     }
 
+    public boolean playWithComputer(){
+        Round.GameMoves gameMove = handPlayers.get(getCurrPlayer()).generateMove();
+        int amount = handPlayers.get(getCurrPlayer()).generateAmount();
+        if(currRound.gameMove(gameMove,amount)){
+            this.cashBoxAfterRound();
+            return true;
+        }
+        else return false;
+    }
+
     private void cashBoxAfterRound(){
         cashBox = currRound.getCashBox();//update the hand cashBox after the current round
     }

@@ -273,7 +273,7 @@ public class UI {
             }
             else if(server.getTypeOfPlayer(4) == 'C')
             {
-                res = server.playWithCumputer();
+                res = server.playWithComputer();
             }
         }
     }

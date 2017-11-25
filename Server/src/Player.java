@@ -31,46 +31,34 @@ public class Player {
     }
 
 
-    boolean Bet(int amount) {
-        if (amount <= chips && amount <= actionService.getCashBox()) {
-            actionService.turnBetOn();
-            chips = chips - amount;
-            actionService.updateCashBox(amount);
-            actionService.updateCurrBet(amount);
-            bet = amount;
-            return true;
-        }
-        return false;
+    void Bet(int amount) {
+        actionService.turnBetOn();
+        chips = chips - amount;
+        actionService.updateCashBox(amount);
+        actionService.updateCurrBet(amount);
+        bet = amount;
+
     }
-    boolean call()
+    void call()
     {
         int currBet = actionService.getCurrBet();
         //int remainder = currBet - bet;
-        if(actionService.isBetOn() && currBet <= chips && currBet <= actionService.getCashBox()){
-            chips = chips - currBet;
-            actionService.updateCashBox(currBet);
-            return true;
-        }
-        return false;
+        chips = chips - currBet;
+        actionService.updateCashBox(currBet);
+
     }
-    boolean check()
+    void check()
     {
-        if(actionService.isBetOn()){
-            return false;
-        }
-        return true;
+
     }
-    boolean Raise(int amount)
+    void Raise(int amount)
     {
         int RaiceAmount = actionService.getCurrBet() + amount;
-        if(actionService.isBetOn() && RaiceAmount <= chips && RaiceAmount <= actionService.getCashBox()){
-            chips = chips - RaiceAmount;
-            actionService.updateCashBox(RaiceAmount);
-            actionService.updateCurrBet(RaiceAmount);
-            bet = RaiceAmount;
-            return true;
-        }
-        return false;
+        chips = chips - RaiceAmount;
+        actionService.updateCashBox(RaiceAmount);
+        actionService.updateCurrBet(RaiceAmount);
+        bet = RaiceAmount;
+
     }
     void updateState(String state) {
         this.state = state;

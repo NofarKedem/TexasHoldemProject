@@ -76,4 +76,12 @@ public class ComputerPlayer implements Player{
     {
         return this.cards;
     }
+
+    public Round.GameMoves generateMove(){
+        return Round.GameMoves.CALL; //just for test
+    }
+
+    public int generateAmount(){
+        return 0; //just for test
+    }
 }

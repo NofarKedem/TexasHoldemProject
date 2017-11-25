@@ -16,10 +16,7 @@ public class Hand {
         cashBox = 200; //the value is just for testing
     }
     public void play(){
-        //2 cards to each player
-        for(Player player : handPlayers){
-            player.getPlayerHandCards(deck.drawFromDeck(2));
-        }
+
         int index = 1;
         initAndStartRound(index);
         flop();
@@ -36,6 +33,19 @@ public class Hand {
         cashBox = currRound.getCashBox();//update the hand cashBox after the current round
         handRounds.add(currRound); //Is this redundant?
     }
+
+    public void cardDistribusion (){
+        //2 cards to each player
+        for(Player player : handPlayers){
+            player.getPlayerHandCards(deck.drawFromDeck(2));
+        }
+    }
+
+    public boolean gameMove(Round.GameMoves gameMove, int amount){
+       return currRound.gameMove(gameMove,amount);
+    }
+
+
 
     private void flop(){
         communityCards = deck.drawFromDeck(3);
@@ -62,4 +72,12 @@ public class Hand {
         communityCards[communityCardIndex] = (deck.drawFromDeck(1))[0];
     }
     */
+
+    public void blindBet(){
+        currRound.blindBet();
+    }
+
+    public void setFirstPlayer(){
+        currRound.setCurrPlayer();
+    }
 }

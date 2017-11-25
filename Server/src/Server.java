@@ -3,19 +3,21 @@ import java.util.List;
 
 public class Server {
     private Deck deck;
-    private List<Hand> hands;
+    //private List<Hand> hands;
     private List<Player> players;
-    private int currHand;
+    private Hand currHand;
     private int timeOfGame;
+    private int numOfHands;
     private static int dilerIndex = 0;
     public static int small = 5; //to be updated from the XML
     public static int big = 10;//to be updated from the XML
 
     public Server(){
-        currHand = 0;
+        //currHand = 0;
         timeOfGame = 0;
+        numOfHands = 0;
         players = new ArrayList(4);
-        hands = new ArrayList<>();
+        //hands = new ArrayList<>();
         deck = new Deck();
     }
 
@@ -28,18 +30,18 @@ public class Server {
             //need to add methods update and updates chips from XML parameter
             players.add(new HumanPlayer('C', " ",100,1));
         }
+        dilerIndex = calculateDilerIndex(dilerIndex);
+        initPlayersState();
+        currHand.setFirstPlayer();
+
     }
 
     public void initializeHand(){
         deck.allCardsInDeck();
         Hand currHand = new Hand(deck);
-        dilerIndex = calculateDilerIndex(dilerIndex);
-        initPlayersState();
+        numOfHands++;
         currHand.getHandPlayers(players);
-
-        currHand.play();
-
-        hands.add(currHand);
+        //hands.add(currHand);
 
     }
     private void initPlayersState(){
@@ -56,6 +58,19 @@ public class Server {
     }
     private int calcSmallIndex(int diler){
         return (diler+1)%(players.size());
+    }
+
+    public void cardDistribusionToPlayer(){ //per Hand
+        this.currHand.cardDistribusion();
+    }
+
+    public void blindBet(){
+        currHand.blindBet();
+    }
+
+    public boolean gameMove(Round.GameMoves gameMove, int amount){
+        return currHand.gameMove(gameMove, amount);
+
     }
 
 }

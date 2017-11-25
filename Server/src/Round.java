@@ -18,6 +18,8 @@ public class Round implements PlayerActionService{
     private int smallIdx;
     private int bigIdx;
     private int roundCashBox;
+    private int currPlayerIndex; //the curr turn
+    private boolean isValidGameMove;
 
     Round(List<Player> playersRef, int roundNum, int roundCashBox){
         this.roundNum = roundNum;
@@ -28,6 +30,7 @@ public class Round implements PlayerActionService{
         this.roundCashBox = roundCashBox;
         isBetOn = false;
         currBet = 0;
+        isValidGameMove = false;
     }
 
     @Override
@@ -83,10 +86,17 @@ public class Round implements PlayerActionService{
         }
     }
 
-    private void startBlindRound(){
+    public void setCurrPlayer(){
+        currPlayerIndex = (bigIdx+1)%(playersRef.size());
+    }
+
+    public void blindBet(){
         boolean result;
         do {result = playersRef.get(smallIdx).Bet(5);}while(!result);  //the game move is the blind small!
         do{ result = playersRef.get(bigIdx).Bet(10);}while (!result); //the game move is the blind big!
+    }
+    private void startBlindRound(){
+
         gameMove(playersRef.get(nextTurn(bigIdx)));
         closeTheRound = nextTurn(bigIdx); //the big closes the round and the one after him stops the loop
         int currPlayerIndex = nextTurn(closeTheRound);
@@ -122,32 +132,45 @@ public class Round implements PlayerActionService{
         return  theNextPlayerInArray;
     }
 
-    public boolean gameMove(Player currPlayer){
-        Round.GameMoves playerChoise = GameMoves.CALL; //for test needs
-        int amount = 6;
-        boolean legalAction;
-       // playerChoise = getPlayerChoise(); //need to merge with Hadar
-        switch (playerChoise){
+    public boolean gameMove(Round.GameMoves gameMove, int amount){
+        switch (gameMove){
             case RAISE:
-                //get amount from user - need to merge with Hadar
-                do{legalAction = currPlayer.Raise(amount);}while (!legalAction);
-                return true;
+                if(playersRef.get(currPlayerIndex).Raise(amount)){
+                    isValidGameMove = true;
+                }
+                closeTheRound = currPlayerIndex;
+
             case CALL:
-                do {legalAction = currPlayer.call();}while (!legalAction);
-                return false;
+                if(playersRef.get(currPlayerIndex).call()){
+                    isValidGameMove = true;
+                }
+
             case BET:
-                //get amount from user - need to merge with Hadar
-                do{legalAction = currPlayer.Bet(amount);} while (!legalAction);
-                return true;
+                if(playersRef.get(currPlayerIndex).Bet(amount)){
+                    isValidGameMove = true;
+                }
+                closeTheRound = currPlayerIndex;
+
             case CHECK:
-                do{legalAction = currPlayer.check();}while (!legalAction);
-                return false;
+                if(playersRef.get(currPlayerIndex).check()){
+                    isValidGameMove = true;
+                }
+
             case FOLD:
-                currPlayer.fold();
-                return false;
+                playersRef.get(currPlayerIndex).fold();
+
             default:
                 //error
-                return false;
+
         }
+
+        currPlayerIndex = nextTurn(currPlayerIndex);
+        if(currPlayerIndex == closeTheRound)
+            return true;
+        else return false;
+    }
+
+    public boolean isValidGameMove() {
+        return isValidGameMove;
     }
 }

@@ -82,12 +82,12 @@ public class Server {
         return currHand.gameMove(gameMove, amount);
     }
 
-    public boolean playWithCumputer(){
+    public boolean playWithComputer(){
         return currHand.playWithComputer();
     }
 
-    public boolean validateMove(){
-        return currHand.isValidGameMove();
+    public boolean validateMove(Round.GameMoves LastGameMove){
+        return currHand.isValidGameMove(LastGameMove);
     }
 
     //hadar changes

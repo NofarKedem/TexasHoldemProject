@@ -95,7 +95,7 @@ public class Hand {
         return currRound.getCurrBet();
     }
 
-    public boolean isValidGameMove(){
-        return currRound.isValidGameMove();
+    public boolean isValidGameMove(Round.GameMoves LastGameMove){
+        return currRound.isValidGameMove(LastGameMove);
     }
 }

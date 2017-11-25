@@ -18,7 +18,6 @@ public class Round implements PlayerActionService{
     private int bigIdx;
     private int roundCashBox;
     private int currPlayerIndex; //the curr turn
-    private boolean isValidGameMove;
 
     Round(List<Player> playersRef, int roundCashBox){
         this.playersRef = playersRef;
@@ -28,7 +27,6 @@ public class Round implements PlayerActionService{
         this.roundCashBox = roundCashBox;
         isBetOn = false;
         currBet = 0;
-        isValidGameMove = false;
     }
 
     @Override
@@ -82,9 +80,8 @@ public class Round implements PlayerActionService{
 
     public void blindBet(){
         this.findSmallBigIndex();
-        boolean result;
-        do {result = playersRef.get(smallIdx).Bet(5);}while(!result);  //the game move is the blind small!
-        do{ result = playersRef.get(bigIdx).Bet(10);}while (!result); //the game move is the blind big!
+        playersRef.get(smallIdx).Bet(5);  //the game move is the blind small!
+        playersRef.get(bigIdx).Bet(10); //the game move is the blind big!
     }
 
     private int nextTurn(int lastToPlayIndex){
@@ -98,26 +95,18 @@ public class Round implements PlayerActionService{
     public boolean gameMove(Round.GameMoves gameMove, int amount){
         switch (gameMove){
             case RAISE:
-                if(playersRef.get(currPlayerIndex).Raise(amount)){
-                    isValidGameMove = true;
-                }
+                playersRef.get(currPlayerIndex).Raise(amount);
                 closeTheRound = currPlayerIndex;
 
             case CALL:
-                if(playersRef.get(currPlayerIndex).call()){
-                    isValidGameMove = true;
-                }
+                playersRef.get(currPlayerIndex).call();
 
             case BET:
-                if(playersRef.get(currPlayerIndex).Bet(amount)){
-                    isValidGameMove = true;
-                }
+                playersRef.get(currPlayerIndex).Bet(amount);
                 closeTheRound = currPlayerIndex;
 
             case CHECK:
-                if(playersRef.get(currPlayerIndex).check()){
-                    isValidGameMove = true;
-                }
+                playersRef.get(currPlayerIndex).check();
 
             case FOLD:
                 playersRef.get(currPlayerIndex).fold();
@@ -133,8 +122,23 @@ public class Round implements PlayerActionService{
         else return false;
     }
 
-    public boolean isValidGameMove() {
-        return isValidGameMove;
+    public boolean isValidGameMove(Round.GameMoves gameMoves) {
+        if(gameMoves == GameMoves.FOLD){
+            return true;
+        }
+        else if(gameMoves == GameMoves.CALL && isBetOn){
+            return true;
+        }
+        else if(gameMoves == GameMoves.RAISE && isBetOn){
+            return true;
+        }
+        else if(gameMoves == GameMoves.BET && !isBetOn){
+            return true;
+        }
+        else if(gameMoves == GameMoves.CHECK && !isBetOn){
+            return true;
+        }
+        else{return false;}
     }
 
 }

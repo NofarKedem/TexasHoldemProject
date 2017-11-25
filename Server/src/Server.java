@@ -39,9 +39,14 @@ public class Server {
 
     public void initializeHand(){
         deck.allCardsInDeck();
+
         Hand currHand = new Hand(deck);
         totalnumOfHands++;
+
+        currHand = new Hand(deck);
+        numOfHands++;
         currHand.getHandPlayers(players);
+        initRound();
         //hands.add(currHand);
 
     }
@@ -50,6 +55,10 @@ public class Server {
         int small = calcSmallIndex(dilerIndex);
         players.get(small).updateState("S");
         players.get(calcBigIndex(small)).updateState("B");
+    }
+
+    public void initRound(){
+        currHand.initRound();
     }
     private int calculateDilerIndex(int lastDilerIndex){
         return  (lastDilerIndex + 1)%(players.size());
@@ -130,4 +139,15 @@ public class Server {
         return this.numOfPlayHands;
     }
 
+    public void callFlop(){
+        currHand.flop();
+    }
+
+    public void callTurn(){
+        currHand.turn();
+    }
+
+    public void callRiver(){
+        currHand.river();
+    }
 }

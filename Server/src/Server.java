@@ -86,6 +86,10 @@ public class Server {
         return currHand.playWithComputer();
     }
 
+    public boolean validateMove(){
+        return currHand.isValidGameMove();
+    }
+
     //hadar changes
     public String loadFile(String filePath)
     {

@@ -8,12 +8,14 @@ public class Hand {
     private Card[] communityCards;
     private List<Player> handPlayers;
     private int cashBox;
+    private ComputerPlayerService CPlayerService;
 
     public Hand(Deck deck){
         this.deck = deck;
         handRounds = new ArrayList<>(4);
         communityCards = new Card[5];
         cashBox = 200; //the value is just for testing
+        CPlayerService = new ComputerPlayerService();
     }
 
     public void initRound(){
@@ -37,8 +39,8 @@ public class Hand {
     }
 
     public boolean playWithComputer(){
-        Round.GameMoves gameMove = handPlayers.get(getCurrPlayer()).generateMove();
-        int amount = handPlayers.get(getCurrPlayer()).generateAmount();
+        Round.GameMoves gameMove = CPlayerService.generateMove();
+        int amount = CPlayerService.generateAmount();
         if(currRound.gameMove(gameMove,amount)){
             this.cashBoxAfterRound();
             return true;
@@ -91,5 +93,9 @@ public class Hand {
     public int getCurrBet()
     {
         return currRound.getCurrBet();
+    }
+
+    public boolean isValidGameMove(){
+        return currRound.isValidGameMove();
     }
 }

@@ -290,7 +290,7 @@ public class UI {
             System.out.println("5. Raise");
             Scanner s = new Scanner(System.in);
             int numOfMove = s.nextInt();
-            if (!server.validateMove(numOfMove))
+            if (!server.validateMove())
                 System.out.println("Invalid move for this Player, please try again");
 
             else {

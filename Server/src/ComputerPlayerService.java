@@ -1,8 +1,11 @@
-public class ComputerPlayer extends Player{
+public class ComputerPlayerService {
 
-    public ComputerPlayer(char type,String state,int chips,int buys)
-    {
-        super(type,state,chips,buys);
-    }
+   public Round.GameMoves generateMove(){
+       return Round.GameMoves.CALL;
+   }
+
+   public int generateAmount(){
+       return 0;
+   }
 
 }

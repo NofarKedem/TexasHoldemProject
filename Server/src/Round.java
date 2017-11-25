@@ -85,10 +85,11 @@ public class Round implements PlayerActionService{
 
     private void startBlindRound(){
         boolean result;
-        closeTheRound = bigIdx + 1; //the big closes the round and the one after him stops the loop
         do {result = playersRef.get(smallIdx).Bet(5);}while(!result);  //the game move is the blind small!
         do{ result = playersRef.get(bigIdx).Bet(10);}while (!result); //the game move is the blind big!
-        int currPlayerIndex = nextTurn(bigIdx);
+        gameMove(playersRef.get(nextTurn(bigIdx)));
+        closeTheRound = nextTurn(bigIdx); //the big closes the round and the one after him stops the loop
+        int currPlayerIndex = nextTurn(closeTheRound);
         while(currPlayerIndex != closeTheRound){
             boolean needUpdateRoundClose = gameMove(playersRef.get(currPlayerIndex));
             if(needUpdateRoundClose){

@@ -162,4 +162,15 @@ public class Server {
     {
         return "a";
     }
+
+    public void addChipsToPlayer()
+    {
+        for (Player p : players)
+        {
+            if(p.getType()== 'H') {
+                p.setBuys(1);
+                break;
+            }
+        }
+    }
 }

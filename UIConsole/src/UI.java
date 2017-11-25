@@ -92,7 +92,14 @@ public class UI {
             }
         }
     }
+    private void buyChips()
+    {
+        server.addChipsToPlayer();
+    }
+    private void PlayerQuit()
+    {
 
+    }
     private int countDigit(int num)
     {
         int numOfDigit = 0;
@@ -120,17 +127,8 @@ public class UI {
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
         System.out.println();
 
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-        {
-            int numberOfChips = server.getChipsPlayer(i);
-            System.out.print("* Chips: " + numberOfChips);
-            int numOfDigit = countDigit(numberOfChips);
-            for (int j = 0; j < 10 - numOfDigit; j++) {
-                System.out.print(" ");
-            }
-            System.out.print("*          ");
-        }
-        System.out.println();
+        printChips(numOfStartPlayer);
+
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
@@ -172,16 +170,8 @@ public class UI {
 
 
     }
-    private void printDetailsOfTwoPlayer(int numOfStartPlayer)
+    private void printChips(int numOfStartPlayer)
     {
-        System.out.println("********************          ********************");
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
-        System.out.println();
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
-        System.out.println();
-
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
             int numberOfChips = server.getChipsPlayer(i);
@@ -193,6 +183,18 @@ public class UI {
             System.out.print("*          ");
         }
         System.out.println();
+    }
+    private void printDetailsOfTwoPlayer(int numOfStartPlayer)
+    {
+        System.out.println("********************          ********************");
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        System.out.println();
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+        System.out.println();
+
+        printChips(numOfStartPlayer);
 
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)

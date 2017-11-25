@@ -21,7 +21,7 @@ public class HumanPlayer implements Player{
     }
 
     @Override
-    public void getPlayerHandCards(Card[] cards) {
+    public void setPlayerHandCards(Card[] cards) {
         this.cards = cards;
     }
 
@@ -101,4 +101,25 @@ public class HumanPlayer implements Player{
     public void initActionService(Round round) {
         this.actionService = round;
     }
+
+    @Override
+    public char getType() {return this.type; }
+
+    public int getChips()
+    {
+        return this.chips;
+    }
+    public int getBuys()
+    {
+        return this.buys;
+    }
+    public int getHandsWon()
+    {
+        return this.handsWon;
+    }
+    public Card[] getCard()
+    {
+        return this.cards;
+    }
+
 }

@@ -37,7 +37,7 @@ public class Hand {
     public void cardDistribusion (){
         //2 cards to each player
         for(Player player : handPlayers){
-            player.getPlayerHandCards(deck.drawFromDeck(2));
+            player.setPlayerHandCards(deck.drawFromDeck(2));
         }
     }
 
@@ -79,5 +79,14 @@ public class Hand {
 
     public void setFirstPlayer(){
         currRound.setCurrPlayer();
+    }
+
+    public int getCurrPlayer()
+    {
+        return currRound.getCurrPlayer();
+    }
+    public int getCurrBet()
+    {
+        return currRound.getCurrBet();
     }
 }

@@ -9,7 +9,7 @@ public class ComputerPlayer implements Player{
 
 
     @Override
-    public void getPlayerHandCards(Card[] cards) {
+    public void setPlayerHandCards(Card[] cards) {
 
     }
 
@@ -56,5 +56,24 @@ public class ComputerPlayer implements Player{
     @Override
     public void initActionService(Round round) {
 
+    }
+
+    public char getType() {return this.type; }
+
+    public int getChips()
+    {
+        return this.chips;
+    }
+    public int getBuys()
+    {
+        return this.buys;
+    }
+    public int getHandsWon()
+    {
+        return this.handsWon;
+    }
+    public Card[] getCard()
+    {
+        return this.cards;
     }
 }

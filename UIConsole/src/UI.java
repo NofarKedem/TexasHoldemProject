@@ -44,7 +44,7 @@ public class UI {
                 case 2:
                     if(!isGameStarted)
                     {
-                        StartGame();
+                        //StartGame();
                         isGameStarted = true;
                     }
                     else
@@ -210,7 +210,7 @@ public class UI {
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            int numberOfBets = server.getnumberOfBets(i);
+            int numberOfBets = server.getNumberOfBets(i);
             if(numberOfBets ==0)
             {
                 System.out.print("* Bet: ??          ");
@@ -238,9 +238,9 @@ public class UI {
     {
         //server.playHand();
         //printDetailsInTheGame();
-        server.initializedHand();
-        server.cardDistributionToPlayer();
-        server.BlindBet();
+        server.initializeHand();
+        server.cardDistribusionToPlayer();
+        server.blindBet();
         playOneRound();
         server.Flop();
         playOneRound();
@@ -264,7 +264,7 @@ public class UI {
     private void playOneRound()
     {
         int res=0;
-
+        server.initRound();
         while(res == 0)
         {
             if(server.getTypeOfPlayer(4) == 'H')

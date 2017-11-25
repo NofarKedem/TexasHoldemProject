@@ -89,6 +89,9 @@ public class Round implements PlayerActionService{
     public void setCurrPlayer(){
         currPlayerIndex = (bigIdx+1)%(playersRef.size());
     }
+    public int getCurrPlayer(){
+        return currPlayerIndex;
+    }
 
     public void blindBet(){
         boolean result;
@@ -173,4 +176,5 @@ public class Round implements PlayerActionService{
     public boolean isValidGameMove() {
         return isValidGameMove;
     }
+
 }

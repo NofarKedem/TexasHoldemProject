@@ -7,7 +7,8 @@ public class Server {
     private List<Player> players;
     private Hand currHand;
     private int timeOfGame;
-    private int numOfHands;
+    private int totalnumOfHands;
+    private int numOfPlayHands;
     private static int dilerIndex = 0;
     public static int small = 5; //to be updated from the XML
     public static int big = 10;//to be updated from the XML
@@ -15,7 +16,7 @@ public class Server {
     public Server(){
         //currHand = 0;
         timeOfGame = 0;
-        numOfHands = 0;
+        totalnumOfHands = 0;
         players = new ArrayList(4);
         //hands = new ArrayList<>();
         deck = new Deck();
@@ -39,7 +40,7 @@ public class Server {
     public void initializeHand(){
         deck.allCardsInDeck();
         Hand currHand = new Hand(deck);
-        numOfHands++;
+        totalnumOfHands++;
         currHand.getHandPlayers(players);
         //hands.add(currHand);
 
@@ -70,7 +71,63 @@ public class Server {
 
     public boolean gameMove(Round.GameMoves gameMove, int amount){
         return currHand.gameMove(gameMove, amount);
+    }
 
+    //hadar changes
+    public String loadFile(String filePath)
+    {
+        return "a";
+    }
+
+    char getTypeOfPlayer(int numOfPlayer)
+    {
+        if(numOfPlayer == 4 )
+        {
+            return players.get(currHand.getCurrPlayer()).getType();
+        }
+            return players.get(numOfPlayer).getType();
+    }
+    String getStatePlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getState();
+    }
+
+    int getChipsPlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getChips();
+    }
+    int getBuysPlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getBuys();
+    }
+    int getHandWonPlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getHandsWon();
+    }
+    int getNumberOfHands()
+    {
+        return this.totalnumOfHands;
+    }
+    String getCardsPlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getCard().toString();
+    }
+    int getNumberOfBets(int numOfPlayer)
+    {
+        return currHand.getCurrBet();
+    }
+
+    int getTime()
+    {
+        return 1;
+    }
+    int getNumberOfBuys()
+    {
+        return 2;
+    }
+    int getCurrentNumberOfHand()
+    {
+        return this.numOfPlayHands;
     }
 
 }

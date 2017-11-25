@@ -42,9 +42,8 @@ public class Server {
 
         Hand currHand = new Hand(deck);
         totalnumOfHands++;
-
         currHand = new Hand(deck);
-        numOfHands++;
+        totalnumOfHands++;
         currHand.getHandPlayers(players);
         initRound();
         //hands.add(currHand);
@@ -77,6 +76,7 @@ public class Server {
     public void blindBet(){
         currHand.blindBet();
     }
+
 
     public boolean gameMove(Round.GameMoves gameMove, int amount){
         return currHand.gameMove(gameMove, amount);
@@ -149,5 +149,9 @@ public class Server {
 
     public void callRiver(){
         currHand.river();
+    }
+    public String WhoIsTheWinner()
+    {
+        return "a";
     }
 }

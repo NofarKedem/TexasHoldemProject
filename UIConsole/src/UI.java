@@ -242,11 +242,11 @@ public class UI {
         server.cardDistribusionToPlayer();
         server.blindBet();
         playOneRound();
-        server.Flop();
+        server.callFlop();
         playOneRound();
-        server.turn();
+        server.callTurn();
         playOneRound();
-        server.river();
+        server.callRiver();
         playOneRound();
         String Winner = server.WhoIsTheWinner();
         System.out.println(Winner);
@@ -317,7 +317,7 @@ public class UI {
                         amount = (new Scanner(System.in)).nextInt();
                         break;
                 }
-                res = server.playWithHumen("bet", amount);
+                res = server.gameMove("bet", amount);
                 printState();
             }
         }

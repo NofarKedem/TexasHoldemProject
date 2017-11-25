@@ -15,22 +15,9 @@ public class Hand {
         communityCards = new Card[5];
         cashBox = 200; //the value is just for testing
     }
-    public void play(){
 
-        int index = 1;
-        initAndStartRound(index);
-        flop();
-        initAndStartRound(++index);
-        turn();
-        initAndStartRound(++index);
-        river();
-        initAndStartRound(++index);
-    }
-
-    private void initAndStartRound(int index){
-        currRound = new Round(handPlayers,index,cashBox);
-        currRound.startRound();
-        cashBox = currRound.getCashBox();//update the hand cashBox after the current round
+    public void initRound(){
+        currRound = new Round(handPlayers,cashBox);
         handRounds.add(currRound); //Is this redundant?
     }
 
@@ -42,19 +29,25 @@ public class Hand {
     }
 
     public boolean gameMove(Round.GameMoves gameMove, int amount){
-       return currRound.gameMove(gameMove,amount);
+        if(currRound.gameMove(gameMove,amount)){
+            this.cashBoxAfterRound();
+            return true;
+        }
+        else return false;
     }
 
+    private void cashBoxAfterRound(){
+        cashBox = currRound.getCashBox();//update the hand cashBox after the current round
+    }
 
-
-    private void flop(){
+    public void flop(){
         communityCards = deck.drawFromDeck(3);
     }
-    private void turn(){
+    public void turn(){
         Card[] temp = deck.drawFromDeck(1);
         communityCards[3] = temp[0];
     }
-    private void river(){
+    public void river(){
         Card[] temp = deck.drawFromDeck(1);
         communityCards[4] = temp[0];
     }

@@ -45,6 +45,7 @@ public class Player {
         int remainder = currBet - bet;
         chips = chips - remainder;
         actionService.updateCashBox(remainder);
+        bet = currBet;
 
     }
     void check()
@@ -53,7 +54,7 @@ public class Player {
     }
     void Raise(int amount)
     {
-        int RaiceAmount = actionService.getCurrBet() + amount;
+        int RaiceAmount = bet + amount;
         chips = chips - RaiceAmount;
         actionService.updateCashBox(RaiceAmount);
         actionService.updateCurrBet(RaiceAmount);

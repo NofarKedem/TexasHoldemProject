@@ -5,7 +5,7 @@ public class Hand {
     private Round currRound;
     private List<Round> handRounds; //Is this redundant?
     private Deck deck;
-    private Card[] communityCards;
+    private List<Card> communityCards;
     private List<Player> handPlayers;
     private int cashBox;
     private ComputerPlayerService CPlayerService;
@@ -13,7 +13,7 @@ public class Hand {
     public Hand(Deck deck){
         this.deck = deck;
         handRounds = new ArrayList<>(4);
-        communityCards = new Card[5];
+        communityCards = new ArrayList<>(5);
         cashBox = 200; //the value is just for testing
         CPlayerService = new ComputerPlayerService();
     }
@@ -53,15 +53,19 @@ public class Hand {
     }
 
     public void flop(){
-        communityCards = deck.drawFromDeck(3);
+        Card[] ArrOfTempCard = deck.drawFromDeck(3);
+        for(Card cardTemp : ArrOfTempCard)
+            communityCards.add(cardTemp);
     }
     public void turn(){
-        Card[] temp = deck.drawFromDeck(1);
-        communityCards[3] = temp[0];
+        Card[] ArrOfTempCard = deck.drawFromDeck(1);
+        for(Card cardTemp : ArrOfTempCard)
+            communityCards.add(cardTemp);
     }
     public void river(){
-        Card[] temp = deck.drawFromDeck(1);
-        communityCards[4] = temp[0];
+        Card[] ArrOfTempCard = deck.drawFromDeck(1);
+        for(Card cardTemp : ArrOfTempCard)
+            communityCards.add(cardTemp);
     }
 
     public void getHandPlayers(List<Player> handPlayers){
@@ -95,6 +99,7 @@ public class Hand {
         return currRound.getCurrBet();
     }
 
+
     public boolean isValidGameMove(Round.GameMoves LastGameMove){
         return currRound.isValidGameMove(LastGameMove);
     }
@@ -102,5 +107,9 @@ public class Hand {
     public int getLastBetOfTheCurrPlayer()
     {
         return currRound.getLastBetOfTheCurrPlayer();
+    }
+    public List<Card> getCommunityCards()
+    {
+        return this.communityCards;
     }
 }

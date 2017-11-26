@@ -24,6 +24,12 @@ public class Card {
     private final Suit suit;
     private boolean isUsed;
 
+    public Card()
+    {
+        rank = null;
+        suit = null;
+        isUsed = false;
+    }
 
     public Card(Rank rank, Suit suit){
         this.rank = rank;

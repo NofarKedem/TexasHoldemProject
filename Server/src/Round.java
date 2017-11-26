@@ -82,6 +82,7 @@ public class Round implements PlayerActionService{
         this.findSmallBigIndex();
         playersRef.get(smallIdx).Bet(5);  //the game move is the blind small!
         playersRef.get(bigIdx).Bet(10); //the game move is the blind big!
+        closeTheRound = bigIdx;
     }
 
     private int nextTurn(int lastToPlayIndex){

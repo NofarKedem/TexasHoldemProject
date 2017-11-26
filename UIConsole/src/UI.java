@@ -1,15 +1,10 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
     Server server = new Server();
     boolean isGameOver = false;
-    public enum status{
-        nothingHappend("1"), endGame("2"), endRound("3");
 
-        private String value;
-        status(String str){this.value = str;}
-        public String toString(){return value;}
-    }
     public static void main(String[] args) {
         UI us = new UI();
         us.menu();
@@ -189,8 +184,18 @@ public class UI {
         printDetailsOfTwoPlayer(0);
         System.out.println();
         System.out.println();
+        displayAllCard();
+        System.out.println();
+        System.out.println();
         printDetailsOfTwoPlayer(2);
 
+
+    }
+    private void displayAllCard()
+    {
+        List<Card> arrOfTempCards = server.getCommunityCards();
+        for(Card cardTemp : arrOfTempCards)
+            System.out.print(cardTemp.toString()+ " | ");
 
     }
     private void printChips(int numOfStartPlayer)
@@ -261,28 +266,33 @@ public class UI {
 
     private void StartHand()
     {
-        status resultOfMove = status.nothingHappend;
-        System.out.println("Hand number" + server.getCurrentNumberOfHand() + "is starting");
+        Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
+
         server.cardDistribusionToPlayer();
-        server.initRound();
+        initRound();
 
         server.blindBet();
         for(int i=0; i< 4;i++) {
-            if ((resultOfMove = playOneRound()) != status.endGame) //if the game was over
+            if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
             {
                 cardDistribusionInRound(i);
-                server.initRound();
+                initRound();
             }
             else
                 break;
         }
-        if (resultOfMove != status.endGame) {
+        if (resultOfMove != Utils.RoundResult.ENDGAME) {
             String Winner = server.WhoIsTheWinner();
             System.out.println(Winner);
         }
         else
             System.out.println("End of hand, buy buy!");
 
+    }
+    private void initRound()
+    {
+        System.out.println("Hand number " + server.getCurrentNumberOfHand() + " is starting");
+        server.initRound();
     }
     private void cardDistribusionInRound(int numOfRound)
     {
@@ -308,29 +318,28 @@ public class UI {
         printState();
     }
 
-    private status playOneRound()
+    private Utils.RoundResult playOneRound()
     {
-        status resultOfMove = status.nothingHappend;
-        while(resultOfMove == status.nothingHappend)
+        Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
+        while(resultOfMove == Utils.RoundResult.NOTHINGHAPPEN)
         {
-            if(isGameOver)
-                break;
             if(server.getTypeOfPlayer(4) == 'H')
             {
                 resultOfMove = playWithHumen(); //if the game was over
                 printDetailsInTheGame();
             }
-            else if(server.getTypeOfPlayer(4) == 'C')
+            else
             {
                 resultOfMove = server.playWithComputer();
+
             }
         }
         return resultOfMove;
     }
 
-    private status playWithHumen()
+    private Utils.RoundResult playWithHumen()
     {
-        status resultOfMove = status.nothingHappend;
+        Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         boolean isValidMove = false;
         boolean isValidAmount = false;
         while(!isValidMove) {
@@ -352,7 +361,7 @@ public class UI {
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
-                        resultOfMove = status.endGame;
+                        resultOfMove = Utils.RoundResult.ENDGAME;
                         //isGameOver = true;
                         break;
                     case 2:
@@ -387,7 +396,7 @@ public class UI {
                         
                         break;
                 }
-                if(resultOfMove != status.endGame)
+                if(resultOfMove != Utils.RoundResult.ENDGAME)
                     resultOfMove = server.gameMove(numOfMove, amount);
             }
         }

@@ -57,6 +57,7 @@ public class Server {
     }
 
     public void initRound(){
+        numOfPlayHands++;
         currHand.initRound();
     }
     private int calculateDilerIndex(int lastDilerIndex){
@@ -147,6 +148,7 @@ public class Server {
         return this.numOfPlayHands;
     }
 
+
     public void callFlop(){
         currHand.flop();
     }
@@ -203,5 +205,9 @@ public class Server {
     public int getLastBetOfSpecificPlayer(int numOfPlayer)
     {
         return players.get(numOfPlayer).getBet();
+    }
+    public List<Card> getCommunityCards()
+    {
+        return currHand.getCommunityCards();
     }
 }

@@ -3,6 +3,13 @@ import java.util.Scanner;
 public class UI {
     Server server = new Server();
     boolean isGameOver = false;
+    public enum status{
+        nothingHappend("1"), endGame("2"), endRound("3");
+
+        private String value;
+        status(String str){this.value = str;}
+        public String toString(){return value;}
+    }
     public static void main(String[] args) {
         UI us = new UI();
         us.menu();
@@ -57,7 +64,12 @@ public class UI {
 
                 case 3: printState();
                     break;
-                case 4: StartHand();
+                case 4:
+                    StartHand();
+                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand())
+                        System.out.println("You played all your hand, game is over! ");
+                    endGame = true;
+                    printStatistics();
                     break;
                 case 5: printStatistics();
                     break;
@@ -223,7 +235,7 @@ public class UI {
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            int numberOfBets = server.getNumberOfBets(i);
+            int numberOfBets = server.getLastBetOfSpecificPlayer(i);
             if(numberOfBets ==0)
             {
                 System.out.print("* Bet: ??          ");
@@ -249,26 +261,43 @@ public class UI {
 
     private void StartHand()
     {
-        //server.playHand();
-        //printDetailsInTheGame();
-        //server.initializeHand(); //לבדוק
+        status resultOfMove = status.nothingHappend;
+        System.out.println("Hand number" + server.getCurrentNumberOfHand() + "is starting");
         server.cardDistribusionToPlayer();
         server.initRound();
 
         server.blindBet();
-        playOneRound(); //if the game was over
-        server.callFlop();
-        server.initRound();
-        playOneRound(); //if the game was over
-        server.callTurn();
-        server.initRound();
-        playOneRound(); //if the game was over
-        server.callRiver();
-        server.initRound();
-        playOneRound(); //if the game was over
-        String Winner = server.WhoIsTheWinner();
-        System.out.println(Winner);
+        for(int i=0; i< 4;i++) {
+            if ((resultOfMove = playOneRound()) != status.endGame) //if the game was over
+            {
+                cardDistribusionInRound(i);
+                server.initRound();
+            }
+            else
+                break;
+        }
+        if (resultOfMove != status.endGame) {
+            String Winner = server.WhoIsTheWinner();
+            System.out.println(Winner);
+        }
+        else
+            System.out.println("End of hand, buy buy!");
 
+    }
+    private void cardDistribusionInRound(int numOfRound)
+    {
+        switch (numOfRound)
+        {
+            case 0: server.callFlop();
+                break;
+            case 1: server.callTurn();
+                break;
+            case 2: server.callRiver();
+                break;
+            default: break;
+
+
+        }
     }
 
     void printStatistics()
@@ -279,28 +308,29 @@ public class UI {
         printState();
     }
 
-    private void playOneRound()
+    private status playOneRound()
     {
-        boolean endOfRound=false;
-        while(!endOfRound)
+        status resultOfMove = status.nothingHappend;
+        while(resultOfMove == status.nothingHappend)
         {
             if(isGameOver)
                 break;
             if(server.getTypeOfPlayer(4) == 'H')
             {
-                endOfRound = playWithHumen(); //if the game was over
+                resultOfMove = playWithHumen(); //if the game was over
                 printDetailsInTheGame();
             }
             else if(server.getTypeOfPlayer(4) == 'C')
             {
-                endOfRound = server.playWithComputer();
+                resultOfMove = server.playWithComputer();
             }
         }
+        return resultOfMove;
     }
 
-    private boolean playWithHumen()
+    private status playWithHumen()
     {
-        boolean endOfRound = false;
+        status resultOfMove = status.nothingHappend;
         boolean isValidMove = false;
         boolean isValidAmount = false;
         while(!isValidMove) {
@@ -322,8 +352,8 @@ public class UI {
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
-                        endOfRound = true;
-                        isGameOver = true;
+                        resultOfMove = status.endGame;
+                        //isGameOver = true;
                         break;
                     case 2:
                         while(!isValidAmount) {
@@ -345,7 +375,7 @@ public class UI {
                         break;
                     case 5:
                         while(!isValidAmount) {
-                            System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBet() +
+                            System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBetOfTheCurrPlayer() +
                                     "for how much do you want to raise your bet?");
                             amount = (new Scanner(System.in)).nextInt();
                             if (isValidAmount = server.validAmount(amount)) {
@@ -357,11 +387,11 @@ public class UI {
                         
                         break;
                 }
-                if(!endOfRound)
-                    endOfRound = server.gameMove(numOfMove, amount);
+                if(resultOfMove != status.endGame)
+                    resultOfMove = server.gameMove(numOfMove, amount);
             }
         }
-        return endOfRound; //לשנות אותו לenum שיש לו 3 מצבים, ריק, נגמר סיבוב, נגמר משחק
+        return resultOfMove; //לשנות אותו לenum שיש לו 3 מצבים, ריק, נגמר סיבוב, נגמר משחק
     }
 
 }

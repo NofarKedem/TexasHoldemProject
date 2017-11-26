@@ -127,9 +127,9 @@ public class Server {
     }
     String getCardsPlayer(int numOfPlayer)
     {
-        return players.get(numOfPlayer).getCard().toString();
+        return players.get(numOfPlayer).getCard()[0].toString() +" " +players.get(numOfPlayer).getCard()[1].toString();
     }
-    int getNumberOfBets(int numOfPlayer)
+    int getTheCurrBet(int numOfPlayer)
     {
         return currHand.getCurrBet();
     }
@@ -196,8 +196,12 @@ public class Server {
     {
         return true;
     }
-    public int getLastBet()
+    public int getLastBetOfTheCurrPlayer()
     {
         return currHand.getLastBetOfTheCurrPlayer();
+    }
+    public int getLastBetOfSpecificPlayer(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getBet();
     }
 }

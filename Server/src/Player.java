@@ -42,9 +42,9 @@ public class Player {
     void call()
     {
         int currBet = actionService.getCurrBet();
-        //int remainder = currBet - bet;
-        chips = chips - currBet;
-        actionService.updateCashBox(currBet);
+        int remainder = currBet - bet;
+        chips = chips - remainder;
+        actionService.updateCashBox(remainder);
 
     }
     void check()

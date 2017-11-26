@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f4f5535-5fd6-474b-b428-a094e3767953" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Server/ComputerPlayer.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/Hand.class" afterPath="$PROJECT_DIR$/out/production/Server/Hand.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/HumanPlayer.class" afterPath="$PROJECT_DIR$/out/production/Server/HumanPlayer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/Player.class" afterPath="$PROJECT_DIR$/out/production/Server/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/Round$1.class" afterPath="$PROJECT_DIR$/out/production/Server/Round$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/Round.class" afterPath="$PROJECT_DIR$/out/production/Server/Round.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/Server.class" afterPath="$PROJECT_DIR$/out/production/Server/Server.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Hand.java" afterPath="$PROJECT_DIR$/Server/src/Hand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/Round.java" afterPath="$PROJECT_DIR$/Server/src/Round.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UIConsole/src/UI.java" afterPath="$PROJECT_DIR$/UIConsole/src/UI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,17 +17,17 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
                 <element signature="e#1801#1802#0" expanded="true" />
                 <element signature="e#1837#1838#0" expanded="true" />
                 <element signature="e#2183#2184#0" expanded="true" />
                 <element signature="e#2242#2243#0" expanded="true" />
+                <element signature="e#2271#2272#0" expanded="true" />
                 <element signature="e#2306#2307#0" expanded="true" />
                 <element signature="e#2487#2488#0" expanded="true" />
                 <element signature="e#2537#2538#0" expanded="true" />
-                <element signature="e#2589#2590#0" expanded="true" />
                 <element signature="e#2668#2669#0" expanded="true" />
                 <element signature="e#3975#3976#0" expanded="true" />
                 <element signature="e#4006#4007#0" expanded="true" />
@@ -88,14 +78,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UIConsole/src/UI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5852">
-              <caret line="255" column="0" lean-forward="false" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
+            <state relative-caret-position="200">
+              <caret line="290" column="0" lean-forward="false" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
               <folding>
-                <element signature="e#3434#3435#0" expanded="true" />
-                <element signature="e#3475#3476#0" expanded="true" />
+                <element signature="e#3465#3466#0" expanded="true" />
+                <element signature="e#3506#3507#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,11 +94,11 @@
       <file leaf-file-name="Hand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Hand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state relative-caret-position="380">
+              <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
+                <element signature="e#2364#2365#0" expanded="true" />
                 <element signature="e#2400#2401#0" expanded="true" />
-                <element signature="e#2708#2709#0" expanded="true" />
                 <element signature="e#2770#2771#0" expanded="true" />
                 <element signature="e#2820#2821#0" expanded="true" />
                 <element signature="e#2880#2881#0" expanded="true" />
@@ -120,8 +110,8 @@
       <file leaf-file-name="Round.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Round.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding>
                 <element signature="e#1062#1063#0" expanded="true" />
                 <element signature="e#1094#1095#0" expanded="true" />
@@ -144,11 +134,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/src/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="9" column="45" lean-forward="true" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+            <state relative-caret-position="0">
+              <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
               <folding>
                 <element signature="e#2161#2162#0" expanded="true" />
                 <element signature="e#2192#2193#0" expanded="true" />
@@ -185,9 +175,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>com</find>
-      <find>valid</find>
       <find>buys</find>
+      <find>valid</find>
+      <find>com</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,8 +196,8 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/Server/src/Main.java" />
         <option value="$PROJECT_DIR$/Server/src/Server.java" />
-        <option value="$PROJECT_DIR$/UIConsole/src/UI.java" />
         <option value="$PROJECT_DIR$/Server/src/Player.java" />
+        <option value="$PROJECT_DIR$/UIConsole/src/UI.java" />
       </list>
     </option>
   </component>
@@ -216,6 +206,11 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="22" />
+    <option name="width" value="1280" />
+    <option name="height" value="722" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -391,12 +386,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511641309069</updated>
-      <workItem from="1511641310360" duration="6503000" />
+      <workItem from="1511641310360" duration="8449000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6503000" />
+    <option name="totallyTimeSpent" value="8449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -421,7 +416,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39105505" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13302752" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -441,13 +436,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Server/src/Round.java</url>
-          <line>82</line>
+          <url>file://$PROJECT_DIR$/UIConsole/src/UI.java</url>
+          <line>290</line>
           <properties />
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="12" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -476,19 +471,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/PlayerActionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding>
+            <element signature="e#2161#2162#0" expanded="true" />
+            <element signature="e#2192#2193#0" expanded="true" />
+            <marker date="1511645460774" expanded="false" signature="1465:1476" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1495:1501" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="1523:1534" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1552:1558" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="1632:1647" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1665:1671" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="1696:1711" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1728:1734" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="1896:1911" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1932:1938" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="1966:1981" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="1999:2005" ph=" }" />
+            <marker date="1511645460774" expanded="false" signature="2090:2105" ph=" { " />
+            <marker date="1511645460774" expanded="false" signature="2132:2138" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Round.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding>
+            <element signature="e#1062#1063#0" expanded="true" />
+            <element signature="e#1094#1095#0" expanded="true" />
+            <element signature="e#1139#1140#0" expanded="true" />
+            <element signature="e#1169#1170#0" expanded="true" />
+            <element signature="e#1537#1538#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#1618#1619#0" expanded="true" />
+            <element signature="e#1648#1649#0" expanded="true" />
+            <element signature="e#1693#1694#0" expanded="true" />
+            <element signature="e#1728#1729#0" expanded="true" />
+            <element signature="e#1762#1763#0" expanded="true" />
+            <element signature="e#1826#1827#0" expanded="true" />
+            <element signature="e#1858#1859#0" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+            <element signature="e#3875#3876#0" expanded="true" />
+            <element signature="e#3938#3939#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server/src/Hand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding>
+            <element signature="e#2364#2365#0" expanded="true" />
+            <element signature="e#2400#2401#0" expanded="true" />
+            <element signature="e#2770#2771#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2880#2881#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Server/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="152">
+          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
           <folding>
             <element signature="e#1801#1802#0" expanded="true" />
             <element signature="e#1837#1838#0" expanded="true" />
             <element signature="e#2183#2184#0" expanded="true" />
             <element signature="e#2242#2243#0" expanded="true" />
+            <element signature="e#2271#2272#0" expanded="true" />
             <element signature="e#2306#2307#0" expanded="true" />
             <element signature="e#2487#2488#0" expanded="true" />
             <element signature="e#2537#2538#0" expanded="true" />
-            <element signature="e#2589#2590#0" expanded="true" />
             <element signature="e#2668#2669#0" expanded="true" />
             <element signature="e#3975#3976#0" expanded="true" />
             <element signature="e#4006#4007#0" expanded="true" />
@@ -528,85 +595,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Hand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#2400#2401#0" expanded="true" />
-            <element signature="e#2708#2709#0" expanded="true" />
-            <element signature="e#2770#2771#0" expanded="true" />
-            <element signature="e#2820#2821#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UIConsole/src/UI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5852">
-          <caret line="255" column="0" lean-forward="false" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
+        <state relative-caret-position="200">
+          <caret line="290" column="0" lean-forward="false" selection-start-line="290" selection-start-column="0" selection-end-line="290" selection-end-column="0" />
           <folding>
-            <element signature="e#3434#3435#0" expanded="true" />
-            <element signature="e#3475#3476#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Round.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding>
-            <element signature="e#1062#1063#0" expanded="true" />
-            <element signature="e#1094#1095#0" expanded="true" />
-            <element signature="e#1139#1140#0" expanded="true" />
-            <element signature="e#1169#1170#0" expanded="true" />
-            <element signature="e#1537#1538#0" expanded="true" />
-            <element signature="e#1572#1573#0" expanded="true" />
-            <element signature="e#1618#1619#0" expanded="true" />
-            <element signature="e#1648#1649#0" expanded="true" />
-            <element signature="e#1693#1694#0" expanded="true" />
-            <element signature="e#1728#1729#0" expanded="true" />
-            <element signature="e#1762#1763#0" expanded="true" />
-            <element signature="e#1826#1827#0" expanded="true" />
-            <element signature="e#1858#1859#0" expanded="true" />
-            <element signature="e#1896#1897#0" expanded="true" />
-            <element signature="e#3875#3876#0" expanded="true" />
-            <element signature="e#3938#3939#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/PlayerActionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Server/src/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="45" lean-forward="true" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
-          <folding>
-            <element signature="e#2161#2162#0" expanded="true" />
-            <element signature="e#2192#2193#0" expanded="true" />
-            <marker date="1511645460774" expanded="false" signature="1465:1476" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1495:1501" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="1523:1534" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1552:1558" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="1632:1647" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1665:1671" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="1696:1711" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1728:1734" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="1896:1911" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1932:1938" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="1966:1981" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="1999:2005" ph=" }" />
-            <marker date="1511645460774" expanded="false" signature="2090:2105" ph=" { " />
-            <marker date="1511645460774" expanded="false" signature="2132:2138" ph=" }" />
+            <element signature="e#3465#3466#0" expanded="true" />
+            <element signature="e#3506#3507#0" expanded="true" />
           </folding>
         </state>
       </provider>

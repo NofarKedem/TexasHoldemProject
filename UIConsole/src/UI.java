@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class UI {
     Server server = new Server();
-
+    boolean isGameOver = false;
     public static void main(String[] args) {
         UI us = new UI();
         us.menu();
@@ -253,14 +253,19 @@ public class UI {
         //printDetailsInTheGame();
         //server.initializeHand(); //לבדוק
         server.cardDistribusionToPlayer();
+        server.initRound();
+
         server.blindBet();
-        playOneRound();
+        playOneRound(); //if the game was over
         server.callFlop();
-        playOneRound();
+        server.initRound();
+        playOneRound(); //if the game was over
         server.callTurn();
-        playOneRound();
+        server.initRound();
+        playOneRound(); //if the game was over
         server.callRiver();
-        playOneRound();
+        server.initRound();
+        playOneRound(); //if the game was over
         String Winner = server.WhoIsTheWinner();
         System.out.println(Winner);
 
@@ -277,12 +282,13 @@ public class UI {
     private void playOneRound()
     {
         boolean endOfRound=false;
-        server.initRound();
         while(!endOfRound)
         {
+            if(isGameOver)
+                break;
             if(server.getTypeOfPlayer(4) == 'H')
             {
-                endOfRound = playWithHumen();
+                endOfRound = playWithHumen(); //if the game was over
                 printDetailsInTheGame();
             }
             else if(server.getTypeOfPlayer(4) == 'C')
@@ -297,7 +303,7 @@ public class UI {
         boolean endOfRound = false;
         boolean isValidMove = false;
         boolean isValidAmount = false;
-        while(isValidMove) {
+        while(!isValidMove) {
             System.out.println("Choose which move do you want to do:");
             System.out.println("1. Fold");
             System.out.println("2. Bet");
@@ -316,6 +322,8 @@ public class UI {
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
+                        endOfRound = true;
+                        isGameOver = true;
                         break;
                     case 2:
                         while(!isValidAmount) {
@@ -349,10 +357,11 @@ public class UI {
                         
                         break;
                 }
-                endOfRound = server.gameMove(numOfMove, amount);
+                if(!endOfRound)
+                    endOfRound = server.gameMove(numOfMove, amount);
             }
         }
-        return endOfRound;
+        return endOfRound; //לשנות אותו לenum שיש לו 3 מצבים, ריק, נגמר סיבוב, נגמר משחק
     }
 
 }

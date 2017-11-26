@@ -78,11 +78,11 @@ public class Server {
     }
 
 
-    public boolean gameMove(int LastGameMove, int amount){
+    public Utils.RoundResult gameMove(int LastGameMove, int amount){
         return currHand.gameMove(convertIntToMove(LastGameMove), amount);
     }
 
-    public boolean playWithComputer(){
+    public Utils.RoundResult playWithComputer(){
         return currHand.playWithComputer();
     }
 

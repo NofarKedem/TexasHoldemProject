@@ -92,34 +92,52 @@ public class Round implements PlayerActionService{
         return  theNextPlayerInArray;
     }
 
-    public boolean gameMove(Round.GameMoves gameMove, int amount){
+    public Utils.RoundResult gameMove(Round.GameMoves gameMove, int amount){
         switch (gameMove){
             case RAISE:
                 playersRef.get(currPlayerIndex).Raise(amount);
                 closeTheRound = currPlayerIndex;
-
+                break;
             case CALL:
                 playersRef.get(currPlayerIndex).call();
-
+                break;
             case BET:
                 playersRef.get(currPlayerIndex).Bet(amount);
                 closeTheRound = currPlayerIndex;
-
+                break;
             case CHECK:
                 playersRef.get(currPlayerIndex).check();
-
+                break;
             case FOLD:
                 playersRef.get(currPlayerIndex).fold();
-
+                break;
             default:
                 //error
-
+                break;
         }
 
         currPlayerIndex = nextTurn(currPlayerIndex);
-        if(currPlayerIndex == closeTheRound)
-            return true;
-        else return false;
+
+        return GameStatus();
+    }
+
+    private Utils.RoundResult GameStatus(){
+        int numOfQuitPlayers = 0;
+        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).isQuit()){
+            return Utils.RoundResult.ENDGAME;
+        }
+        for(Player player : playersRef){
+            if(player.isQuit()){
+                numOfQuitPlayers++;
+            }
+        }
+        if(numOfQuitPlayers >= playersRef.size()-1){
+            return Utils.RoundResult.ENDGAME;
+        }
+        if(currPlayerIndex == closeTheRound){
+            return Utils.RoundResult.CLOSEROUND;
+        }
+        else return Utils.RoundResult.NOTHINGHAPPEN;
     }
 
     public boolean isValidGameMove(Round.GameMoves gameMoves) {

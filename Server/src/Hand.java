@@ -30,22 +30,22 @@ public class Hand {
         }
     }
 
-    public boolean gameMove(Round.GameMoves gameMove, int amount){
-        if(currRound.gameMove(gameMove,amount)){
+    public Utils.RoundResult gameMove(Round.GameMoves gameMove, int amount){
+        Utils.RoundResult result = currRound.gameMove(gameMove,amount);
+        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME){
             this.cashBoxAfterRound();
-            return true;
         }
-        else return false;
+        return result;
     }
 
-    public boolean playWithComputer(){
+    public Utils.RoundResult playWithComputer(){
         Round.GameMoves gameMove = CPlayerService.generateMove();
         int amount = CPlayerService.generateAmount();
-        if(currRound.gameMove(gameMove,amount)){
+        Utils.RoundResult result = currRound.gameMove(gameMove,amount);
+        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME){
             this.cashBoxAfterRound();
-            return true;
         }
-        else return false;
+        return result;
     }
 
     private void cashBoxAfterRound(){

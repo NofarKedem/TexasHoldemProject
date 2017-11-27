@@ -291,7 +291,7 @@ public class UI {
     }
     private void initRound()
     {
-        System.out.println("Hand number " + server.getCurrentNumberOfHand() + " is starting");
+        System.out.println("Round number " + server.getCurrentNumberOfHand() + " is starting");
         server.initRound();
     }
     private void cardDistribusionInRound(int numOfRound)

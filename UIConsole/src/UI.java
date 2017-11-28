@@ -264,13 +264,13 @@ public class UI {
         System.out.println("********************          ********************");
     }
 
-    private void StartHand()
+    private void StartHand() //פקודה מספר 4
     {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
-
+        server.setPlayHand();
         server.cardDistribusionToPlayer();
         initRound();
-
+        server.setFirstPlayer();
         server.blindBet();
         for(int i=0; i< 4;i++) {
             if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
@@ -310,13 +310,7 @@ public class UI {
         }
     }
 
-    void printStatistics()
-    {
-        System.out.println("The time from starting the game is: " + server.getTime());
-        System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ "hand was play");
-        System.out.println("The maximum buys for the game is: " + server.getNumberOfBuys());
-        printState();
-    }
+
 
     private Utils.RoundResult playOneRound()
     {
@@ -402,6 +396,14 @@ public class UI {
             }
         }
         return resultOfMove; //לשנות אותו לenum שיש לו 3 מצבים, ריק, נגמר סיבוב, נגמר משחק
+    }
+
+    void printStatistics()
+    {
+        System.out.println("The time from starting the game is: " + server.getTime());
+        System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ "hand was play");
+        System.out.println("The maximum buys for the game is: " + server.getNumberOfBuys());
+        printState();
     }
 
 }

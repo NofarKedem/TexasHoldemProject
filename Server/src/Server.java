@@ -10,13 +10,16 @@ public class Server {
     private int totalnumOfHands;
     private int numOfPlayHands;
     private static int dilerIndex = 0;
+    private int maxCashBox;
     public static int small = 5; //to be updated from the XML
     public static int big = 10;//to be updated from the XML
+
 
     public Server(){
         //currHand = 0;
         timeOfGame = 0;
         totalnumOfHands = 0;
+        maxCashBox = 0;
         players = new ArrayList(4);
         //hands = new ArrayList<>();
         deck = new Deck();

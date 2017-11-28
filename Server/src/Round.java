@@ -132,7 +132,8 @@ public class Round implements PlayerActionService{
                 numOfQuitPlayers++;
             }
         }
-        if(numOfQuitPlayers >= playersRef.size()-1){
+        //If all players but 1 quit OR the current player played 'All In' - End the game 4
+        if(numOfQuitPlayers >= playersRef.size()-1 || playersRef.get(currPlayerIndex).getChips() == 0){
             return Utils.RoundResult.ENDGAME;
         }
         if(currPlayerIndex == closeTheRound){

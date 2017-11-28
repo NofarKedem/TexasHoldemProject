@@ -4,7 +4,7 @@ public class Round implements PlayerActionService{
 
 
     public enum GameMoves{
-        FOLD("F"), BET("B"), CALL("C"), CHECK("K"), RAISE("R");
+        FOLD("F"), BET("B"), CALL("C"), CHECK("K"), RAISE("R"), NONE("N");
 
         private String value;
         GameMoves(String str){this.value = str;}
@@ -18,6 +18,7 @@ public class Round implements PlayerActionService{
     private int bigIdx;
     private int roundCashBox;
     private int currPlayerIndex; //the curr turn
+    private GameMoves lastMove;
 
     Round(List<Player> playersRef, int roundCashBox){
         this.playersRef = playersRef;
@@ -27,6 +28,7 @@ public class Round implements PlayerActionService{
         this.roundCashBox = roundCashBox;
         isBetOn = false;
         currBet = 0;
+        lastMove = GameMoves.NONE;
     }
 
     @Override
@@ -59,6 +61,10 @@ public class Round implements PlayerActionService{
 
     public int getCashBox(){
         return roundCashBox;
+    }
+
+    public GameMoves getLastMove(){
+        return lastMove;
     }
 
     @Override
@@ -94,6 +100,7 @@ public class Round implements PlayerActionService{
     }
 
     public Utils.RoundResult gameMove(Round.GameMoves gameMove, int amount){
+        lastMove = gameMove;
         switch (gameMove){
             case RAISE:
                 playersRef.get(currPlayerIndex).Raise(amount);

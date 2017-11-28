@@ -33,8 +33,12 @@ public class Server {
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
-        currHand.setFirstPlayer();
+        //currHand.setFirstPlayer();
 
+    }
+    public void setFirstPlayer()
+    {
+        currHand.setFirstPlayer();
     }
 
     public void initializeHand(){
@@ -44,10 +48,14 @@ public class Server {
         totalnumOfHands++;
         currHand = new Hand(deck);
         totalnumOfHands++;
-        currHand.getHandPlayers(players);
-        initRound();
+        currHand.setHandPlayers(players);
+        //initRound();
         //hands.add(currHand);
 
+    }
+    public void initRound()
+    {
+        currHand.initRound();
     }
     private void initPlayersState(){
         players.get(dilerIndex).updateState("D");
@@ -56,10 +64,6 @@ public class Server {
         players.get(calcBigIndex(small)).updateState("B");
     }
 
-    public void initRound(){
-        numOfPlayHands++;
-        currHand.initRound();
-    }
     private int calculateDilerIndex(int lastDilerIndex){
         return  (lastDilerIndex + 1)%(players.size());
     }
@@ -209,5 +213,10 @@ public class Server {
     public List<Card> getCommunityCards()
     {
         return currHand.getCommunityCards();
+    }
+
+    public void setPlayHand()
+    {
+        numOfPlayHands++;
     }
 }

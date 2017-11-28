@@ -68,7 +68,7 @@ public class Hand {
             communityCards.add(cardTemp);
     }
 
-    public void getHandPlayers(List<Player> handPlayers){
+    public void setHandPlayers(List<Player> handPlayers) {
         this.handPlayers = handPlayers;
     }
     /*

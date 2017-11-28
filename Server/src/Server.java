@@ -196,7 +196,7 @@ public class Server {
     }
     public boolean validAmount(int amount)
     {
-        return true;
+        return currHand.isValidAmount(amount);
     }
     public int getLastBetOfTheCurrPlayer()
     {

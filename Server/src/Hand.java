@@ -104,6 +104,10 @@ public class Hand {
         return currRound.isValidGameMove(LastGameMove);
     }
 
+    public boolean isValidAmount(int amount){
+        return currRound.isValidAmount(amount);
+    }
+
     public int getLastBetOfTheCurrPlayer()
     {
         return currRound.getLastBetOfTheCurrPlayer();

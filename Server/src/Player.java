@@ -18,20 +18,20 @@ public class Player {
         this.bet = 0;
         isQuit = false;
     }
-    void setPlayerHandCards(Card[] cards)
+    public void setPlayerHandCards(Card[] cards)
     {
         this.cards = cards;
     }
     //void gameMove(Round.GameMoves move, Round roundRef);
     //boolean gameMove(Round roundRef);
 
-    void fold()
+    public void fold()
     {
         isQuit = true;
     }
 
 
-    void Bet(int amount) {
+    public void Bet(int amount) {
         actionService.turnBetOn();
         chips = chips - amount;
         actionService.updateCashBox(amount);
@@ -39,7 +39,7 @@ public class Player {
         bet = amount;
 
     }
-    void call()
+    public void call()
     {
         int currBet = actionService.getCurrBet();
         int remainder = currBet - bet;
@@ -48,11 +48,11 @@ public class Player {
         bet = currBet;
 
     }
-    void check()
+    public void check()
     {
 
     }
-    void Raise(int amount)
+    public void Raise(int amount)
     {
         int RaiceAmount = bet + amount;
         chips = chips - RaiceAmount;
@@ -61,7 +61,8 @@ public class Player {
         bet = RaiceAmount;
 
     }
-    void updateState(String state) {
+
+    public void updateState(String state) {
         this.state = state;
     }
     String getState() {
@@ -90,14 +91,14 @@ public class Player {
         return this.cards;
     }
 
-    boolean isQuit() {return this.isQuit;}
+    public boolean isQuit() {return this.isQuit;}
 
-    void initActionService(Round round)
+    public void initActionService(Round round)
     {
         this.actionService = round;
     }
 
-    int getBet()
+    public int getBet()
     {
         return this.bet;
     }

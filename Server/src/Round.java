@@ -132,7 +132,8 @@ public class Round implements PlayerActionService{
                 numOfQuitPlayers++;
             }
         }
-        if(numOfQuitPlayers >= playersRef.size()-1){
+        //If all players but 1 quit OR the current player played 'All In' - End the game 4
+        if(numOfQuitPlayers >= playersRef.size()-1 || playersRef.get(currPlayerIndex).getChips() == 0){
             return Utils.RoundResult.ENDGAME;
         }
         if(currPlayerIndex == closeTheRound){
@@ -158,6 +159,15 @@ public class Round implements PlayerActionService{
             return true;
         }
         else{return false;}
+    }
+
+    public boolean isValidAmount(int amount){
+        if(amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox && amount >= currBet){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public int getLastBetOfTheCurrPlayer()

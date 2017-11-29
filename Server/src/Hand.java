@@ -39,8 +39,9 @@ public class Hand {
     }
 
     public Utils.RoundResult playWithComputer(){
-        Round.GameMoves gameMove = CPlayerService.generateMove();
-        int amount = CPlayerService.generateAmount();
+        Round.GameMoves gameMove = CPlayerService.generateMove(currRound.getLastMove());
+        int amount = CPlayerService.generateAmount(handPlayers.get(getCurrPlayer()).getChips(),
+                    currRound.getCashBox(),currRound.getCurrBet());
         Utils.RoundResult result = currRound.gameMove(gameMove,amount);
         if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME){
             this.cashBoxAfterRound();

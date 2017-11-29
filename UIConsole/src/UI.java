@@ -337,6 +337,7 @@ public class UI {
         boolean isValidMove = false;
         boolean isValidAmount = false;
         while(!isValidMove) {
+            printState(); //For TEST Only!
             System.out.println("Choose which move do you want to do:");
             System.out.println("1. Fold");
             System.out.println("2. Bet");

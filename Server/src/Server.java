@@ -1,3 +1,5 @@
+import XMLobject.GameDescriptor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,15 +48,8 @@ public class Server {
 
     public void initializeHand(){
         deck.allCardsInDeck();
-
-       // Hand currHand = new Hand(deck);
-        totalnumOfHands++;
         currHand = new Hand(deck);
-        totalnumOfHands++;
         currHand.setHandPlayers(players);
-        //initRound();
-        //hands.add(currHand);
-
     }
     public void initRound()
     {
@@ -99,9 +94,12 @@ public class Server {
     }
 
     //hadar changes
-    public String loadFile(String filePath)
+    public Boolean loadFile(String filePath)
     {
-        return "a";
+        SimpleJAXBMain Xml = new SimpleJAXBMain("ex1-basic.xml");
+        GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
+
+        return false;
     }
 
     char getTypeOfPlayer(int numOfPlayer)

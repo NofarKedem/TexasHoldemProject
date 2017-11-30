@@ -1,3 +1,5 @@
+import XMLobject.GameDescriptor;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,6 +10,8 @@ public class UI {
     public static void main(String[] args) {
         UI us = new UI();
         us.menu();
+
+
     }
 
     public void menu() {
@@ -100,9 +104,9 @@ public class UI {
             Scanner s = new Scanner(System.in);
             String filePath = s.next();
 
-            String resultLoading = server.loadFile(filePath);
-            if (resultLoading != null) {
-                System.out.println("File was not loaded successfully : " + resultLoading);
+            isLoadingSuccess = server.loadFile(filePath);
+            if (!isLoadingSuccess) {
+                System.out.println("File was not loaded successfully");
                 System.out.println("Please type again the file's full path");
             } else {
                 System.out.println("File loaded successfully");
@@ -283,6 +287,7 @@ public class UI {
         }
         if (resultOfMove != Utils.RoundResult.ENDGAME) {
             String Winner = server.WhoIsTheWinner();
+
             System.out.println(Winner);
         }
         else

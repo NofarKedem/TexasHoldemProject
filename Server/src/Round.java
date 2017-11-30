@@ -29,6 +29,7 @@ public class Round implements PlayerActionService{
         isBetOn = false;
         currBet = 0;
         lastMove = GameMoves.NONE;
+        this.findSmallBigIndex();
     }
 
     @Override
@@ -85,7 +86,7 @@ public class Round implements PlayerActionService{
     }
 
     public void blindBet(){
-        this.findSmallBigIndex();
+      //  this.findSmallBigIndex();
         playersRef.get(smallIdx).Bet(5);  //the game move is the blind small!
         playersRef.get(bigIdx).Bet(10); //the game move is the blind big!
         closeTheRound = bigIdx;

@@ -54,6 +54,10 @@ public class Server {
     public void initRound()
     {
         currHand.initRound();
+        for(Player player : players)
+        {
+            player.initBet();
+        }
     }
     private void initPlayersState(){
         players.get(dilerIndex).updateState("D");
@@ -98,7 +102,10 @@ public class Server {
     {
         SimpleJAXBMain Xml = new SimpleJAXBMain("ex1-basic.xml");
         GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
-
+        //gameDescriptor.getStructure().getBuy();
+        //gameDescriptor.getStructure().getHandsCount();
+        //gameDescriptor.getStructure().getBlindes().getBig();
+        //gameDescriptor.getStructure().getBlindes().getSmall();
         return false;
     }
 
@@ -135,7 +142,7 @@ public class Server {
     {
         return players.get(numOfPlayer).getCard()[0].toString() +" " +players.get(numOfPlayer).getCard()[1].toString();
     }
-    int getTheCurrBet(int numOfPlayer)
+    int getCurrBet()
     {
         return currHand.getCurrBet();
     }
@@ -219,5 +226,9 @@ public class Server {
     public void setPlayHand()
     {
         numOfPlayHands++;
+    }
+    public int getCurrNumOfRound()
+    {
+        return currHand.getCurrNumOfRound();
     }
 }

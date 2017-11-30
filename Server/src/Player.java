@@ -102,4 +102,8 @@ public class Player {
     {
         return this.bet;
     }
+    public void initBet()
+    {
+        bet =0;
+    }
 }

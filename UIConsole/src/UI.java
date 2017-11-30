@@ -189,9 +189,13 @@ public class UI {
         System.out.println();
         System.out.println();
         displayAllCard();
+        //display currBet
+        System.out.print("        POT: " + server.getCurrBet());
         System.out.println();
         System.out.println();
         printDetailsOfTwoPlayer(2);
+        System.out.println();
+        System.out.println();
 
 
     }
@@ -296,8 +300,8 @@ public class UI {
     }
     private void initRound()
     {
-        System.out.println("Round number " + server.getCurrentNumberOfHand() + " is starting");
         server.initRound();
+        System.out.println("Round number " + server.getCurrNumOfRound() + " is starting");
     }
     private void cardDistribusionInRound(int numOfRound)
     {
@@ -324,13 +328,18 @@ public class UI {
         {
             if(server.getTypeOfPlayer(4) == 'H')
             {
-                resultOfMove = playWithHumen(); //if the game was over
+                System.out.println("Before Humen player will play");
                 printDetailsInTheGame();
+                resultOfMove = playWithHumen(); //if the game was over
+                System.out.println("after Humen player play");
+                printDetailsInTheGame();
+
             }
             else
             {
                 resultOfMove = server.playWithComputer();
-
+                System.out.println("after computer player play");
+                printDetailsInTheGame();
             }
         }
         return resultOfMove;
@@ -342,7 +351,6 @@ public class UI {
         boolean isValidMove = false;
         boolean isValidAmount = false;
         while(!isValidMove) {
-            printState(); //For TEST Only!
             System.out.println("Choose which move do you want to do:");
             System.out.println("1. Fold");
             System.out.println("2. Bet");

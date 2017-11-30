@@ -117,4 +117,9 @@ public class Hand {
     {
         return this.communityCards;
     }
+
+    public int getCurrNumOfRound()
+    {
+        return handRounds.size();
+    }
 }

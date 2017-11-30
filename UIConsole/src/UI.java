@@ -185,25 +185,23 @@ public class UI {
 
     private void printDetailsInTheGame()
     {
-        printDetailsOfTwoPlayer(0);
-        System.out.println();
-        System.out.println();
+        printDetailsOfTwoFirstPlayer(0);
+        System.out.println(System.lineSeparator());
         displayAllCard();
-        //display currBet
-        System.out.print("        POT: " + server.getCurrBet());
-        System.out.println();
-        System.out.println();
-        printDetailsOfTwoPlayer(2);
-        System.out.println();
-        System.out.println();
-
-
+        System.out.print("POT: " + server.getCurrBet());
+        System.out.println(System.lineSeparator());
+        printDetailsOfTwoLastPlayer(2);
+        System.out.println(System.lineSeparator());
     }
     private void displayAllCard()
     {
         List<Card> arrOfTempCards = server.getCommunityCards();
-        for(Card cardTemp : arrOfTempCards)
-            System.out.print(cardTemp.toString()+ " | ");
+        if(arrOfTempCards.size() != 0) {
+            for (Card cardTemp : arrOfTempCards)
+                System.out.print(cardTemp.toString() + " | ");
+
+            System.out.print("          ");
+        }
 
     }
     private void printChips(int numOfStartPlayer)
@@ -220,7 +218,7 @@ public class UI {
         }
         System.out.println();
     }
-    private void printDetailsOfTwoPlayer(int numOfStartPlayer)
+    private void printDetailsOfTwoFirstPlayer(int numOfStartPlayer)
     {
         System.out.println("********************          ********************");
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
@@ -232,46 +230,77 @@ public class UI {
 
         printChips(numOfStartPlayer);
 
-
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            if(server.getTypeOfPlayer(i) == 'H')
-            {
-                String CardsOfPlayer = server.getCardsPlayer(i);
-                System.out.print("* Cards: " + CardsOfPlayer);
-                System.out.print("     *          ");
-            }
-            else
-                System.out.print("               ");
+            printBet(i);
+
         }
         System.out.println();
-
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            int numberOfBets = server.getLastBetOfSpecificPlayer(i);
-            if(numberOfBets ==0)
-            {
-                System.out.print("* Bet: ??          ");
-                System.out.print("*          ");
-            }
-            else
-            {
-                System.out.print("* Bet: " + numberOfBets);
-                int numOfDigit = countDigit(numberOfBets);
-                for (int j = 0; j < 12 - numOfDigit; j++) {
-                    System.out.print(" ");
-                }
-                System.out.print("*          ");
-
-            }
-
-
-
+            printCards(i);
         }
+
         System.out.println();
         System.out.println("********************          ********************");
     }
 
+    private void printDetailsOfTwoLastPlayer(int numOfStartPlayer)
+    {
+        System.out.println("********************          ********************");
+        for (int i = 3; i > 1; i--)
+            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        System.out.println();
+        for (int i = 3; i > 1; i--)
+            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+        System.out.println();
+
+        printChips(numOfStartPlayer);
+
+        for (int i = 3; i > 1; i--)
+        {
+            printBet(i);
+        }
+        System.out.println();
+        for (int i = 3; i > 1; i--)
+        {
+            printCards(i);
+        }
+
+        System.out.println();
+        System.out.println("********************          ********************");
+    }
+
+    private void printBet(int numOfPlayer)
+    {
+        int numberOfBets = server.getLastBetOfSpecificPlayer(numOfPlayer);
+        if(numberOfBets ==0)
+        {
+            System.out.print("* Bet: ??          ");
+            System.out.print("*          ");
+        }
+        else
+        {
+            System.out.print("* Bet: " + numberOfBets);
+            int numOfDigit = countDigit(numberOfBets);
+            for (int j = 0; j < 12 - numOfDigit; j++) {
+                System.out.print(" ");
+            }
+            System.out.print("*          ");
+
+        }
+    }
+    private void printCards(int numOfPlayer)
+    {
+        if(server.getTypeOfPlayer(numOfPlayer) == 'H')
+        {
+            String CardsOfPlayer = server.getCardsPlayer(numOfPlayer);
+            System.out.print("* Cards: " + CardsOfPlayer);
+            System.out.print("     *          ");
+        }
+        else
+            System.out.print("*                  *          ");
+    }
     private void StartHand() //פקודה מספר 4
     {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;

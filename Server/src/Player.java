@@ -78,9 +78,10 @@ public class Player {
     {
         return this.buys;
     }
-    public void setBuys(int numOfBuys) {
+
+    public void setBuysAndChips(int numOfBuys, int numOfChipsPerBuy) {
         this.buys = numOfBuys;
-        this.chips += 100; //צריך להוסיף לפי הקובץ XML
+        this.chips += numOfChipsPerBuy;
     }
     public int getHandsWon()
     {

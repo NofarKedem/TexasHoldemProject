@@ -83,8 +83,8 @@ public class Hand {
     }
     */
 
-    public void blindBet(){
-        currRound.blindBet();
+    public void blindBet(int numOfChipsForBig,int numOfChipsForsmall){
+        currRound.blindBet(numOfChipsForBig,numOfChipsForsmall);
     }
 
     public void setFirstPlayer(){

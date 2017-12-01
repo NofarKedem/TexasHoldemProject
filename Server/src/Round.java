@@ -8,7 +8,7 @@ public class Round implements PlayerActionService{
 
         private String value;
         GameMoves(String str){this.value = str;}
-        public String toString(){return value;}
+        public String toString(){return this.name();}
     }
     private List<Player> playersRef;
     private boolean isBetOn;

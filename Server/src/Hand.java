@@ -39,7 +39,7 @@ public class Hand {
     }
 
     public Utils.RoundResult playWithComputer(){
-        Round.GameMoves gameMove = CPlayerService.generateMove(currRound.getLastMove());
+        Round.GameMoves gameMove = CPlayerService.generateMove(getLastMove());
         int amount = CPlayerService.generateAmount(handPlayers.get(getCurrPlayer()).getChips(),
                     currRound.getCashBox(),currRound.getCurrBet());
         Utils.RoundResult result = currRound.gameMove(gameMove,amount);
@@ -48,7 +48,10 @@ public class Hand {
         }
         return result;
     }
-
+    public Round.GameMoves getLastMove()
+    {
+        return currRound.getLastMove();
+    }
     private void cashBoxAfterRound(){
         cashBox = currRound.getCashBox();//update the hand cashBox after the current round
     }

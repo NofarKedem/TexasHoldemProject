@@ -376,6 +376,7 @@ public class UI {
             else
             {
                 resultOfMove = server.playWithComputer();
+                System.out.println("Computer move was: " + server.getLastMove());
                 System.out.println("after computer player play");
                 printDetailsInTheGame();
             }

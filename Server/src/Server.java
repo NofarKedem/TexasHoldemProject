@@ -243,4 +243,9 @@ public class Server {
     {
         return currHand.getCurrNumOfRound();
     }
+
+    public String getLastMove()
+    {
+        return currHand.getLastMove().toString();
+    }
 }

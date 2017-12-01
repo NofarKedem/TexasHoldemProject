@@ -85,10 +85,10 @@ public class Round implements PlayerActionService{
         return currPlayerIndex;
     }
 
-    public void blindBet(){
+    public void blindBet(int numOfChipsForBig,int numOfChipsForsmall){
       //  this.findSmallBigIndex();
-        playersRef.get(smallIdx).Bet(5);  //the game move is the blind small!
-        playersRef.get(bigIdx).Bet(10); //the game move is the blind big!
+        playersRef.get(smallIdx).Bet(numOfChipsForsmall);  //the game move is the blind small!
+        playersRef.get(bigIdx).Bet(numOfChipsForBig); //the game move is the blind big!
         closeTheRound = bigIdx;
     }
 

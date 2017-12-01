@@ -1,5 +1,6 @@
 import XMLobject.GameDescriptor;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +17,8 @@ public class UI {
 
     public void menu() {
         //תחילת המשחק כאילו לחצו 1
-        //  loadFile();
+        loadFile();
+        printState();
         server.initializeHand();
         server.initializePlayers(1,3);
         // printState(); // הפלט של 1 זה פקודה 3
@@ -98,22 +100,27 @@ public class UI {
     }
 
     private void loadFile() {
-        System.out.println("To start play in the game, please type the file's full path");
         Boolean isLoadingSuccess = false;
-        while (isLoadingSuccess != true) {
+
+        System.out.println("To start play in the game, please type the file's full path");
+        while (!isLoadingSuccess) {
             Scanner s = new Scanner(System.in);
             String filePath = s.next();
-
-            isLoadingSuccess = server.loadFile(filePath);
-            if (!isLoadingSuccess) {
-                System.out.println("File was not loaded successfully");
-                System.out.println("Please type again the file's full path");
-            } else {
-                System.out.println("File loaded successfully");
+            try {
+                server.loadFile(filePath);
                 isLoadingSuccess = true;
             }
+            catch (Exception e) {
+                System.out.print("File was not loaded successfully: ");
+                System.out.println(e.getMessage());
+                System.out.println("Please type again the file's full path");
+            }
+
         }
+        System.out.println("File loaded successfully");
+
     }
+
     private void buyChips()
     {
         server.addChipsToPlayer();
@@ -125,6 +132,8 @@ public class UI {
     private int countDigit(int num)
     {
         int numOfDigit = 0;
+        if(num==0)
+            return numOfDigit=1;
         while (num > 0) {
             num = num / 10;
             numOfDigit++;
@@ -134,7 +143,6 @@ public class UI {
     private void printState()
     {
         printDoubleState(0);
-        System.out.println();
         System.out.println();
         printDoubleState(2);
 
@@ -149,7 +157,9 @@ public class UI {
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
         System.out.println();
 
-        printChips(numOfStartPlayer);
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            printChips(i);
+        System.out.println();
 
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
@@ -204,19 +214,15 @@ public class UI {
         }
 
     }
-    private void printChips(int numOfStartPlayer)
+    private void printChips(int numOfPlayer)
     {
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-        {
-            int numberOfChips = server.getChipsPlayer(i);
-            System.out.print("* Chips: " + numberOfChips);
-            int numOfDigit = countDigit(numberOfChips);
-            for (int j = 0; j < 10 - numOfDigit; j++) {
-                System.out.print(" ");
-            }
-            System.out.print("*          ");
+        int numberOfChips = server.getChipsPlayer(numOfPlayer);
+        System.out.print("* Chips: " + numberOfChips);
+        int numOfDigit = countDigit(numberOfChips);
+        for (int j = 0; j < 10 - numOfDigit; j++) {
+            System.out.print(" ");
         }
-        System.out.println();
+        System.out.print("*          ");
     }
     private void printDetailsOfTwoFirstPlayer(int numOfStartPlayer)
     {
@@ -228,7 +234,9 @@ public class UI {
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
         System.out.println();
 
-        printChips(numOfStartPlayer);
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            printChips(i);
+        System.out.println();
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
@@ -255,7 +263,9 @@ public class UI {
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
         System.out.println();
 
-        printChips(numOfStartPlayer);
+        for (int i = 3; i > 1; i--)
+         printChips(i);
+        System.out.println();
 
         for (int i = 3; i > 1; i--)
         {

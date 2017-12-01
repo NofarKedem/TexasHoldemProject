@@ -1,5 +1,6 @@
 import XMLobject.GameDescriptor;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,10 @@ public class Server {
     private int numOfPlayHands;
     private static int dilerIndex = 0;
     private int maxCashBox;
-    public static int small = 5; //to be updated from the XML
-    public static int big = 10;//to be updated from the XML
+    private int numOfChipsForsmall; //to be updated from the XML
+    private int numOfChipsForBig;//to be updated from the XML
+    private int numOfChipsPerBuy; //to be updated from the XML
+    private int numOfPlayer = 4;
 
 
     public Server(){
@@ -30,11 +33,11 @@ public class Server {
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
         for(int i=0;i < numOfHPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new HumanPlayer('H', " ",100,1));
+            players.add(new HumanPlayer('H', " ",numOfChipsPerBuy,1));
         }
         for(int i=0;i < numOfCPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new HumanPlayer('C', " ",100,1));
+            players.add(new HumanPlayer('C', " ",numOfChipsPerBuy,1));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
@@ -81,7 +84,7 @@ public class Server {
     }
 
     public void blindBet(){
-        currHand.blindBet();
+        currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
     }
 
 
@@ -98,15 +101,24 @@ public class Server {
     }
 
     //hadar changes
-    public Boolean loadFile(String filePath)
+    public void loadFile(String filePath)throws Exception
     {
-        SimpleJAXBMain Xml = new SimpleJAXBMain("ex1-basic.xml");
-        GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
-        //gameDescriptor.getStructure().getBuy();
-        //gameDescriptor.getStructure().getHandsCount();
-        //gameDescriptor.getStructure().getBlindes().getBig();
-        //gameDescriptor.getStructure().getBlindes().getSmall();
-        return false;
+        SimpleJAXBMain Xml = new SimpleJAXBMain(filePath);
+            GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
+
+        int tempSmall = gameDescriptor.getStructure().getBlindes().getSmall();
+        int tempBig = gameDescriptor.getStructure().getBlindes().getBig();
+        if(tempSmall >= tempBig)
+            throw new Exception("Invalid file, small is bigger or equal to big");
+        int tempHandsCount = gameDescriptor.getStructure().getHandsCount();
+        if(tempHandsCount%numOfPlayer != 0)
+            throw new Exception("Invalid file, Hand count is not divided to the number of player");
+
+        numOfChipsForsmall = tempSmall;
+        numOfChipsForBig = tempBig;
+        totalnumOfHands = tempHandsCount;
+        numOfChipsPerBuy = gameDescriptor.getStructure().getBuy();
+
     }
 
     char getTypeOfPlayer(int numOfPlayer)
@@ -182,7 +194,7 @@ public class Server {
         for (Player p : players)
         {
             if(p.getType()== 'H') {
-                p.setBuys(1);
+                p.setBuysAndChips(1,numOfChipsPerBuy);
                 break;
             }
         }

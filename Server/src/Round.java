@@ -90,6 +90,7 @@ public class Round implements PlayerActionService{
         playersRef.get(smallIdx).Bet(numOfChipsForsmall);  //the game move is the blind small!
         playersRef.get(bigIdx).Bet(numOfChipsForBig); //the game move is the blind big!
         closeTheRound = bigIdx;
+        lastMove = GameMoves.BET;
     }
 
     private int nextTurn(int lastToPlayIndex){
@@ -125,9 +126,10 @@ public class Round implements PlayerActionService{
                 break;
         }
 
+        Utils.RoundResult gameStatus = GameStatus();
         currPlayerIndex = nextTurn(currPlayerIndex);
 
-        return GameStatus();
+        return gameStatus;
     }
 
     private Utils.RoundResult GameStatus(){
@@ -144,7 +146,7 @@ public class Round implements PlayerActionService{
         if(numOfQuitPlayers >= playersRef.size()-1 || playersRef.get(currPlayerIndex).getChips() == 0){
             return Utils.RoundResult.ENDGAME;
         }
-        if(currPlayerIndex == closeTheRound){
+        if(nextTurn(currPlayerIndex) == closeTheRound){
             return Utils.RoundResult.CLOSEROUND;
         }
         else return Utils.RoundResult.NOTHINGHAPPEN;

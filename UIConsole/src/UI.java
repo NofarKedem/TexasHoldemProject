@@ -18,10 +18,9 @@ public class UI {
     public void menu() {
         //תחילת המשחק כאילו לחצו 1
         loadFile();
-        printState();
         server.initializeHand();
         server.initializePlayers(1,3);
-        // printState(); // הפלט של 1 זה פקודה 3
+        printState(); // הפלט של 1 זה פקודה 3
         Boolean endGame = false;
         Boolean isGameStarted = false;
         while(!endGame)
@@ -408,8 +407,6 @@ public class UI {
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
-                        resultOfMove = Utils.RoundResult.ENDGAME;
-                        //isGameOver = true;
                         break;
                     case 2:
                         while(!isValidAmount) {

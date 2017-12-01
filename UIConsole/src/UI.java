@@ -398,7 +398,7 @@ public class UI {
                 switch (numOfMove) {
                     case 1:
                         System.out.println("You choose to Quit, therefor the game was over. buy buy");
-                        resultOfMove = Utils.RoundResult.ENDGAME;
+                        //resultOfMove = Utils.RoundResult.ENDGAME;
                         //isGameOver = true;
                         break;
                     case 2:

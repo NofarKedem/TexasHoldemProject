@@ -14,7 +14,7 @@ public class Hand {
         this.deck = deck;
         handRounds = new ArrayList<>(4);
         communityCards = new ArrayList<>(5);
-        cashBox = 200; //the value is just for testing
+        cashBox = 0; //the value is just for testing
         CPlayerService = new ComputerPlayerService();
     }
 

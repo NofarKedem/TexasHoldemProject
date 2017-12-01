@@ -16,9 +16,10 @@ public class ComputerPlayerService {
        }
        else{maxLimit = cashBoxAmount;}
        Random amountGenerator = new Random();
-       int amount = 0;
+       int amount;
        do {
            amount = amountGenerator.nextInt(maxLimit);
+           amount = Math.round(amount/5)*5;
        } while (amount <= currBet);
        return amount;
    }

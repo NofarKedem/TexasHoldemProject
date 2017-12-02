@@ -1,5 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
+import javafx.util.Pair;
+
+import java.util.*;
 
 public class Hand {
     private Round currRound;
@@ -121,5 +122,28 @@ public class Hand {
     public int getCurrNumOfRound()
     {
         return handRounds.size();
+    }
+
+    public Map<Integer,String> WhoIsTheWinner() throws Exception {
+        Map<Integer,String> WinnerMap;
+        WinLogic winner = new WinLogic();
+
+        WinnerMap =  winner.findTheWinner(communityCards, handPlayers);
+        updateTheWinnerWithCashBox(WinnerMap);
+        return WinnerMap;
+    }
+
+    public void updateTheWinnerWithCashBox(Map<Integer,String> WinnerMap)
+    {
+        Iterator<Map.Entry<Integer, String>> itr=  WinnerMap.entrySet().iterator();
+        while (itr.hasNext()) {
+            Player winner = handPlayers.get(itr.next().getKey());
+            if (WinnerMap.size() == 1) {
+                winner.updateWinnerChips(cashBox);
+            } else if (WinnerMap.size() == 2) {
+                winner.updateWinnerChips(cashBox / 2);
+            }
+
+        }
     }
 }

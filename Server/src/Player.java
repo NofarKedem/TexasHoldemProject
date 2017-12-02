@@ -107,4 +107,8 @@ public class Player {
     {
         bet =0;
     }
+
+    public void updateWinnerChips(int cashBox) {
+        chips = chips + cashBox;
+    }
 }

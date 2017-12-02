@@ -93,7 +93,7 @@ public class Player {
         return this.cards;
     }
 
-    public boolean isQuit() {return this.isQuit;}
+    public boolean getQuit() {return this.isQuit;}
 
     public void initActionService(Round round)
     {

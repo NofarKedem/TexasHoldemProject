@@ -1,9 +1,5 @@
 
 import com.rundef.poker.EquityCalculator;
-import com.rundef.poker.*;
-
-import java.lang.reflect.Array;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,26 +17,16 @@ public class WinLogic {
         return cards;
     }
 
-    public void updateTheWinnerWithCashBox(){
-
-    }
-
-    public void devideTheCashBoxWhenTeko(){
-
-    }
-
-    public void showPlayersCards(){
-
-    }
 
     public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<Player> playersRef) throws Exception {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
         for(Player player : playersRef)
         {
-            String cardStr = player.getCard()[0].toString() + player.getCard()[1].toString();
-            mCalculator.addHand(com.rundef.poker.Hand.fromString(cardStr));
-
+            if(!player.getQuit()) {
+                String cardStr = player.getCard()[0].toString() + player.getCard()[1].toString();
+                mCalculator.addHand(com.rundef.poker.Hand.fromString(cardStr));
+            }
         }
 
         mCalculator.calculate();

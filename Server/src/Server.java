@@ -33,11 +33,11 @@ public class Server {
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
         for(int i=0;i < numOfHPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new HumanPlayer('H', " ",numOfChipsPerBuy,1));
+            players.add(new Player('H', " ",numOfChipsPerBuy,1));
         }
         for(int i=0;i < numOfCPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new HumanPlayer('C', " ",numOfChipsPerBuy,1));
+            players.add(new Player('C', " ",numOfChipsPerBuy,1));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
@@ -104,7 +104,7 @@ public class Server {
     public void loadFile(String filePath)throws Exception
     {
         SimpleJAXBMain Xml = new SimpleJAXBMain(filePath);
-            GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
+        GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
 
         int tempSmall = gameDescriptor.getStructure().getBlindes().getSmall();
         int tempBig = gameDescriptor.getStructure().getBlindes().getBig();

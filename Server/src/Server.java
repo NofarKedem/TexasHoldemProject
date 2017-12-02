@@ -63,6 +63,7 @@ public class Server {
         {
             player.initBet();
         }
+        currHand.setFirstPlayer();
     }
     private void initPlayersState(){
         players.get(dilerIndex).updateState("D");
@@ -256,10 +257,11 @@ public class Server {
         timeOfStartGame = System.currentTimeMillis();
     }
 
-    public long calcTimeFromStartingGame()
+    public String calcTimeFromStartingGame()
     {
         long endTime = System.currentTimeMillis();
         Date myTime = new Date((endTime - timeOfStartGame)/1000);
-        return myTime.getTime();
+        String time =  String.valueOf(myTime.getTime()/60) + ":" + String.valueOf(myTime.getTime()%60);
+        return time;
     }
 }

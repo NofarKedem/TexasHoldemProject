@@ -55,7 +55,8 @@ public class Player {
     public void Raise(int amount)
     {
         int RaiceAmount = bet + amount;
-        chips = chips - RaiceAmount;
+        //chips = chips - RaiceAmount;
+        chips = chips - amount;
         actionService.updateCashBox(RaiceAmount);
         actionService.updateCurrBet(RaiceAmount);
         bet = RaiceAmount;

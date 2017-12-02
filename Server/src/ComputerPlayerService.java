@@ -31,9 +31,7 @@ public class ComputerPlayerService {
                return Round.GameMoves.BET;
            case FOLD:
                if(isBetOn){
-                   Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD
-                                        ,Round.GameMoves.CHECK);
-               }
+                       Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD);}
                else {
                    Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD,
                            Round.GameMoves.BET, Round.GameMoves.CHECK);

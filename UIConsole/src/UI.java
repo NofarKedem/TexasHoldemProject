@@ -21,8 +21,8 @@ public class UI {
     public void menu() {
         //תחילת המשחק כאילו לחצו 1
         loadFile();
-        server.initializeHand();
         server.initializePlayers(1,3);
+
         printState(); // הפלט של 1 זה פקודה 3
         Boolean endGame = false;
         Boolean isGameStarted = false;
@@ -40,10 +40,10 @@ public class UI {
             System.out.println("7. Quit from the game");
             System.out.println("8. Exit");
             Scanner s = new Scanner(System.in);
-            int res = s.nextInt();
+            String res = s.next();
             switch (res)
             {
-                case 1:
+                case "1":
                     if(!isGameStarted)
                     {
                         loadFile();
@@ -55,7 +55,7 @@ public class UI {
                         System.out.println("Game was started, cant load file");
                     break;
 
-                case 2:
+                case "2":
                     if(!isGameStarted)
                     {
                         server.setTimeOfGame();
@@ -66,9 +66,9 @@ public class UI {
                         System.out.println("Game was allready started");
                     break;
 
-                case 3: printState();
+                case "3": printState();
                     break;
-                case 4:
+                case "4":
                     StartHand();
                     if(server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
                         System.out.println("You played all your hand, game is over! ");
@@ -76,16 +76,21 @@ public class UI {
                     }
                     printStatistics();
                     break;
-                case 5: printStatistics();
+                case "5": printStatistics();
                     break;
-                case 6 : buyChips();
+                case "6" : buyChips();
                     break;
-                case 7 : PlayerQuit();
+                case "7" :
+                    //endGame = true;
                     isGameStarted = false;
+                    System.out.println("You choose to quit the game, what do you want to do now?");
                     System.out.println("1. Start New Game");
                     System.out.println("2. Restart the current game");
+                    //להמשיך לממש את הבונוס
                     break;
-                case 8 : PlayerQuit();
+                case "8" :
+                    System.out.println("You choose to finish the game, bey bey!");
+                    endGame = true;
                     break;
                 default: System.out.println("Invalid input, try again");
                     break;
@@ -129,10 +134,7 @@ public class UI {
     {
         server.addChipsToPlayer();
     }
-    private void PlayerQuit()
-    {
 
-    }
     private int countDigit(int num)
     {
         int numOfDigit = 0;
@@ -318,10 +320,10 @@ public class UI {
     private void StartHand() //פקודה מספר 4
     {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
+        server.initializeHand();
         server.setPlayHand();
         server.cardDistribusionToPlayer();
         initRound();
-        server.setFirstPlayer();
         server.blindBet();
         for(int i=0; i< 4;i++) {
             if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
@@ -341,10 +343,9 @@ public class UI {
 
         }
 
-       //     System.out.println(Winner);
-       // }
-       // else
-         //   System.out.println("End of hand, buy buy!");
+        System.out.println("End of hand, buy buy!");
+
+
 
     }
     private void initRound()

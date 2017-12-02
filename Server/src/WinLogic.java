@@ -21,6 +21,7 @@ public class WinLogic {
     public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<Player> playersRef) throws Exception {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
+        int counter=0;
         for(Player player : playersRef)
         {
             if(!player.getQuit()) {
@@ -30,7 +31,12 @@ public class WinLogic {
         }
 
         mCalculator.calculate();
-       for(int i=0;i<playersRef.size();i++)
+        for(Player player : playersRef)
+        {
+            if(player.getQuit()== false)
+                counter++;
+        }
+       for(int i=0;i<counter;i++)
        {
            if(mCalculator.getHandEquity(i).toString().equals("100 %") || mCalculator.getHandEquity(i).toString().equals("50 %"))
            {

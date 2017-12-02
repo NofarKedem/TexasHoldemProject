@@ -135,9 +135,8 @@ public class Hand {
 
     public void updateTheWinnerWithCashBox(Map<Integer,String> WinnerMap)
     {
-        Iterator<Map.Entry<Integer, String>> itr=  WinnerMap.entrySet().iterator();
-        while (itr.hasNext()) {
-            Player winner = handPlayers.get(itr.next().getKey());
+        for (Integer numOfPlayer : WinnerMap.keySet()) {
+            Player winner = handPlayers.get(numOfPlayer);
             if (WinnerMap.size() == 1) {
                 winner.updateWinnerChips(cashBox);
                 cashBox = 0;
@@ -152,6 +151,6 @@ public class Hand {
                 }
             }
 
-        }
+         }
     }
 }

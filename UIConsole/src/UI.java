@@ -1,4 +1,5 @@
 import XMLobject.GameDescriptor;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.sql.Time;
@@ -332,14 +333,24 @@ public class UI {
                 break;
         }
         //if (resultOfMove != Utils.RoundResult.ENDGAME) {
-        try{
-        Map<Integer,String> WinnerMap = server.WhoIsTheWinner();
+        try {
+            server.getLastMove();
+            Map<Integer, String> WinnerMap = server.WhoIsTheWinner();
+            for (Integer numOfPlayer : WinnerMap.keySet()) {
+                System.out.println("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer));
+            }
+            server.getLastMove();
+
+        }
+     /*
+        WinnerMap.get(1);
         Iterator<Map.Entry<Integer, String>> itr=  WinnerMap.entrySet().iterator();
         while (itr.hasNext()) {
             System.out.println("The winner is player number: " + itr.next().getKey() + " he has " + itr.next().getValue());
         }
 
         }
+        */
         catch (Exception e)
         {
             System.out.println(e.getMessage());

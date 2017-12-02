@@ -100,7 +100,7 @@ public class Round implements PlayerActionService{
 
     private int nextTurn(int lastToPlayIndex){
             int theNextPlayerInArray = (lastToPlayIndex + 1)%(playersRef.size());
-            while (playersRef.get(theNextPlayerInArray).isQuit()){
+            while (playersRef.get(theNextPlayerInArray).getQuit()){
                 theNextPlayerInArray = (theNextPlayerInArray + 1)%(playersRef.size());
             }
         return  theNextPlayerInArray;
@@ -139,11 +139,11 @@ public class Round implements PlayerActionService{
 
     private Utils.RoundResult GameStatus(){
         int numOfQuitPlayers = 0;
-        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).isQuit()){
+        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).getQuit()){
             return Utils.RoundResult.ENDGAME;
         }
         for(Player player : playersRef){
-            if(player.isQuit()){
+            if(player.getQuit()){
                 numOfQuitPlayers++;
             }
         }
@@ -191,10 +191,20 @@ public class Round implements PlayerActionService{
     }
 
     public Utils.RoundResult playWithComputer(){
-        Round.GameMoves gameMove = CPlayerService.generateMove(getLastMove(),isBetOn);
-        int amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
-                roundCashBox,currBet);
-        Utils.RoundResult result = gameMove(gameMove,amount);
+
+        Player currPlayer = playersRef.get(getCurrPlayer());
+        Round.GameMoves gameMove;
+        int amount=0;
+        if(currPlayer.getChips() < currBet){
+            gameMove = GameMoves.FOLD;
+        }
+        else {
+             gameMove = CPlayerService.generateMove(getLastMove(), isBetOn);
+             amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
+                    roundCashBox, currBet);
+
+        }
+        Utils.RoundResult result = gameMove(gameMove, amount);
         return result;
     }
 }

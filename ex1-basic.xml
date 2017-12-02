@@ -4,10 +4,10 @@
 	<GameType>Basic</GameType>
 	<Structure>
 		<HandsCount>8</HandsCount>
-		<Buy>120</Buy>
+		<Buy>100</Buy>
 		<Blindes fixed="true">
-			<Big>6</Big>
-			<Small>3</Small>
+			<Big>10</Big>
+			<Small>5</Small>
 		</Blindes>
 	</Structure>
 </GameDescriptor>

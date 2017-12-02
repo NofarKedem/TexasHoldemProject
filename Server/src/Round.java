@@ -19,6 +19,7 @@ public class Round implements PlayerActionService{
     private int roundCashBox;
     private int currPlayerIndex; //the curr turn
     private GameMoves lastMove;
+    private ComputerPlayerService CPlayerService;
 
     Round(List<Player> playersRef, int roundCashBox){
         this.playersRef = playersRef;
@@ -30,6 +31,7 @@ public class Round implements PlayerActionService{
         currBet = 0;
         lastMove = GameMoves.NONE;
         this.findSmallBigIndex();
+        CPlayerService = new ComputerPlayerService();
     }
 
     @Override
@@ -185,4 +187,11 @@ public class Round implements PlayerActionService{
         return playersRef.get(currPlayerIndex).getBet();
     }
 
+    public Utils.RoundResult playWithComputer(){
+        Round.GameMoves gameMove = CPlayerService.generateMove(getLastMove(),isBetOn);
+        int amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
+                roundCashBox,currBet);
+        Utils.RoundResult result = gameMove(gameMove,amount);
+        return result;
+    }
 }

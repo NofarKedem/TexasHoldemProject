@@ -81,18 +81,21 @@ public class Round implements PlayerActionService{
     }
 
     public void setCurrPlayer(){
-        currPlayerIndex = (bigIdx+1)%(playersRef.size());
+       // currPlayerIndex = (bigIdx+1)%(playersRef.size());
+        currPlayerIndex = smallIdx;
     }
     public int getCurrPlayer(){
         return currPlayerIndex;
     }
 
-    public void blindBet(int numOfChipsForBig,int numOfChipsForsmall){
+    public void blindBet(int numOfChipsForBig,int numOfChipsForSmall){
       //  this.findSmallBigIndex();
-        playersRef.get(smallIdx).Bet(numOfChipsForsmall);  //the game move is the blind small!
-        playersRef.get(bigIdx).Bet(numOfChipsForBig); //the game move is the blind big!
-        closeTheRound = bigIdx;
-        lastMove = GameMoves.BET;
+       // playersRef.get(smallIdx).Bet(numOfChipsForSmall);  //the game move is the blind small!
+       // playersRef.get(bigIdx).Bet(numOfChipsForBig); //the game move is the blind big!
+        gameMove(GameMoves.BET,numOfChipsForSmall);
+        gameMove(GameMoves.BET,numOfChipsForBig);
+        //closeTheRound = bigIdx;
+       // lastMove = GameMoves.BET;
     }
 
     private int nextTurn(int lastToPlayIndex){

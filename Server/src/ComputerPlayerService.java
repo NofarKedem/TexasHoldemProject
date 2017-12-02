@@ -24,14 +24,20 @@ public class ComputerPlayerService {
        return amount;
    }
 
-    public Round.GameMoves generateMove(Round.GameMoves lastPlayerMove){
+    public Round.GameMoves generateMove(Round.GameMoves lastPlayerMove, boolean isBetOn){
        Round.GameMoves randomMove;
        switch (lastPlayerMove){
            case NONE: //no one played before me - I'm the first to talk
                return Round.GameMoves.BET;
            case FOLD:
-               Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD,
-                                    Round.GameMoves.BET, Round.GameMoves.CHECK);
+               if(isBetOn){
+                   Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD
+                                        , Round.GameMoves.CHECK);
+               }
+               else {
+                   Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD,
+                           Round.GameMoves.BET, Round.GameMoves.CHECK);
+               }
                randomMove = randomGameMove();
                values.clear();
                return randomMove;

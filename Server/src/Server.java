@@ -2,6 +2,7 @@ import XMLobject.GameDescriptor;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Server {
@@ -9,7 +10,7 @@ public class Server {
     //private List<Hand> hands;
     private List<Player> players;
     private Hand currHand;
-    private int timeOfGame;
+    private long timeOfStartGame;
     private int totalnumOfHands;
     private int numOfPlayHands;
     private static int dilerIndex = 0;
@@ -22,7 +23,7 @@ public class Server {
 
     public Server(){
         //currHand = 0;
-        timeOfGame = 0;
+        timeOfStartGame = 0;
         totalnumOfHands = 0;
         maxCashBox = 0;
         players = new ArrayList(4);
@@ -159,13 +160,14 @@ public class Server {
         return currHand.getCurrBet();
     }
 
-    int getTime()
-    {
-        return 1;
-    }
     int getNumberOfBuys()
     {
-        return 2;
+        int sumOfBuy =0;
+        for(Player player : players)
+        {
+            sumOfBuy += player.getBuys();
+        }
+        return sumOfBuy*numOfChipsPerBuy;
     }
     int getCurrentNumberOfHand()
     {
@@ -247,5 +249,16 @@ public class Server {
     public String getLastMove()
     {
         return currHand.getLastMove().toString();
+    }
+    public void setTimeOfGame()
+    {
+        timeOfStartGame = System.currentTimeMillis();
+    }
+
+    public long calcTimeFromStartingGame()
+    {
+        long endTime = System.currentTimeMillis();
+        Date myTime = new Date((endTime - timeOfStartGame)/1000);
+        return myTime.getTime();
     }
 }

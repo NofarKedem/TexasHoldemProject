@@ -1,6 +1,8 @@
 import XMLobject.GameDescriptor;
 
 import java.io.FileNotFoundException;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,10 +11,9 @@ public class UI {
     boolean isGameOver = false;
 
     public static void main(String[] args) {
+
         UI us = new UI();
         us.menu();
-
-
     }
 
     public void menu() {
@@ -55,6 +56,7 @@ public class UI {
                 case 2:
                     if(!isGameStarted)
                     {
+                        server.setTimeOfGame();
                         printState();
                         isGameStarted = true;
                     }
@@ -66,9 +68,10 @@ public class UI {
                     break;
                 case 4:
                     StartHand();
-                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand())
+                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
                         System.out.println("You played all your hand, game is over! ");
-                    endGame = true;
+                        endGame = true;
+                    }
                     printStatistics();
                     break;
                 case 5: printStatistics();
@@ -450,8 +453,8 @@ public class UI {
 
     void printStatistics()
     {
-        System.out.println("The time from starting the game is: " + server.getTime());
-        System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ "hand was play");
+        System.out.println("The time in seconds from starting the game is: " + server.calcTimeFromStartingGame());
+        System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ " hand was play");
         System.out.println("The maximum buys for the game is: " + server.getNumberOfBuys());
         printState();
     }

@@ -4,14 +4,16 @@ import java.io.FileNotFoundException;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UI {
     Server server = new Server();
     boolean isGameOver = false;
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
+       //WinLogic test = new WinLogic();
+        //test.findTheWinner1();
         UI us = new UI();
         us.menu();
     }
@@ -332,14 +334,18 @@ public class UI {
             else
                 break;
         }
-        if (resultOfMove != Utils.RoundResult.ENDGAME) {
-            String Winner = server.WhoIsTheWinner();
+        //if (resultOfMove != Utils.RoundResult.ENDGAME) {
+        try{
+        Map<Integer,String> Winner = server.WhoIsTheWinner();
+        }
+        catch (Exception e)
+        {
 
-            System.out.println(Winner);
         }
-        else {
-            System.out.println("End of hand, buy buy!");
-        }
+
+        System.out.println("End of hand, buy buy!");
+
+
 
     }
     private void initRound()

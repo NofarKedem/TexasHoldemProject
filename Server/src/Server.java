@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Server {
     private Deck deck;
@@ -187,9 +188,9 @@ public class Server {
     public void callRiver(){
         currHand.river();
     }
-    public String WhoIsTheWinner()
+    public Map<Integer,String> WhoIsTheWinner() throws Exception
     {
-        return "a";
+        return currHand.WhoIsTheWinner();
     }
 
     public void addChipsToPlayer()

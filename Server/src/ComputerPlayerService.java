@@ -20,7 +20,7 @@ public class ComputerPlayerService {
        do {
            amount = amountGenerator.nextInt(maxLimit);
            amount = Math.round(amount/5)*5;
-       } while (amount <= currBet);
+       } while (amount < currBet);
        return amount;
    }
 
@@ -31,8 +31,7 @@ public class ComputerPlayerService {
                return Round.GameMoves.BET;
            case FOLD:
                if(isBetOn){
-                       Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD);
-               }
+                       Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD);}
                else {
                    Collections.addAll(values, Round.GameMoves.CALL, Round.GameMoves.RAISE, Round.GameMoves.FOLD,
                            Round.GameMoves.BET, Round.GameMoves.CHECK);

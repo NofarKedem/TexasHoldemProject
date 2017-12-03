@@ -17,13 +17,13 @@ public class Player {
         this.buys = buys;
         this.bet = 0;
         isQuit = false;
+        handsWon = 0;
     }
     public void setPlayerHandCards(Card[] cards)
     {
         this.cards = cards;
     }
-    //void gameMove(Round.GameMoves move, Round roundRef);
-    //boolean gameMove(Round roundRef);
+
 
     public void fold()
     {
@@ -55,7 +55,6 @@ public class Player {
     public void Raise(int amount)
     {
         int RaiceAmount = bet + amount;
-        //chips = chips - RaiceAmount;
         chips = chips - amount;
         actionService.updateCashBox(RaiceAmount);
         actionService.updateCurrBet(RaiceAmount);
@@ -65,6 +64,10 @@ public class Player {
 
     public void updateState(String state) {
         this.state = state;
+    }
+    public void resetState(){this.state = "";}
+    public void updateHandsWon(){
+        handsWon++;
     }
     String getState() {
         return this.state;

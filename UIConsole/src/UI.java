@@ -317,7 +317,6 @@ public class UI {
     }
     private void StartHand() //פקודה מספר 4
     {
-        Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         server.initializeHand();
         server.setPlayHand();
         server.cardDistribusionToPlayer();
@@ -325,7 +324,7 @@ public class UI {
         server.blindBet();
         int i=0;
         for(i=0; i< 4;i++) {
-            if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
+            if ((playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
             {
                 cardDistribusionInRound(i);
                 initRound();
@@ -350,8 +349,7 @@ public class UI {
         }
 
         System.out.println("End of hand, buy buy!");
-
-
+        server.closeTheHand();
 
     }
     private void initRound()

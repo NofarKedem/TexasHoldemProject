@@ -143,10 +143,12 @@ public class Hand {
             Player winner = handPlayers.get(numOfPlayer);
             if (WinnerMap.size() == 1) {
                 winner.updateWinnerChips(cashBox);
+                winner.updateHandsWon();
                 cashBox = 0;
             }
             else if (WinnerMap.size() == 2) {
                 winner.updateWinnerChips(cashBox / 2);
+                winner.updateHandsWon();
                 if(cashBox%2 == 0){
                     cashBox = 0;
                 }

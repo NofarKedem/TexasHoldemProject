@@ -82,8 +82,12 @@ public class Round implements PlayerActionService{
     }
 
     public void setCurrPlayer(){
-       // currPlayerIndex = (bigIdx+1)%(playersRef.size());
         currPlayerIndex = smallIdx;
+        if(playersRef.get(smallIdx).getQuit()){
+            do {
+                currPlayerIndex = nextTurn(currPlayerIndex);
+            } while (playersRef.get(currPlayerIndex).getQuit());
+        }
     }
     public int getCurrPlayer(){
         return currPlayerIndex;

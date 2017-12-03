@@ -363,8 +363,7 @@ public class UI {
         }
 
         System.out.println("End of hand, buy buy!");
-
-
+        server.closeTheHand();
 
     }
     private void initRound()

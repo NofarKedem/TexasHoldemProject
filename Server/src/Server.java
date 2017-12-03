@@ -42,12 +42,15 @@ public class Server {
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
-        //currHand.setFirstPlayer();
 
     }
-    public void setFirstPlayer()
-    {
-        currHand.setFirstPlayer();
+
+    public void closeTheHand(){
+        for(Player P : players){
+            P.resetState();
+        }
+        dilerIndex = calculateDilerIndex(dilerIndex);
+        initPlayersState();
     }
 
     public void initializeHand(){

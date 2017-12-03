@@ -105,6 +105,10 @@ public class Hand {
     public boolean isValidGameMove(Round.GameMoves LastGameMove){
         return currRound.isValidGameMove(LastGameMove);
     }
+    public Boolean isPlayerHasEnoughChips()
+    {
+        return currRound.isPlayerHasEnoughChips();
+    }
 
     public boolean isValidAmount(int amount){
         return currRound.isValidAmount(amount);

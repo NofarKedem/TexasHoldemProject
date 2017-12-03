@@ -19,7 +19,7 @@ public class ComputerPlayerService {
        int amount;
        do {
            amount = amountGenerator.nextInt(maxLimit);
-           amount = Math.round(amount/5)*5;
+          // amount = Math.round(amount/5)*5;
        } while (amount < currBet);
        return amount;
    }

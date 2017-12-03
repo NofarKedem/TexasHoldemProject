@@ -19,7 +19,6 @@ public class Server {
     private int numOfChipsForsmall; //to be updated from the XML
     private int numOfChipsForBig;//to be updated from the XML
     private int numOfChipsPerBuy; //to be updated from the XML
-    private int numOfPlayer = 4;
 
 
     public Server(){
@@ -27,7 +26,7 @@ public class Server {
         timeOfStartGame = 0;
         totalnumOfHands = 0;
         maxCashBox = 0;
-        players = new ArrayList(4);
+        players = new ArrayList(Utils.numOfPlayer);
         //hands = new ArrayList<>();
         deck = new Deck();
     }
@@ -102,6 +101,10 @@ public class Server {
     public boolean validateMove(int LastGameMove){
         return currHand.isValidGameMove(convertIntToMove(LastGameMove));
     }
+    public Boolean isPlayerHasEnoughChips()
+    {
+        return currHand.isPlayerHasEnoughChips();
+    }
 
     //hadar changes
     public void loadFile(String filePath)throws Exception
@@ -114,7 +117,7 @@ public class Server {
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
         int tempHandsCount = gameDescriptor.getStructure().getHandsCount();
-        if(tempHandsCount%numOfPlayer != 0)
+        if(tempHandsCount%Utils.numOfPlayer != 0)
             throw new Exception("Invalid file, Hand count is not divided to the number of player");
 
         numOfChipsForsmall = tempSmall;
@@ -126,7 +129,7 @@ public class Server {
 
     char getTypeOfPlayer(int numOfPlayer)
     {
-        if(numOfPlayer == 4 )
+        if(numOfPlayer == Utils.numOfPlayer )
         {
             return players.get(currHand.getCurrPlayer()).getType();
         }
@@ -264,4 +267,5 @@ public class Server {
         String time =  String.valueOf(myTime.getTime()/60) + ":" + String.valueOf(myTime.getTime()%60);
         return time;
     }
+
 }

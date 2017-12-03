@@ -1,5 +1,7 @@
 public class Utils {
 
+    public static int numOfPlayer = 4;
+
     public enum RoundResult{
         NOTHINGHAPPEN("1"), ENDGAME("2"),CLOSEROUND("3");
 
@@ -7,4 +9,5 @@ public class Utils {
         RoundResult(String str){this.value = str;}
         public String toString(){return value;}
     }
+
 }

@@ -10,6 +10,7 @@ public class Round implements PlayerActionService{
         GameMoves(String str){this.value = str;}
         public String toString(){return this.name();}
     }
+
     private List<Player> playersRef;
     private boolean isBetOn;
     private int currBet;
@@ -174,6 +175,14 @@ public class Round implements PlayerActionService{
             return true;
         }
         else{return false;}
+    }
+    public Boolean isPlayerHasEnoughChips()
+    {
+        if(playersRef.get(currPlayerIndex).getChips() <= currBet) {
+            gameMove(GameMoves.FOLD, 0);
+            return false;
+        }
+        return true;
     }
 
     public boolean isValidAmount(int amount){

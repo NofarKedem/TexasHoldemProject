@@ -1,4 +1,5 @@
 import XMLobject.GameDescriptor;
+import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.sql.Time;
@@ -322,7 +323,8 @@ public class UI {
         server.cardDistribusionToPlayer();
         initRound();
         server.blindBet();
-        for(int i=0; i< 4;i++) {
+        int i=0;
+        for(i=0; i< 4;i++) {
             if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
             {
                 cardDistribusionInRound(i);
@@ -331,15 +333,17 @@ public class UI {
             else
                 break;
         }
-        //if (resultOfMove != Utils.RoundResult.ENDGAME) {
-        try{
-        Map<Integer,String> WinnerMap = server.WhoIsTheWinner();
-        Iterator<Map.Entry<Integer, String>> itr=  WinnerMap.entrySet().iterator();
-        while (itr.hasNext()) {
-            System.out.println("The winner is player number: " + itr.next().getKey() + " he has " + itr.next().getValue());
+        for(int j=i+1;j<4;j++)
+        {
+            cardDistribusionInRound(i);
+        }
+        try {
+            Map<Integer, String> WinnerMap = server.WhoIsTheWinner();
+            for (Integer numOfPlayer : WinnerMap.keySet()) {
+                System.out.println("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer));
+            }
         }
 
-        }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
@@ -378,7 +382,7 @@ public class UI {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         while(resultOfMove == Utils.RoundResult.NOTHINGHAPPEN)
         {
-            if(server.getTypeOfPlayer(4) == 'H')
+            if(server.getTypeOfPlayer(Utils.numOfPlayer) == 'H')
             {
                 System.out.println("Before Humen player will play");
                 printDetailsInTheGame();
@@ -403,63 +407,68 @@ public class UI {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         boolean isValidMove = false;
         boolean isValidAmount = false;
-        while(!isValidMove) {
-            System.out.println("Choose which move do you want to do:");
-            System.out.println("1. Fold");
-            System.out.println("2. Bet");
-            System.out.println("3. Call");
-            System.out.println("4. Check");
-            System.out.println("5. Raise");
-            Scanner s = new Scanner(System.in);
-            int numOfMove = s.nextInt();
-            if (!server.validateMove(numOfMove))
-                System.out.println("Invalid move for this Player, please try again");
+        if(!server.isPlayerHasEnoughChips()) {
+            System.out.println("This player dont have enough chips to play in this hand, therefor the player quit!");
+            resultOfMove = Utils.RoundResult.ENDGAME;
+        }
+        else {
+            while (!isValidMove) {
+                System.out.println("Choose which move do you want to do:");
+                System.out.println("1. Fold");
+                System.out.println("2. Bet");
+                System.out.println("3. Call");
+                System.out.println("4. Check");
+                System.out.println("5. Raise");
+                Scanner s = new Scanner(System.in);
+                int numOfMove = s.nextInt();
 
-            else
-            {
-                isValidMove = true;
-                int amount = 0;
-                switch (numOfMove) {
-                    case 1:
-                        System.out.println("You choose to Quit, therefor the game was over. buy buy");
-                        break;
-                    case 2:
-                        while(!isValidAmount) {
-                            System.out.println("You choose to bet, for how much do you want to bet?");
-                            amount = (new Scanner(System.in)).nextInt();
-                            if(isValidAmount = server.validAmount(amount)) {
-                                System.out.println("Your bet worked ");
-                                isValidAmount = true;
+                if (!server.validateMove(numOfMove))
+                    System.out.println("Invalid move for this Player, please try again");
+
+                else {
+                    isValidMove = true;
+                    int amount = 0;
+                    switch (numOfMove) {
+                        case 1:
+                            System.out.println("You choose to Quit, therefor the game was over. buy buy");
+                            break;
+                        case 2:
+                            while (!isValidAmount) {
+                                System.out.println("You choose to bet, for how much do you want to bet?");
+                                amount = (new Scanner(System.in)).nextInt();
+                                if (isValidAmount = server.validAmount(amount)) {
+                                    System.out.println("Your bet worked ");
+                                    isValidAmount = true;
+                                } else
+                                    System.out.println("The amount you enter is invalid, please try again");
                             }
-                            else
-                                System.out.println("The amount you enter is invalid, please try again");
-                        }
-                        break;
-                    case 3:
-                        System.out.println("You choose to call");
-                        break;
-                    case 4:
-                        System.out.println("You choose to check");
-                        break;
-                    case 5:
-                        while(!isValidAmount) {
-                            System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBetOfTheCurrPlayer() +
-                                    "for how much do you want to raise your bet?");
-                            amount = (new Scanner(System.in)).nextInt();
-                            if (isValidAmount = server.validAmount(amount)) {
-                                System.out.println("Your raise worked ");
-                                isValidAmount = true;
-                            } else
-                                System.out.println("The amount you enter is invalid, please try again");
-                        }
-                        
-                        break;
+                            break;
+                        case 3:
+                            System.out.println("You choose to call");
+                            break;
+                        case 4:
+                            System.out.println("You choose to check");
+                            break;
+                        case 5:
+                            while (!isValidAmount) {
+                                System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBetOfTheCurrPlayer() +
+                                        "for how much do you want to raise your bet?");
+                                amount = (new Scanner(System.in)).nextInt();
+                                if (isValidAmount = server.validAmount(amount)) {
+                                    System.out.println("Your raise worked ");
+                                    isValidAmount = true;
+                                } else
+                                    System.out.println("The amount you enter is invalid, please try again");
+                            }
+
+                            break;
+                    }
+                    if (resultOfMove != Utils.RoundResult.ENDGAME)
+                        resultOfMove = server.gameMove(numOfMove, amount);
                 }
-                if(resultOfMove != Utils.RoundResult.ENDGAME)
-                    resultOfMove = server.gameMove(numOfMove, amount);
             }
         }
-        return resultOfMove; //לשנות אותו לenum שיש לו 3 מצבים, ריק, נגמר סיבוב, נגמר משחק
+        return resultOfMove;
     }
 
     void printStatistics()

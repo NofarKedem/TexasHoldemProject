@@ -80,8 +80,8 @@ public class Player {
         return this.buys;
     }
 
-    public void setBuysAndChips(int numOfBuys, int numOfChipsPerBuy) {
-        this.buys = numOfBuys;
+    public void setBuysAndChips(int numOfChipsPerBuy) {
+        this.buys++;
         this.chips += numOfChipsPerBuy;
     }
     public int getHandsWon()

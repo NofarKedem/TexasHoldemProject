@@ -90,7 +90,7 @@ public class Server {
     }
 
 
-    public Utils.RoundResult gameMove(int LastGameMove, int amount){
+    public Utils.RoundResult gameMove(String LastGameMove, int amount){
         return currHand.gameMove(convertIntToMove(LastGameMove), amount);
     }
 
@@ -98,8 +98,11 @@ public class Server {
         return currHand.playWithComputer();
     }
 
-    public boolean validateMove(int LastGameMove){
-        return currHand.isValidGameMove(convertIntToMove(LastGameMove));
+    public boolean validateMove(String LastGameMove){
+        Round.GameMoves gameMove;
+        if((gameMove = convertIntToMove(LastGameMove)) != null)
+            return currHand.isValidGameMove(gameMove);
+        return false;
     }
     public Boolean isPlayerHasEnoughChips()
     {
@@ -201,27 +204,28 @@ public class Server {
         for (Player p : players)
         {
             if(p.getType()== 'H') {
-                p.setBuysAndChips(1,numOfChipsPerBuy);
+                p.setBuysAndChips(numOfChipsPerBuy);
                 break;
             }
         }
     }
-    private Round.GameMoves convertIntToMove(int numOfMove)
+    private Round.GameMoves convertIntToMove(String numOfMove)
     {
         Round.GameMoves res = null;
         switch(numOfMove)
         {
-            case 1: res= Round.GameMoves.FOLD;
+            case "1": res= Round.GameMoves.FOLD;
                 break;
-            case 2: res= Round.GameMoves.BET;
+            case "2": res= Round.GameMoves.BET;
                 break;
-            case 3: res= Round.GameMoves.CALL;
+            case "3": res= Round.GameMoves.CALL;
                 break;
-            case 4: res= Round.GameMoves.CHECK;
+            case "4": res= Round.GameMoves.CHECK;
                 break;
-            case 5: res= Round.GameMoves.RAISE;
+            case "5": res= Round.GameMoves.RAISE;
                 break;
-
+            default:
+                break;
         }
         return res;
     }
@@ -266,6 +270,10 @@ public class Server {
         Date myTime = new Date((endTime - timeOfStartGame)/1000);
         String time =  String.valueOf(myTime.getTime()/60) + ":" + String.valueOf(myTime.getTime()%60);
         return time;
+    }
+    public int getCashBox()
+    {
+        return currHand.getCashBox();
     }
 
 }

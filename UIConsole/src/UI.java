@@ -1,4 +1,5 @@
 import XMLobject.GameDescriptor;
+import com.sun.deploy.util.StringUtils;
 import javafx.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -202,7 +203,8 @@ public class UI {
         printDetailsOfTwoFirstPlayer(0);
         System.out.println(System.lineSeparator());
         displayAllCard();
-        System.out.print("POT: " + server.getCurrBet());
+        System.out.print("Current bet: " + server.getCurrBet()+ "    ");
+        System.out.print("Total cash box: " + server.getCashBox());
         System.out.println(System.lineSeparator());
         printDetailsOfTwoLastPlayer(2);
         System.out.println(System.lineSeparator());
@@ -325,10 +327,12 @@ public class UI {
         server.blindBet();
         int i=0;
         for(i=0; i< 4;i++) {
-            if ((resultOfMove = playOneRound()) != Utils.RoundResult.ENDGAME) //if the game was over
+            if (resultOfMove!= Utils.RoundResult.ENDGAME) //if the game was over
             {
+                if(i!=0)
+                    initRound();
+                resultOfMove = playOneRound();
                 cardDistribusionInRound(i);
-                initRound();
             }
             else
                 break;
@@ -337,10 +341,19 @@ public class UI {
         {
             cardDistribusionInRound(i);
         }
+        System.out.println("The hand was over, to continue to the winner press any key ");
+        Scanner s = new Scanner(System.in);
+        String res = s.nextLine();
+
         try {
             Map<Integer, String> WinnerMap = server.WhoIsTheWinner();
             for (Integer numOfPlayer : WinnerMap.keySet()) {
-                System.out.println("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer));
+                System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
+                + " the prize money is: ");
+                if(WinnerMap.size() ==1)
+                    System.out.println(server.getCashBox());
+                else
+                    System.out.println(server.getCashBox()/2);
             }
         }
 
@@ -420,19 +433,19 @@ public class UI {
                 System.out.println("4. Check");
                 System.out.println("5. Raise");
                 Scanner s = new Scanner(System.in);
-                int numOfMove = s.nextInt();
-
+                String numOfMove = s.next();
                 if (!server.validateMove(numOfMove))
                     System.out.println("Invalid move for this Player, please try again");
 
                 else {
                     isValidMove = true;
                     int amount = 0;
+                    String amountStr;
                     switch (numOfMove) {
-                        case 1:
+                        case "1":
                             System.out.println("You choose to Quit, therefor the game was over. buy buy");
                             break;
-                        case 2:
+                        case "2":
                             while (!isValidAmount) {
                                 System.out.println("You choose to bet, for how much do you want to bet?");
                                 amount = (new Scanner(System.in)).nextInt();
@@ -443,21 +456,23 @@ public class UI {
                                     System.out.println("The amount you enter is invalid, please try again");
                             }
                             break;
-                        case 3:
+                        case "3":
                             System.out.println("You choose to call");
                             break;
-                        case 4:
+                        case "4":
                             System.out.println("You choose to check");
                             break;
-                        case 5:
+                        case "5":
                             while (!isValidAmount) {
-                                System.out.println("You choose to Raise,your last bet was" + "" + server.getLastBetOfTheCurrPlayer() +
-                                        "for how much do you want to raise your bet?");
-                                amount = (new Scanner(System.in)).nextInt();
-                                if (isValidAmount = server.validAmount(amount)) {
-                                    System.out.println("Your raise worked ");
-                                    isValidAmount = true;
-                                } else
+                                System.out.println("You choose to Raise,your last bet was "+ server.getLastBetOfTheCurrPlayer() +
+                                        " for how much do you want to raise your bet?");
+                                if(isNumeric(amountStr = new Scanner(System.in).next()) && (isValidAmount = server.validAmount(amount = Integer.parseInt(amountStr))))
+                                {
+                                        System.out.println("Your raise worked ");
+                                        isValidAmount = true;
+                                }
+
+                                 else
                                     System.out.println("The amount you enter is invalid, please try again");
                             }
 
@@ -473,10 +488,24 @@ public class UI {
 
     void printStatistics()
     {
+        System.out.println("The statistics in the game are: ");
         System.out.println("The time in seconds from starting the game is: " + server.calcTimeFromStartingGame());
         System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ " hand was play");
         System.out.println("The maximum buys for the game is: " + server.getNumberOfBuys());
         printState();
+    }
+
+    private static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
 }

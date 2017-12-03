@@ -157,4 +157,8 @@ public class Hand {
 
          }
     }
+    public int getCashBox()
+    {
+        return currRound.getCashBox();
+    }
 }

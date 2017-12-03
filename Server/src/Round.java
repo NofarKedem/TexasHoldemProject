@@ -178,7 +178,7 @@ public class Round implements PlayerActionService{
     }
     public Boolean isPlayerHasEnoughChips()
     {
-        if(playersRef.get(currPlayerIndex).getChips() <= currBet) {
+        if(playersRef.get(currPlayerIndex).getChips() < currBet - playersRef.get(currPlayerIndex).getBet()) {
             gameMove(GameMoves.FOLD, 0);
             return false;
         }

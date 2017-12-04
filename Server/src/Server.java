@@ -21,6 +21,7 @@ public class Server {
     private int numOfChipsPerBuy; //to be updated from the XML
 
 
+
     public Server(){
         //currHand = 0;
         timeOfStartGame = 0;
@@ -34,11 +35,11 @@ public class Server {
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
         for(int i=0;i < numOfHPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new Player('H', " ",numOfChipsPerBuy,1));
+            players.add(new Player('H', " ",numOfChipsPerBuy,1,1));
         }
         for(int i=0;i < numOfCPlayers; i++){
             //need to add methods update and updates chips from XML parameter
-            players.add(new Player('C', " ",numOfChipsPerBuy,1));
+            players.add(new Player('C', " ",numOfChipsPerBuy,1,numOfHPlayers+1+i));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
@@ -277,6 +278,14 @@ public class Server {
     public int getCashBox()
     {
         return currHand.getCashBox();
+    }
+    public int getNumOfPlayer(int indexOfPlayer)
+    {
+        return players.get(indexOfPlayer).getNumOfPlayer();
+    }
+    public Boolean getIfPlayerQuit(int indexOfPlayer)
+    {
+        return players.get(indexOfPlayer).getQuit();
     }
 
 }

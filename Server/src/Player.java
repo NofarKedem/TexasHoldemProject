@@ -7,10 +7,11 @@ public class Player {
     private Card[] cards;
     private boolean isQuit;
     private int bet;
+    private int numOfPlayer=0;
     public PlayerActionService actionService;
 
 
-    public Player(char type,String state,int chips,int buys){
+    public Player(char type,String state,int chips,int buys, int numOfPlayer){
         this.type = type;
         this.state = state;
         this.chips = chips;
@@ -18,6 +19,7 @@ public class Player {
         this.bet = 0;
         isQuit = false;
         handsWon = 0;
+        this.numOfPlayer = numOfPlayer;
     }
     public void setPlayerHandCards(Card[] cards)
     {
@@ -114,5 +116,9 @@ public class Player {
 
     public void updateWinnerChips(int cashBox) {
         chips = chips + cashBox;
+    }
+    public int getNumOfPlayer()
+    {
+        return numOfPlayer;
     }
 }

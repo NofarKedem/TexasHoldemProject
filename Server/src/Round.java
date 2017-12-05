@@ -148,7 +148,7 @@ public class Round implements PlayerActionService{
     private Utils.RoundResult GameStatus(){
         int numOfQuitPlayers = 0;
         if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).getQuit()){
-            return Utils.RoundResult.ENDGAME;
+            return Utils.RoundResult.HUMANFOLD;
         }
         for(Player player : playersRef){
             if(player.getQuit()){
@@ -164,6 +164,7 @@ public class Round implements PlayerActionService{
         }
         else return Utils.RoundResult.NOTHINGHAPPEN;
     }
+
 
     public boolean isValidGameMove(Round.GameMoves gameMoves) {
         if(gameMoves == GameMoves.FOLD){

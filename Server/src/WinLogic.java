@@ -51,4 +51,16 @@ public class WinLogic {
     }
 
 
+    public Map<Integer,String> setTechniqWinners(List<Player> handPlayers) {
+        Map<Integer,String> theWinners = new HashMap<>();
+        int originNumOfPlayer=1;
+        for(Player player : handPlayers){
+            if(player.getType() != 'H' && !player.getQuit()){
+                theWinners.put(originNumOfPlayer,"Technical victory");
+            }
+            originNumOfPlayer++;
+        }
+        return theWinners;
+    }
+
 }

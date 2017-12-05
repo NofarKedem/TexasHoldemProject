@@ -3,9 +3,7 @@ import java.util.*;
 public class ComputerPlayerService {
     private Random generator;
     private List<Round.GameMoves> values = new ArrayList<>();
-//   public Round.GameMoves generateMove(){
-//       return Round.GameMoves.CALL;
-//   }
+
 
 
    public int generateAmount(int PlayerChips, int cashBoxAmount, int currBet){

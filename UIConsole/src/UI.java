@@ -401,7 +401,7 @@ public class UI {
         server.blindBet();
         int i=0;
         for(i=0; i< 4;i++) {
-            if (resultOfMove!= Utils.RoundResult.ENDGAME) //if the game was over
+            if (resultOfMove!= Utils.RoundResult.ENDGAME && resultOfMove!= Utils.RoundResult.HUMANFOLD) //if the game was over
             {
                 if(i!=0)
                     initRound();
@@ -420,15 +420,28 @@ public class UI {
         Scanner s = new Scanner(System.in);
         String res = s.nextLine();
 
+        int cashBoxReminder = 0;
         try {
-            Map<Integer, String> WinnerMap = server.WhoIsTheWinner();
+            Map<Integer, String> WinnerMap;
+            if(resultOfMove == Utils.RoundResult.HUMANFOLD){
+                WinnerMap = server.setTechniqWinners();
+            }
+            else {
+                WinnerMap = server.WhoIsTheWinner();
+            }
             for (Integer numOfPlayer : WinnerMap.keySet()) {
                 System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
                 + " the prize money is: ");
-                if(WinnerMap.size() ==1)
-                    System.out.println(server.getCashBox());
-                else
-                    System.out.println(server.getCashBox()/2);
+                int cashBoxBeforeDivide = server.getCashBox();
+                int numOfWinners = WinnerMap.size();
+                if(cashBoxBeforeDivide%numOfWinners == 0){
+                    System.out.println(cashBoxBeforeDivide/numOfWinners);
+                }
+                else{
+                    cashBoxReminder = cashBoxBeforeDivide%numOfWinners;
+                    System.out.println((cashBoxBeforeDivide - cashBoxReminder)/numOfWinners);
+                }
+
             }
         }
 
@@ -438,7 +451,7 @@ public class UI {
         }
 
         System.out.println("End of hand, buy buy!");
-        server.closeTheHand();
+        server.closeTheHand(cashBoxReminder);
 
     }
     private void initRound()

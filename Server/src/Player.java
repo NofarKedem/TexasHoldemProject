@@ -101,6 +101,10 @@ public class Player {
 
     public boolean getQuit() {return this.isQuit;}
 
+    public void setQuit(boolean isQuit){
+        this.isQuit = isQuit;
+    }
+
     public void initActionService(Round round)
     {
         this.actionService = round;

@@ -189,8 +189,13 @@ public class Round implements PlayerActionService{
         return true;
     }
 
-    public boolean isValidAmount(int amount){
-        if(amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox && amount >= currBet){
+    public boolean isValidAmount(int amount, GameMoves move){
+        if(move == GameMoves.BET && amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox
+                && amount >= currBet){
+            return true;
+        }
+        else if(move == GameMoves.RAISE && amount <= playersRef.get(currPlayerIndex).getChips() &&
+                amount+currBet <= roundCashBox && amount+currBet > currBet){
             return true;
         }
         else{

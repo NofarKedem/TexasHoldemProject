@@ -140,7 +140,7 @@ public class Hand {
     public void updateTheWinnerWithCashBox(Map<Integer,String> WinnerMap)
     {
         for (Integer numOfPlayer : WinnerMap.keySet()) {
-            Player winner = handPlayers.get(numOfPlayer);
+            Player winner = handPlayers.get(numOfPlayer-1);
             if (WinnerMap.size() == 1) {
                 winner.updateWinnerChips(cashBox);
                 winner.updateHandsWon();

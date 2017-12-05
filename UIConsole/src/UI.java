@@ -147,16 +147,19 @@ public class UI {
     }
     private void printState()
     {
-        printDoubleState(0);
+        printTowFirstPlayerState();
         System.out.println();
-        printDoubleState(2);
-
-
+        printTowLastPlayerState();
     }
-    private void printDoubleState(int numOfStartPlayer) {
+    private void printTowFirstPlayerState()
+    {
+        int numOfStartPlayer =0;
         System.out.println("********************          ********************");
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
             System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        System.out.println();
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
@@ -169,47 +172,88 @@ public class UI {
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            int numberOfBuys = server.getBuysPlayer(i);
-            System.out.print("* Buys: " + numberOfBuys);
-            int numOfDigit = countDigit(numberOfBuys);
-            for (int j = 0; j < 11 - numOfDigit; j++) {
-                System.out.print(" ");
-            }
-            System.out.print("*          ");
+            printBuys(i);
         }
         System.out.println();
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            int numberOfHandWon = server.getHandWonPlayer(i);
-            int numberOfHands = server.getNumberOfHands();
+            printHandWon(i);
+        }
+        System.out.println();
+        System.out.println("********************          ********************");
+    }
+    private void printTowLastPlayerState()
+    {
+        int numOfStartPlayer =2;
+        System.out.println("********************          ********************");
+        for (int i = 3; i > 1; i--)
+            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        System.out.println();
+        for (int i = 3; i > 1; i--)
+            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+        System.out.println();
+        for (int i = 3; i > 1; i--)
+            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+        System.out.println();
 
-            System.out.print("* Hand won: " + numberOfHandWon);
-            System.out.print("/" + numberOfHands);
+        for (int i = 3; i > 1; i--)
+            printChips(i);
+        System.out.println();
 
-            int numOfDigit = countDigit(numberOfHandWon) + countDigit(numberOfHands) + 1;
-            for (int j = 0; j < 7 - numOfDigit; j++) {
-                System.out.print(" ");
-            }
-            System.out.print("*          ");
+
+        for (int i = 3; i > 1; i--)
+        {
+            printBuys(i);
+        }
+        System.out.println();
+
+        for (int i = 3; i > 1; i--)
+        {
+            printHandWon(i);
 
         }
         System.out.println();
         System.out.println("********************          ********************");
+    }
+    private void printBuys(int i)
+    {
+        int numberOfBuys = server.getBuysPlayer(i);
+        System.out.print("* Buys: " + numberOfBuys);
+        int numOfDigit = countDigit(numberOfBuys);
+        for (int j = 0; j < 11 - numOfDigit; j++) {
+            System.out.print(" ");
+        }
+        System.out.print("*          ");
+    }
+
+    private void printHandWon(int i)
+    {
+        int numberOfHandWon = server.getHandWonPlayer(i);
+        int numberOfHands = server.getNumberOfHands();
+
+        System.out.print("* Hand won: " + numberOfHandWon);
+        System.out.print("/" + numberOfHands);
+
+        int numOfDigit = countDigit(numberOfHandWon) + countDigit(numberOfHands) + 1;
+        for (int j = 0; j < 7 - numOfDigit; j++) {
+            System.out.print(" ");
+        }
+        System.out.print("*          ");
     }
 
     private void printDetailsInTheGame()
     {
         printDetailsOfTwoFirstPlayer(0);
         System.out.println(System.lineSeparator());
-        displayAllCard();
+        displayAllCommunityCards();
         System.out.print("Current bet: " + server.getCurrBet()+ "    ");
         System.out.print("Total cash box: " + server.getCashBox());
         System.out.println(System.lineSeparator());
         printDetailsOfTwoLastPlayer(2);
         System.out.println(System.lineSeparator());
     }
-    private void displayAllCard()
+    private void displayAllCommunityCards()
     {
         List<Card> arrOfTempCards = server.getCommunityCards();
         if(arrOfTempCards.size() != 0) {
@@ -219,6 +263,14 @@ public class UI {
             System.out.print("          ");
         }
 
+    }
+
+    private void displayPlayerCard()
+    {
+        for(int i=0;i<Utils.numOfPlayer;i++)
+        {
+            System.out.println("Player number:" + i+1 + " cards are:" + server.getCardsPlayer(i));
+        }
     }
     private void printChips(int numOfPlayer)
     {
@@ -237,6 +289,9 @@ public class UI {
             System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+        System.out.println();
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
         System.out.println();
 
@@ -254,8 +309,16 @@ public class UI {
         {
             printCards(i);
         }
-
         System.out.println();
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
+        {
+            if(server.getIfPlayerQuit(i))
+                System.out.print("* Player quit      *          ");
+            else
+                System.out.print("*                  *          ");
+        }
+        System.out.println();
+
         System.out.println("********************          ********************");
     }
 
@@ -264,6 +327,9 @@ public class UI {
         System.out.println("********************          ********************");
         for (int i = 3; i > 1; i--)
             System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        System.out.println();
+        for (int i = 3; i > 1; i--)
+            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
             System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
@@ -282,8 +348,16 @@ public class UI {
         {
             printCards(i);
         }
-
         System.out.println();
+        for (int i = 3; i > 1; i--)
+        {
+            if(server.getIfPlayerQuit(i))
+                System.out.print("* Player quit      *          ");
+            else
+                System.out.print("*                  *          ");
+        }
+        System.out.println();
+
         System.out.println("********************          ********************");
     }
 
@@ -341,6 +415,7 @@ public class UI {
         {
             cardDistribusionInRound(i);
         }
+        displayPlayerCard();
         System.out.println("The hand was over, to continue to the winner press any key ");
         Scanner s = new Scanner(System.in);
         String res = s.nextLine();
@@ -506,6 +581,8 @@ public class UI {
         }
         return true;
     }
+
+
 
 }
 

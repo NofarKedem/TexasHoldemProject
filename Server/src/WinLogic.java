@@ -30,17 +30,20 @@ public class WinLogic {
         }
 
         mCalculator.calculate();
+
+        List<Integer> winnerList =  mCalculator.getWinningHands();
         int originNumOfPlayer=1;
-        int i=0;
+        int indexInHands=0;
+        int indexInWinnerList=0;
         for(Player player : playersRef) {
             if (player.getQuit() == false) //לא פרשת
             {
-                if (mCalculator.getHandEquity(i).toString().equals("100 %") || mCalculator.getHandEquity(i).toString().equals("50 %"))
+                if(indexInHands== winnerList.get(indexInWinnerList))
                 {
-                    theWinners.put(originNumOfPlayer, mCalculator.getHandRanking(i).getRank().toString());
-
+                    theWinners.put(originNumOfPlayer, mCalculator.getHandRanking(indexInHands).getRank().toString());
+                    indexInWinnerList++;
                 }
-                i++;
+                indexInHands++;
             }
             originNumOfPlayer++;
 

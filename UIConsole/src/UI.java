@@ -269,7 +269,7 @@ public class UI {
     {
         for(int i=0;i<Utils.numOfPlayer;i++)
         {
-            System.out.println("Player number:" + i+1 + " cards are:" + server.getCardsPlayer(i));
+            System.out.println("Player number: " + (i+1) + " cards are:" + server.getCardsPlayer(i));
         }
     }
     private void printChips(int numOfPlayer)

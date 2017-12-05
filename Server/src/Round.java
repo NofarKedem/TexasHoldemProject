@@ -21,6 +21,7 @@ public class Round implements PlayerActionService{
     private int currPlayerIndex; //the curr turn
     private GameMoves lastMove;
     private ComputerPlayerService CPlayerService;
+    public GameMoves moveForAmountValidatoin;
 
 
     Round(List<Player> playersRef, int roundCashBox){
@@ -34,6 +35,7 @@ public class Round implements PlayerActionService{
         lastMove = GameMoves.NONE;
         this.findSmallBigIndex();
         CPlayerService = new ComputerPlayerService();
+        moveForAmountValidatoin = GameMoves.NONE;
     }
 
     @Override
@@ -171,9 +173,11 @@ public class Round implements PlayerActionService{
             return true;
         }
         else if(gameMoves == GameMoves.RAISE && isBetOn){
+            moveForAmountValidatoin = GameMoves.RAISE;
             return true;
         }
         else if(gameMoves == GameMoves.BET && !isBetOn){
+            moveForAmountValidatoin = GameMoves.BET;
             return true;
         }
         else if(gameMoves == GameMoves.CHECK && !isBetOn){
@@ -191,7 +195,12 @@ public class Round implements PlayerActionService{
     }
 
     public boolean isValidAmount(int amount){
-        if(amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox && amount >= currBet){
+        if(moveForAmountValidatoin == GameMoves.BET && amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox
+                && amount >= currBet){
+            return true;
+        }
+        else if(moveForAmountValidatoin == GameMoves.RAISE && amount <= playersRef.get(currPlayerIndex).getChips() &&
+                amount+currBet <= roundCashBox && amount+currBet > currBet){
             return true;
         }
         else{

@@ -76,7 +76,8 @@ public class Server {
 
     private void initPlayersQuitState(){
         for(Player player : players){
-            player.setQuit(false);
+            if(player.getChips() > 0)
+                player.setQuit(false);
         }
     }
 
@@ -208,8 +209,8 @@ public class Server {
         return currHand.WhoIsTheWinner();
     }
 
-    public Map<Integer,String> setTechniqWinners() {
-        return currHand.setTechniqWinners();
+    public Map<Integer,String> setTechniqWinners(Utils.RoundResult roundResult) {
+        return currHand.setTechniqWinners(roundResult);
     }
 
     public void addChipsToPlayer()
@@ -303,6 +304,21 @@ public class Server {
 
     public int getNumOfChipsForBig() {
         return numOfChipsForBig;
+    }
+    public Boolean humanPlayerHasNoChips()
+    {
+        for(Player player : players)
+        {
+            if(player.getType() == 'H')
+            {
+                if(player.getChips() == 0)
+                    return false;
+
+                break;
+            }
+
+        }
+        return true;
     }
 
 }

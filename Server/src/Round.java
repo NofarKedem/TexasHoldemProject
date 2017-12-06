@@ -148,17 +148,20 @@ public class Round implements PlayerActionService{
 
     private Utils.RoundResult GameStatus(){
         int numOfQuitPlayers = 0;
-        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).getQuit()){
+        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).getQuit()
+                || playersRef.get(currPlayerIndex).getChips() == 0){
             return Utils.RoundResult.HUMANFOLD;
         }
+
+
         for(Player player : playersRef){
             if(player.getQuit()){
                 numOfQuitPlayers++;
             }
         }
         //If all players but 1 quit OR the current player played 'All In' - End the game 4
-        if(numOfQuitPlayers >= playersRef.size()-1 || playersRef.get(currPlayerIndex).getChips() == 0){
-            return Utils.RoundResult.ENDGAME;
+        if(numOfQuitPlayers >= playersRef.size()-1){
+            return Utils.RoundResult.ALLCOMPUTERFOLD;
         }
         if(nextTurn(currPlayerIndex) == closeTheRound){
             return Utils.RoundResult.CLOSEROUND;
@@ -188,10 +191,10 @@ public class Round implements PlayerActionService{
         }
         else{return false;}
     }
+
     public Boolean isPlayerHasEnoughChips()
     {
         if(playersRef.get(currPlayerIndex).getChips() < currBet - playersRef.get(currPlayerIndex).getBet()) {
-            gameMove(GameMoves.FOLD, 0);
             return false;
         }
         return true;

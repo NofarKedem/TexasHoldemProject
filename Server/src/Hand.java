@@ -138,11 +138,13 @@ public class Hand {
     }
 
 
-    public Map<Integer,String> setTechniqWinners() {
-        Map<Integer,String> WinnerMap;
+    public Map<Integer,String> setTechniqWinners(Utils.RoundResult roundResult) {
+        Map<Integer,String> WinnerMap = new HashMap<>();
         WinLogic winner = new WinLogic();
-
-        WinnerMap =  winner.setTechniqWinners(handPlayers);
+        if(roundResult == Utils.RoundResult.HUMANFOLD)
+            WinnerMap =  winner.setTechniqWinnersForCompPlayer(handPlayers);
+        else if(roundResult == Utils.RoundResult.ALLCOMPUTERFOLD)
+            WinnerMap =  winner.setTechniqWinnersForHumanPlayer(handPlayers);
         updateTheWinnerWithCashBox(WinnerMap);
         return WinnerMap;
 

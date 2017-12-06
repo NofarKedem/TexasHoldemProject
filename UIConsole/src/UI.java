@@ -11,8 +11,7 @@ public class UI {
     boolean isGameOver = false;
 
     public static void main(String[] args) throws Exception {
-       //WinLogic test = new WinLogic();
-        //test.findTheWinner1();
+
         UI us = new UI();
         us.menu();
     }
@@ -68,12 +67,16 @@ public class UI {
                 case "3": printState();
                     break;
                 case "4":
-                    StartHand();
-                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
-                        System.out.println("You played all your hand, game is over! ");
-                        endGame = true;
+                    if(!server.humanPlayerHasNoChips())
+                        System.out.println("Human player has no chips, if you want to continued to play please buy another chips");
+                    else {
+                        StartHand();
+                        if (server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
+                            System.out.println("You played all your hand, game is over! ");
+                            endGame = true;
+                        }
+                        printStatistics();
                     }
-                    printStatistics();
                     break;
                 case "5": printStatistics();
                     break;
@@ -429,7 +432,8 @@ public class UI {
         server.blindBet();
         int i=0;
         for(i=0; i< 4;i++) {
-            if (resultOfMove!= Utils.RoundResult.ENDGAME && resultOfMove!= Utils.RoundResult.HUMANFOLD) //if the game was over
+            if (resultOfMove!= Utils.RoundResult.ENDGAME && resultOfMove!= Utils.RoundResult.HUMANFOLD
+                    &&resultOfMove!= Utils.RoundResult.ALLCOMPUTERFOLD ) //if the game was over
             {
                 if(i!=0)
                     initRound();
@@ -449,34 +453,39 @@ public class UI {
         String res = s.nextLine();
 
         int cashBoxReminder = 0;
+
+
         try {
             Map<Integer, String> WinnerMap;
-            if(resultOfMove == Utils.RoundResult.HUMANFOLD){
-                WinnerMap = server.setTechniqWinners();
+            if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
+                System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
+                WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
+            }
+            else if(resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD)
+            {
+                System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
+                WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
             }
             else {
                 WinnerMap = server.WhoIsTheWinner();
             }
             for (Integer numOfPlayer : WinnerMap.keySet()) {
                 System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
-                + " the prize money is: ");
+                        + " the prize money is: ");
                 int cashBoxBeforeDivide = server.getCashBox();
                 int numOfWinners = WinnerMap.size();
-                if(cashBoxBeforeDivide%numOfWinners == 0){
-                    System.out.println(cashBoxBeforeDivide/numOfWinners);
-                }
-                else{
-                    cashBoxReminder = cashBoxBeforeDivide%numOfWinners;
-                    System.out.println((cashBoxBeforeDivide - cashBoxReminder)/numOfWinners);
+                if (cashBoxBeforeDivide % numOfWinners == 0) {
+                    System.out.println(cashBoxBeforeDivide / numOfWinners);
+                } else {
+                    cashBoxReminder = cashBoxBeforeDivide % numOfWinners;
+                    System.out.println((cashBoxBeforeDivide - cashBoxReminder) / numOfWinners);
                 }
 
             }
-        }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
 
         System.out.println("End of hand, buy buy!");
         server.closeTheHand(cashBoxReminder);
@@ -536,8 +545,8 @@ public class UI {
         boolean isValidMove = false;
         boolean isValidAmount = false;
         if(!server.isPlayerHasEnoughChips()) {
-            System.out.println("This player dont have enough chips to play in this hand, therefor the player quit!");
-            resultOfMove = Utils.RoundResult.ENDGAME;
+            System.out.println("This player don't have enough chips to play in this hand, therefor the player quit!");
+            resultOfMove = server.gameMove("1", 0);
         }
         else {
             while (!isValidMove) {

@@ -14,7 +14,10 @@ public class Player {
     public Player(char type,String state,int chips,int buys, int numOfPlayer){
         this.type = type;
         this.state = state;
-        this.chips = chips;
+      //  if(type == 'H') //for test
+        //    this.chips = 9;
+      //  else
+            this.chips = chips;
         this.buys = buys;
         this.bet = 0;
         isQuit = false;
@@ -60,8 +63,8 @@ public class Player {
         int RaiceAmount = (currBet + amount) - bet;
         chips = chips - RaiceAmount;
         actionService.updateCashBox(RaiceAmount);
-        actionService.updateCurrBet(RaiceAmount);
-        bet = RaiceAmount;
+        actionService.updateCurrBet(RaiceAmount + bet);
+        bet += RaiceAmount;
 
     }
 

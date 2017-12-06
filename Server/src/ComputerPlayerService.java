@@ -25,7 +25,7 @@ public class ComputerPlayerService {
 
     public Round.GameMoves generateMove(Round.GameMoves lastPlayerMove, boolean isBetOn){
        Round.GameMoves randomMove;
-       /*
+
        switch (lastPlayerMove){
            case NONE: //no one played before me - I'm the first to talk
                return Round.GameMoves.BET;
@@ -61,9 +61,9 @@ public class ComputerPlayerService {
                values.clear();
                return randomMove;
        }
-        */
-      // return randomGameMove();
-        return Round.GameMoves.RAISE;
+
+       return randomGameMove();
+
     }
 
     private Round.GameMoves randomGameMove(){

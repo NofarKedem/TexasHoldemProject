@@ -55,6 +55,7 @@ public class Server {
     public void initializeHand(){
         deck.allCardsInDeck();
         currHand = new Hand(deck, handTohandCashBox);
+
         initPlayersQuitState();
         currHand.setHandPlayers(players);
     }
@@ -67,12 +68,26 @@ public class Server {
         }
         currHand.setFirstPlayer();
     }
+
     private void initPlayersState(){
         players.get(dilerIndex).updateState("D");
         int small = calcSmallIndex(dilerIndex);
         players.get(small).updateState("S");
         players.get(calcBigIndex(small)).updateState("B");
     }
+//will might be needed for the 2nd exercise
+//    private void initPlayersState(){
+//        int small = calcSmallIndex(dilerIndex);
+//        int big = calcBigIndex(small);
+//        while(players.get(small).getChips() < numOfChipsForsmall || players.get(big).getChips() < numOfChipsForBig){
+//            dilerIndex = calculateDilerIndex(dilerIndex);
+//            small = calcSmallIndex(dilerIndex);
+//            big = calcBigIndex(small);
+//        }
+//        players.get(dilerIndex).updateState("D");
+//        players.get(small).updateState("S");
+//        players.get(calcBigIndex(small)).updateState("B");
+//    }
 
     private void initPlayersQuitState(){
         for(Player player : players){
@@ -95,8 +110,8 @@ public class Server {
         this.currHand.cardDistribusion();
     }
 
-    public void blindBet(){
-        currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
+    public boolean blindBet(){
+        return currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
     }
 
 

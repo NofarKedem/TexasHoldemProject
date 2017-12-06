@@ -98,14 +98,16 @@ public class Round implements PlayerActionService{
         return currPlayerIndex;
     }
 
-    public void blindBet(int numOfChipsForBig,int numOfChipsForSmall){
-      //  this.findSmallBigIndex();
-       // playersRef.get(smallIdx).Bet(numOfChipsForSmall);  //the game move is the blind small!
-       // playersRef.get(bigIdx).Bet(numOfChipsForBig); //the game move is the blind big!
-        gameMove(GameMoves.BET,numOfChipsForSmall);
-        gameMove(GameMoves.BET,numOfChipsForBig);
-        //closeTheRound = bigIdx;
-       // lastMove = GameMoves.BET;
+    public boolean blindBet(int numOfChipsForBig,int numOfChipsForSmall){
+        if(playersRef.get(smallIdx).getChips() < numOfChipsForSmall ||
+                playersRef.get(bigIdx).getChips() < numOfChipsForBig){
+            return false;
+        }
+        else {
+            gameMove(GameMoves.BET, numOfChipsForSmall);
+            gameMove(GameMoves.BET, numOfChipsForBig);
+            return true;
+        }
     }
 
     private int nextTurn(int lastToPlayIndex){

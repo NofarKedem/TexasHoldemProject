@@ -15,12 +15,13 @@ public class ComputerPlayerService {
            maxLimit = PlayerChips;
        }
        else{maxLimit = cashBoxAmount;}
+       maxLimit -=currBet;
        Random amountGenerator = new Random();
        int amount;
-       do {
+     //  do {
            amount = amountGenerator.nextInt(maxLimit);
           // amount = Math.round(amount/5)*5;
-       } while (amount < currBet);
+      // } while (amount < currBet);
        return amount;
    }
 

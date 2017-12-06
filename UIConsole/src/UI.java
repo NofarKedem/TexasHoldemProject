@@ -162,7 +162,9 @@ public class UI {
             System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+        {
+            printStateOfPlayer(i);
+        }
         System.out.println();
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
@@ -185,7 +187,6 @@ public class UI {
     }
     private void printTowLastPlayerState()
     {
-        int numOfStartPlayer =2;
         System.out.println("********************          ********************");
         for (int i = 3; i > 1; i--)
             System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
@@ -194,7 +195,9 @@ public class UI {
             System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
-            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+        {
+            printStateOfPlayer(i);
+        }
         System.out.println();
 
         for (int i = 3; i > 1; i--)
@@ -215,6 +218,31 @@ public class UI {
         }
         System.out.println();
         System.out.println("********************          ********************");
+    }
+    private void printStateOfPlayer(int i)
+    {
+        System.out.print("* State: " + server.getStatePlayer(i) );
+
+        if(server.getStatePlayer(i)=="S")
+        {
+            System.out.print("-" + server.getNumOfChipsForsmall());
+            int numOfDigit = countDigit(server.getNumOfChipsForsmall());
+            for (int j = 0; j < 8 - numOfDigit; j++) {
+                System.out.print(" ");
+            }
+            System.out.print("*          ");
+        }
+        else if(server.getStatePlayer(i)=="B")
+        {
+            System.out.print("-" + server.getNumOfChipsForBig());
+            int numOfDigit = countDigit(server.getNumOfChipsForBig());
+            for (int j = 0; j < 8 - numOfDigit; j++) {
+                System.out.print(" ");
+            }
+            System.out.print("*          ");
+        }
+        else
+            System.out.print("         *          ");
     }
     private void printBuys(int i)
     {

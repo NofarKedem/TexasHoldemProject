@@ -84,6 +84,7 @@ public class Round implements PlayerActionService{
         this.isBetOn = true;
     }
 
+
     public void setCurrPlayer(){
         currPlayerIndex = smallIdx;
         if(playersRef.get(smallIdx).getQuit()){
@@ -166,6 +167,7 @@ public class Round implements PlayerActionService{
     }
 
     public boolean isValidGameMove(Round.GameMoves gameMoves) {
+        setMoveForAmountValidatoin(gameMoves);
         if(gameMoves == GameMoves.FOLD){
             return true;
         }
@@ -173,11 +175,11 @@ public class Round implements PlayerActionService{
             return true;
         }
         else if(gameMoves == GameMoves.RAISE && isBetOn){
-            moveForAmountValidatoin = GameMoves.RAISE;
+            //moveForAmountValidatoin = GameMoves.RAISE;
             return true;
         }
         else if(gameMoves == GameMoves.BET && !isBetOn){
-            moveForAmountValidatoin = GameMoves.BET;
+            //moveForAmountValidatoin = GameMoves.BET;
             return true;
         }
         else if(gameMoves == GameMoves.CHECK && !isBetOn){
@@ -199,10 +201,13 @@ public class Round implements PlayerActionService{
                 && amount >= currBet){
             return true;
         }
-        else if(moveForAmountValidatoin == GameMoves.RAISE && amount <= playersRef.get(currPlayerIndex).getChips() &&
+        else if(moveForAmountValidatoin == GameMoves.RAISE &&
+                (amount + currBet - playersRef.get(currPlayerIndex).getBet()) <= playersRef.get(currPlayerIndex).getChips() &&
                 amount+currBet <= roundCashBox && amount+currBet > currBet){
             return true;
         }
+        else if((moveForAmountValidatoin != GameMoves.RAISE) && (moveForAmountValidatoin != GameMoves.BET) )
+            return true;
         else{
             return false;
         }
@@ -213,8 +218,9 @@ public class Round implements PlayerActionService{
         return playersRef.get(currPlayerIndex).getBet();
     }
 
-    public Utils.RoundResult playWithComputer(){
-
+    public Utils.RoundResult playWithComputer()
+    {
+        Boolean isValidAmountBol = false;
         Player currPlayer = playersRef.get(getCurrPlayer());
         Round.GameMoves gameMove;
         int amount=0;
@@ -223,11 +229,21 @@ public class Round implements PlayerActionService{
         }
         else {
              gameMove = CPlayerService.generateMove(getLastMove(), isBetOn);
-             amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
-                    roundCashBox, currBet);
+            setMoveForAmountValidatoin(gameMove);
+             while(!isValidAmountBol) {
+                 amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
+                         roundCashBox, currBet);
+                 isValidAmountBol = isValidAmount(amount);
+             }
 
         }
         Utils.RoundResult result = gameMove(gameMove, amount);
         return result;
     }
+    private void setMoveForAmountValidatoin(GameMoves gameMoves)
+    {
+        this.moveForAmountValidatoin = gameMoves;
+    }
+
+
 }

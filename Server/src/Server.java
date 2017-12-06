@@ -288,4 +288,11 @@ public class Server {
         return players.get(indexOfPlayer).getQuit();
     }
 
+    public int getNumOfChipsForsmall() {
+        return numOfChipsForsmall;
+    }
+
+    public int getNumOfChipsForBig() {
+        return numOfChipsForBig;
+    }
 }

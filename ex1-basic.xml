@@ -6,8 +6,8 @@
 		<HandsCount>4</HandsCount>
 		<Buy>100</Buy>
 		<Blindes fixed="true">
-			<Big>10</Big>
-			<Small>5</Small>
+			<Big>20</Big>
+			<Small>10</Small>
 		</Blindes>
 	</Structure>
 </GameDescriptor>

@@ -20,6 +20,7 @@ public class Round implements PlayerActionService{
     private int roundCashBox;
     private int currPlayerIndex; //the curr turn
     private GameMoves lastMove;
+    private int lastGenerateAmount = 0;
     private ComputerPlayerService CPlayerService;
     public GameMoves moveForAmountValidatoin;
 
@@ -239,7 +240,7 @@ public class Round implements PlayerActionService{
                          roundCashBox, currBet);
                  isValidAmountBol = isValidAmount(amount);
              }
-
+             lastGenerateAmount = amount;
         }
         Utils.RoundResult result = gameMove(gameMove, amount);
         return result;
@@ -247,6 +248,11 @@ public class Round implements PlayerActionService{
     private void setMoveForAmountValidatoin(GameMoves gameMoves)
     {
         this.moveForAmountValidatoin = gameMoves;
+    }
+
+    public int getLastGenerateAmount()
+    {
+        return lastGenerateAmount;
     }
 
 

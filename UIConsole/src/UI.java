@@ -1,14 +1,7 @@
-import XMLobject.GameDescriptor;
-import com.sun.deploy.util.StringUtils;
-import javafx.util.Pair;
-
-import java.io.FileNotFoundException;
-import java.sql.Time;
 import java.util.*;
 
 public class UI {
     Server server = new Server();
-    boolean isGameOver = false;
 
     public static void main(String[] args) throws Exception {
 
@@ -31,11 +24,13 @@ public class UI {
                 System.out.println("1. Load file");
                 System.out.println("2. Start game");
             }
-            System.out.println("3. Display status of the game");
-            System.out.println("4. Start hand");
-            System.out.println("5. Display statistics");
-            System.out.println("6. Buy chips");
-            System.out.println("7. Quit from the game");
+            if(isGameStarted) {
+                System.out.println("3. Display status of the game");
+                System.out.println("4. Start hand");
+                System.out.println("5. Display statistics");
+                System.out.println("6. Buy chips");
+                System.out.println("7. Quit from the game");
+            }
             System.out.println("8. Exit");
             Scanner s = new Scanner(System.in);
             String res = s.next();
@@ -63,7 +58,6 @@ public class UI {
                     else
                         System.out.println("Game was allready started");
                     break;
-
                 case "3": printState();
                     break;
                 case "4":
@@ -73,7 +67,6 @@ public class UI {
                         StartHand();
                         if (server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
                             System.out.println("You played all your hand, game is over! ");
-                            endGame = true;
                         }
                         printStatistics();
                     }
@@ -83,11 +76,15 @@ public class UI {
                 case "6" : buyChips();
                     break;
                 case "7" :
-                    //endGame = true;
-                    isGameStarted = false;
+
                     System.out.println("You choose to quit the game, what do you want to do now?");
-                    System.out.println("1. Start New Game");
+                    System.out.println("1. Start New Game with loading new file");
                     System.out.println("2. Restart the current game");
+                    Scanner ss = new Scanner(System.in);
+                    String ress = s.next();
+                    if(ress == "1")
+                        isGameStarted = false;
+                    restartGame();
                     //להמשיך לממש את הבונוס
                     break;
                 case "8" :
@@ -531,7 +528,11 @@ public class UI {
             else
             {
                 resultOfMove = server.playWithComputer();
-                System.out.println("Computer move was: " + server.getLastMove());
+                System.out.print("Computer move was: " + server.getLastMove());
+                if(server.getLastMove() == "RAISE")
+                    System.out.println(" with amount: " + server.getLastGenerateAmount());
+                else
+                    System.out.println();
                 System.out.println("after computer player play");
                 printDetailsInTheGame();
             }
@@ -632,7 +633,10 @@ public class UI {
         return true;
     }
 
-
+    public void restartGame()
+    {
+        //server.restartGame();
+    }
 
 }
 

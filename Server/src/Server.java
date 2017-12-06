@@ -320,5 +320,14 @@ public class Server {
         }
         return true;
     }
-
+    /*
+    public void restartGame()
+    {
+        ???
+    }
+    */
+    public int getLastGenerateAmount()
+    {
+        return currHand.getLastGenerateAmount();
+    }
 }

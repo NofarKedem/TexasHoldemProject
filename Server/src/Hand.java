@@ -32,7 +32,7 @@ public class Hand {
 
     public Utils.RoundResult gameMove(Round.GameMoves gameMove, int amount){
         Utils.RoundResult result = currRound.gameMove(gameMove,amount);
-        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME || result == Utils.RoundResult.HUMANFOLD){
+        if(result != Utils.RoundResult.NOTHINGHAPPEN){
             this.cashBoxAfterRound();
         }
         return result;
@@ -40,7 +40,7 @@ public class Hand {
 
     public Utils.RoundResult playWithComputer(){
         Utils.RoundResult result = currRound.playWithComputer();
-        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME || result == Utils.RoundResult.HUMANFOLD){
+        if(result != Utils.RoundResult.NOTHINGHAPPEN){
             this.cashBoxAfterRound();
         }
         return result;
@@ -190,4 +190,8 @@ public class Hand {
         return currRound.getCashBox();
     }
 
+    public int getLastGenerateAmount()
+    {
+        return currRound.getLastGenerateAmount();
+    }
 }

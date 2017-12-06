@@ -11,11 +11,11 @@ public class Hand {
     private int cashBox;
 
 
-    public Hand(Deck deck){
+    public Hand(Deck deck, int cashBox){
         this.deck = deck;
         handRounds = new ArrayList<>(4);
         communityCards = new ArrayList<>(5);
-        cashBox = 0; //the value is just for testing
+        this.cashBox = cashBox;
     }
 
     public void initRound(){
@@ -32,7 +32,7 @@ public class Hand {
 
     public Utils.RoundResult gameMove(Round.GameMoves gameMove, int amount){
         Utils.RoundResult result = currRound.gameMove(gameMove,amount);
-        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME){
+        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME || result == Utils.RoundResult.HUMANFOLD){
             this.cashBoxAfterRound();
         }
         return result;
@@ -40,7 +40,7 @@ public class Hand {
 
     public Utils.RoundResult playWithComputer(){
         Utils.RoundResult result = currRound.playWithComputer();
-        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME){
+        if(result == Utils.RoundResult.CLOSEROUND || result == Utils.RoundResult.ENDGAME || result == Utils.RoundResult.HUMANFOLD){
             this.cashBoxAfterRound();
         }
         return result;
@@ -137,10 +137,22 @@ public class Hand {
         return WinnerMap;
     }
 
+
+    public Map<Integer,String> setTechniqWinners() {
+        Map<Integer,String> WinnerMap;
+        WinLogic winner = new WinLogic();
+
+        WinnerMap =  winner.setTechniqWinners(handPlayers);
+        updateTheWinnerWithCashBox(WinnerMap);
+        return WinnerMap;
+
+    }
+
     public void updateTheWinnerWithCashBox(Map<Integer,String> WinnerMap)
     {
         for (Integer numOfPlayer : WinnerMap.keySet()) {
             Player winner = handPlayers.get(numOfPlayer-1);
+            /*
             if (WinnerMap.size() == 1) {
                 winner.updateWinnerChips(cashBox);
                 winner.updateHandsWon();
@@ -156,11 +168,24 @@ public class Hand {
                     cashBox = 1;
                 }
             }
+            */
+
+            if(cashBox % WinnerMap.size() == 0){
+                winner.updateWinnerChips(cashBox/WinnerMap.size());
+                winner.updateHandsWon();
+            }
+            else{
+                int reminderInCashBox = cashBox%WinnerMap.size();
+                winner.updateWinnerChips((cashBox - reminderInCashBox)/WinnerMap.size());
+                winner.updateHandsWon();
+            }
 
          }
+        cashBox = cashBox%WinnerMap.size();
     }
     public int getCashBox()
     {
         return currRound.getCashBox();
     }
+
 }

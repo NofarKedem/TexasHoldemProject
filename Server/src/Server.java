@@ -8,14 +8,13 @@ import java.util.Map;
 
 public class Server {
     private Deck deck;
-    //private List<Hand> hands;
     private List<Player> players;
     private Hand currHand;
     private long timeOfStartGame;
     private int totalnumOfHands;
     private int numOfPlayHands;
     private static int dilerIndex = 0;
-    private int maxCashBox;
+    private int handTohandCashBox;
     private int numOfChipsForsmall; //to be updated from the XML
     private int numOfChipsForBig;//to be updated from the XML
     private int numOfChipsPerBuy; //to be updated from the XML
@@ -23,13 +22,11 @@ public class Server {
 
 
     public Server(){
-        //currHand = 0;
         timeOfStartGame = 0;
         totalnumOfHands = 0;
-        maxCashBox = 0;
         players = new ArrayList(Utils.numOfPlayer);
-        //hands = new ArrayList<>();
         deck = new Deck();
+        handTohandCashBox = 0;
     }
 
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
@@ -46,17 +43,19 @@ public class Server {
 
     }
 
-    public void closeTheHand(){
+    public void closeTheHand(int cashBoxReminder){
         for(Player P : players){
             P.resetState();
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
+        handTohandCashBox = cashBoxReminder;
     }
 
     public void initializeHand(){
         deck.allCardsInDeck();
-        currHand = new Hand(deck);
+        currHand = new Hand(deck, handTohandCashBox);
+        initPlayersQuitState();
         currHand.setHandPlayers(players);
     }
     public void initRound()
@@ -73,6 +72,12 @@ public class Server {
         int small = calcSmallIndex(dilerIndex);
         players.get(small).updateState("S");
         players.get(calcBigIndex(small)).updateState("B");
+    }
+
+    private void initPlayersQuitState(){
+        for(Player player : players){
+            player.setQuit(false);
+        }
     }
 
     private int calculateDilerIndex(int lastDilerIndex){
@@ -203,6 +208,10 @@ public class Server {
         return currHand.WhoIsTheWinner();
     }
 
+    public Map<Integer,String> setTechniqWinners() {
+        return currHand.setTechniqWinners();
+    }
+
     public void addChipsToPlayer()
     {
         for (Player p : players)
@@ -295,4 +304,5 @@ public class Server {
     public int getNumOfChipsForBig() {
         return numOfChipsForBig;
     }
+
 }

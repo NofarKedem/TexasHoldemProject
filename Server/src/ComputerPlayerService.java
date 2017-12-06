@@ -24,6 +24,7 @@ public class ComputerPlayerService {
    }
 
     public Round.GameMoves generateMove(Round.GameMoves lastPlayerMove, boolean isBetOn){
+
        Round.GameMoves randomMove;
 
        switch (lastPlayerMove){

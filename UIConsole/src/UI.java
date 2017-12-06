@@ -424,68 +424,67 @@ public class UI {
     }
     private void StartHand() //פקודה מספר 4
     {
+        int cashBoxReminder = 0;
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         server.initializeHand();
         server.setPlayHand();
         server.cardDistribusionToPlayer();
         initRound();
-        server.blindBet();
-        int i=0;
-        for(i=0; i< 4;i++) {
-            if (resultOfMove!= Utils.RoundResult.ENDGAME && resultOfMove!= Utils.RoundResult.HUMANFOLD
-                    &&resultOfMove!= Utils.RoundResult.ALLCOMPUTERFOLD ) //if the game was over
-            {
-                if(i!=0)
-                    initRound();
-                resultOfMove = playOneRound();
+        if(server.blindBet()) {
+            int i = 0;
+            for (i = 0; i < 4; i++) {
+                if (resultOfMove != Utils.RoundResult.ENDGAME && resultOfMove != Utils.RoundResult.HUMANFOLD
+                        && resultOfMove != Utils.RoundResult.ALLCOMPUTERFOLD) //if the game was over
+                {
+                    if (i != 0)
+                        initRound();
+                    resultOfMove = playOneRound();
+                    cardDistribusionInRound(i);
+                } else
+                    break;
+            }
+            for (int j = i + 1; j < 4; j++) {
                 cardDistribusionInRound(i);
             }
-            else
-                break;
-        }
-        for(int j=i+1;j<4;j++)
-        {
-            cardDistribusionInRound(i);
-        }
-        displayPlayerCard();
-        System.out.println("The hand was over, to continue to the winner press any key ");
-        Scanner s = new Scanner(System.in);
-        String res = s.nextLine();
+            displayPlayerCard();
+            System.out.println("The hand was over, to continue to the winner press any key ");
+            Scanner s = new Scanner(System.in);
+            String res = s.nextLine();
 
-        int cashBoxReminder = 0;
+            cashBoxReminder = 0;
 
 
-        try {
-            Map<Integer, String> WinnerMap;
-            if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
-                System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
-                WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
-            }
-            else if(resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD)
-            {
-                System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
-                WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
-            }
-            else {
-                WinnerMap = server.WhoIsTheWinner();
-            }
-            for (Integer numOfPlayer : WinnerMap.keySet()) {
-                System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
-                        + " the prize money is: ");
-                int cashBoxBeforeDivide = server.getCashBox();
-                int numOfWinners = WinnerMap.size();
-                if (cashBoxBeforeDivide % numOfWinners == 0) {
-                    System.out.println(cashBoxBeforeDivide / numOfWinners);
+            try {
+                Map<Integer, String> WinnerMap;
+                if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
+                    System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
+                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
+                } else if (resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD) {
+                    System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
+                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
                 } else {
-                    cashBoxReminder = cashBoxBeforeDivide % numOfWinners;
-                    System.out.println((cashBoxBeforeDivide - cashBoxReminder) / numOfWinners);
+                    WinnerMap = server.WhoIsTheWinner();
                 }
+                for (Integer numOfPlayer : WinnerMap.keySet()) {
+                    System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
+                            + " the prize money is: ");
+                    int cashBoxBeforeDivide = server.getCashBox();
+                    int numOfWinners = WinnerMap.size();
+                    if (cashBoxBeforeDivide % numOfWinners == 0) {
+                        System.out.println(cashBoxBeforeDivide / numOfWinners);
+                    } else {
+                        cashBoxReminder = cashBoxBeforeDivide % numOfWinners;
+                        System.out.println((cashBoxBeforeDivide - cashBoxReminder) / numOfWinners);
+                    }
 
-            }
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
+        }
+        else{
+            System.out.println("The current blind bet player\\s do not have enough chips for bet!");
+        }
 
         System.out.println("End of hand, buy buy!");
         server.closeTheHand(cashBoxReminder);

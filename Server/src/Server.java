@@ -15,9 +15,9 @@ public class Server {
     private int numOfPlayHands;
     private static int dilerIndex = 0;
     private int handTohandCashBox;
-    private int numOfChipsForsmall; //to be updated from the XML
-    private int numOfChipsForBig;//to be updated from the XML
-    private int numOfChipsPerBuy; //to be updated from the XML
+    private int numOfChipsForsmall;
+    private int numOfChipsForBig;
+    private int numOfChipsPerBuy;
 
 
 
@@ -53,7 +53,7 @@ public class Server {
     }
 
     public void initializeHand(){
-        deck.allCardsInDeck();
+        deck.InitCardInDeck();
         currHand = new Hand(deck, handTohandCashBox);
 
         initPlayersQuitState();
@@ -335,14 +335,35 @@ public class Server {
         }
         return true;
     }
-    /*
-    public void restartGame()
+
+    public void restartGameForNewGame()
     {
-        ???
+        deck.InitCardInDeck();
+        players.clear();
+        currHand= null;
+        timeOfStartGame=0;
+        numOfPlayHands=0;
+        dilerIndex = 0;
+        handTohandCashBox=0;
+        numOfChipsForsmall=0;
+        numOfChipsForBig=0;
+        numOfChipsPerBuy=0;
+        //currHand.restartGameForNewGame();
     }
-    */
+
     public int getLastGenerateAmount()
     {
         return currHand.getLastGenerateAmount();
+    }
+
+    public void restartCurrentGame()
+    {
+        deck.InitCardInDeck();
+        players.clear();
+        currHand= null;
+        numOfPlayHands=0;
+        dilerIndex = 0;
+        handTohandCashBox=0;
+
     }
 }

@@ -19,7 +19,7 @@ public class Deck {
         return deck.size() - cardUsed;
     }
 
-    public void allCardsInDeck(){
+    public void InitCardInDeck(){
         for (int i = 0; i < deck.size();i++) {
             Card currCard = deck.get(i);
             if (currCard.isUsed()) {

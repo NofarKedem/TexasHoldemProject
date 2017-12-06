@@ -11,12 +11,12 @@ public class UI {
 
     public void menu() {
         //תחילת המשחק כאילו לחצו 1
-        loadFile();
-        server.initializePlayers(1,3);
+        //loadFile();
+        //server.initializePlayers(1,3);
 
-        printState(); // הפלט של 1 זה פקודה 3
         Boolean endGame = false;
         Boolean isGameStarted = false;
+        Boolean isLoadingFile = false;
         while(!endGame)
         {
             if(!isGameStarted)
@@ -41,7 +41,7 @@ public class UI {
                     {
                         loadFile();
                         server.initializePlayers(1,3);
-                        server.initializeHand();
+                        isLoadingFile = true;
                         printState();
                     }
                     else
@@ -49,7 +49,9 @@ public class UI {
                     break;
 
                 case "2":
-                    if(!isGameStarted)
+                    if(!isLoadingFile)
+                        System.out.println("You need to load file before starting the game");
+                    else if(!isGameStarted)
                     {
                         server.setTimeOfGame();
                         printState();
@@ -76,15 +78,20 @@ public class UI {
                 case "6" : buyChips();
                     break;
                 case "7" :
-
                     System.out.println("You choose to quit the game, what do you want to do now?");
                     System.out.println("1. Start New Game with loading new file");
                     System.out.println("2. Restart the current game");
                     Scanner ss = new Scanner(System.in);
                     String ress = s.next();
-                    if(ress == "1")
+                    if(ress.equals("1")) {
                         isGameStarted = false;
-                    restartGame();
+                        isLoadingFile = false;
+                        restartGameForNewGame();
+                    }
+                    if(ress.equals("2")) {
+                        restartCurrentGame();
+                    }
+
                     //להמשיך לממש את הבונוס
                     break;
                 case "8" :
@@ -95,16 +102,6 @@ public class UI {
                     break;
             }
         }
-
-
-
-        // printState(); // הפלט של 2 זה פקודה 3
-
-        //אופציה 3
-        // printState();
-
-        //אופציה 4
-        printDetailsInTheGame();
     }
 
     private void loadFile() {
@@ -632,9 +629,15 @@ public class UI {
         return true;
     }
 
-    public void restartGame()
+    public void restartGameForNewGame()
     {
-        //server.restartGame();
+        server.restartGameForNewGame();
+
+    }
+    public void restartCurrentGame()
+    {
+        server.restartCurrentGame();
+        server.initializePlayers(1,3);
     }
 
 }

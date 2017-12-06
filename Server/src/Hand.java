@@ -195,4 +195,16 @@ public class Hand {
     {
         return currRound.getLastGenerateAmount();
     }
+    /*
+    public void restartGameForNewGame()
+    {
+        currRound = null;
+        handRounds.clear();
+        deck.InitCardInDeck();
+        communityCards.clear();
+        handPlayers.clear();
+        cashBox =0;
+
+    }
+    */
 }

@@ -10,10 +10,6 @@ public class UI {
     }
 
     public void menu() {
-        //תחילת המשחק כאילו לחצו 1
-        //loadFile();
-        //server.initializePlayers(1,3);
-
         Boolean endGame = false;
         Boolean isGameStarted = false;
         Boolean isLoadingFile = false;
@@ -88,11 +84,11 @@ public class UI {
                         isLoadingFile = false;
                         restartGameForNewGame();
                     }
-                    if(ress.equals("2")) {
+                    else if(ress.equals("2")) {
                         restartCurrentGame();
                     }
-
-                    //להמשיך לממש את הבונוס
+                    else
+                        System.out.println("Invalid input");
                     break;
                 case "8" :
                     System.out.println("You choose to finish the game, bey bey!");

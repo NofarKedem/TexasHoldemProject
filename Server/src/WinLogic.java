@@ -21,14 +21,9 @@ public class WinLogic {
     public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<Player> playersRef) throws Exception {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
-        for(Player player : playersRef)
-        {
-            if(!player.getQuit()) {
-                String cardStr = player.getCard()[0].toString() + player.getCard()[1].toString();
-                mCalculator.addHand(com.rundef.poker.Hand.fromString(cardStr));
-            }
-        }
 
+        mCalculator.addHand(com.rundef.poker.Hand.fromString("3S5S"));
+        mCalculator.addHand(com.rundef.poker.Hand.fromString("3D5D"));
         mCalculator.calculate();
 
         List<Integer> winnerList =  mCalculator.getWinningHands();

@@ -182,11 +182,9 @@ public class Round implements PlayerActionService{
             return true;
         }
         else if(gameMoves == GameMoves.RAISE && isBetOn){
-            //moveForAmountValidatoin = GameMoves.RAISE;
             return true;
         }
         else if(gameMoves == GameMoves.BET && !isBetOn){
-            //moveForAmountValidatoin = GameMoves.BET;
             return true;
         }
         else if(gameMoves == GameMoves.CHECK && !isBetOn){

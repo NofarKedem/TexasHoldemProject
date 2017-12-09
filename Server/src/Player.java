@@ -14,10 +14,7 @@ public class Player {
     public Player(char type,String state,int chips,int buys, int numOfPlayer){
         this.type = type;
         this.state = state;
-      //  if(type == 'H') //for test
-        //    this.chips = 9;
-      //  else
-            this.chips = chips;
+        this.chips = chips;
         this.buys = buys;
         this.bet = 0;
         isQuit = false;

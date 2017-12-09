@@ -31,11 +31,9 @@ public class Server {
 
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
         for(int i=0;i < numOfHPlayers; i++){
-            //need to add methods update and updates chips from XML parameter
             players.add(new Player('H', " ",numOfChipsPerBuy,1,1));
         }
         for(int i=0;i < numOfCPlayers; i++){
-            //need to add methods update and updates chips from XML parameter
             players.add(new Player('C', " ",numOfChipsPerBuy,1,numOfHPlayers+1+i));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
@@ -134,7 +132,6 @@ public class Server {
         return currHand.isPlayerHasEnoughChips();
     }
 
-    //hadar changes
     public void loadFile(String filePath)throws Exception
     {
         SimpleJAXBMain Xml = new SimpleJAXBMain(filePath);
@@ -348,7 +345,6 @@ public class Server {
         numOfChipsForsmall=0;
         numOfChipsForBig=0;
         numOfChipsPerBuy=0;
-        //currHand.restartGameForNewGame();
     }
 
     public int getLastGenerateAmount()

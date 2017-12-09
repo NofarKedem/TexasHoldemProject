@@ -73,16 +73,6 @@ public class Hand {
     public void setHandPlayers(List<Player> handPlayers) {
         this.handPlayers = handPlayers;
     }
-    /*
-    public Card[] drawCardsForPlayer(int numOfCards){
-        return deck.drawFromDeck(numOfCards);
-    }
-
-    public void drawCommunityCard(int communityCardIndex){
-        //drawFromDeck returns an array of cards that contain only one card in index 0
-        communityCards[communityCardIndex] = (deck.drawFromDeck(1))[0];
-    }
-    */
 
     public boolean blindBet(int numOfChipsForBig,int numOfChipsForsmall){
 
@@ -195,16 +185,5 @@ public class Hand {
     {
         return currRound.getLastGenerateAmount();
     }
-    /*
-    public void restartGameForNewGame()
-    {
-        currRound = null;
-        handRounds.clear();
-        deck.InitCardInDeck();
-        communityCards.clear();
-        handPlayers.clear();
-        cashBox =0;
 
-    }
-    */
 }

@@ -10,10 +10,6 @@ public class UI {
     }
 
     public void menu() {
-        //תחילת המשחק כאילו לחצו 1
-        //loadFile();
-        //server.initializePlayers(1,3);
-
         Boolean endGame = false;
         Boolean isGameStarted = false;
         Boolean isLoadingFile = false;
@@ -63,13 +59,15 @@ public class UI {
                 case "3": printState();
                     break;
                 case "4":
-                    if(!server.humanPlayerHasNoChips())
+                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand())
+                     {
+                         System.out.println("You played all your hand, game is over! ");
+                     }
+                    else if(!server.humanPlayerHasNoChips())
                         System.out.println("Human player has no chips, if you want to continued to play please buy another chips");
+
                     else {
                         StartHand();
-                        if (server.getNumberOfHands() == server.getCurrentNumberOfHand()) {
-                            System.out.println("You played all your hand, game is over! ");
-                        }
                         printStatistics();
                     }
                     break;
@@ -88,11 +86,11 @@ public class UI {
                         isLoadingFile = false;
                         restartGameForNewGame();
                     }
-                    if(ress.equals("2")) {
+                    else if(ress.equals("2")) {
                         restartCurrentGame();
                     }
-
-                    //להמשיך לממש את הבונוס
+                    else
+                        System.out.println("Invalid input");
                     break;
                 case "8" :
                     System.out.println("You choose to finish the game, bey bey!");
@@ -129,6 +127,7 @@ public class UI {
     private void buyChips()
     {
         server.addChipsToPlayer();
+        System.out.println("Buying chips success!");
     }
 
     private int countDigit(int num)

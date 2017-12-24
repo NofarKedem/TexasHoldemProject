@@ -1,6 +1,5 @@
 import XMLobject.GameDescriptor;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +18,16 @@ public class Server {
     private int numOfChipsForBig;
     private int numOfChipsPerBuy;
 
+    private List<StatusSnapShot> handReplay = new ArrayList<>();
+
+
+
 
 
     public Server(){
         timeOfStartGame = 0;
         totalnumOfHands = 0;
-        players = new ArrayList(Utils.numOfPlayer);
+        players = new ArrayList(Utils.numOfPlayers);
         deck = new Deck();
         handTohandCashBox = 0;
     }
@@ -109,7 +112,9 @@ public class Server {
     }
 
     public boolean blindBet(){
-        return currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
+        boolean ret = currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
+        addBlindBetSnapShots();
+        return ret;
     }
 
 
@@ -142,7 +147,7 @@ public class Server {
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
         int tempHandsCount = gameDescriptor.getStructure().getHandsCount();
-        if(tempHandsCount%Utils.numOfPlayer != 0)
+        if(tempHandsCount%Utils.numOfPlayers != 0)
             throw new Exception("Invalid file, Hand count is not divided to the number of player");
 
         numOfChipsForsmall = tempSmall;
@@ -152,9 +157,22 @@ public class Server {
 
     }
 
+    PlayerInfo getPlayerInfo(int playerIndex){
+        PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
+                getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
+                getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
+                getNumOfPlayer(playerIndex));
+        return tempPlayerInfo;
+    }
+
+    TableInfo getTableInfo(){
+        TableInfo tempTableInfo = new TableInfo(getCashBox(),getCurrBet(),getCommunityCards());
+        return tempTableInfo;
+    }
+
     char getTypeOfPlayer(int numOfPlayer)
     {
-        if(numOfPlayer == Utils.numOfPlayer )
+        if(numOfPlayer == Utils.numOfPlayers)
         {
             return players.get(currHand.getCurrPlayer()).getType();
         }
@@ -177,6 +195,7 @@ public class Server {
     {
         return players.get(numOfPlayer).getHandsWon();
     }
+
     int getNumberOfHands()
     {
         return this.totalnumOfHands;
@@ -361,5 +380,33 @@ public class Server {
         dilerIndex = 0;
         handTohandCashBox=0;
 
+    }
+
+    public void initHandReplay(){
+        if(!handReplay.isEmpty())
+            handReplay.clear();
+    }
+    public void addBlindBetSnapShots(){
+        int smallIndex = calcSmallIndex(dilerIndex);
+        StatusSnapShot temp = saveStatusSnapShot(smallIndex);
+        temp.getTableStatus().updateData(getCashBox() - getCurrBet(),getCurrBet() - getCurrBet());
+        handReplay.add(saveStatusSnapShot(smallIndex));
+        handReplay.add(saveStatusSnapShot(calcBigIndex(smallIndex)));
+    }
+    public void addSnapShotToReplay(){
+        //the curr player is the curr turn but we need to record the turn that just have been ended
+        int indexOfLastTurn;
+        int indexOfNextTurn = currHand.getCurrPlayer();
+        if(indexOfNextTurn > 0)
+            indexOfLastTurn = indexOfNextTurn - 1;
+        else
+            indexOfLastTurn = Utils.numOfPlayers - 1;
+        handReplay.add(saveStatusSnapShot(indexOfLastTurn));
+
+    }
+    private StatusSnapShot saveStatusSnapShot(int playerIndex){
+        StatusSnapShot result = new StatusSnapShot(getPlayerInfo(playerIndex),getTableInfo(),
+                getLastMove(),getLastBetOfSpecificPlayer(playerIndex));
+        return result;
     }
 }

@@ -4,7 +4,6 @@ public class UI {
     Server server = new Server();
 
     public static void main(String[] args) throws Exception {
-
         UI us = new UI();
         us.menu();
     }

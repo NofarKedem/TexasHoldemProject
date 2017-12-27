@@ -1,6 +1,6 @@
 public class Utils {
 
-    public static int numOfPlayer = 4;
+    public static int numOfPlayers = 4;
 
     public enum RoundResult{
         NOTHINGHAPPEN("1"), ENDGAME("2"),CLOSEROUND("3"),HUMANFOLD("4"),ALLCOMPUTERFOLD("5");

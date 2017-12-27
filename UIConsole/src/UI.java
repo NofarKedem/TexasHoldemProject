@@ -148,13 +148,18 @@ public class UI {
     }
     private void printTowFirstPlayerState()
     {
+        //PlayerInfo tempPlayerInfo = new PlayerInfo();
         int numOfStartPlayer =0;
         System.out.println("********************          ********************");
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++) {
+            //System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+            System.out.print("* Type: " + server.getPlayerInfo(i).getTypeOfPlayer() + "          *          ");
+        }
         System.out.println();
-        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+        for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++) {
+            //System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+            System.out.print("* Number: " + server.getPlayerInfo(i).getNumOfPlayer() + "          *          ");
+        }
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
@@ -271,14 +276,16 @@ public class UI {
         System.out.println(System.lineSeparator());
         displayAllCommunityCards();
         System.out.print("Current bet: " + server.getCurrBet()+ "    ");
-        System.out.print("Total cash box: " + server.getCashBox());
+        //System.out.print("Total cash box: " + server.getCashBox());
+        System.out.print("Total cash box: " + server.getTableInfo().getCashBox());
         System.out.println(System.lineSeparator());
         printDetailsOfTwoLastPlayer(2);
         System.out.println(System.lineSeparator());
     }
     private void displayAllCommunityCards()
     {
-        List<Card> arrOfTempCards = server.getCommunityCards();
+        //List<Card> arrOfTempCards = server.getCommunityCards();
+        List<Card> arrOfTempCards = server.getTableInfo().getCommunityCards();
         if(arrOfTempCards.size() != 0) {
             for (Card cardTemp : arrOfTempCards)
                 System.out.print(cardTemp.toString() + " | ");
@@ -290,7 +297,7 @@ public class UI {
 
     private void displayPlayerCard()
     {
-        for(int i=0;i<Utils.numOfPlayer;i++)
+        for(int i = 0; i<Utils.numOfPlayers; i++)
         {
             System.out.println("Player number: " + (i+1) + " cards are:" + server.getCardsPlayer(i));
         }
@@ -416,6 +423,7 @@ public class UI {
     }
     private void StartHand() //פקודה מספר 4
     {
+        server.initHandReplay(); //clear the replay list
         int cashBoxReminder = 0;
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         server.initializeHand();
@@ -510,11 +518,12 @@ public class UI {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         while(resultOfMove == Utils.RoundResult.NOTHINGHAPPEN)
         {
-            if(server.getTypeOfPlayer(Utils.numOfPlayer) == 'H')
+            if(server.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
             {
-                System.out.println("Before Humen player will play");
-                printDetailsInTheGame();
+                //System.out.println("Before Humen player will play");
+                //printDetailsInTheGame();
                 resultOfMove = playWithHumen(); //if the game was over
+                server.addSnapShotToReplay();
                 System.out.println("after Humen player play");
                 printDetailsInTheGame();
 
@@ -522,6 +531,7 @@ public class UI {
             else
             {
                 resultOfMove = server.playWithComputer();
+                server.addSnapShotToReplay();
                 System.out.print("Computer move was: " + server.getLastMove());
                 if(server.getLastMove() == "RAISE")
                     System.out.println(" with amount: " + server.getLastGenerateAmount());
@@ -637,6 +647,10 @@ public class UI {
         server.restartCurrentGame();
         server.initializePlayers(1,3);
     }
+
+
+
+
 
 }
 

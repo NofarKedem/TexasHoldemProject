@@ -111,12 +111,22 @@ public class Server {
         this.currHand.cardDistribusion();
     }
 
+    //using this method in order to test the replay logic with the previous UI logic
     public boolean blindBet(){
-        boolean ret = currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
-        addBlindBetSnapShots();
-        return ret;
+        boolean retForSmall = currHand.blindSmall(numOfChipsForsmall);
+        addSnapShotToReplay();
+        boolean retForBig = currHand.blindBig(numOfChipsForBig);
+        addSnapShotToReplay();
+        return (retForSmall || retForBig);
     }
-
+    //To Be used in the NEW UI logic (exc. 2)
+    public boolean blindBetSmall(){
+        return currHand.blindSmall(numOfChipsForsmall);
+    }
+    //To Be used in the NEW UI logic (exc. 2)
+    public boolean blindBetBig(){
+        return currHand.blindBig(numOfChipsForBig);
+    }
 
     public Utils.RoundResult gameMove(String LastGameMove, int amount){
         return currHand.gameMove(convertIntToMove(LastGameMove), amount);
@@ -386,23 +396,9 @@ public class Server {
         if(!handReplay.isEmpty())
             handReplay.clear();
     }
-    public void addBlindBetSnapShots(){
-        int smallIndex = calcSmallIndex(dilerIndex);
-        StatusSnapShot temp = saveStatusSnapShot(smallIndex);
-        temp.getTableStatus().updateData(getCashBox() - getCurrBet(),getCurrBet() - getCurrBet());
-        handReplay.add(saveStatusSnapShot(smallIndex));
-        handReplay.add(saveStatusSnapShot(calcBigIndex(smallIndex)));
-    }
-    public void addSnapShotToReplay(){
-        //the curr player is the curr turn but we need to record the turn that just have been ended
-        int indexOfLastTurn;
-        int indexOfNextTurn = currHand.getCurrPlayer();
-        if(indexOfNextTurn > 0)
-            indexOfLastTurn = indexOfNextTurn - 1;
-        else
-            indexOfLastTurn = Utils.numOfPlayers - 1;
-        handReplay.add(saveStatusSnapShot(indexOfLastTurn));
 
+    public void addSnapShotToReplay(){
+        handReplay.add(saveStatusSnapShot(currHand.getIndexOfLastTurn()));
     }
     private StatusSnapShot saveStatusSnapShot(int playerIndex){
         StatusSnapShot result = new StatusSnapShot(getPlayerInfo(playerIndex),getTableInfo(),

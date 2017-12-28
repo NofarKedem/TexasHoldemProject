@@ -36,6 +36,7 @@ public class UI {
                     {
                         loadFile();
                         server.initializePlayers(1,3);
+                        server.initBlindsHelper(); //just for test! (changing blinds)
                         isLoadingFile = true;
                         printState();
                     }

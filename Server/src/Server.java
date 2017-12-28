@@ -13,14 +13,19 @@ public class Server {
     private int totalnumOfHands;
     private int numOfPlayHands;
     private static int dilerIndex = 0;
+    private int ancorDindex;
     private int handTohandCashBox;
     private int numOfChipsForsmall;
     private int numOfChipsForBig;
     private int numOfChipsPerBuy;
+    private boolean fixed;
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
+    private BlindsHelper blindsHelper;
 
-
+    //temporary - just for test (need to be updated from the new xml
+    private int addition = 2;
+    private int max_total_rounds = 4;
 
 
 
@@ -32,6 +37,10 @@ public class Server {
         handTohandCashBox = 0;
     }
 
+    public void initBlindsHelper(){
+        blindsHelper = new BlindsHelper(numOfChipsForsmall,numOfChipsForBig,totalnumOfHands,addition,max_total_rounds);
+    }
+
     public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
         for(int i=0;i < numOfHPlayers; i++){
             players.add(new Player('H', " ",numOfChipsPerBuy,1,1));
@@ -40,6 +49,7 @@ public class Server {
             players.add(new Player('C', " ",numOfChipsPerBuy,1,numOfHPlayers+1+i));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
+        ancorDindex = dilerIndex;
         initPlayersState();
 
     }
@@ -49,6 +59,12 @@ public class Server {
             P.resetState();
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
+        fixed = false; //temporary - just for test (need to be updated from the new xml
+        if (!fixed) {
+            blindsHelper.blindsUpdate(ancorDindex, dilerIndex);
+            numOfChipsForsmall = blindsHelper.getSmall();
+            numOfChipsForBig = blindsHelper.getBig();
+        }
         initPlayersState();
         handTohandCashBox = cashBoxReminder;
     }

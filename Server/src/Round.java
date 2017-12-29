@@ -19,6 +19,7 @@ public class Round implements PlayerActionService{
     private int bigIdx;
     private int roundCashBox;
     private int currPlayerIndex; //the curr turn
+    private int indexOfLastTurn; //saves the curr turn before changing the currPlayerIndex to the next turn
     private GameMoves lastMove;
     private int lastGenerateAmount = 0;
     private ComputerPlayerService CPlayerService;
@@ -98,17 +99,42 @@ public class Round implements PlayerActionService{
         return currPlayerIndex;
     }
 
-    public boolean blindBet(int numOfChipsForBig,int numOfChipsForSmall){
-        if(playersRef.get(smallIdx).getChips() < numOfChipsForSmall ||
-                playersRef.get(bigIdx).getChips() < numOfChipsForBig){
+    public int getIndexOfLastTurn(){
+        return indexOfLastTurn;
+    }
+
+//    public boolean blindBet(int numOfChipsForBig,int numOfChipsForSmall){
+//        if(playersRef.get(smallIdx).getChips() < numOfChipsForSmall ||
+//                playersRef.get(bigIdx).getChips() < numOfChipsForBig){
+//            return false;
+//        }
+//        else {
+//            gameMove(GameMoves.BET, numOfChipsForSmall);
+//            gameMove(GameMoves.BET, numOfChipsForBig);
+//            return true;
+//        }
+//    }
+
+    public boolean blindSmall(int numOfChipsForSmall){
+        if(playersRef.get(smallIdx).getChips() < numOfChipsForSmall)
             return false;
-        }
-        else {
+        else
+        {
             gameMove(GameMoves.BET, numOfChipsForSmall);
-            gameMove(GameMoves.BET, numOfChipsForBig);
             return true;
         }
     }
+
+    public boolean blindBig(int numOfChipsForBig){
+        if(playersRef.get(bigIdx).getChips() < numOfChipsForBig)
+            return false;
+        else{
+            gameMove(GameMoves.BET, numOfChipsForBig);
+            return true;
+        }
+
+    }
+
 
     private int nextTurn(int lastToPlayIndex){
             int theNextPlayerInArray = (lastToPlayIndex + 1)%(playersRef.size());
@@ -144,7 +170,8 @@ public class Round implements PlayerActionService{
         }
 
         Utils.RoundResult gameStatus = GameStatus();
-        currPlayerIndex = nextTurn(currPlayerIndex);
+        indexOfLastTurn = currPlayerIndex;
+        currPlayerIndex = nextTurn(indexOfLastTurn);
 
         return gameStatus;
     }

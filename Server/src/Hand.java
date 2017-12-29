@@ -71,10 +71,17 @@ public class Hand {
     public void setHandPlayers(List<PokerPlayer> handPlayers) {
         this.handPlayers = handPlayers;
     }
+//
+//    public boolean blindBet(int numOfChipsForBig,int numOfChipsForsmall){
+//
+//        return currRound.blindBet(numOfChipsForBig,numOfChipsForsmall);
+//    }
+    public boolean blindSmall(int numOfChipsForsmall){
+        return currRound.blindSmall(numOfChipsForsmall);
+    }
 
-    public boolean blindBet(int numOfChipsForBig,int numOfChipsForsmall){
-
-        return currRound.blindBet(numOfChipsForBig,numOfChipsForsmall);
+    public boolean blindBig(int numOfChipsForBig){
+        return currRound.blindBig(numOfChipsForBig);
     }
 
     public void setFirstPlayer(){
@@ -84,6 +91,9 @@ public class Hand {
     public int getCurrPlayer()
     {
         return currRound.getCurrPlayer();
+    }
+    public int getIndexOfLastTurn(){
+        return currRound.getIndexOfLastTurn();
     }
     public int getCurrBet()
     {

@@ -16,12 +16,19 @@ public class Server {
     private int totalnumOfHands;
     private int numOfPlayHands;
     private static int dilerIndex = 0;
+    private int ancorDindex;
     private int handTohandCashBox;
     private int numOfChipsForsmall;
     private int numOfChipsForBig;
     private int numOfChipsPerBuy;
+    private boolean fixed;
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
+    private BlindsHelper blindsHelper;
+
+    //temporary - just for test (need to be updated from the new xml
+    private int addition = 2;
+    private int max_total_rounds = 4;
 
     public Server(){
         timeOfStartGame = 0;
@@ -31,30 +38,39 @@ public class Server {
         handTohandCashBox = 0;
     }
 
-    public void initializePlayers(Players playersFromXML){
-        List<Player> listOfPlayerFromXML =  playersFromXML.getPlayer();
+    public void initializePlayers(Players playersFromXML) {
+        List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
         Utils.numOfPlayers = listOfPlayerFromXML.size();
         int i = 1;
         char type;
-        for(Player player : listOfPlayerFromXML)
-        {
-            if(player.getType().equals("Human"))
+        for (Player player : listOfPlayerFromXML) {
+            if (player.getType().equals("Human"))
                 type = 'H';
             else
                 type = 'C';
-            players.add(new PokerPlayer(type," ",numOfChipsPerBuy,1,i,player.getName(),player.getId().intValue()));
+            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1, i, player.getName(), player.getId().intValue()));
         }
-
         dilerIndex = calculateDilerIndex(dilerIndex);
+        ancorDindex = dilerIndex;
         initPlayersState();
-
     }
+
+    public void initBlindsHelper(){
+        blindsHelper = new BlindsHelper(numOfChipsForsmall,numOfChipsForBig,totalnumOfHands,addition,max_total_rounds);
+    }
+
 
     public void closeTheHand(int cashBoxReminder){
         for(PokerPlayer P : players){
             P.resetState();
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
+        fixed = false; //temporary - just for test (need to be updated from the new xml
+        if (!fixed) {
+            blindsHelper.blindsUpdate(ancorDindex, dilerIndex);
+            numOfChipsForsmall = blindsHelper.getSmall();
+            numOfChipsForBig = blindsHelper.getBig();
+        }
         initPlayersState();
         handTohandCashBox = cashBoxReminder;
     }
@@ -117,12 +133,22 @@ public class Server {
         this.currHand.cardDistribusion();
     }
 
+    //using this method in order to test the replay logic with the previous UI logic
     public boolean blindBet(){
-        boolean ret = currHand.blindBet(numOfChipsForBig,numOfChipsForsmall);
-        addBlindBetSnapShots();
-        return ret;
+        boolean retForSmall = currHand.blindSmall(numOfChipsForsmall);
+        addSnapShotToReplay();
+        boolean retForBig = currHand.blindBig(numOfChipsForBig);
+        addSnapShotToReplay();
+        return (retForSmall || retForBig);
     }
-
+    //To Be used in the NEW UI logic (exc. 2)
+    public boolean blindBetSmall(){
+        return currHand.blindSmall(numOfChipsForsmall);
+    }
+    //To Be used in the NEW UI logic (exc. 2)
+    public boolean blindBetBig(){
+        return currHand.blindBig(numOfChipsForBig);
+    }
 
     public Utils.RoundResult gameMove(String LastGameMove, int amount){
         return currHand.gameMove(convertIntToMove(LastGameMove), amount);
@@ -415,23 +441,9 @@ public class Server {
         if(!handReplay.isEmpty())
             handReplay.clear();
     }
-    public void addBlindBetSnapShots(){
-        int smallIndex = calcSmallIndex(dilerIndex);
-        StatusSnapShot temp = saveStatusSnapShot(smallIndex);
-        temp.getTableStatus().updateData(getCashBox() - getCurrBet(),getCurrBet() - getCurrBet());
-        handReplay.add(saveStatusSnapShot(smallIndex));
-        handReplay.add(saveStatusSnapShot(calcBigIndex(smallIndex)));
-    }
-    public void addSnapShotToReplay(){
-        //the curr player is the curr turn but we need to record the turn that just have been ended
-        int indexOfLastTurn;
-        int indexOfNextTurn = currHand.getCurrPlayer();
-        if(indexOfNextTurn > 0)
-            indexOfLastTurn = indexOfNextTurn - 1;
-        else
-            indexOfLastTurn = Utils.numOfPlayers - 1;
-        handReplay.add(saveStatusSnapShot(indexOfLastTurn));
 
+    public void addSnapShotToReplay(){
+        handReplay.add(saveStatusSnapShot(currHand.getIndexOfLastTurn()));
     }
     private StatusSnapShot saveStatusSnapShot(int playerIndex){
         StatusSnapShot result = new StatusSnapShot(getPlayerInfo(playerIndex),getTableInfo(),

@@ -1,4 +1,8 @@
-public class Player {
+import java.math.BigInteger;
+
+public class PokerPlayer {
+    private String name;
+    private int id;
     private char type;
     private String state;
     private int chips;
@@ -11,11 +15,13 @@ public class Player {
     public PlayerActionService actionService;
 
 
-    public Player(char type,String state,int chips,int buys, int numOfPlayer){
+    public PokerPlayer(char type, String state, int chips, int buys, int numOfPlayer, String name, int id){
         this.type = type;
         this.state = state;
         this.chips = chips;
         this.buys = buys;
+        this.name = name;
+        this.id = id;
         this.bet = 0;
         isQuit = false;
         handsWon = 0;
@@ -125,5 +131,15 @@ public class Player {
     public int getNumOfPlayer()
     {
         return numOfPlayer;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 }

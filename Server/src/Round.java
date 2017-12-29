@@ -11,7 +11,7 @@ public class Round implements PlayerActionService{
         public String toString(){return this.name();}
     }
 
-    private List<Player> playersRef;
+    private List<PokerPlayer> playersRef;
     private boolean isBetOn;
     private int currBet;
     private int closeTheRound; //who is the player that closes the round
@@ -25,9 +25,9 @@ public class Round implements PlayerActionService{
     public GameMoves moveForAmountValidatoin;
 
 
-    Round(List<Player> playersRef, int roundCashBox){
+    Round(List<PokerPlayer> playersRef, int roundCashBox){
         this.playersRef = playersRef;
-        for(Player player : playersRef){
+        for(PokerPlayer player : playersRef){
             player.initActionService(this);
         }
         this.roundCashBox = roundCashBox;
@@ -56,7 +56,7 @@ public class Round implements PlayerActionService{
     }
 
     private void findSmallBigIndex(){
-        for (Player player:playersRef) {
+        for (PokerPlayer player:playersRef) {
             String state = player.getState();
             if(state == "S"){
                 smallIdx = playersRef.indexOf(player);
@@ -157,7 +157,7 @@ public class Round implements PlayerActionService{
         }
 
 
-        for(Player player : playersRef){
+        for(PokerPlayer player : playersRef){
             if(player.getQuit()){
                 numOfQuitPlayers++;
             }
@@ -226,7 +226,7 @@ public class Round implements PlayerActionService{
     public Utils.RoundResult playWithComputer()
     {
         Boolean isValidAmountBol = false;
-        Player currPlayer = playersRef.get(getCurrPlayer());
+        PokerPlayer currPlayer = playersRef.get(getCurrPlayer());
         Round.GameMoves gameMove;
         int amount=0;
         if(currPlayer.getChips() < currBet){

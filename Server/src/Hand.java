@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.util.*;
 
 public class Hand {
@@ -7,7 +5,7 @@ public class Hand {
     private List<Round> handRounds; //Is this redundant?
     private Deck deck;
     private List<Card> communityCards;
-    private List<Player> handPlayers;
+    private List<PokerPlayer> handPlayers;
     private int cashBox;
 
 
@@ -25,7 +23,7 @@ public class Hand {
 
     public void cardDistribusion (){
         //2 cards to each player
-        for(Player player : handPlayers){
+        for(PokerPlayer player : handPlayers){
             player.setPlayerHandCards(deck.drawFromDeck(2));
         }
     }
@@ -70,7 +68,7 @@ public class Hand {
             communityCards.add(cardTemp);
     }
 
-    public void setHandPlayers(List<Player> handPlayers) {
+    public void setHandPlayers(List<PokerPlayer> handPlayers) {
         this.handPlayers = handPlayers;
     }
 
@@ -144,7 +142,7 @@ public class Hand {
     public void updateTheWinnerWithCashBox(Map<Integer,String> WinnerMap)
     {
         for (Integer numOfPlayer : WinnerMap.keySet()) {
-            Player winner = handPlayers.get(numOfPlayer-1);
+            PokerPlayer winner = handPlayers.get(numOfPlayer-1);
             /*
             if (WinnerMap.size() == 1) {
                 winner.updateWinnerChips(cashBox);

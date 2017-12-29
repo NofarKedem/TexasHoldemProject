@@ -1,5 +1,8 @@
 import XMLobject.GameDescriptor;
+import XMLobject.Player;
+import XMLobject.Players;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.Map;
 
 public class Server {
     private Deck deck;
-    private List<Player> players;
+    private List<PokerPlayer> players;
     private Hand currHand;
     private long timeOfStartGame;
     private int totalnumOfHands;
@@ -20,10 +23,6 @@ public class Server {
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
 
-
-
-
-
     public Server(){
         timeOfStartGame = 0;
         totalnumOfHands = 0;
@@ -32,20 +31,27 @@ public class Server {
         handTohandCashBox = 0;
     }
 
-    public void initializePlayers(int numOfHPlayers, int numOfCPlayers){
-        for(int i=0;i < numOfHPlayers; i++){
-            players.add(new Player('H', " ",numOfChipsPerBuy,1,1));
+    public void initializePlayers(Players playersFromXML){
+        List<Player> listOfPlayerFromXML =  playersFromXML.getPlayer();
+        Utils.numOfPlayers = listOfPlayerFromXML.size();
+        int i = 1;
+        char type;
+        for(Player player : listOfPlayerFromXML)
+        {
+            if(player.getType().equals("Human"))
+                type = 'H';
+            else
+                type = 'C';
+            players.add(new PokerPlayer(type," ",numOfChipsPerBuy,1,i,player.getName(),player.getId().intValue()));
         }
-        for(int i=0;i < numOfCPlayers; i++){
-            players.add(new Player('C', " ",numOfChipsPerBuy,1,numOfHPlayers+1+i));
-        }
+
         dilerIndex = calculateDilerIndex(dilerIndex);
         initPlayersState();
 
     }
 
     public void closeTheHand(int cashBoxReminder){
-        for(Player P : players){
+        for(PokerPlayer P : players){
             P.resetState();
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
@@ -63,7 +69,7 @@ public class Server {
     public void initRound()
     {
         currHand.initRound();
-        for(Player player : players)
+        for(PokerPlayer player : players)
         {
             player.initBet();
         }
@@ -91,7 +97,7 @@ public class Server {
 //    }
 
     private void initPlayersQuitState(){
-        for(Player player : players){
+        for(PokerPlayer player : players){
             if(player.getChips() > 0)
                 player.setQuit(false);
         }
@@ -142,26 +148,37 @@ public class Server {
         SimpleJAXBMain Xml = new SimpleJAXBMain(filePath);
         GameDescriptor gameDescriptor = Xml.fromXmlFileToObject();
 
-        int tempSmall = gameDescriptor.getStructure().getBlindes().getSmall();
-        int tempBig = gameDescriptor.getStructure().getBlindes().getBig();
+        int tempSmall = (gameDescriptor.getStructure().getBlindes().getSmall()).intValue();
+        int tempBig = (gameDescriptor.getStructure().getBlindes().getBig()).intValue();
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
-        int tempHandsCount = gameDescriptor.getStructure().getHandsCount();
+
+        Players playersFromXML = gameDescriptor.getPlayers();
+        initializePlayers(playersFromXML);
+        int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if(tempHandsCount%Utils.numOfPlayers != 0)
             throw new Exception("Invalid file, Hand count is not divided to the number of player");
-
         numOfChipsForsmall = tempSmall;
         numOfChipsForBig = tempBig;
         totalnumOfHands = tempHandsCount;
-        numOfChipsPerBuy = gameDescriptor.getStructure().getBuy();
+        numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
 
     }
 
-    PlayerInfo getPlayerInfo(int playerIndex){
+    public List<PlayerInfo> getAllPlayerInfo()
+    {
+        List<PlayerInfo> listOfPlayersInfo = new ArrayList<>();
+        for(int i=0;i< Utils.numOfPlayers;i++)
+            listOfPlayersInfo.add(getPlayerInfo(i));
+
+        return listOfPlayersInfo;
+    }
+
+    public PlayerInfo getPlayerInfo(int playerIndex){
         PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
                 getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
-                getNumOfPlayer(playerIndex));
+                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex));
         return tempPlayerInfo;
     }
 
@@ -212,7 +229,7 @@ public class Server {
     int getNumberOfBuys()
     {
         int sumOfBuy =0;
-        for(Player player : players)
+        for(PokerPlayer player : players)
         {
             sumOfBuy += player.getBuys();
         }
@@ -246,7 +263,7 @@ public class Server {
 
     public void addChipsToPlayer()
     {
-        for (Player p : players)
+        for (PokerPlayer p : players)
         {
             if(p.getType()== 'H') {
                 p.setBuysAndChips(numOfChipsPerBuy);
@@ -324,6 +341,18 @@ public class Server {
     {
         return players.get(indexOfPlayer).getNumOfPlayer();
     }
+
+    public String getPlayerName(int indexOfPlayer)
+    {
+        return players.get(indexOfPlayer).getName();
+    }
+
+    public int getPlayerId(int indexOfPlayer)
+    {
+        return players.get(indexOfPlayer).getId();
+    }
+
+
     public Boolean getIfPlayerQuit(int indexOfPlayer)
     {
         return players.get(indexOfPlayer).getQuit();
@@ -338,7 +367,7 @@ public class Server {
     }
     public Boolean humanPlayerHasNoChips()
     {
-        for(Player player : players)
+        for(PokerPlayer player : players)
         {
             if(player.getType() == 'H')
             {
@@ -408,5 +437,10 @@ public class Server {
         StatusSnapShot result = new StatusSnapShot(getPlayerInfo(playerIndex),getTableInfo(),
                 getLastMove(),getLastBetOfSpecificPlayer(playerIndex));
         return result;
+    }
+
+    public int getNumOfChipsPerBuy()
+    {
+        return numOfChipsPerBuy;
     }
 }

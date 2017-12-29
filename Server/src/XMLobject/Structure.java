@@ -1,6 +1,7 @@
 
 package XMLobject;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -38,42 +39,58 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Structure")
 public class Structure {
 
-    @XmlElement(name = "HandsCount")
-    protected byte handsCount;
-    @XmlElement(name = "Buy")
-    protected byte buy;
+    @XmlElement(name = "HandsCount", required = true)
+    protected BigInteger handsCount;
+    @XmlElement(name = "Buy", required = true)
+    protected BigInteger buy;
     @XmlElement(name = "Blindes", required = true)
     protected Blindes blindes;
 
     /**
      * Gets the value of the handsCount property.
      * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
      */
-    public byte getHandsCount() {
+    public BigInteger getHandsCount() {
         return handsCount;
     }
 
     /**
      * Sets the value of the handsCount property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
      */
-    public void setHandsCount(byte value) {
+    public void setHandsCount(BigInteger value) {
         this.handsCount = value;
     }
 
     /**
      * Gets the value of the buy property.
      * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
      */
-    public byte getBuy() {
+    public BigInteger getBuy() {
         return buy;
     }
 
     /**
      * Sets the value of the buy property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
      */
-    public void setBuy(byte value) {
+    public void setBuy(BigInteger value) {
         this.buy = value;
     }
 

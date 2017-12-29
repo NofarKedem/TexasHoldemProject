@@ -3,10 +3,12 @@ import java.util.*;
 public class UI {
     Server server = new Server();
 
+    /*
     public static void main(String[] args) throws Exception {
         UI us = new UI();
         us.menu();
     }
+*/
 
     public void menu() {
         Boolean endGame = false;
@@ -35,7 +37,7 @@ public class UI {
                     if(!isGameStarted)
                     {
                         loadFile();
-                        server.initializePlayers(1,3);
+                        //server.initializePlayers(1,3);
                         isLoadingFile = true;
                         printState();
                     }
@@ -299,7 +301,7 @@ public class UI {
     {
         for(int i = 0; i<Utils.numOfPlayers; i++)
         {
-            System.out.println("Player number: " + (i+1) + " cards are:" + server.getCardsPlayer(i));
+            System.out.println("PokerPlayer number: " + (i+1) + " cards are:" + server.getCardsPlayer(i));
         }
     }
     private void printChips(int numOfPlayer)
@@ -343,7 +345,7 @@ public class UI {
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
             if(server.getIfPlayerQuit(i))
-                System.out.print("* Player quit      *          ");
+                System.out.print("* PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
         }
@@ -382,7 +384,7 @@ public class UI {
         for (int i = 3; i > 1; i--)
         {
             if(server.getIfPlayerQuit(i))
-                System.out.print("* Player quit      *          ");
+                System.out.print("* PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
         }
@@ -564,7 +566,7 @@ public class UI {
                 Scanner s = new Scanner(System.in);
                 String numOfMove = s.next();
                 if (!server.validateMove(numOfMove))
-                    System.out.println("Invalid move for this Player, please try again");
+                    System.out.println("Invalid move for this PokerPlayer, please try again");
 
                 else {
                     isValidMove = true;
@@ -645,7 +647,7 @@ public class UI {
     public void restartCurrentGame()
     {
         server.restartCurrentGame();
-        server.initializePlayers(1,3);
+        //server.initializePlayers(1,3);
     }
 
 

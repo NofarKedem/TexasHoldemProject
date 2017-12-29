@@ -19,7 +19,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Small" type="xs:byte"/>
+	<xs:element name="Small" type="xs:integer"/>
 	<xs:element name="Players">
 		<xs:complexType>
 			<xs:sequence>
@@ -33,11 +33,11 @@
 				<xs:element ref="Name"/>
 				<xs:element ref="Type"/>
 			</xs:sequence>
-			<xs:attribute name="id" type="xs:short" use="required"/>
+			<xs:attribute name="id" type="xs:integer" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Name" type="xs:string"/>
-	<xs:element name="HandsCount" type="xs:byte"/>
+	<xs:element name="HandsCount" type="xs:integer"/>
 	<xs:element name="GameType">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
@@ -63,17 +63,17 @@
 			<xs:attribute name="game-title" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Buy" type="xs:byte"/>
+	<xs:element name="Buy" type="xs:integer"/>
 	<xs:element name="Blindes">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="Big"/>
 				<xs:element ref="Small"/>
 			</xs:sequence>
-			<xs:attribute name="max-total-rounds" type="xs:byte" use="optional"/>
+			<xs:attribute name="max-total-rounds" type="xs:integer" use="optional"/>
 			<xs:attribute name="fixed" type="xs:boolean" use="required"/>
-			<xs:attribute name="additions" type="xs:byte" use="optional"/>
+			<xs:attribute name="additions" type="xs:integer" use="optional"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Big" type="xs:byte"/>
+	<xs:element name="Big" type="xs:integer"/>
 </xs:schema>

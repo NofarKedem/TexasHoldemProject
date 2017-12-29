@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}Player" maxOccurs="6" minOccurs="3"/>
+ *         &lt;element ref="{}PokerPlayer" maxOccurs="6" minOccurs="3"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>

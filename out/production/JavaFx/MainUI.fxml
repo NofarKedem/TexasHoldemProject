@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1164.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainUIController">
+
+    <left>
+        <fx:include fx:id="playerTable" source="PlayerTable.fxml" BorderPane.alignment="BOTTOM_LEFT" />
+    </left>
+
+    <right>
+        <fx:include fx:id="gameDetails" source="GameDetails.fxml" BorderPane.alignment="CENTER_RIGHT" />
+    </right>
+   <top>
+       <fx:include fx:id="loadFile" source="LoadFile.fxml" BorderPane.alignment="TOP_LEFT" />
+   </top>
+      <GridPane prefHeight="54.0" prefWidth="1031.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1078.6666564941406" minWidth="10.0" prefWidth="1015.9999694824219" />
+        </columnConstraints>
+      </GridPane>
+</BorderPane>

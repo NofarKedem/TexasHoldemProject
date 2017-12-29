@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" prefHeight="394.0" prefWidth="501.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerTableController">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <TableView fx:id="tableView">
+        <columns>
+          <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="Id" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="Type" prefWidth="75.0" text="Type" />
+            <TableColumn prefWidth="75.0" text="Buys" />
+            <TableColumn prefWidth="85.0" text="Hand wins" />
+            <TableColumn prefWidth="95.0" text="Winning price" />
+        </columns>
+      </TableView>
+   </children>
+</GridPane>

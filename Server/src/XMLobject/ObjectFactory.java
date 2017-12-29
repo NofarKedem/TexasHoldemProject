@@ -1,6 +1,7 @@
 
 package XMLobject;
 
+import java.math.BigInteger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -88,12 +89,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Byte }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "Big")
-    public JAXBElement<Byte> createBig(Byte value) {
-        return new JAXBElement<Byte>(_Big_QNAME, Byte.class, null, value);
+    public JAXBElement<BigInteger> createBig(BigInteger value) {
+        return new JAXBElement<BigInteger>(_Big_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -106,21 +107,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Byte }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "Small")
-    public JAXBElement<Byte> createSmall(Byte value) {
-        return new JAXBElement<Byte>(_Small_QNAME, Byte.class, null, value);
+    public JAXBElement<BigInteger> createSmall(BigInteger value) {
+        return new JAXBElement<BigInteger>(_Small_QNAME, BigInteger.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Byte }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "Buy")
-    public JAXBElement<Byte> createBuy(Byte value) {
-        return new JAXBElement<Byte>(_Buy_QNAME, Byte.class, null, value);
+    public JAXBElement<BigInteger> createBuy(BigInteger value) {
+        return new JAXBElement<BigInteger>(_Buy_QNAME, BigInteger.class, null, value);
     }
 
     /**
@@ -133,12 +134,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Byte }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "HandsCount")
-    public JAXBElement<Byte> createHandsCount(Byte value) {
-        return new JAXBElement<Byte>(_HandsCount_QNAME, Byte.class, null, value);
+    public JAXBElement<BigInteger> createHandsCount(BigInteger value) {
+        return new JAXBElement<BigInteger>(_HandsCount_QNAME, BigInteger.class, null, value);
     }
 
     /**

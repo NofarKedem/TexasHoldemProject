@@ -18,7 +18,7 @@ public class WinLogic {
     }
 
 
-    public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<Player> playersRef) throws Exception {
+    public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<PokerPlayer> playersRef) throws Exception {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
 
@@ -30,7 +30,7 @@ public class WinLogic {
         int originNumOfPlayer=1;
         int indexInHands=0;
         int indexInWinnerList=0;
-        for(Player player : playersRef) {
+        for(PokerPlayer player : playersRef) {
             if (player.getQuit() == false) //לא פרשת
             {
                 if(indexInHands== winnerList.get(indexInWinnerList))
@@ -49,10 +49,10 @@ public class WinLogic {
     }
 
 
-    public Map<Integer,String> setTechniqWinnersForCompPlayer(List<Player> handPlayers) {
+    public Map<Integer,String> setTechniqWinnersForCompPlayer(List<PokerPlayer> handPlayers) {
         Map<Integer,String> theWinners = new HashMap<>();
         int originNumOfPlayer=1;
-        for(Player player : handPlayers){
+        for(PokerPlayer player : handPlayers){
             if(player.getType() != 'H' && !player.getQuit()){
                 theWinners.put(originNumOfPlayer,"Technical victory");
             }
@@ -61,10 +61,10 @@ public class WinLogic {
         return theWinners;
     }
 
-    public Map<Integer,String> setTechniqWinnersForHumanPlayer(List<Player> handPlayers) {
+    public Map<Integer,String> setTechniqWinnersForHumanPlayer(List<PokerPlayer> handPlayers) {
         Map<Integer,String> theWinners = new HashMap<>();
         int originNumOfPlayer=1;
-        for(Player player : handPlayers){
+        for(PokerPlayer player : handPlayers){
             if(player.getType() == 'H'){
                 theWinners.put(originNumOfPlayer,"Technical victory");
             }

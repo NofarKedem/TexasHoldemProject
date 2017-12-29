@@ -1,6 +1,7 @@
 
 package XMLobject;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,9 +23,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{}Big"/>
  *         &lt;element ref="{}Small"/>
  *       &lt;/sequence>
- *       &lt;attribute name="max-total-rounds" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="max-total-rounds" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *       &lt;attribute name="fixed" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *       &lt;attribute name="additions" type="{http://www.w3.org/2001/XMLSchema}byte" />
+ *       &lt;attribute name="additions" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -40,46 +41,62 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Blindes")
 public class Blindes {
 
-    @XmlElement(name = "Big")
-    protected byte big;
-    @XmlElement(name = "Small")
-    protected byte small;
+    @XmlElement(name = "Big", required = true)
+    protected BigInteger big;
+    @XmlElement(name = "Small", required = true)
+    protected BigInteger small;
     @XmlAttribute(name = "max-total-rounds")
-    protected Byte maxTotalRounds;
+    protected BigInteger maxTotalRounds;
     @XmlAttribute(name = "fixed", required = true)
     protected boolean fixed;
     @XmlAttribute(name = "additions")
-    protected Byte additions;
+    protected BigInteger additions;
 
     /**
      * Gets the value of the big property.
      * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
      */
-    public byte getBig() {
+    public BigInteger getBig() {
         return big;
     }
 
     /**
      * Sets the value of the big property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
      */
-    public void setBig(byte value) {
+    public void setBig(BigInteger value) {
         this.big = value;
     }
 
     /**
      * Gets the value of the small property.
      * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
      */
-    public byte getSmall() {
+    public BigInteger getSmall() {
         return small;
     }
 
     /**
      * Sets the value of the small property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
      */
-    public void setSmall(byte value) {
+    public void setSmall(BigInteger value) {
         this.small = value;
     }
 
@@ -88,10 +105,10 @@ public class Blindes {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link BigInteger }
      *     
      */
-    public Byte getMaxTotalRounds() {
+    public BigInteger getMaxTotalRounds() {
         return maxTotalRounds;
     }
 
@@ -100,10 +117,10 @@ public class Blindes {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link BigInteger }
      *     
      */
-    public void setMaxTotalRounds(Byte value) {
+    public void setMaxTotalRounds(BigInteger value) {
         this.maxTotalRounds = value;
     }
 
@@ -128,10 +145,10 @@ public class Blindes {
      * 
      * @return
      *     possible object is
-     *     {@link Byte }
+     *     {@link BigInteger }
      *     
      */
-    public Byte getAdditions() {
+    public BigInteger getAdditions() {
         return additions;
     }
 
@@ -140,10 +157,10 @@ public class Blindes {
      * 
      * @param value
      *     allowed object is
-     *     {@link Byte }
+     *     {@link BigInteger }
      *     
      */
-    public void setAdditions(Byte value) {
+    public void setAdditions(BigInteger value) {
         this.additions = value;
     }
 

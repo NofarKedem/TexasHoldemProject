@@ -1,6 +1,7 @@
 
 package XMLobject;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{}Name"/>
  *         &lt;element ref="{}Type"/>
  *       &lt;/sequence>
- *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}short" />
+ *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -35,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
     "name",
     "type"
 })
-@XmlRootElement(name = "Player")
+@XmlRootElement(name = "PokerPlayer")
 public class Player {
 
     @XmlElement(name = "Name", required = true)
@@ -43,7 +44,7 @@ public class Player {
     @XmlElement(name = "Type", required = true)
     protected String type;
     @XmlAttribute(name = "id", required = true)
-    protected short id;
+    protected BigInteger id;
 
     /**
      * Gets the value of the name property.
@@ -96,16 +97,24 @@ public class Player {
     /**
      * Gets the value of the id property.
      * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
      */
-    public short getId() {
+    public BigInteger getId() {
         return id;
     }
 
     /**
      * Sets the value of the id property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
      */
-    public void setId(short value) {
+    public void setId(BigInteger value) {
         this.id = value;
     }
 

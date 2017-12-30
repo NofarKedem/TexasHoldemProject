@@ -500,6 +500,8 @@ public class UI {
     }
     private void cardDistribusionInRound(int numOfRound)
     {
+        int test;
+        /*
         switch (numOfRound)
         {
             case 0: server.callFlop();
@@ -512,6 +514,7 @@ public class UI {
 
 
         }
+        */
     }
 
 

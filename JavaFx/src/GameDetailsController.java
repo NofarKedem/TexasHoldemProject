@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
 public class GameDetailsController {
 
@@ -12,6 +14,10 @@ public class GameDetailsController {
     @FXML Label BigSizeLabel;
     @FXML Label SmallSizeLabel;
     @FXML Button ButtonNextHand;
+    @FXML TextField textFieldToBet;
+    @FXML TextField textFieldToRaise;
+    @FXML Label errorBetLabel;
+    @FXML Label errorRaiseLabel;
     private SimpleLongProperty NumOfHands;
     private SimpleLongProperty Buys;
     private SimpleLongProperty BigSize;
@@ -59,29 +65,38 @@ public class GameDetailsController {
 
     public void pressOnFold(ActionEvent event)
     {
-        //resultOfMove = server.gameMove(numOfMove, amount);
-        refServer.gameMove("1", 0);
+        humanPlayerMove("1",0);
+        mainUIFather.displayCurrBetAndCashBoxOnBoard();
         mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnBet(ActionEvent event)
     {
-
+        IntHolder amount = new IntHolder();
+        if(checkTextField(textFieldToBet, errorBetLabel,amount))
+            humanPlayerMove("2", amount.value);
+        mainUIFather.displayCurrBetAndCashBoxOnBoard();
+        mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnCall(ActionEvent event)
     {
-
+        humanPlayerMove("3",0);
+        mainUIFather.displayCurrBetAndCashBoxOnBoard();
+        mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnCheck(ActionEvent event)
     {
-        Utils.RoundResult moveResult= refServer.gameMove("4", 0);
-        mainUIFather.displayPlayerOnBoard();
-        if(mainUIFather.checkStatus(moveResult));
-            mainUIFather.ifCompPlayerIsPlaying();
 
+        humanPlayerMove("4",0);
+        mainUIFather.displayCurrBetAndCashBoxOnBoard();
+        mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnRaise(ActionEvent event)
     {
-
+        IntHolder amount = new IntHolder();
+        if(checkTextField(textFieldToRaise, errorRaiseLabel,amount))
+            humanPlayerMove("5", amount.value);
+        mainUIFather.displayCurrBetAndCashBoxOnBoard();
+        mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnNextHand(ActionEvent event)
     {
@@ -102,6 +117,37 @@ public class GameDetailsController {
     public void pressOnBuyChips(ActionEvent event)
     {
 
+    }
+
+    private void humanPlayerMove(String numOfMove,int amount)
+    {
+        Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
+        mainUIFather.displayPlayerOnBoard();
+        if(mainUIFather.checkStatus(moveResult));
+        mainUIFather.ifCompPlayerIsPlaying();
+    }
+
+    public boolean checkTextField(TextField textField, Label errorLabel, IntHolder amount)
+    {
+        boolean isSucsses = false;
+        String amountStr = textField.getText();
+        if(amountStr.equals("")) {
+            errorLabel.setText("You have to type amount");
+            errorLabel.setVisible(true);
+        }
+        else {
+            try {
+                //humanPlayerMove("2", Integer.parseInt(amountStr));
+                amount.value = Integer.parseInt(amountStr);
+                //amount =  Integer.parseInt(amountStr);
+                errorLabel.setVisible(false);
+                isSucsses = true;
+            } catch (NumberFormatException e) {
+                errorLabel.setVisible(true);
+                errorLabel.setText("Invalid input");
+            }
+        }
+        return isSucsses;
     }
 }
 

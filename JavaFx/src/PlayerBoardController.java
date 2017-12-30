@@ -1,6 +1,12 @@
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
+import java.util.List;
 
 
 public class PlayerBoardController {
@@ -40,6 +46,31 @@ public class PlayerBoardController {
     @FXML GridPane gridPane4;
     @FXML GridPane gridPane5;
     @FXML GridPane gridPane6;
+    @FXML ImageView CommunityCard1;
+    @FXML ImageView CommunityCard2;
+    @FXML ImageView CommunityCard3;
+    @FXML ImageView CommunityCard4;
+    @FXML ImageView CommunityCard5;
+    @FXML ImageView frame1;
+    @FXML ImageView frame2;
+    @FXML ImageView frame3;
+    @FXML ImageView frame4;
+    @FXML ImageView frame5;
+    @FXML ImageView frame6;
+    @FXML ImageView card11;
+    @FXML ImageView card12;
+    @FXML ImageView card21;
+    @FXML ImageView card22;
+    @FXML ImageView card31;
+    @FXML ImageView card32;
+    @FXML ImageView card41;
+    @FXML ImageView card42;
+    @FXML ImageView card51;
+    @FXML ImageView card52;
+    @FXML ImageView card61;
+    @FXML ImageView card62;
+    @FXML Label currentBetLabel;
+    @FXML Label totalCashBoxLabel;
 
     Server refServer;
     MainUIController mainUIFather;
@@ -52,6 +83,34 @@ public class PlayerBoardController {
         gridPane4.setVisible(false);
         gridPane5.setVisible(false);
         gridPane6.setVisible(false);
+        frame1.setVisible(false);
+        frame2.setVisible(false);
+        frame3.setVisible(false);
+        frame4.setVisible(false);
+        frame5.setVisible(false);
+        frame6.setVisible(false);
+        card11.setVisible(false);
+        card12.setVisible(false);
+        card21.setVisible(false);
+        card22.setVisible(false);
+        card31.setVisible(false);
+        card32.setVisible(false);
+        card41.setVisible(false);
+        card42.setVisible(false);
+        card51.setVisible(false);
+        card52.setVisible(false);
+        card61.setVisible(false);
+        card62.setVisible(false);
+        /*
+        card11.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Tile pressed ");
+                event.consume();
+            }
+        });
+        */
     }
 
     public void setFather(MainUIController father)
@@ -80,21 +139,39 @@ public class PlayerBoardController {
         {
             case 0:
                 changeLabelToPlayer(player,nameLabel1,stateLabel1,chipsLabel1,buysLabel1,handWonLabel1,gridPane1);
+                frame1.setVisible(true);
+                card11.setVisible(true);
+                card12.setVisible(true);
                 break;
             case 1:
                 changeLabelToPlayer(player,nameLabel2,stateLabel2,chipsLabel2,buysLabel2,handWonLabel2,gridPane2);
+                frame2.setVisible(true);
+                card21.setVisible(true);
+                card22.setVisible(true);
                 break;
             case 2:
                 changeLabelToPlayer(player,nameLabel3,stateLabel3,chipsLabel3,buysLabel3,handWonLabel3,gridPane3);
+                frame3.setVisible(true);
+                card31.setVisible(true);
+                card32.setVisible(true);
                 break;
             case 3:
                 changeLabelToPlayer(player,nameLabel4,stateLabel4,chipsLabel4,buysLabel4,handWonLabel4,gridPane4);
+                frame4.setVisible(true);
+                card41.setVisible(true);
+                card42.setVisible(true);
                 break;
             case 4:
                 changeLabelToPlayer(player,nameLabel5,stateLabel5,chipsLabel5,buysLabel5,handWonLabel5,gridPane5);
+                frame5.setVisible(true);
+                card51.setVisible(true);
+                card52.setVisible(true);
                 break;
             case 5:
                 changeLabelToPlayer(player,nameLabel6,stateLabel6,chipsLabel6,buysLabel6,handWonLabel6,gridPane6);
+                frame6.setVisible(true);
+                card61.setVisible(true);
+                card62.setVisible(true);
                 break;
         }
 
@@ -110,4 +187,50 @@ public class PlayerBoardController {
         grinPane.setVisible(true);
     }
 
+    public void displayCommunityCards(int numOfRound)
+    {
+        List<Card> listOfCard =  refServer.getCommunityCards();
+        int indexOfCard =1;
+        for(Card card : listOfCard)
+        {
+            displayCommunityCard(card.getImagecard(),indexOfCard);
+            indexOfCard++;
+        }
+    }
+
+    public void displayCommunityCard(Image image,int indexOfCard)
+    {
+
+        switch (indexOfCard)
+        {
+            case 1:CommunityCard1.setImage(image);
+                break;
+            case 2:CommunityCard2.setImage(image);
+                break;
+            case 3:CommunityCard3.setImage(image);
+                break;
+            case 4:CommunityCard4.setImage(image);
+                break;
+            case 5:CommunityCard5.setImage(image);
+                break;
+            default: break;
+        }
+
+    }
+
+    public void displayCurrBetAndCashBoxOnBoard()
+    {
+        currentBetLabel.setText(Integer.toString(refServer.getCurrBet()));
+        totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
+    }
+
+    public void press()
+    {
+        System.out.println("Tile pressed ");
+    }
+
+    public void remove()
+    {
+        System.out.println("Tile pressed removes");
+    }
 }

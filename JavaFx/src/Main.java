@@ -16,7 +16,6 @@ public class Main extends Application {
         URL mainFXML = getClass().getResource("MainUI.fxml");
         loader.setLocation(mainFXML);
         BorderPane root = loader.load();
-
         MainUIController mainUIController = loader.getController();
         mainUIController.setServerToContoroller();
         mainUIController.setFatherToConroller();

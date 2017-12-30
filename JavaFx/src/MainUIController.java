@@ -1,7 +1,11 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -43,6 +47,8 @@ public class MainUIController implements Initializable {
         }
         numOfCurrRound++;
         numOfCurrHand++;
+        //TEST!!!!ToBeDeleted!!!
+        showWinnerPopUp();
 
         ifCompPlayerIsPlaying();
     }
@@ -150,5 +156,22 @@ public class MainUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+    @FXML
+    private void showWinnerPopUp(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL winnerPopUpFXML = getClass().getResource("WinnerInfo.fxml");
+            loader.setLocation(winnerPopUpFXML);
+            AnchorPane root1 = loader.load();
+            WinnerInfoController winnerInfoController = loader.getController();
+            Stage popUpStage = new Stage();
+            winnerInfoController.setPrimaryStage(popUpStage);
+            popUpStage.setTitle("Hand Winner");
+            popUpStage.setScene(new Scene(root1));
+            popUpStage.showAndWait();
+        }catch (Exception ex){
+
+        }
     }
 }

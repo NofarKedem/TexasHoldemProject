@@ -23,6 +23,10 @@ public class GameDetailsController {
     {
         mainUIFather = father;
     }
+    public void SetServer(Server ser)
+    {
+        refServer = ser;
+    }
 
     public GameDetailsController() {
         NumOfHands = new SimpleLongProperty(0);
@@ -38,10 +42,7 @@ public class GameDetailsController {
         BigSizeLabel.textProperty().bind(Bindings.format("%,d", BigSize));
         SmallSizeLabel.textProperty().bind(Bindings.format("%,d", SmallSize));
     }
-    public void SetServer(Server ser)
-    {
-        refServer = ser;
-    }
+
 
     public void setButtonNextHandDisable(boolean flag)
     {
@@ -72,8 +73,11 @@ public class GameDetailsController {
     }
     public void pressOnCheck(ActionEvent event)
     {
-        if(mainUIFather.checkStatus(refServer.gameMove("4", 0)));
+        Utils.RoundResult moveResult= refServer.gameMove("4", 0);
+        mainUIFather.displayPlayerOnBoard();
+        if(mainUIFather.checkStatus(moveResult));
             mainUIFather.ifCompPlayerIsPlaying();
+
     }
     public void pressOnRaise(ActionEvent event)
     {

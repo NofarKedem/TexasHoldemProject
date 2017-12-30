@@ -27,6 +27,7 @@ public class LoadFileController {
     public void PressOnStartGame()
     {
         ButtonLoadFile.setDisable(true);
+        mainUIFather.displayPlayerOnBoard();
         mainUIFather.StartHand();
         ButtonStartGame.setDisable(true);
 

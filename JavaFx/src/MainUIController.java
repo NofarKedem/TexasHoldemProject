@@ -1,11 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -17,6 +13,7 @@ public class MainUIController implements Initializable {
     @FXML private PlayerTableController playerTableController;
     @FXML private GameDetailsController gameDetailsController;
     @FXML private LoadFileController loadFileController;
+    @FXML private PlayerBoardController playerBoardController;
 
     Server server = new Server();
     int numOfCurrHand=0;
@@ -37,7 +34,10 @@ public class MainUIController implements Initializable {
         server.cardDistribusionToPlayer();
         server.initRound();
         server.callFlop();
-        if(server.blindBet())
+        server.blindBetSmall();
+        server.blindBetBig();
+        /*
+        if(server.blindBetSmall() || server.blindBetBig())
         {
 
         }
@@ -45,11 +45,10 @@ public class MainUIController implements Initializable {
         {
             System.out.println("The current blind bet player\\s do not have enough chips for bet!");
         }
+        */
         numOfCurrRound++;
         numOfCurrHand++;
-        //TEST!!!!ToBeDeleted!!!
-        showWinnerPopUp();
-
+        displayPlayerOnBoard();
         ifCompPlayerIsPlaying();
     }
 
@@ -57,8 +56,8 @@ public class MainUIController implements Initializable {
     {
 
         if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
-            if(checkStatus(server.playWithComputer()))
-                 ifCompPlayerIsPlaying();
+            checkStatus(server.playWithComputer());
+            ifCompPlayerIsPlaying();
         }
 
     }
@@ -119,6 +118,7 @@ public class MainUIController implements Initializable {
         playerTableController.setFather(this);
         gameDetailsController.setFather(this);
         loadFileController.setFather(this);
+        playerBoardController.setFather(this);
     }
 
     public void setServerToContoroller()
@@ -127,6 +127,7 @@ public class MainUIController implements Initializable {
         playerTableController.SetServer(server);
         gameDetailsController.SetServer(server);
         loadFileController.SetServer(server);
+        playerBoardController.SetServer(server);
     }
     public void setPrimaryStage(Stage primaryStage)
     {
@@ -142,9 +143,7 @@ public class MainUIController implements Initializable {
 
     public void updatePlayersTable()
     {
-        //PokerPlayer1 po = new PokerPlayer1("hadar",12);
         ObservableList<PlayerInfo> pokerPlayers = FXCollections.observableArrayList();
-        //ObservableList<PokerPlayer1> pokerPlayers = FXCollections.observableArrayList();
 
         List<PlayerInfo> playerList = server.getAllPlayerInfo();
         for(PlayerInfo p: playerList)
@@ -157,21 +156,10 @@ public class MainUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    @FXML
-    private void showWinnerPopUp(){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            URL winnerPopUpFXML = getClass().getResource("WinnerInfo.fxml");
-            loader.setLocation(winnerPopUpFXML);
-            AnchorPane root1 = loader.load();
-            WinnerInfoController winnerInfoController = loader.getController();
-            Stage popUpStage = new Stage();
-            winnerInfoController.setPrimaryStage(popUpStage);
-            popUpStage.setTitle("Hand Winner");
-            popUpStage.setScene(new Scene(root1));
-            popUpStage.showAndWait();
-        }catch (Exception ex){
 
-        }
+    public void displayPlayerOnBoard()
+    {
+        playerBoardController.displayPlayerDetailsOnTheBoard();
+
     }
 }

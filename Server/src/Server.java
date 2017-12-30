@@ -179,15 +179,17 @@ public class Server {
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
 
+        numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
         Players playersFromXML = gameDescriptor.getPlayers();
         initializePlayers(playersFromXML);
+
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if(tempHandsCount%Utils.numOfPlayers != 0)
             throw new Exception("Invalid file, Hand count is not divided to the number of player");
         numOfChipsForsmall = tempSmall;
         numOfChipsForBig = tempBig;
         totalnumOfHands = tempHandsCount;
-        numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
+
 
     }
 
@@ -204,7 +206,7 @@ public class Server {
         PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
                 getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
-                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex));
+                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex));
         return tempPlayerInfo;
     }
 
@@ -378,6 +380,10 @@ public class Server {
         return players.get(indexOfPlayer).getId();
     }
 
+    public boolean getIsPlayerQuit(int indexOfPlayer)
+    {
+        return players.get(indexOfPlayer).getQuit();
+    }
 
     public Boolean getIfPlayerQuit(int indexOfPlayer)
     {

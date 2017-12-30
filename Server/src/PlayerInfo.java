@@ -9,9 +9,10 @@ public class PlayerInfo {
     private int playerHandsWon;
     //private int playerCurrBet;
     private String playerCards;
+    private boolean isQuit;
 
     PlayerInfo(char typeOfPlayer,String playerState,int playerChips, int playerBuys,
-               int playerHandsWon, int playerIndex,String PlayerName,int PlayerId){
+               int playerHandsWon, int playerIndex,String PlayerName,int PlayerId,boolean isQuit){
         this.typeOfPlayer = typeOfPlayer;
         this.playerState = playerState;
         this.playerChips = playerChips;
@@ -20,6 +21,7 @@ public class PlayerInfo {
         this.playerIndex = playerIndex;
         this.PlayerName = PlayerName;
         this.PlayerId = PlayerId;
+        this.isQuit = isQuit;
         //this.playerCurrBet = playerCurrBet;
         //this.playerCards = playerCards;
     }
@@ -63,5 +65,11 @@ public class PlayerInfo {
     public String getPlayerCards(){
         return this.playerCards;
     }
+
+    public boolean getIsQuit()
+    {
+        return isQuit;
+    }
+
 
 }

@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,18 +25,21 @@ public class Card {
     private final Rank rank;
     private final Suit suit;
     private boolean isUsed;
+    Image imagecard;
 
     public Card()
     {
         rank = null;
         suit = null;
         isUsed = false;
+
     }
 
     public Card(Rank rank, Suit suit){
         this.rank = rank;
         this.suit = suit;
         this.isUsed = false;
+        imagecard = new Image( rank.value + suit.value + ".png"); //שרשור של השם הכרטיס + png
     }
 
     public String toString(){
@@ -47,6 +52,11 @@ public class Card {
 
     public void setUsed(boolean val){
         this.isUsed = val;
+    }
+
+    public Image getImagecard()
+    {
+        return imagecard;
     }
 
 

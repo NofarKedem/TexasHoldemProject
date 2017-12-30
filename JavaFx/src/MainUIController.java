@@ -38,7 +38,7 @@ public class MainUIController implements Initializable {
         server.setPlayHand();
         server.cardDistribusionToPlayer();
         server.initRound();
-        server.callFlop();
+        cardDistribusionInRound();
         server.blindBetSmall();
         server.blindBetBig();
         /*
@@ -54,10 +54,13 @@ public class MainUIController implements Initializable {
         numOfCurrRound++;
         numOfCurrHand++;
         displayPlayerOnBoard();
+
         //test To Be Deleted!!
-        server.testWinPopUp();
-        showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
+        //server.testWinPopUp();
+        //showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
         //end of test
+
+        displayCurrBetAndCashBoxOnBoard();
         ifCompPlayerIsPlaying();
     }
 
@@ -66,6 +69,7 @@ public class MainUIController implements Initializable {
 
         if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
             checkStatus(server.playWithComputer());
+            displayCurrBetAndCashBoxOnBoard();
             ifCompPlayerIsPlaying();
         }
 
@@ -120,7 +124,17 @@ public class MainUIController implements Initializable {
 
     public void cardDistribusionInRound()
     {
-
+        switch (numOfCurrRound)
+        {
+            case 0: server.callFlop();
+                break;
+            case 1: server.callTurn();
+                break;
+            case 2: server.callRiver();
+                break;
+            default: break;
+        }
+        playerBoardController.displayCommunityCards(numOfCurrRound);
     }
 
     public void setFatherToConroller()
@@ -171,6 +185,11 @@ public class MainUIController implements Initializable {
     {
         playerBoardController.displayPlayerDetailsOnTheBoard();
 
+    }
+
+
+    public void displayCurrBetAndCashBoxOnBoard() {
+        playerBoardController.displayCurrBetAndCashBoxOnBoard();
     }
 
     @FXML

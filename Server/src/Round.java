@@ -178,9 +178,17 @@ public class Round implements PlayerActionService{
 
     private Utils.RoundResult GameStatus(){
         int numOfQuitPlayers = 0;
-        if(playersRef.get(currPlayerIndex).getType() == 'H' && playersRef.get(currPlayerIndex).getQuit()
-                || playersRef.get(currPlayerIndex).getChips() == 0){
-            return Utils.RoundResult.HUMANFOLD;
+
+        if(playersRef.get(currPlayerIndex).getType() == 'H' && (playersRef.get(currPlayerIndex).getQuit()
+                || playersRef.get(currPlayerIndex).getChips() == 0)){
+            int numOfActiveHumanPlayers = 0;
+            for(PokerPlayer p : playersRef){
+                if(p.getType() == 'H' && !p.getQuit()){
+                    numOfActiveHumanPlayers++;
+                }
+            }
+            if(numOfActiveHumanPlayers == 0)
+                return Utils.RoundResult.HUMANFOLD;
         }
 
 

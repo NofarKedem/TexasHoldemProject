@@ -19,6 +19,12 @@ public class PlayerTableController implements Initializable{
     TableColumn Id = new TableColumn();
     @FXML
     TableColumn Type = new TableColumn();
+    @FXML
+    TableColumn HandWins = new TableColumn();
+    @FXML
+    TableColumn Buys = new TableColumn();
+    @FXML
+    TableColumn WinningPrice = new TableColumn();
 
 
 
@@ -44,5 +50,8 @@ public class PlayerTableController implements Initializable{
         tableView.getItems().addAll(pokerPlayers);
     }
 
+    public void updateWinProperties(){
+        //HandWins.setCellValueFactory(new PropertyValueFactory<PokerPlayer1, Integer>("handsWon"));
+    }
 
 }

@@ -490,7 +490,7 @@ public class UI {
         }
 
         System.out.println("End of hand, buy buy!");
-        server.closeTheHand(cashBoxReminder);
+        server.closeTheHand();
 
     }
     private void initRound()

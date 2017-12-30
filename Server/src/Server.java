@@ -3,10 +3,7 @@ import XMLobject.Player;
 import XMLobject.Players;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Server {
     private Deck deck;
@@ -22,6 +19,7 @@ public class Server {
     private int numOfChipsForBig;
     private int numOfChipsPerBuy;
     private boolean fixed;
+    private Map<Integer,String> WinnerMap;
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
     private BlindsHelper blindsHelper;
@@ -37,6 +35,17 @@ public class Server {
         deck = new Deck();
         handTohandCashBox = 0;
     }
+
+    //FOR TEST!!! TO BE DELETED!!!//
+    public void testWinPopUp(){
+        WinnerMap = new HashMap<>();
+        //WinnerMap.put(1,"Pair");
+        //WinnerMap.put(2,"Pair");
+        //WinnerMap.put(0,"Trig");
+        //WinnerMap.put(3,"Ase");
+        WinnerMap.put(4,"Gilad");
+    }
+
 
     public void initializePlayers(Players playersFromXML) {
         List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
@@ -60,7 +69,7 @@ public class Server {
     }
 
 
-    public void closeTheHand(int cashBoxReminder){
+    public void closeTheHand(){
         for(PokerPlayer P : players){
             P.resetState();
         }
@@ -72,7 +81,7 @@ public class Server {
             numOfChipsForBig = blindsHelper.getBig();
         }
         initPlayersState();
-        handTohandCashBox = cashBoxReminder;
+
     }
 
     public void initializeHand(){
@@ -282,11 +291,33 @@ public class Server {
     }
     public Map<Integer,String> WhoIsTheWinner() throws Exception
     {
-        return currHand.WhoIsTheWinner();
+        WinnerMap = currHand.WhoIsTheWinner();
+        return WinnerMap;
     }
 
     public Map<Integer,String> setTechniqWinners(Utils.RoundResult roundResult) {
-        return currHand.setTechniqWinners(roundResult);
+        WinnerMap = currHand.setTechniqWinners(roundResult);
+        return WinnerMap;
+    }
+
+    /*
+    * This function calculates the number of chip a player (ot players) should get
+    * base on the num of players who won (map size)
+    * it also calcs the reminder of the cashbox that will be moved to the next hand
+    * */
+    public int calcWinnersChipPrize(){
+        int cashBoxReminder = 0;
+        int chipPrize = 0;
+        int cashBoxBeforeDivide = getCashBox();
+        int numOfWinners = WinnerMap.size();
+        if (cashBoxBeforeDivide % numOfWinners == 0) {
+            chipPrize = cashBoxBeforeDivide / numOfWinners;
+        } else {
+            cashBoxReminder = cashBoxBeforeDivide % numOfWinners;
+            chipPrize = (cashBoxBeforeDivide - cashBoxReminder) / numOfWinners;
+        }
+        handTohandCashBox = cashBoxReminder;
+        return chipPrize;
     }
 
     public void addChipsToPlayer()
@@ -460,5 +491,9 @@ public class Server {
     public int getNumOfChipsPerBuy()
     {
         return numOfChipsPerBuy;
+    }
+
+    public Map<Integer,String> getWinnerMap() {
+        return WinnerMap;
     }
 }

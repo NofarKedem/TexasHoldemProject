@@ -22,8 +22,8 @@ public class WinLogic {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
 
-        mCalculator.addHand(com.rundef.poker.Hand.fromString("3S5S"));
-        mCalculator.addHand(com.rundef.poker.Hand.fromString("3D5D"));
+        //mCalculator.addHand(com.rundef.poker.Hand.fromString("3S5S"));
+        //mCalculator.addHand(com.rundef.poker.Hand.fromString("3D5D"));
         mCalculator.calculate();
 
         List<Integer> winnerList =  mCalculator.getWinningHands();

@@ -17,6 +17,7 @@ public class MainUIController implements Initializable {
     @FXML private GameDetailsController gameDetailsController;
     @FXML private LoadFileController loadFileController;
     @FXML private PlayerBoardController playerBoardController;
+    @FXML private WinnerInfoController winnerInfoController;
 
     Server server = new Server();
     int numOfCurrHand=0;
@@ -31,6 +32,7 @@ public class MainUIController implements Initializable {
         {
             //end game
         }
+        int cashBoxReminder = 0;
         server.initHandReplay();
         server.initializeHand();
         server.setPlayHand();
@@ -52,6 +54,10 @@ public class MainUIController implements Initializable {
         numOfCurrRound++;
         numOfCurrHand++;
         displayPlayerOnBoard();
+        //test To Be Deleted!!
+        server.testWinPopUp();
+        showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
+        //end of test
         ifCompPlayerIsPlaying();
     }
 
@@ -71,7 +77,7 @@ public class MainUIController implements Initializable {
 
             if (resultOfMove == Utils.RoundResult.CLOSEROUND) {
                 if(numOfCurrRound==3)
-                    endHand();
+                    endHand(resultOfMove);
 
                 else {
                     cardDistribusionInRound();
@@ -79,17 +85,23 @@ public class MainUIController implements Initializable {
                     numOfCurrRound++;
                 }
             } else if (resultOfMove == Utils.RoundResult.ENDGAME) {
-                endHand();
+                try {
+                    WinnerMap = server.WhoIsTheWinner();
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
                 //System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
                 WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
-                endHand();
+                endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD) {
                 // System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
                 WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
-                endHand();
+                endHand(resultOfMove);
             }
             else
                 successes = true;
@@ -98,15 +110,10 @@ public class MainUIController implements Initializable {
         return successes;
     }
 
-    public void endHand()
+    public void endHand(Utils.RoundResult winResult)
     {
         //endGame
-        try {
-            WinnerMap = server.WhoIsTheWinner();
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        showWinnerPopUp(winResult);
         gameDetailsController.setButtonNextHandDisable(true);
         numOfCurrRound=0;
     }
@@ -167,7 +174,7 @@ public class MainUIController implements Initializable {
     }
 
     @FXML
-    private void showWinnerPopUp(){
+    private void showWinnerPopUp(Utils.RoundResult winResult){
         try {
             FXMLLoader loader = new FXMLLoader();
             URL winnerPopUpFXML = getClass().getResource("WinnerInfo.fxml");
@@ -176,6 +183,9 @@ public class MainUIController implements Initializable {
             WinnerInfoController winnerInfoController = loader.getController();
             Stage popUpStage = new Stage();
             winnerInfoController.setPrimaryStage(popUpStage);
+            winnerInfoController.setFather(this);
+            winnerInfoController.SetServer(server);
+            winnerInfoController.setWinnerDetails(winResult);
             popUpStage.setTitle("Hand Winner");
             popUpStage.setScene(new Scene(root1));
             popUpStage.showAndWait();
@@ -183,5 +193,6 @@ public class MainUIController implements Initializable {
 
         }
     }
+
 
 }

@@ -8,11 +8,11 @@ public class PlayerInfo {
     private int playerBuys;
     private int playerHandsWon;
     //private int playerCurrBet;
-    private String playerCards;
+    private Card[] playerCards;
     private boolean isQuit;
 
     PlayerInfo(char typeOfPlayer,String playerState,int playerChips, int playerBuys,
-               int playerHandsWon, int playerIndex,String PlayerName,int PlayerId,boolean isQuit){
+               int playerHandsWon, int playerIndex,String PlayerName,int PlayerId,boolean isQuit,Card[] playerCards){
         this.typeOfPlayer = typeOfPlayer;
         this.playerState = playerState;
         this.playerChips = playerChips;
@@ -23,7 +23,7 @@ public class PlayerInfo {
         this.PlayerId = PlayerId;
         this.isQuit = isQuit;
         //this.playerCurrBet = playerCurrBet;
-        //this.playerCards = playerCards;
+        this.playerCards = playerCards;
     }
 
     public String getName()
@@ -62,7 +62,7 @@ public class PlayerInfo {
 //    public int getPlayerCurrBet(){
 //        return this.playerCurrBet;
 //    }
-    public String getPlayerCards(){
+    public Card[] getPlayerCards(){
         return this.playerCards;
     }
 

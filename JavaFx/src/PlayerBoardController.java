@@ -235,11 +235,25 @@ public class PlayerBoardController {
     private void changeLabelToPlayer(PlayerInfo player, Label name,Label state,Label chips,Label buy, Label handsOfWon, GridPane grinPane)
     {
         name.setText(player.getName());
-        state.setText(player.getPlayerState());
+        //confStateTextToPlayer();
+        state.setText(confStateTextToPlayer(player));
         chips.setText(Integer.toString(player.getPlayerChips()));
         buy.setText(Integer.toString(player.getPlayerBuys()));
         handsOfWon.setText(Integer.toString(player.getPlayerHandsWon()));
         grinPane.setVisible(true);
+    }
+    private String confStateTextToPlayer(PlayerInfo player)
+    {
+        String state = player.getPlayerState();
+        if(state == "S")
+            return state + " - "+refServer.getNumOfChipsForsmall();
+        else if(state == "B")
+            return state + " - "+refServer.getNumOfChipsForBig();
+        else if(state == "D")
+            return state;
+
+        return "";
+
     }
 
     public void displayCommunityCards(int numOfRound)
@@ -279,13 +293,69 @@ public class PlayerBoardController {
         totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
     }
 
-    public void press()
+    public void exposeCard()
     {
-        System.out.println("Tile pressed ");
+        int numOfPlayer = refServer.getCurrPlayer();
+        PlayerInfo player =  refServer.getPlayerInfo(numOfPlayer);
+        Card[] playerCards = player.getPlayerCards();
+        switch(numOfPlayer)
+        {
+            case 0:
+                card11.setImage(playerCards[0].getImagecard());
+                card12.setImage(playerCards[1].getImagecard());
+                break;
+            case 1:
+                card21.setImage(playerCards[0].getImagecard());
+                card22.setImage(playerCards[1].getImagecard());
+                break;
+            case 2:
+                card31.setImage(playerCards[0].getImagecard());
+                card32.setImage(playerCards[1].getImagecard());
+                break;
+            case 3:
+                card41.setImage(playerCards[0].getImagecard());
+                card42.setImage(playerCards[1].getImagecard());
+                break;
+            case 4:
+                card51.setImage(playerCards[0].getImagecard());
+                card52.setImage(playerCards[1].getImagecard());
+                break;
+            case 5:
+                card61.setImage(playerCards[0].getImagecard());
+                card62.setImage(playerCards[1].getImagecard());
+                break;
+        }
     }
-
-    public void remove()
+    public void unExposeCard()
     {
-        System.out.println("Tile pressed removes");
+        int numOfPlayer = refServer.getCurrPlayer();
+        Image imj = new Image("closeCard.png");
+        switch(numOfPlayer)
+        {
+            case 0:
+                card11.setImage(imj);
+                card12.setImage(imj);
+                break;
+            case 1:
+                card21.setImage(imj);
+                card22.setImage(imj);
+                break;
+            case 2:
+                card31.setImage(imj);
+                card32.setImage(imj);
+                break;
+            case 3:
+                card41.setImage(imj);
+                card42.setImage(imj);
+                break;
+            case 4:
+                card51.setImage(imj);
+                card52.setImage(imj);
+                break;
+            case 5:
+                card61.setImage(imj);
+                card62.setImage(imj);
+                break;
+        }
     }
 }

@@ -46,14 +46,15 @@ public class LoadFileController {
 
         try {
             refServer.loadFile(absolutePath);
+            statusFile.setText("File loaded successfully");
+            mainUIFather.updateXMLDetails();
+            ButtonStartGame.setDisable(false);
         }
             catch(Exception e)
         {
             statusFile.setText(e.getMessage());
         }
-        statusFile.setText("File loaded successfully");
-        mainUIFather.updateXMLDetails();
-        ButtonStartGame.setDisable(false);
+
 
 
 

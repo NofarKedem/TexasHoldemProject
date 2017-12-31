@@ -38,7 +38,7 @@ public class MainUIController implements Initializable {
         server.setPlayHand();
         server.cardDistribusionToPlayer();
         server.initRound();
-        cardDistribusionInRound();
+        //cardDistribusionInRound();
         server.blindBetSmall();
         server.blindBetBig();
         /*
@@ -80,15 +80,16 @@ public class MainUIController implements Initializable {
         boolean successes = false;
 
             if (resultOfMove == Utils.RoundResult.CLOSEROUND) {
-                if(numOfCurrRound==3)
-                    endHand(resultOfMove);
-
+                if(numOfCurrRound==4) {
+                    //endHand(resultOfMove);
+                    resultOfMove = Utils.RoundResult.ENDGAME;
+                }
                 else {
                     cardDistribusionInRound();
                     server.initRound();
                     numOfCurrRound++;
                 }
-            } else if (resultOfMove == Utils.RoundResult.ENDGAME) {
+            }  if (resultOfMove == Utils.RoundResult.ENDGAME) {
                 try {
                     WinnerMap = server.WhoIsTheWinner();
                 }
@@ -126,11 +127,11 @@ public class MainUIController implements Initializable {
     {
         switch (numOfCurrRound)
         {
-            case 0: server.callFlop();
+            case 1: server.callFlop();
                 break;
-            case 1: server.callTurn();
+            case 2: server.callTurn();
                 break;
-            case 2: server.callRiver();
+            case 3: server.callRiver();
                 break;
             default: break;
         }
@@ -208,6 +209,15 @@ public class MainUIController implements Initializable {
         }catch (Exception ex){
 
         }
+    }
+
+    public void exposeCurrentCardOfHumanPlayer()
+    {
+        playerBoardController.exposeCard();
+    }
+    public void unExposeCurrentCardOfHumanPlayer()
+    {
+        playerBoardController.unExposeCard();
     }
 
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Accordion maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameDetailsController">
+<Accordion maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameDetailsController">
   <panes>
     <TitledPane animated="false" minHeight="320.0" minWidth="450.0" prefHeight="321.0" prefWidth="450.0" text="Game details">
          <content>
@@ -45,12 +45,13 @@
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="123.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="29.333343505859375" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -63,6 +64,7 @@
                   <TextField fx:id="textFieldToRaise" maxWidth="50.0" prefHeight="25.0" prefWidth="40.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
                   <Label fx:id="errorBetLabel" prefHeight="17.0" prefWidth="195.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <Label fx:id="errorRaiseLabel" prefHeight="17.0" prefWidth="199.0" visible="false" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                  <Button fx:id="ShowMyCardButton" mnemonicParsing="false" onMousePressed="#pressOnShowMyCard" onMouseReleased="#releaseOnShowMyCard" text="Show my card" GridPane.columnSpan="2" GridPane.rowIndex="7" />
                </children>
             </GridPane>
          </content>

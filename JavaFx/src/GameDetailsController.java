@@ -18,6 +18,7 @@ public class GameDetailsController {
     @FXML TextField textFieldToRaise;
     @FXML Label errorBetLabel;
     @FXML Label errorRaiseLabel;
+    @FXML Button ShowMyCardButton;
     private SimpleLongProperty NumOfHands;
     private SimpleLongProperty Buys;
     private SimpleLongProperty BigSize;
@@ -124,7 +125,7 @@ public class GameDetailsController {
     {
         Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
         mainUIFather.updateAllBoard();
-        if(mainUIFather.checkStatus(moveResult));
+        mainUIFather.checkStatus(moveResult);
         mainUIFather.ifCompPlayerIsPlaying();
     }
 
@@ -149,6 +150,15 @@ public class GameDetailsController {
             }
         }
         return isSucsses;
+    }
+
+    public void pressOnShowMyCard()
+    {
+        mainUIFather.exposeCurrentCardOfHumanPlayer();
+    }
+    public void releaseOnShowMyCard()
+    {
+        mainUIFather.unExposeCurrentCardOfHumanPlayer();
     }
 }
 

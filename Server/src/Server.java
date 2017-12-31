@@ -47,8 +47,7 @@ public class Server {
     }
 
 
-    public void initializePlayers(Players playersFromXML) {
-        List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
+    public void initializePlayers(List<Player> listOfPlayerFromXML) {
         Utils.numOfPlayers = listOfPlayerFromXML.size();
         int i = 1;
         char type;
@@ -190,7 +189,12 @@ public class Server {
 
         numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
         Players playersFromXML = gameDescriptor.getPlayers();
-        initializePlayers(playersFromXML);
+        List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
+        if(listOfPlayerFromXML.size() < 3 || listOfPlayerFromXML.size() > 6)
+            throw new Exception("Invalid player number, supposed to be between 3-6");
+        checkThereIsHumanPlayerAtXml(listOfPlayerFromXML); //throw exception
+        checkThereIsNoPlayerWithSameId(listOfPlayerFromXML); //throw exception
+        initializePlayers(listOfPlayerFromXML);
 
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if(tempHandsCount%Utils.numOfPlayers != 0)
@@ -200,6 +204,28 @@ public class Server {
         totalnumOfHands = tempHandsCount;
 
 
+    }
+
+    private void checkThereIsHumanPlayerAtXml(List<Player> listOfPlayerFromXML) throws Exception
+    {
+        int counter =0;
+        for (Player player : listOfPlayerFromXML) {
+            if(player.getType().equals("Human"))
+                counter++;
+        }
+        if(counter==0)
+            throw new Exception("There is no human player at the XML");
+    }
+
+    private void checkThereIsNoPlayerWithSameId(List<Player> listOfPlayerFromXML) throws Exception
+    {
+        List<BigInteger> listOfId = new ArrayList<>();
+        for (Player player : listOfPlayerFromXML) {
+            if(listOfId.contains(player.getId()))
+                throw new Exception("There is players with the same id");
+            else
+                listOfId.add(player.getId());
+        }
     }
 
     public List<PlayerInfo> getAllPlayerInfo()
@@ -215,7 +241,8 @@ public class Server {
         PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
                 getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
-                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex));
+                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex)
+                ,getCardsPlayerobjCard(playerIndex));
         return tempPlayerInfo;
     }
 
@@ -257,6 +284,10 @@ public class Server {
     String getCardsPlayer(int numOfPlayer)
     {
         return players.get(numOfPlayer).getCard()[0].toString() +" " +players.get(numOfPlayer).getCard()[1].toString();
+    }
+    public Card[] getCardsPlayerobjCard(int numOfPlayer)
+    {
+        return players.get(numOfPlayer).getCard();
     }
     int getCurrBet()
     {
@@ -495,5 +526,9 @@ public class Server {
 
     public Map<Integer,String> getWinnerMap() {
         return WinnerMap;
+    }
+
+    public int getCurrPlayer() {
+        return currHand.getCurrPlayer();
     }
 }

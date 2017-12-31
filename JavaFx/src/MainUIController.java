@@ -54,12 +54,6 @@ public class MainUIController implements Initializable {
         numOfCurrRound++;
         numOfCurrHand++;
         displayPlayerOnBoard();
-
-        //test To Be Deleted!!
-        //server.testWinPopUp();
-        //showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
-        //end of test
-
         displayCurrBetAndCashBoxOnBoard();
         ifCompPlayerIsPlaying();
     }

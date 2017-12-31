@@ -36,17 +36,6 @@ public class Server {
         handTohandCashBox = 0;
     }
 
-    //FOR TEST!!! TO BE DELETED!!!//
-    public void testWinPopUp(){
-        WinnerMap = new HashMap<>();
-        //WinnerMap.put(1,"Pair");
-        //WinnerMap.put(2,"Pair");
-        //WinnerMap.put(0,"Trig");
-        //WinnerMap.put(3,"Ase");
-        WinnerMap.put(4,"Gilad");
-    }
-
-
     public void initializePlayers(Players playersFromXML) {
         List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
         Utils.numOfPlayers = listOfPlayerFromXML.size();

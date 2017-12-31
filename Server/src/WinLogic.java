@@ -21,9 +21,13 @@ public class WinLogic {
     public Map<Integer,String> findTheWinner(List<Card> communityCardsRef, List<PokerPlayer> playersRef) throws Exception {
         Map<Integer,String> theWinners = new HashMap<>();
         mCalculator.setBoardFromString(setCommunityCardsAsString(communityCardsRef));
-
-        //mCalculator.addHand(com.rundef.poker.Hand.fromString("3S5S"));
-        //mCalculator.addHand(com.rundef.poker.Hand.fromString("3D5D"));
+        for(PokerPlayer player : playersRef)
+            {
+                if(!player.getQuit()) {
+                   String cardStr = player.getCard()[0].toString() + player.getCard()[1].toString();
+                   mCalculator.addHand(com.rundef.poker.Hand.fromString(cardStr));
+                 }
+            }
         mCalculator.calculate();
 
         List<Integer> winnerList =  mCalculator.getWinningHands();
@@ -31,10 +35,11 @@ public class WinLogic {
         int indexInHands=0;
         int indexInWinnerList=0;
         for(PokerPlayer player : playersRef) {
-            if (player.getQuit() == false) //לא פרשת
+            if(indexInWinnerList >= winnerList.size())
+                break;
+                if (player.getQuit() == false) //לא פרשת
             {
-                if(indexInHands== winnerList.get(indexInWinnerList))
-                {
+                if (indexInHands == winnerList.get(indexInWinnerList)) {
                     theWinners.put(originNumOfPlayer, mCalculator.getHandRanking(indexInHands).getRank().toString());
                     indexInWinnerList++;
                 }

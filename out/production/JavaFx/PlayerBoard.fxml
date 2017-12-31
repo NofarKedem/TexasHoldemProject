@@ -285,8 +285,8 @@
       <Label layoutX="383.0" layoutY="198.0" text="Total cash box:" textFill="#fdfdfd" />
       <Label fx:id="totalCashBoxLabel" layoutX="466.0" layoutY="198.0" textFill="#fdfbfb" />
       <Label layoutX="6.0" layoutY="7.0" text="Current hand:" />
-      <Label fx:id="currentHandLabel" layoutX="83.0" layoutY="7.0" />
+      <Label fx:id="currentHandLabel" layoutX="91.0" layoutY="7.0" />
       <Label layoutX="6.0" layoutY="30.0" text="Current round:" />
-      <Label fx:id="currentRoundLabel" layoutX="88.0" layoutY="30.0" />
+      <Label fx:id="currentRoundLabel" layoutX="94.0" layoutY="30.0" />
    </children>
 </AnchorPane>

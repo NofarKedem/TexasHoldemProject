@@ -71,6 +71,8 @@ public class PlayerBoardController {
     @FXML ImageView card62;
     @FXML Label currentBetLabel;
     @FXML Label totalCashBoxLabel;
+    @FXML Label currentRoundLabel;
+    @FXML Label currentHandLabel;
 
     Server refServer;
     MainUIController mainUIFather;
@@ -101,6 +103,7 @@ public class PlayerBoardController {
         card52.setVisible(false);
         card61.setVisible(false);
         card62.setVisible(false);
+
         /*
         card11.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
@@ -122,14 +125,23 @@ public class PlayerBoardController {
         refServer = ser;
     }
 
+    public void updateAllBoard()
+    {
+        currentRoundLabel.setText(Integer.toString(refServer.getCurrNumOfRound()));
+        currentHandLabel.setText(Integer.toString(refServer.getCurrentNumberOfHand()));
+        displayCurrBetAndCashBoxOnBoard();
+        displayPlayerDetailsOnTheBoard();
+    }
 
-    public void displayPlayerDetailsOnTheBoard()
+    private void displayPlayerDetailsOnTheBoard()
     {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
             PlayerInfo player =  refServer.getPlayerInfo(i);
             if(!player.getIsQuit())
                 displayPlayerByIndex(player,i);
+            else
+                visiblePlayerByIndex(player,i);
         }
 
     }
@@ -175,6 +187,49 @@ public class PlayerBoardController {
                 break;
         }
 
+    }
+
+    private void visiblePlayerByIndex(PlayerInfo player, int numOfPlayer)
+    {
+        switch(numOfPlayer)
+        {
+            case 0:
+                gridPane1.setVisible(false);
+                frame1.setVisible(false);
+                card11.setVisible(false);
+                card12.setVisible(false);
+                break;
+            case 1:
+                gridPane2.setVisible(false);
+                frame2.setVisible(false);
+                card21.setVisible(false);
+                card22.setVisible(false);
+                break;
+            case 2:
+                gridPane3.setVisible(false);
+                frame3.setVisible(false);
+                card31.setVisible(false);
+                card32.setVisible(false);
+                break;
+            case 3:
+                gridPane4.setVisible(false);
+                frame4.setVisible(false);
+                card41.setVisible(false);
+                card42.setVisible(false);
+                break;
+            case 4:
+                gridPane5.setVisible(false);
+                frame5.setVisible(false);
+                card51.setVisible(false);
+                card52.setVisible(false);
+                break;
+            case 5:
+                gridPane6.setVisible(false);
+                frame6.setVisible(false);
+                card61.setVisible(false);
+                card62.setVisible(false);
+                break;
+        }
     }
 
     private void changeLabelToPlayer(PlayerInfo player, Label name,Label state,Label chips,Label buy, Label handsOfWon, GridPane grinPane)

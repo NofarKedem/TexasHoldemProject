@@ -53,14 +53,14 @@ public class MainUIController implements Initializable {
         */
         numOfCurrRound++;
         numOfCurrHand++;
-        displayPlayerOnBoard();
+        updateAllBoard();
 
         //test To Be Deleted!!
         //server.testWinPopUp();
         //showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
         //end of test
 
-        displayCurrBetAndCashBoxOnBoard();
+
         ifCompPlayerIsPlaying();
     }
 
@@ -69,7 +69,7 @@ public class MainUIController implements Initializable {
 
         if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
             checkStatus(server.playWithComputer());
-            displayCurrBetAndCashBoxOnBoard();
+            updateAllBoard();
             ifCompPlayerIsPlaying();
         }
 
@@ -181,16 +181,13 @@ public class MainUIController implements Initializable {
 
     }
 
-    public void displayPlayerOnBoard()
+
+    public void updateAllBoard()
     {
-        playerBoardController.displayPlayerDetailsOnTheBoard();
-
+        playerBoardController.updateAllBoard();
     }
 
 
-    public void displayCurrBetAndCashBoxOnBoard() {
-        playerBoardController.displayCurrBetAndCashBoxOnBoard();
-    }
 
     @FXML
     private void showWinnerPopUp(Utils.RoundResult winResult){

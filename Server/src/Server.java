@@ -14,6 +14,8 @@ public class Server {
     private int numOfPlayHands;
     private static int dilerIndex = 0;
     private int ancorDindex;
+    private int addition;
+    private int max_total_rounds;
     private int handTohandCashBox;
     private int numOfChipsForsmall;
     private int numOfChipsForBig;
@@ -24,26 +26,12 @@ public class Server {
     private List<StatusSnapShot> handReplay = new ArrayList<>();
     private BlindsHelper blindsHelper;
 
-    //temporary - just for test (need to be updated from the new xml
-    private int addition = 2;
-    private int max_total_rounds = 4;
-
     public Server(){
         timeOfStartGame = 0;
         totalnumOfHands = 0;
         players = new ArrayList(Utils.numOfPlayers);
         deck = new Deck();
         handTohandCashBox = 0;
-    }
-
-    //FOR TEST!!! TO BE DELETED!!!//
-    public void testWinPopUp(){
-        WinnerMap = new HashMap<>();
-        //WinnerMap.put(1,"Pair");
-        //WinnerMap.put(2,"Pair");
-        //WinnerMap.put(0,"Trig");
-        //WinnerMap.put(3,"Ase");
-        WinnerMap.put(4,"Gilad");
     }
 
 
@@ -56,7 +44,7 @@ public class Server {
                 type = 'H';
             else
                 type = 'C';
-            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1, i, player.getName(), player.getId().intValue()));
+            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1,i, player.getName(), player.getId().intValue()));
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         ancorDindex = dilerIndex;
@@ -73,7 +61,6 @@ public class Server {
             P.resetState();
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
-        fixed = false; //temporary - just for test (need to be updated from the new xml
         if (!fixed) {
             blindsHelper.blindsUpdate(ancorDindex, dilerIndex);
             numOfChipsForsmall = blindsHelper.getSmall();
@@ -186,6 +173,17 @@ public class Server {
         int tempBig = (gameDescriptor.getStructure().getBlindes().getBig()).intValue();
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
+
+        fixed = gameDescriptor.getStructure().getBlindes().isFixed();
+        if(!fixed){
+            max_total_rounds = gameDescriptor.getStructure().getBlindes().getMaxTotalRounds().intValue();
+            addition = gameDescriptor.getStructure().getBlindes().getAdditions().intValue();
+            blindsHelper.calcTotalRounds();
+            int maxBig = blindsHelper.calcMaxBig();
+            if(tempBig > maxBig){
+                throw new Exception("Invalid file, big value is higher from the max possible big");
+            }
+        }
 
         numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
         Players playersFromXML = gameDescriptor.getPlayers();
@@ -432,10 +430,13 @@ public class Server {
         return players.get(indexOfPlayer).getNumOfPlayer();
     }
 
+
+
     public String getPlayerName(int indexOfPlayer)
     {
         return players.get(indexOfPlayer).getName();
     }
+
 
     public int getPlayerId(int indexOfPlayer)
     {

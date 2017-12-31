@@ -55,12 +55,6 @@ public class MainUIController implements Initializable {
         numOfCurrHand++;
         updateAllBoard();
 
-        //test To Be Deleted!!
-        //server.testWinPopUp();
-        //showWinnerPopUp(Utils.RoundResult.HUMANFOLD);
-        //end of test
-
-
         ifCompPlayerIsPlaying();
     }
 
@@ -84,6 +78,7 @@ public class MainUIController implements Initializable {
                     //endHand(resultOfMove);
                     resultOfMove = Utils.RoundResult.ENDGAME;
                 }
+
                 else {
                     cardDistribusionInRound();
                     server.initRound();

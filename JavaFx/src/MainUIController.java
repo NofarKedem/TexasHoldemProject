@@ -75,7 +75,7 @@ public class MainUIController implements Initializable {
 
             if (resultOfMove == Utils.RoundResult.CLOSEROUND) {
                 if(numOfCurrRound==3)
-                    endHand(resultOfMove);
+                    endHand(Utils.RoundResult.ENDGAME);
 
                 else {
                     cardDistribusionInRound();

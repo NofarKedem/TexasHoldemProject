@@ -21,10 +21,10 @@ public class BlindsHelper {
         calcMaxBig();
     }
 
-    private void calcTotalRounds(){
+    public void calcTotalRounds(){
         totalRounds = totalHands / Utils.numOfPlayers;
     }
-    public void calcMaxBig(){
+    public int calcMaxBig(){
         int min = 0;
         calcTotalRounds();
         if (totalRounds*addition < max_total_rounds*addition){
@@ -34,6 +34,7 @@ public class BlindsHelper {
             min = max_total_rounds*addition;
         }
         maxBig = min + startingBig;
+        return maxBig;
     }
 
 

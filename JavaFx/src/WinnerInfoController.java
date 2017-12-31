@@ -52,7 +52,8 @@ public class WinnerInfoController {
             }
 
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer) + "  ";
+                //need to find the player index
+                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
                 cardsComb = cardsComb + WinnerMapRef.get(numOfPlayer) + "  ";
             }
             winnerLable.setText(WinnersNames);
@@ -64,7 +65,7 @@ public class WinnerInfoController {
                             "this is a Technical victory to:");
             prizeText.setText("The winning prize:");
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer) + "  ";
+                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
             }
             winnerLable.setText(WinnersNames);
             cardsCombText.setVisible(false);
@@ -76,7 +77,7 @@ public class WinnerInfoController {
                     "this is a Technical victory to computer players:");
             prizeText.setText("The winning prize:");
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer) + "  ";
+                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
             }
             winnerLable.setText(WinnersNames);
             cardsCombText.setVisible(false);

@@ -66,36 +66,37 @@ public class GameDetailsController {
     public void pressOnFold(ActionEvent event)
     {
         humanPlayerMove("1",0);
-        mainUIFather.displayCurrBetAndCashBoxOnBoard();
-        mainUIFather.ifCompPlayerIsPlaying();
+        doAfterMove();
     }
     public void pressOnBet(ActionEvent event)
     {
         IntHolder amount = new IntHolder();
         if(checkTextField(textFieldToBet, errorBetLabel,amount))
             humanPlayerMove("2", amount.value);
-        mainUIFather.displayCurrBetAndCashBoxOnBoard();
-        mainUIFather.ifCompPlayerIsPlaying();
+        doAfterMove();
     }
     public void pressOnCall(ActionEvent event)
     {
         humanPlayerMove("3",0);
-        mainUIFather.displayCurrBetAndCashBoxOnBoard();
-        mainUIFather.ifCompPlayerIsPlaying();
+        doAfterMove();
     }
     public void pressOnCheck(ActionEvent event)
     {
 
         humanPlayerMove("4",0);
-        mainUIFather.displayCurrBetAndCashBoxOnBoard();
-        mainUIFather.ifCompPlayerIsPlaying();
+        doAfterMove();
     }
     public void pressOnRaise(ActionEvent event)
     {
         IntHolder amount = new IntHolder();
         if(checkTextField(textFieldToRaise, errorRaiseLabel,amount))
             humanPlayerMove("5", amount.value);
-        mainUIFather.displayCurrBetAndCashBoxOnBoard();
+        doAfterMove();
+    }
+
+    private void doAfterMove()
+    {
+        mainUIFather.updateAllBoard();
         mainUIFather.ifCompPlayerIsPlaying();
     }
     public void pressOnNextHand(ActionEvent event)
@@ -122,7 +123,7 @@ public class GameDetailsController {
     private void humanPlayerMove(String numOfMove,int amount)
     {
         Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
-        mainUIFather.displayPlayerOnBoard();
+        mainUIFather.updateAllBoard();
         if(mainUIFather.checkStatus(moveResult));
         mainUIFather.ifCompPlayerIsPlaying();
     }

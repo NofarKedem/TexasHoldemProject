@@ -71,6 +71,8 @@ public class PlayerBoardController {
     @FXML ImageView card62;
     @FXML Label currentBetLabel;
     @FXML Label totalCashBoxLabel;
+    @FXML Label betLabel;
+    @FXML Label cashBoxLabel;
     @FXML Label currentRoundLabel;
     @FXML Label currentHandLabel;
 
@@ -79,6 +81,10 @@ public class PlayerBoardController {
 
     @FXML
     private void initialize() {
+        currentBetLabel.setId("currentBetLabel");
+        totalCashBoxLabel.setId("totalCashBoxLabel");
+        betLabel.setId("betLabel");
+        cashBoxLabel.setId("cashBoxLabel");
         gridPane1.setVisible(false);
         gridPane2.setVisible(false);
         gridPane3.setVisible(false);
@@ -103,17 +109,6 @@ public class PlayerBoardController {
         card52.setVisible(false);
         card61.setVisible(false);
         card62.setVisible(false);
-
-        /*
-        card11.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("Tile pressed ");
-                event.consume();
-            }
-        });
-        */
     }
 
     public void setFather(MainUIController father)
@@ -287,15 +282,37 @@ public class PlayerBoardController {
 
     }
 
+    public void hideAllCommunityCard()
+    {
+        Image imj = new Image("closeCard.png");
+        for(int i=1;i<=5;i++)
+        {
+            displayCommunityCard(imj,i);
+        }
+    }
+
     public void displayCurrBetAndCashBoxOnBoard()
     {
         currentBetLabel.setText(Integer.toString(refServer.getCurrBet()));
         totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
     }
 
-    public void exposeCard()
+
+
+    public void exposeAllPlayers()
     {
-        int numOfPlayer = refServer.getCurrPlayer();
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfo(i);
+            if(!player.getIsQuit())
+            {
+                exposeCard(i);
+            }
+        }
+    }
+
+    public void exposeCard(int numOfPlayer)
+    {
         PlayerInfo player =  refServer.getPlayerInfo(numOfPlayer);
         Card[] playerCards = player.getPlayerCards();
         switch(numOfPlayer)
@@ -326,9 +343,21 @@ public class PlayerBoardController {
                 break;
         }
     }
-    public void unExposeCard()
+
+    public void unExposeAllPlayers()
     {
-        int numOfPlayer = refServer.getCurrPlayer();
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfo(i);
+            if(!player.getIsQuit())
+            {
+                unExposeCard(i);
+            }
+        }
+    }
+
+    public void unExposeCard(int numOfPlayer)
+    {
         Image imj = new Image("closeCard.png");
         switch(numOfPlayer)
         {

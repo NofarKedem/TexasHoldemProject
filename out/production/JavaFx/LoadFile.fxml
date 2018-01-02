@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoadFileController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.6666259765625" minWidth="10.0" prefWidth="97.66665649414062" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.3333435058594" minWidth="10.0" prefWidth="117.33331298828125" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.6666259765625" minWidth="10.0" prefWidth="414.66668701171875" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoadFileController">
    <children>
-      <Button fx:id="ButtonLoadFile" mnemonicParsing="false" onAction="#PressOnLoadFile" text="Load File" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-      <Button fx:id="ButtonStartGame" disable="true" mnemonicParsing="false" onAction="#PressOnStartGame" text="Start Game" GridPane.halignment="CENTER" />
-      <Label fx:id="statusFile" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+      <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem fx:id="ButtonLoadFile" mnemonicParsing="false" onAction="#PressOnLoadFile" text="LoadFile" />
+                  </items>
+                </Menu>
+                <Menu fx:id="menuStartGame" mnemonicParsing="false" text="Game">
+                     <items>
+                        <MenuItem fx:id="ButtonStartGame" disable="true" mnemonicParsing="false" onAction="#PressOnStartGame" text="Start game" />
+                     </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Change skin">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#changeSkinOption1" text="Option 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#changeSkinOption2" text="Option 2" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Animation">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Animation on" />
+                        <MenuItem mnemonicParsing="false" text="Animation off" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+      <VBox layoutX="14.0" layoutY="38.0">
+         <children>
+            <Label text="File status: " />
+         </children>
+      </VBox>
+      <Label fx:id="statusFile" layoutX="80.0" layoutY="38.0" prefHeight="17.0" prefWidth="321.0" />
    </children>
-</GridPane>
+</AnchorPane>

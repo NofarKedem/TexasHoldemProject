@@ -110,9 +110,9 @@ public class MainUIController implements Initializable {
                 WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
                 endHand(resultOfMove);
             }
-            else if (resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD) {
+            else if (resultOfMove == Utils.RoundResult.ALLFOLDED) {
                 // System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
-                WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
+                WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
                 endHand(resultOfMove);
             }
             else
@@ -130,6 +130,7 @@ public class MainUIController implements Initializable {
         gameDetailsController.disableHandFinishButton(false);
         gameDetailsController.disablePlayerMove();
         numOfCurrRound=0;
+        server.closeTheHand();
     }
 
     public void cardDistribusionInRound()

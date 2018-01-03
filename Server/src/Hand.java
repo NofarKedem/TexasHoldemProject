@@ -142,7 +142,7 @@ public class Hand {
         WinLogic winner = new WinLogic();
         if(roundResult == Utils.RoundResult.HUMANFOLD)
             WinnerMap =  winner.setTechniqWinnersForCompPlayer(handPlayers);
-        else if(roundResult == Utils.RoundResult.ALLCOMPUTERFOLD)
+        else if(roundResult == Utils.RoundResult.ALLFOLDED)
             WinnerMap =  winner.setTechniqWinnersForHumanPlayer(handPlayers);
         updateTheWinnerWithCashBox(WinnerMap);
         return WinnerMap;

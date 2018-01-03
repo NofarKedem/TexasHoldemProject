@@ -199,7 +199,7 @@ public class Round implements PlayerActionService{
         }
         //If all players but 1 quit OR the current player played 'All In' - End the game 4
         if(numOfQuitPlayers >= playersRef.size()-1){
-            return Utils.RoundResult.ALLCOMPUTERFOLD;
+            return Utils.RoundResult.ALLFOLDED;
         }
         if(nextTurn(currPlayerIndex) == closeTheRound){
             return Utils.RoundResult.CLOSEROUND;

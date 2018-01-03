@@ -1,5 +1,5 @@
 public class BlindsHelper {
-    
+
 
     public static int calcTotalRounds(int totalHands){
         int totalRounds = totalHands / Utils.numOfPlayers;

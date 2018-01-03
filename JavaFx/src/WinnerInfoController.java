@@ -60,7 +60,7 @@ public class WinnerInfoController {
             cardCombinationLable.setText(cardsComb);
             prizeLable.setText(String.valueOf(refServer.calcWinnersChipPrize()));
         }
-        else if(winResult == Utils.RoundResult.ALLCOMPUTERFOLD){
+        else if(winResult == Utils.RoundResult.ALLFOLDED){
             theWinnerText.setText("All the other players folded, " +
                             "this is a Technical victory to:");
             prizeText.setText("The winning prize:");

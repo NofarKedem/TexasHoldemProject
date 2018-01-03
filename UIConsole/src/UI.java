@@ -437,7 +437,7 @@ public class UI {
             int i = 0;
             for (i = 0; i < 4; i++) {
                 if (resultOfMove != Utils.RoundResult.ENDGAME && resultOfMove != Utils.RoundResult.HUMANFOLD
-                        && resultOfMove != Utils.RoundResult.ALLCOMPUTERFOLD) //if the game was over
+                        && resultOfMove != Utils.RoundResult.ALLFOLDED) //if the game was over
                 {
                     if (i != 0)
                         initRound();
@@ -462,9 +462,9 @@ public class UI {
                 if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
                     System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
                     WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
-                } else if (resultOfMove == Utils.RoundResult.ALLCOMPUTERFOLD) {
+                } else if (resultOfMove == Utils.RoundResult.ALLFOLDED) {
                     System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
-                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLCOMPUTERFOLD);
+                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
                 } else {
                     WinnerMap = server.WhoIsTheWinner();
                 }

@@ -70,7 +70,7 @@ public class WinLogic {
         Map<Integer,String> theWinners = new HashMap<>();
         int originNumOfPlayer=1;
         for(PokerPlayer player : handPlayers){
-            if(player.getType() == 'H'){
+            if(player.getType() == 'H' && !player.getQuit()){
                 theWinners.put(originNumOfPlayer,"Technical victory");
             }
             originNumOfPlayer++;

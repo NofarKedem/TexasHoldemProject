@@ -52,7 +52,7 @@ public class Server {
     }
 
     public void initBlindsHelper(){
-        blindsHelper = new BlindsHelper(numOfChipsForsmall,numOfChipsForBig,totalnumOfHands,addition,max_total_rounds);
+        blindsHelper = new BlindsHelper();
     }
 
 
@@ -62,9 +62,10 @@ public class Server {
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         if (!fixed) {
-            blindsHelper.blindsUpdate(ancorDindex, dilerIndex);
-            numOfChipsForsmall = blindsHelper.getSmall();
-            numOfChipsForBig = blindsHelper.getBig();
+            if(dilerIndex == ancorDindex){
+                numOfChipsForsmall = numOfChipsForsmall + addition;
+                numOfChipsForBig = numOfChipsForBig + addition;
+            }
         }
         initPlayersState();
 
@@ -174,16 +175,6 @@ public class Server {
         if(tempSmall >= tempBig)
             throw new Exception("Invalid file, small is bigger or equal to big");
 
-        fixed = gameDescriptor.getStructure().getBlindes().isFixed();
-        if(!fixed){
-            max_total_rounds = gameDescriptor.getStructure().getBlindes().getMaxTotalRounds().intValue();
-            addition = gameDescriptor.getStructure().getBlindes().getAdditions().intValue();
-            blindsHelper.calcTotalRounds();
-            int maxBig = blindsHelper.calcMaxBig();
-            if(tempBig > maxBig){
-                throw new Exception("Invalid file, big value is higher from the max possible big");
-            }
-        }
 
         numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
         Players playersFromXML = gameDescriptor.getPlayers();
@@ -197,6 +188,17 @@ public class Server {
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if(tempHandsCount%Utils.numOfPlayers != 0)
             throw new Exception("Invalid file, Hand count is not divided to the number of player");
+
+        fixed = gameDescriptor.getStructure().getBlindes().isFixed();
+        if(!fixed){
+            max_total_rounds = gameDescriptor.getStructure().getBlindes().getMaxTotalRounds().intValue();
+            addition = gameDescriptor.getStructure().getBlindes().getAdditions().intValue();
+            int maxBig = BlindsHelper.calcMaxBig(BlindsHelper.calcTotalRounds(tempHandsCount),
+                        addition,max_total_rounds,tempBig);
+            if(tempBig > maxBig){
+                throw new Exception("Invalid file, big value is higher from the max possible big");
+            }
+        }
         numOfChipsForsmall = tempSmall;
         numOfChipsForBig = tempBig;
         totalnumOfHands = tempHandsCount;

@@ -280,9 +280,9 @@
             <Image url="@closeCard.png" />
          </image>
       </ImageView>
-      <Label layoutX="254.0" layoutY="198.0" text="Current bet:" textFill="#fffafa" />
+      <Label fx:id="betLabel" layoutX="254.0" layoutY="198.0" text="Current bet:" textFill="#fffafa" />
       <Label fx:id="currentBetLabel" layoutX="320.0" layoutY="198.0" textFill="#fdf9f9" />
-      <Label layoutX="383.0" layoutY="198.0" text="Total cash box:" textFill="#fdfdfd" />
+      <Label fx:id="cashBoxLabel" layoutX="383.0" layoutY="198.0" text="Total cash box:" textFill="#fdfdfd" />
       <Label fx:id="totalCashBoxLabel" layoutX="466.0" layoutY="198.0" textFill="#fdfbfb" />
       <Label layoutX="6.0" layoutY="7.0" text="Current hand:" />
       <Label fx:id="currentHandLabel" layoutX="91.0" layoutY="7.0" />

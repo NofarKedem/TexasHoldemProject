@@ -23,11 +23,19 @@ public class MainUIController implements Initializable {
     int numOfCurrHand=0;
     int numOfCurrRound=0;
     Map<Integer, String> WinnerMap;
+    Scene scene;
+
+    public void setScene(Scene scene)
+    {
+        this.scene = scene;
+    }
 
 
     public void StartHand()
     {
-        gameDetailsController.setButtonNextHandDisable(true);
+        gameDetailsController.disableHandFinishButton(true);
+        playerBoardController.unExposeAllPlayers();
+        playerBoardController.hideAllCommunityCard();
         if(numOfCurrHand+1 == server.getNumberOfHands())
         {
             //end game
@@ -38,9 +46,9 @@ public class MainUIController implements Initializable {
         server.setPlayHand();
         server.cardDistribusionToPlayer();
         server.initRound();
-        //cardDistribusionInRound();
         server.blindBetSmall();
         server.blindBetBig();
+        //gameDetailsController.setDisableToMoveButton();
         /*
         if(server.blindBetSmall() || server.blindBetBig())
         {
@@ -60,12 +68,15 @@ public class MainUIController implements Initializable {
 
     public void ifCompPlayerIsPlaying() //אם זה שחקן ממוחשב הוא משחק
     {
-
+        gameDetailsController.setDisableToMoveButton();
         if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
-            checkStatus(server.playWithComputer());
+            if(checkStatus(server.playWithComputer())) {
+                ifCompPlayerIsPlaying();
+            }
             updateAllBoard();
-            ifCompPlayerIsPlaying();
         }
+
+
 
     }
 
@@ -83,6 +94,7 @@ public class MainUIController implements Initializable {
                     cardDistribusionInRound();
                     server.initRound();
                     numOfCurrRound++;
+                    successes = true;
                 }
             }  if (resultOfMove == Utils.RoundResult.ENDGAME) {
                 try {
@@ -114,7 +126,9 @@ public class MainUIController implements Initializable {
     {
         //endGame
         showWinnerPopUp(winResult);
-        gameDetailsController.setButtonNextHandDisable(true);
+        playerBoardController.exposeAllPlayers();
+        gameDetailsController.disableHandFinishButton(false);
+        gameDetailsController.disablePlayerMove();
         numOfCurrRound=0;
     }
 
@@ -208,11 +222,21 @@ public class MainUIController implements Initializable {
 
     public void exposeCurrentCardOfHumanPlayer()
     {
-        playerBoardController.exposeCard();
+        playerBoardController.exposeCard(server.getCurrPlayer());
     }
     public void unExposeCurrentCardOfHumanPlayer()
     {
-        playerBoardController.unExposeCard();
+        playerBoardController.unExposeCard(server.getCurrPlayer());
+    }
+
+    public void changeSkinOption1()
+    {
+        scene.getStylesheets().add(getClass().getResource("SkinOption1.css").toExternalForm());
+    }
+
+    public void changeSkinOption2()
+    {
+        scene.getStylesheets().add(getClass().getResource("SkinOption2.css").toExternalForm());
     }
 
 

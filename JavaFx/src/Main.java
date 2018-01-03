@@ -22,6 +22,8 @@ public class Main extends Application {
         mainUIController.setPrimaryStage(primaryStage);
         primaryStage.setTitle("Texsas Holdem");
         Scene scene = new Scene(root, 1050, 600);
+        mainUIController.setScene(scene);
+
         primaryStage.setScene(scene);
         primaryStage.show();
 

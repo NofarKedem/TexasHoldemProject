@@ -14,11 +14,22 @@ public class GameDetailsController {
     @FXML Label BigSizeLabel;
     @FXML Label SmallSizeLabel;
     @FXML Button ButtonNextHand;
+    @FXML Button ButtonReplay;
+    @FXML Button ButtonNext;
+    @FXML Button ButtonPrev;
+    @FXML Button ButtonBuyChips;
+
     @FXML TextField textFieldToBet;
     @FXML TextField textFieldToRaise;
     @FXML Label errorBetLabel;
     @FXML Label errorRaiseLabel;
     @FXML Button ShowMyCardButton;
+    @FXML Button ButtonFold;
+    @FXML Button ButtonBet;
+    @FXML Button ButtonCall;
+    @FXML Button ButtonCheck;
+    @FXML Button ButtonRaise;
+
     private SimpleLongProperty NumOfHands;
     private SimpleLongProperty Buys;
     private SimpleLongProperty BigSize;
@@ -98,11 +109,11 @@ public class GameDetailsController {
     private void doAfterMove()
     {
         mainUIFather.updateAllBoard();
-        mainUIFather.ifCompPlayerIsPlaying();
+
     }
     public void pressOnNextHand(ActionEvent event)
     {
-
+        mainUIFather.StartHand();
     }
     public void pressOnReplay(ActionEvent event)
     {
@@ -125,8 +136,8 @@ public class GameDetailsController {
     {
         Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
         mainUIFather.updateAllBoard();
-        mainUIFather.checkStatus(moveResult);
-        mainUIFather.ifCompPlayerIsPlaying();
+        if(mainUIFather.checkStatus(moveResult))
+            mainUIFather.ifCompPlayerIsPlaying();
     }
 
     public boolean checkTextField(TextField textField, Label errorLabel, IntHolder amount)
@@ -159,6 +170,38 @@ public class GameDetailsController {
     public void releaseOnShowMyCard()
     {
         mainUIFather.unExposeCurrentCardOfHumanPlayer();
+    }
+
+    public void setDisableToMoveButton() {
+
+        if (refServer.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
+            ShowMyCardButton.setDisable(false);
+        else
+            ShowMyCardButton.setDisable(true);
+        ButtonFold.setDisable(!refServer.validateMove("1"));
+        ButtonBet.setDisable(!refServer.validateMove("2"));
+        ButtonCall.setDisable(!refServer.validateMove("3"));
+        ButtonCheck.setDisable(!refServer.validateMove("4"));
+        ButtonRaise.setDisable(!refServer.validateMove("5"));
+    }
+
+    public void disableHandFinishButton(boolean bool)
+    {
+        ButtonNextHand.setDisable(bool);
+        ButtonReplay.setDisable(bool);
+        ButtonNext.setDisable(bool);
+        ButtonPrev.setDisable(bool);
+        ButtonBuyChips.setDisable(bool);
+    }
+
+    public void disablePlayerMove()
+    {
+        ButtonFold.setDisable(true);
+        ButtonBet.setDisable(true);
+        ButtonCall.setDisable(true);
+        ButtonCheck.setDisable(true);
+        ButtonRaise.setDisable(true);
+        ShowMyCardButton.setDisable(true);
     }
 }
 

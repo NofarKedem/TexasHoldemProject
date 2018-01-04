@@ -82,6 +82,7 @@ public class MainUIController implements Initializable {
 
     public boolean checkStatus(Utils.RoundResult resultOfMove)
     {
+        server.addSnapShotToReplay();
         boolean successes = false;
 
             if (resultOfMove == Utils.RoundResult.CLOSEROUND) {

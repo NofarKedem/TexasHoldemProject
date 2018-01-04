@@ -15,16 +15,17 @@ public class Server {
     private static int dilerIndex = 0;
     private int ancorDindex;
     private int addition;
+    private int dilerRoundsCounter;
     private int max_total_rounds;
     private int handTohandCashBox;
     private int numOfChipsForsmall;
     private int numOfChipsForBig;
     private int numOfChipsPerBuy;
+    private int maxBig;
     private boolean fixed;
     private Map<Integer,String> WinnerMap;
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
-    private BlindsHelper blindsHelper;
 
     public Server(){
         timeOfStartGame = 0;
@@ -32,6 +33,8 @@ public class Server {
         players = new ArrayList(Utils.numOfPlayers);
         deck = new Deck();
         handTohandCashBox = 0;
+        dilerRoundsCounter = 0; //might be needed to move to another place 
+
     }
 
 
@@ -51,10 +54,6 @@ public class Server {
         initPlayersState();
     }
 
-    public void initBlindsHelper(){
-        blindsHelper = new BlindsHelper();
-    }
-
 
     public void closeTheHand(){
         for(PokerPlayer P : players){
@@ -63,8 +62,13 @@ public class Server {
         dilerIndex = calculateDilerIndex(dilerIndex);
         if (!fixed) {
             if(dilerIndex == ancorDindex){
-                numOfChipsForsmall = numOfChipsForsmall + addition;
-                numOfChipsForBig = numOfChipsForBig + addition;
+                dilerRoundsCounter++;
+                if(dilerRoundsCounter < max_total_rounds) {
+                    if (numOfChipsForBig + addition <= maxBig) {
+                        numOfChipsForsmall = numOfChipsForsmall + addition;
+                        numOfChipsForBig = numOfChipsForBig + addition;
+                    }
+                }
             }
         }
         initPlayersState();
@@ -94,19 +98,6 @@ public class Server {
         players.get(small).updateState("S");
         players.get(calcBigIndex(small)).updateState("B");
     }
-//will might be needed for the 2nd exercise
-//    private void initPlayersState(){
-//        int small = calcSmallIndex(dilerIndex);
-//        int big = calcBigIndex(small);
-//        while(players.get(small).getChips() < numOfChipsForsmall || players.get(big).getChips() < numOfChipsForBig){
-//            dilerIndex = calculateDilerIndex(dilerIndex);
-//            small = calcSmallIndex(dilerIndex);
-//            big = calcBigIndex(small);
-//        }
-//        players.get(dilerIndex).updateState("D");
-//        players.get(small).updateState("S");
-//        players.get(calcBigIndex(small)).updateState("B");
-//    }
 
     private void initPlayersQuitState(){
         for(PokerPlayer player : players){
@@ -193,10 +184,10 @@ public class Server {
         if(!fixed){
             max_total_rounds = gameDescriptor.getStructure().getBlindes().getMaxTotalRounds().intValue();
             addition = gameDescriptor.getStructure().getBlindes().getAdditions().intValue();
-            int maxBig = BlindsHelper.calcMaxBig(BlindsHelper.calcTotalRounds(tempHandsCount),
+            maxBig = BlindsHelper.calcMaxBig(BlindsHelper.calcTotalRounds(tempHandsCount),
                         addition,max_total_rounds,tempBig);
-            if(tempBig > maxBig){
-                throw new Exception("Invalid file, big value is higher from the max possible big");
+            if(maxBig > numOfChipsPerBuy/2){
+                throw new Exception("Invalid file,the max possible big is higher then half of buy value");
             }
         }
         numOfChipsForsmall = tempSmall;
@@ -243,6 +234,15 @@ public class Server {
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
                 getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex)
                 ,getCardsPlayerobjCard(playerIndex));
+        return tempPlayerInfo;
+    }
+
+    public PlayerInfo getPlayerInfoFromReplayList(int playerIndex, int listIter){
+        PlayerInfo currRepStatus = handReplay.get(listIter).getPlayerStatus();
+        PlayerInfo tempPlayerInfo = new PlayerInfo(currRepStatus.getTypeOfPlayer(),currRepStatus.getPlayerState(),
+                currRepStatus.getPlayerChips(),currRepStatus.getPlayerBuys(),currRepStatus.getPlayerHandsWon(),
+                currRepStatus.getNumOfPlayer(),currRepStatus.getName(),currRepStatus.getId(),currRepStatus.getIsQuit(),
+                currRepStatus.getPlayerCards());
         return tempPlayerInfo;
     }
 
@@ -506,6 +506,10 @@ public class Server {
         dilerIndex = 0;
         handTohandCashBox=0;
 
+    }
+
+    public List<StatusSnapShot> getHandReplayList(){
+        return handReplay;
     }
 
     public void initHandReplay(){

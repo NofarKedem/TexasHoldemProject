@@ -7,7 +7,6 @@ public class PlayerInfo {
     private int playerChips;
     private int playerBuys;
     private int playerHandsWon;
-    //private int playerCurrBet;
     private Card[] playerCards;
     private boolean isQuit;
 

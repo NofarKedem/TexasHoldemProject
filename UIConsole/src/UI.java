@@ -650,7 +650,6 @@ public class UI {
     public void restartCurrentGame()
     {
         server.restartCurrentGame();
-        //server.initializePlayers(1,3);
     }
 
 

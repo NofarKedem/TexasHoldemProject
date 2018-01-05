@@ -1,3 +1,5 @@
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -5,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -78,6 +81,7 @@ public class PlayerBoardController {
 
     Server refServer;
     MainUIController mainUIFather;
+    FadeTransition fadeTransition = new FadeTransition();
 
     @FXML
     private void initialize() {
@@ -130,15 +134,18 @@ public class PlayerBoardController {
 
     private void displayPlayerDetailsOnTheBoard()
     {
+        stopFrameSparking();
+
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
             PlayerInfo player =  refServer.getPlayerInfo(i);
-            if(!player.getIsQuit())
-                displayPlayerByIndex(player,i);
+            if(!player.getIsQuit()) {
+                displayPlayerByIndex(player, i);
+                if(!mainUIFather.getIsEndHand()){frameSpark();}
+            }
             else
                 visiblePlayerByIndex(player,i);
         }
-
     }
 
     public void displayPlayerDetailsOnTheBoardFromReplayList(int replayListIter)
@@ -437,4 +444,43 @@ public class PlayerBoardController {
                 break;
         }
     }
+
+    public void frameSpark()
+    {
+        int numOfPlayer = refServer.getCurrPlayer();
+        ImageView frame = null;
+        switch(numOfPlayer)
+        {
+            case 0:
+                frame = frame1;
+                break;
+            case 1:
+                frame = frame2;
+                break;
+            case 2:
+                frame = frame3;
+                break;
+            case 3:
+                frame = frame4;
+                break;
+            case 4:
+                frame = frame5;
+                break;
+            case 5:
+                frame = frame6;
+                break;
+        }
+        fadeTransition.setDuration(Duration.seconds(1.0));
+        fadeTransition.setNode(frame);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.play();
+    }
+    public void stopFrameSparking()
+    {
+        fadeTransition.jumpTo(Duration.ZERO);
+        fadeTransition.stop();
+    }
+
 }

@@ -20,10 +20,15 @@ public class MainUIController implements Initializable {
     @FXML private WinnerInfoController winnerInfoController;
 
     Server server = new Server();
-    int numOfCurrHand=0;
+    int numOfCurrHand=2;
     int numOfCurrRound=0;
+    boolean isEndHand=false;
     Map<Integer, String> WinnerMap;
     Scene scene;
+
+    public boolean getIsEndHand() {
+        return isEndHand;
+    }
 
     public void setScene(Scene scene)
     {
@@ -33,13 +38,7 @@ public class MainUIController implements Initializable {
 
     public void StartHand()
     {
-        gameDetailsController.disableHandFinishButton(true);
-        playerBoardController.unExposeAllPlayers();
-        playerBoardController.hideAllCommunityCard();
-        if(numOfCurrHand+1 == server.getNumberOfHands())
-        {
-            //end game
-        }
+        isEndHand = false;
         int cashBoxReminder = 0;
         server.initHandReplay();
         server.initializeHand();
@@ -61,6 +60,11 @@ public class MainUIController implements Initializable {
         */
         numOfCurrRound++;
         numOfCurrHand++;
+        gameDetailsController.disableHandFinishButton(true);
+        playerBoardController.unExposeAllPlayers();
+        playerBoardController.hideAllCommunityCard();
+        loadFileController.disableGameButton(true);
+        loadFileController.resetStatusGameLabel();
         updateAllBoard();
 
         ifCompPlayerIsPlaying();
@@ -73,6 +77,7 @@ public class MainUIController implements Initializable {
             if(checkStatus(server.playWithComputer())) {
                 ifCompPlayerIsPlaying();
             }
+
             updateAllBoard();
         }
 
@@ -82,6 +87,16 @@ public class MainUIController implements Initializable {
 
     public boolean checkStatus(Utils.RoundResult resultOfMove)
     {
+        //for test
+            System.out.print("last move was: " + server.getLastMove());
+            if (server.getLastMove() == "RAISE")
+                System.out.println(" with amount: " + server.getLastGenerateAmount());
+            else
+                System.out.println();
+        //for test
+
+        
+
         server.addSnapShotToReplay();
         boolean successes = false;
 
@@ -126,12 +141,21 @@ public class MainUIController implements Initializable {
     public void endHand(Utils.RoundResult winResult)
     {
         //endGame
+        isEndHand = true;
         showWinnerPopUp(winResult);
         playerBoardController.exposeAllPlayers();
         gameDetailsController.disableHandFinishButton(false);
         gameDetailsController.disablePlayerMove();
         numOfCurrRound=0;
         server.closeTheHand();
+        playerBoardController.stopFrameSparking();
+        if(numOfCurrHand == server.getNumberOfHands())
+        {
+            //end game
+            loadFileController.setStatusGameLabelToEndGame();
+            gameDetailsController.disableHandFinishButton(true);
+            loadFileController.disableGameButton(false);
+        }
     }
 
     public void cardDistribusionInRound()
@@ -239,6 +263,11 @@ public class MainUIController implements Initializable {
     public void changeSkinOption2()
     {
         scene.getStylesheets().add(getClass().getResource("SkinOption2.css").toExternalForm());
+    }
+    public void reset()
+    {
+        numOfCurrHand=0;
+        numOfCurrRound=0;
     }
 
 

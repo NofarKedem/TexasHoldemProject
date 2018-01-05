@@ -21,6 +21,8 @@
                 <Menu fx:id="menuStartGame" mnemonicParsing="false" text="Game">
                      <items>
                         <MenuItem fx:id="ButtonStartGame" disable="true" mnemonicParsing="false" onAction="#PressOnStartGame" text="Start game" />
+                        <MenuItem fx:id="menuItemRestartNewGame" disable="true" mnemonicParsing="false" onAction="#restartGameForNewGame" text="Restart new Game" />
+                        <MenuItem fx:id="menuItemRestartCurrGame" disable="true" mnemonicParsing="false" onAction="#restartCurrentGame" text="Restart current game" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Change skin">
@@ -41,9 +43,9 @@
       </VBox>
       <VBox layoutX="14.0" layoutY="38.0">
          <children>
-            <Label text="File status: " />
+            <Label text="Status: " />
          </children>
       </VBox>
-      <Label fx:id="statusFile" layoutX="80.0" layoutY="38.0" prefHeight="17.0" prefWidth="321.0" />
+      <Label fx:id="statusGameLabel" layoutX="53.0" layoutY="38.0" prefHeight="17.0" prefWidth="572.0" />
    </children>
 </AnchorPane>

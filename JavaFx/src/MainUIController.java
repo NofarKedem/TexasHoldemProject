@@ -33,12 +33,14 @@ public class MainUIController implements Initializable {
 
     public void StartHand()
     {
-        gameDetailsController.disableHandFinishButton(true);
-        playerBoardController.unExposeAllPlayers();
-        playerBoardController.hideAllCommunityCard();
+
         if(numOfCurrHand+1 == server.getNumberOfHands())
         {
             //end game
+            loadFileController.setStatusGameLabelToEndGame();
+            gameDetailsController.disableHandFinishButton(true);
+            loadFileController.disableGameButton(false);
+            return;
         }
         int cashBoxReminder = 0;
         server.initHandReplay();
@@ -61,6 +63,11 @@ public class MainUIController implements Initializable {
         */
         numOfCurrRound++;
         numOfCurrHand++;
+        gameDetailsController.disableHandFinishButton(true);
+        playerBoardController.unExposeAllPlayers();
+        playerBoardController.hideAllCommunityCard();
+        loadFileController.disableGameButton(true);
+        loadFileController.resetStatusGameLabel();
         updateAllBoard();
 
         ifCompPlayerIsPlaying();
@@ -239,6 +246,11 @@ public class MainUIController implements Initializable {
     public void changeSkinOption2()
     {
         scene.getStylesheets().add(getClass().getResource("SkinOption2.css").toExternalForm());
+    }
+    public void reset()
+    {
+        numOfCurrHand=0;
+        numOfCurrRound=0;
     }
 
 

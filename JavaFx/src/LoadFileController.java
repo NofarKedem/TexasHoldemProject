@@ -11,9 +11,10 @@ public class LoadFileController {
     @FXML
     MenuItem ButtonLoadFile;
     @FXML Menu menuStartGame;
-    @FXML
-    MenuItem ButtonStartGame;
-    @FXML Label statusFile;
+    @FXML MenuItem menuItemRestartNewGame;
+    @FXML MenuItem menuItemRestartCurrGame;
+    @FXML MenuItem ButtonStartGame;
+    @FXML Label statusGameLabel;
     Server refServer;
     MainUIController mainUIFather;
 
@@ -28,7 +29,6 @@ public class LoadFileController {
     public void PressOnStartGame()
     {
         ButtonLoadFile.setDisable(true);
-       // mainUIFather.displayPlayerOnBoard();
         mainUIFather.StartHand();
         ButtonStartGame.setDisable(true);
 
@@ -47,13 +47,13 @@ public class LoadFileController {
 
         try {
             refServer.loadFile(absolutePath);
-            statusFile.setText("File loaded successfully");
+            statusGameLabel.setText("File loaded successfully");
             mainUIFather.updateXMLDetails();
             ButtonStartGame.setDisable(false);
         }
             catch(Exception e)
         {
-            statusFile.setText(e.getMessage());
+            statusGameLabel.setText(e.getMessage());
         }
 
     }
@@ -74,4 +74,39 @@ public class LoadFileController {
         mainUIFather.changeSkinOption2();
     }
 
+    public void restartGameForNewGame()
+    {
+        disableGameButtonAtStartingGame();
+        refServer.restartGameForNewGame();
+        mainUIFather.reset();
+
+    }
+    public void restartCurrentGame()
+    {
+        refServer.restartCurrentGame();
+        mainUIFather.reset();
+        mainUIFather.StartHand();
+    }
+    public void disableGameButtonAtStartingGame()
+    {
+        menuItemRestartNewGame.setDisable(true);
+        menuItemRestartCurrGame.setDisable(true);
+        ButtonStartGame.setDisable(true);
+        ButtonLoadFile.setDisable(false);
+        resetStatusGameLabel();
+    }
+
+    public void disableGameButton(boolean bool)
+    {
+        menuItemRestartNewGame.setDisable(bool);
+        menuItemRestartCurrGame.setDisable(bool);
+    }
+    public void setStatusGameLabelToEndGame()
+    {
+        statusGameLabel.setText("Game was over, you can start new game or restart the current game");
+    }
+    public void resetStatusGameLabel()
+    {
+        statusGameLabel.setText("");
+    }
 }

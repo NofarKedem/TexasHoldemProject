@@ -142,4 +142,14 @@ public class PokerPlayer {
     {
         return id;
     }
+
+    public void resetPlayer(int chips)
+    {
+        this.chips = chips;
+        buys=1;
+        handsWon=0;
+        cards=null;
+        isQuit=false;
+        bet=0;
+    }
 }

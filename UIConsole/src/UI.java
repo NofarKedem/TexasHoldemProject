@@ -38,7 +38,7 @@ public class UI {
                     {
                         loadFile();
                         //server.initializePlayers(1,3);
-                        server.initBlindsHelper();
+                        //server.initBlindsHelper();
                         isLoadingFile = true;
                         printState();
                     }
@@ -651,7 +651,6 @@ public class UI {
     public void restartCurrentGame()
     {
         server.restartCurrentGame();
-        //server.initializePlayers(1,3);
     }
 
 

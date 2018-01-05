@@ -500,7 +500,11 @@ public class Server {
     public void restartCurrentGame()
     {
         deck.InitCardInDeck();
-        players.clear();
+        //players.clear();
+        for(PokerPlayer player : players)
+        {
+            player.resetPlayer(numOfChipsPerBuy);
+        }
         currHand= null;
         numOfPlayHands=0;
         dilerIndex = 0;

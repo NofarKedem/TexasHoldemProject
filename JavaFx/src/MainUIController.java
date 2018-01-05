@@ -77,6 +77,7 @@ public class MainUIController implements Initializable {
             if(checkStatus(server.playWithComputer())) {
                 ifCompPlayerIsPlaying();
             }
+
             updateAllBoard();
         }
 
@@ -86,6 +87,16 @@ public class MainUIController implements Initializable {
 
     public boolean checkStatus(Utils.RoundResult resultOfMove)
     {
+        //for test
+            System.out.print("last move was: " + server.getLastMove());
+            if (server.getLastMove() == "RAISE")
+                System.out.println(" with amount: " + server.getLastGenerateAmount());
+            else
+                System.out.println();
+        //for test
+
+        
+
         server.addSnapShotToReplay();
         boolean successes = false;
 

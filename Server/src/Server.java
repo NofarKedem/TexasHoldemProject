@@ -33,7 +33,7 @@ public class Server {
         players = new ArrayList(Utils.numOfPlayers);
         deck = new Deck();
         handTohandCashBox = 0;
-        dilerRoundsCounter = 0; //might be needed to move to another place 
+        dilerRoundsCounter = 0; //might be needed to move to another place
 
     }
 
@@ -90,6 +90,7 @@ public class Server {
             player.initBet();
         }
         currHand.setFirstPlayer();
+        addSnapShotToReplay();
     }
 
     private void initPlayersState(){
@@ -130,11 +131,15 @@ public class Server {
     }
     //To Be used in the NEW UI logic (exc. 2)
     public boolean blindBetSmall(){
-        return currHand.blindSmall(numOfChipsForsmall);
+        boolean retForSmall = currHand.blindSmall(numOfChipsForsmall);
+        addSnapShotToReplay();
+        return retForSmall;
     }
     //To Be used in the NEW UI logic (exc. 2)
     public boolean blindBetBig(){
-        return currHand.blindBig(numOfChipsForBig);
+        boolean retForBig = currHand.blindBig(numOfChipsForBig);
+        addSnapShotToReplay();
+        return retForBig;
     }
 
     public Utils.RoundResult gameMove(String LastGameMove, int amount){
@@ -238,16 +243,25 @@ public class Server {
     }
 
     public PlayerInfo getPlayerInfoFromReplayList(int playerIndex, int listIter){
-        PlayerInfo currRepStatus = handReplay.get(listIter).getPlayerStatus();
-        PlayerInfo tempPlayerInfo = new PlayerInfo(currRepStatus.getTypeOfPlayer(),currRepStatus.getPlayerState(),
-                currRepStatus.getPlayerChips(),currRepStatus.getPlayerBuys(),currRepStatus.getPlayerHandsWon(),
-                currRepStatus.getNumOfPlayer(),currRepStatus.getName(),currRepStatus.getId(),currRepStatus.getIsQuit(),
-                currRepStatus.getPlayerCards());
-        return tempPlayerInfo;
+        List<PlayerInfo> currRepPlayersStatus = handReplay.get(listIter).getPlayerStatus();
+        PlayerInfo currRepPlayerStatus = currRepPlayersStatus.get(playerIndex);
+//        PlayerInfo tempPlayerInfo = new PlayerInfo(currRepStatus.getTypeOfPlayer(),currRepStatus.getPlayerState(),
+//                currRepStatus.getPlayerChips(),currRepStatus.getPlayerBuys(),currRepStatus.getPlayerHandsWon(),
+//                currRepStatus.getNumOfPlayer(),currRepStatus.getName(),currRepStatus.getId(),currRepStatus.getIsQuit(),
+//                currRepStatus.getPlayerCards());
+        return currRepPlayerStatus;
     }
 
     TableInfo getTableInfo(){
-        TableInfo tempTableInfo = new TableInfo(getCashBox(),getCurrBet(),getCommunityCards());
+        TableInfo tempTableInfo = new TableInfo(getCashBox(),getCurrBet(),getCommunityCards(),getCurrentNumberOfHand(),
+                                                getCurrNumOfRound());
+        return tempTableInfo;
+    }
+
+    TableInfo getTableInfoFromReplayList(int listIter){
+        TableInfo currRepStatus = handReplay.get(listIter).getTableStatus();
+        TableInfo tempTableInfo = new TableInfo(currRepStatus.getCashBox(),currRepStatus.getPot(),
+                currRepStatus.getCommunityCards(),currRepStatus.getCurrHand(),currRepStatus.getCurrRound());
         return tempTableInfo;
     }
 
@@ -521,7 +535,12 @@ public class Server {
         handReplay.add(saveStatusSnapShot(currHand.getIndexOfLastTurn()));
     }
     private StatusSnapShot saveStatusSnapShot(int playerIndex){
-        StatusSnapShot result = new StatusSnapShot(getPlayerInfo(playerIndex),getTableInfo(),
+        List<PlayerInfo> tempList = new ArrayList<>();
+        for(int i=0; i < Utils.numOfPlayers;i++){
+            PlayerInfo currPinfo = getPlayerInfo(i);
+            tempList.add(i,currPinfo);
+        }
+        StatusSnapShot result = new StatusSnapShot(tempList,getTableInfo(),
                 getLastMove(),getLastBetOfSpecificPlayer(playerIndex));
         return result;
     }
@@ -537,5 +556,9 @@ public class Server {
 
     public int getCurrPlayer() {
         return currHand.getCurrPlayer();
+    }
+
+    public int getReplayListSize() {
+        return handReplay.size();
     }
 }

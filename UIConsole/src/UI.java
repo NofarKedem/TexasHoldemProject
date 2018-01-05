@@ -38,7 +38,6 @@ public class UI {
                     {
                         loadFile();
                         //server.initializePlayers(1,3);
-                        server.initBlindsHelper();
                         isLoadingFile = true;
                         printState();
                     }

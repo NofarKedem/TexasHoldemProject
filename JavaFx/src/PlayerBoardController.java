@@ -140,6 +140,23 @@ public class PlayerBoardController {
         }
 
     }
+
+    public void displayPlayerDetailsOnTheBoardFromReplayList(int replayListIter)
+    {
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,replayListIter);
+            if(!player.getIsQuit()) {
+                displayPlayerByIndex(player, i);
+                //exposeCard(player.getNumOfPlayer());
+            }
+            else
+                visiblePlayerByIndex(player,i);
+        }
+
+
+    }
+
     public void displayPlayerByIndex(PlayerInfo player, int numOfPlayer)
     {
         switch(numOfPlayer)
@@ -262,6 +279,16 @@ public class PlayerBoardController {
         }
     }
 
+    public void displayCommunityCardsFromReplayList(List<Card> communityCradsFromReplayList)
+    {
+        int indexOfCard =1;
+        for(Card card : communityCradsFromReplayList)
+        {
+            displayCommunityCard(card.getImagecard(),indexOfCard);
+            indexOfCard++;
+        }
+    }
+
     public void displayCommunityCard(Image image,int indexOfCard)
     {
 
@@ -297,6 +324,15 @@ public class PlayerBoardController {
         totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
     }
 
+    public void displayBoardStateFromReplayList(int listIter)
+    {
+        TableInfo Temp = refServer.getTableInfoFromReplayList(listIter);
+        currentBetLabel.setText(Integer.toString(Temp.getPot()));
+        totalCashBoxLabel.setText(Integer.toString(Temp.getCashBox()));
+        displayCommunityCardsFromReplayList(Temp.getCommunityCards());
+
+    }
+
 
 
     public void exposeAllPlayers()
@@ -304,6 +340,20 @@ public class PlayerBoardController {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
             PlayerInfo player =  refServer.getPlayerInfo(i);
+            if(!player.getIsQuit())
+            {
+                exposeCard(i);
+            }
+        }
+    }
+
+
+    //test
+    public void exposeAllPlayersCardsAccordingReplayStatus(int listIter)
+    {
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,listIter);
             if(!player.getIsQuit())
             {
                 exposeCard(i);

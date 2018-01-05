@@ -1,17 +1,19 @@
+import java.util.List;
+
 public class StatusSnapShot {
-    private PlayerInfo playerStatus;
+    private List<PlayerInfo> playerStatus;
     private TableInfo tableStatus;
     private String lastGameMove;
     private int lastBetAmount; //the amount of the last player bet (according to the player in playerStatus)
 
-    StatusSnapShot(PlayerInfo playerStatus, TableInfo tableStatus, String lastGameMove,int lastBetAmount){
+    StatusSnapShot(List<PlayerInfo> playerStatus, TableInfo tableStatus, String lastGameMove,int lastBetAmount){
         this.playerStatus = playerStatus;
         this.tableStatus = tableStatus;
         this.lastGameMove = lastGameMove;
         this.lastBetAmount = lastBetAmount;
     }
 
-    public PlayerInfo getPlayerStatus(){
+    public List<PlayerInfo> getPlayerStatus(){
         return this.playerStatus;
     }
 

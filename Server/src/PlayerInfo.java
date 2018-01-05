@@ -58,9 +58,7 @@ public class PlayerInfo {
         return this.playerHandsWon;
     }
 
-//    public int getPlayerCurrBet(){
-//        return this.playerCurrBet;
-//    }
+
     public Card[] getPlayerCards(){
         return this.playerCards;
     }

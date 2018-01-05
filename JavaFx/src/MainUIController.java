@@ -242,4 +242,13 @@ public class MainUIController implements Initializable {
     }
 
 
+    public void updateAllPlayersFromReplayList(int replayListIter) {
+        playerBoardController.displayPlayerDetailsOnTheBoardFromReplayList(replayListIter);
+        playerBoardController.exposeAllPlayersCardsAccordingReplayStatus(replayListIter);
+    }
+
+    public void updateTheTableFromReplayList(int replayListIter) {
+        playerBoardController.displayBoardStateFromReplayList(replayListIter);
+    }
+
 }

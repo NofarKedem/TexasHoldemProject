@@ -7,8 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
-import java.util.List;
-
 public class GameDetailsController {
 
     @FXML Label NumOfHandsLabel;
@@ -122,15 +120,35 @@ public class GameDetailsController {
     public void pressOnReplay(ActionEvent event)
     {
         replayListIter=0;
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
 
     }
     public void pressOnNext(ActionEvent event)
     {
-        replayListIter++;
+        if(ButtonPrev.isDisable()){
+            ButtonPrev.setDisable(false);
+        }
+        if(replayListIter + 1 < refServer.getReplayListSize())
+            replayListIter++;
+        else{
+            ButtonNext.setDisable(true);
+        }
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
     }
     public void pressOnPrev(ActionEvent event)
     {
-        replayListIter--;
+        if(ButtonNext.isDisable()){
+            ButtonNext.setDisable(false);
+        }
+        if(replayListIter > 0)
+            replayListIter--;
+        else {
+            ButtonPrev.setDisable(true);
+        }
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
     }
     public void pressOnBuyChips(ActionEvent event)
     {

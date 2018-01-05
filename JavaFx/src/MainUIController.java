@@ -20,10 +20,15 @@ public class MainUIController implements Initializable {
     @FXML private WinnerInfoController winnerInfoController;
 
     Server server = new Server();
-    int numOfCurrHand=0;
+    int numOfCurrHand=2;
     int numOfCurrRound=0;
+    boolean isEndHand=false;
     Map<Integer, String> WinnerMap;
     Scene scene;
+
+    public boolean getIsEndHand() {
+        return isEndHand;
+    }
 
     public void setScene(Scene scene)
     {
@@ -33,15 +38,7 @@ public class MainUIController implements Initializable {
 
     public void StartHand()
     {
-
-        if(numOfCurrHand+1 == server.getNumberOfHands())
-        {
-            //end game
-            loadFileController.setStatusGameLabelToEndGame();
-            gameDetailsController.disableHandFinishButton(true);
-            loadFileController.disableGameButton(false);
-            return;
-        }
+        isEndHand = false;
         int cashBoxReminder = 0;
         server.initHandReplay();
         server.initializeHand();
@@ -133,12 +130,21 @@ public class MainUIController implements Initializable {
     public void endHand(Utils.RoundResult winResult)
     {
         //endGame
+        isEndHand = true;
         showWinnerPopUp(winResult);
         playerBoardController.exposeAllPlayers();
         gameDetailsController.disableHandFinishButton(false);
         gameDetailsController.disablePlayerMove();
         numOfCurrRound=0;
         server.closeTheHand();
+        playerBoardController.stopFrameSparking();
+        if(numOfCurrHand == server.getNumberOfHands())
+        {
+            //end game
+            loadFileController.setStatusGameLabelToEndGame();
+            gameDetailsController.disableHandFinishButton(true);
+            loadFileController.disableGameButton(false);
+        }
     }
 
     public void cardDistribusionInRound()

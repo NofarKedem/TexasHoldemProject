@@ -282,11 +282,30 @@ public class MainUIController implements Initializable {
     }
 
     public void updateTableWithWinProp() {
-//        ObservableList<PlayerInfo> pokerPlayers = FXCollections.observableArrayList();
-//        List<PlayerInfo> playerList = server.getAllPlayerInfo();
-//        for(PlayerInfo p: playerList)
-//            pokerPlayers.add(p);
-//        playerTableController.updateWinProperties(pokerPlayers);
         updatePlayersTable();
     }
+
+    @FXML
+    public void showBuyPopUp(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL BuyPopUpFXML = getClass().getResource("BuyPopUp.fxml");
+            loader.setLocation(BuyPopUpFXML);
+            AnchorPane root2 = loader.load();
+            BuyPopUpController buyPopUpController = loader.getController();
+            Stage popUpStage = new Stage();
+            buyPopUpController.setPrimaryStage(popUpStage);
+            buyPopUpController.setFather(this);
+            buyPopUpController.SetServer(server);
+            buyPopUpController.setAllNotVisible();
+            buyPopUpController.setPlayersDetails();
+
+            popUpStage.setTitle("Buy Chips");
+            popUpStage.setScene(new Scene(root2));
+            popUpStage.showAndWait();
+        }catch (Exception ex){
+
+        }
+    }
+
 }

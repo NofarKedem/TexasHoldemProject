@@ -361,13 +361,14 @@ public class Server {
         return chipPrize;
     }
 
-    public void addChipsToPlayer()
+    public void addChipsToPlayer(List<PlayerInfo> playersForBuy)
     {
-        for (PokerPlayer p : players)
-        {
-            if(p.getType()== 'H') {
-                p.setBuysAndChips(numOfChipsPerBuy);
-                break;
+        for(PlayerInfo P : playersForBuy){
+            for(PokerPlayer player : players){
+                if(P.getId() == player.getId()){
+                    player.setBuysAndChips(numOfChipsPerBuy);
+                    break;
+                }
             }
         }
     }

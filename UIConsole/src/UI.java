@@ -74,7 +74,7 @@ public class UI {
                     break;
                 case "5": printStatistics();
                     break;
-                case "6" : buyChips();
+                case "6" : //buyChips();
                     break;
                 case "7" :
                     System.out.println("You choose to quit the game, what do you want to do now?");
@@ -125,9 +125,9 @@ public class UI {
 
     }
 
-    private void buyChips()
+    private void buyChips(List<PlayerInfo> playersForBuy)
     {
-        server.addChipsToPlayer();
+        server.addChipsToPlayer(playersForBuy);
         System.out.println("Buying chips success!");
     }
 

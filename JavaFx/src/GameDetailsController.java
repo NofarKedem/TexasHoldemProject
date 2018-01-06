@@ -152,7 +152,7 @@ public class GameDetailsController {
     }
     public void pressOnBuyChips(ActionEvent event)
     {
-
+        mainUIFather.showBuyPopUp();
     }
 
     private void humanPlayerMove(String numOfMove,int amount)

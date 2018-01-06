@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -208,7 +209,7 @@ public class MainUIController implements Initializable {
         List<PlayerInfo> playerList = server.getAllPlayerInfo();
         for(PlayerInfo p: playerList)
             pokerPlayers.add(p);
-        //pokerPlayers.add(po);
+        Collections.sort(pokerPlayers, (PlayerInfo p1, PlayerInfo p2) -> (p2.getPlayerChips() - p1.getPlayerChips()));
         playerTableController.displayTable(pokerPlayers);
     }
 
@@ -270,5 +271,41 @@ public class MainUIController implements Initializable {
         numOfCurrRound=0;
     }
 
+
+    public void updateAllPlayersFromReplayList(int replayListIter) {
+        playerBoardController.displayPlayerDetailsOnTheBoardFromReplayList(replayListIter);
+        playerBoardController.exposeAllPlayersCardsAccordingReplayStatus(replayListIter);
+    }
+
+    public void updateTheTableFromReplayList(int replayListIter) {
+        playerBoardController.displayBoardStateFromReplayList(replayListIter);
+    }
+
+    public void updateTableWithWinProp() {
+        updatePlayersTable();
+    }
+
+    @FXML
+    public void showBuyPopUp(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            URL BuyPopUpFXML = getClass().getResource("BuyPopUp.fxml");
+            loader.setLocation(BuyPopUpFXML);
+            AnchorPane root2 = loader.load();
+            BuyPopUpController buyPopUpController = loader.getController();
+            Stage popUpStage = new Stage();
+            buyPopUpController.setPrimaryStage(popUpStage);
+            buyPopUpController.setFather(this);
+            buyPopUpController.SetServer(server);
+            buyPopUpController.setAllNotVisible();
+            buyPopUpController.setPlayersDetails();
+
+            popUpStage.setTitle("Buy Chips");
+            popUpStage.setScene(new Scene(root2));
+            popUpStage.showAndWait();
+        }catch (Exception ex){
+
+        }
+    }
 
 }

@@ -11,7 +11,7 @@
 
 <Accordion maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameDetailsController">
   <panes>
-    <TitledPane animated="false" minHeight="320.0" minWidth="450.0" prefHeight="321.0" prefWidth="450.0" text="Game details">
+    <TitledPane animated="false" graphicTextGap="6.0" minHeight="320.0" minWidth="450.0" prefHeight="321.0" prefWidth="450.0" text="Game details">
          <content>
             <GridPane>
               <columnConstraints>
@@ -23,6 +23,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Num of hands" />
@@ -33,6 +35,10 @@
                   <Label fx:id="BigSizeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Small size" GridPane.rowIndex="3" />
                   <Label fx:id="SmallSizeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label prefHeight="16.0" prefWidth="90.0" text="Blinds state" GridPane.rowIndex="4" />
+                  <Label fx:id="BlindStateLable" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Addition" GridPane.rowIndex="5" />
+                  <Label fx:id="AdditionLable" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </content>

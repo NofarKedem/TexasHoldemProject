@@ -1,5 +1,6 @@
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,14 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
-import java.util.List;
-
 public class GameDetailsController {
 
     @FXML Label NumOfHandsLabel;
     @FXML Label BuysLabel;
     @FXML Label BigSizeLabel;
     @FXML Label SmallSizeLabel;
+    @FXML Label BlindStateLable;
+    @FXML Label AdditionLable;
     @FXML Button ButtonNextHand;
     @FXML Button ButtonReplay;
     @FXML Button ButtonNext;
@@ -36,6 +37,8 @@ public class GameDetailsController {
     private SimpleLongProperty Buys;
     private SimpleLongProperty BigSize;
     private SimpleLongProperty SmallSize;
+    private SimpleLongProperty Addition;
+    private SimpleStringProperty BlindsState;
     Server refServer;
     MainUIController mainUIFather;
 
@@ -55,6 +58,8 @@ public class GameDetailsController {
         Buys = new SimpleLongProperty(0);
         BigSize = new SimpleLongProperty(0);
         SmallSize = new SimpleLongProperty(0);
+        Addition = new SimpleLongProperty(0);
+        BlindsState = new SimpleStringProperty(" ");
     }
 
     @FXML
@@ -63,6 +68,8 @@ public class GameDetailsController {
         BuysLabel.textProperty().bind(Bindings.format("%,d", Buys));
         BigSizeLabel.textProperty().bind(Bindings.format("%,d", BigSize));
         SmallSizeLabel.textProperty().bind(Bindings.format("%,d", SmallSize));
+        BlindStateLable.textProperty().bind(Bindings.concat(BlindsState));
+        AdditionLable.textProperty().bind(Bindings.format("%,d",Addition));
     }
 
 
@@ -77,6 +84,14 @@ public class GameDetailsController {
         Buys.set(refServer.getNumOfChipsPerBuy());
         BigSize.set(refServer.getNumOfChipsForBig());
         SmallSize.set(refServer.getNumOfChipsForsmall());
+        if(refServer.getFixedState()){
+            BlindsState.set("Fixed");
+            Addition.set(0);
+        }
+        else{
+            BlindsState.set("Changes");
+            Addition.set(refServer.getAddition());
+        }
     }
 
     public void pressOnFold(ActionEvent event)
@@ -122,19 +137,39 @@ public class GameDetailsController {
     public void pressOnReplay(ActionEvent event)
     {
         replayListIter=0;
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
 
     }
     public void pressOnNext(ActionEvent event)
     {
-        replayListIter++;
+        if(ButtonPrev.isDisable()){
+            ButtonPrev.setDisable(false);
+        }
+        if(replayListIter + 1 < refServer.getReplayListSize())
+            replayListIter++;
+        else{
+            ButtonNext.setDisable(true);
+        }
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
     }
     public void pressOnPrev(ActionEvent event)
     {
-        replayListIter--;
+        if(ButtonNext.isDisable()){
+            ButtonNext.setDisable(false);
+        }
+        if(replayListIter > 0)
+            replayListIter--;
+        else {
+            ButtonPrev.setDisable(true);
+        }
+        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+        mainUIFather.updateTheTableFromReplayList(replayListIter);
     }
     public void pressOnBuyChips(ActionEvent event)
     {
-
+        mainUIFather.showBuyPopUp();
     }
 
     private void humanPlayerMove(String numOfMove,int amount)

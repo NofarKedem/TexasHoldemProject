@@ -79,6 +79,14 @@ public class PlayerBoardController {
     @FXML Label currentRoundLabel;
     @FXML Label currentHandLabel;
 
+    //For Replay Display
+    @FXML Label gameMove1;
+    @FXML Label gameMove2;
+    @FXML Label gameMove3;
+    @FXML Label gameMove4;
+    @FXML Label gameMove5;
+    @FXML Label gameMove6;
+
     Server refServer;
     MainUIController mainUIFather;
     FadeTransition fadeTransition = new FadeTransition();
@@ -113,6 +121,12 @@ public class PlayerBoardController {
         card52.setVisible(false);
         card61.setVisible(false);
         card62.setVisible(false);
+        gameMove1.setVisible(false);
+        gameMove2.setVisible(false);
+        gameMove3.setVisible(false);
+        gameMove4.setVisible(false);
+        gameMove5.setVisible(false);
+        gameMove6.setVisible(false);
     }
 
     public void setFather(MainUIController father)
@@ -147,6 +161,84 @@ public class PlayerBoardController {
                 visiblePlayerByIndex(player,i);
         }
     }
+
+    public void displayPlayerDetailsOnTheBoardFromReplayList(int replayListIter)
+    {
+        hideGameMoves();
+        stopFrameSparking();
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,replayListIter);
+
+            if(!player.getIsQuit()) {
+                displayPlayerByIndex(player, i);
+            }
+            else
+                visiblePlayerByIndex(player,i);
+        }
+        int currTurn = refServer.getCurrTurnFromReplayList(replayListIter);
+        frameSparkForReplayMode(currTurn);
+        displayGameMove(currTurn,replayListIter);
+
+    }
+
+    private void displayGameMove(int currTurn, int replayListIter) {
+        String lastGameMove = refServer.getLastMoveFromRelayList(replayListIter);
+        if (currTurn == 0){
+            currTurn = 6;
+        }
+        else{
+            currTurn = currTurn - 1;
+        }
+        switch (currTurn){
+            case 0:
+                if(lastGameMove != "NONE") {
+                    gameMove1.setText(lastGameMove);
+                    gameMove1.setVisible(true);
+                }
+                break;
+            case 1:
+                if(lastGameMove != "NONE") {
+                    gameMove2.setText(lastGameMove);
+                    gameMove2.setVisible(true);
+                }
+                break;
+            case 2:
+                if(lastGameMove != "NONE"){
+                    gameMove3.setText(lastGameMove);
+                    gameMove3.setVisible(true);
+                }
+                break;
+            case 3:
+                if(lastGameMove != "NONE"){
+                    gameMove4.setText(lastGameMove);
+                    gameMove4.setVisible(true);
+                }
+                break;
+            case 4:
+                if(lastGameMove != "NONE"){
+                    gameMove5.setText(lastGameMove);
+                    gameMove5.setVisible(true);
+                }
+                break;
+            case 5:
+                if(lastGameMove != "NONE"){
+                    gameMove6.setText(lastGameMove);
+                    gameMove6.setVisible(true);
+                }
+                break;
+        }
+    }
+
+    public void hideGameMoves(){
+        gameMove1.setVisible(false);
+        gameMove2.setVisible(false);
+        gameMove3.setVisible(false);
+        gameMove4.setVisible(false);
+        gameMove5.setVisible(false);
+        gameMove6.setVisible(false);
+    }
+
     public void displayPlayerByIndex(PlayerInfo player, int numOfPlayer)
     {
         switch(numOfPlayer)
@@ -269,6 +361,16 @@ public class PlayerBoardController {
         }
     }
 
+    public void displayCommunityCardsFromReplayList(List<Card> communityCradsFromReplayList)
+    {
+        int indexOfCard =1;
+        for(Card card : communityCradsFromReplayList)
+        {
+            displayCommunityCard(card.getImagecard(),indexOfCard);
+            indexOfCard++;
+        }
+    }
+
     public void displayCommunityCard(Image image,int indexOfCard)
     {
 
@@ -304,6 +406,15 @@ public class PlayerBoardController {
         totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
     }
 
+    public void displayBoardStateFromReplayList(int listIter)
+    {
+        TableInfo Temp = refServer.getTableInfoFromReplayList(listIter);
+        currentBetLabel.setText(Integer.toString(Temp.getPot()));
+        totalCashBoxLabel.setText(Integer.toString(Temp.getCashBox()));
+        displayCommunityCardsFromReplayList(Temp.getCommunityCards());
+
+    }
+
 
 
     public void exposeAllPlayers()
@@ -311,6 +422,20 @@ public class PlayerBoardController {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
             PlayerInfo player =  refServer.getPlayerInfo(i);
+            if(!player.getIsQuit())
+            {
+                exposeCard(i);
+            }
+        }
+    }
+
+
+
+    public void exposeAllPlayersCardsAccordingReplayStatus(int listIter)
+    {
+        for(int i=0;i<Utils.numOfPlayers;i++)
+        {
+            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,listIter);
             if(!player.getIsQuit())
             {
                 exposeCard(i);
@@ -433,4 +558,36 @@ public class PlayerBoardController {
         fadeTransition.stop();
     }
 
+    public void frameSparkForReplayMode(int numOfPlayer)
+    {
+
+        ImageView frame = null;
+        switch(numOfPlayer)
+        {
+            case 0:
+                frame = frame1;
+                break;
+            case 1:
+                frame = frame2;
+                break;
+            case 2:
+                frame = frame3;
+                break;
+            case 3:
+                frame = frame4;
+                break;
+            case 4:
+                frame = frame5;
+                break;
+            case 5:
+                frame = frame6;
+                break;
+        }
+        fadeTransition.setDuration(Duration.seconds(1.0));
+        fadeTransition.setNode(frame);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.play();
+    }
 }

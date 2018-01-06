@@ -21,7 +21,6 @@ public class PlayerInfo {
         this.PlayerName = PlayerName;
         this.PlayerId = PlayerId;
         this.isQuit = isQuit;
-        //this.playerCurrBet = playerCurrBet;
         this.playerCards = playerCards;
     }
 
@@ -58,9 +57,7 @@ public class PlayerInfo {
         return this.playerHandsWon;
     }
 
-//    public int getPlayerCurrBet(){
-//        return this.playerCurrBet;
-//    }
+
     public Card[] getPlayerCards(){
         return this.playerCards;
     }
@@ -70,5 +67,28 @@ public class PlayerInfo {
         return isQuit;
     }
 
+    public void setPlayerBuys(int playerBuys) {
+        this.playerBuys = playerBuys;
+    }
+
+    public void setPlayerChips(int playerChips) {
+        this.playerChips = playerChips;
+    }
+
+    public void setPlayerHandsWon(int playerHandsWon) {
+        this.playerHandsWon = playerHandsWon;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.PlayerId = playerId;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.PlayerName = playerName;
+    }
+
+    public void setTypeOfPlayer(char typeOfPlayer) {
+        this.typeOfPlayer = typeOfPlayer;
+    }
 
 }

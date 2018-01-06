@@ -88,14 +88,12 @@ public class WinnerInfoController {
 
 
     public void pressOK(){
-        //add trigger to update table
-        updateTableWithWinProp();
+
+        mainUIFather.updateTableWithWinProp();
         primaryStage.close();
     }
 
-    private void updateTableWithWinProp() {
 
-    }
 
 
 }

@@ -47,7 +47,6 @@ public class PlayerTableController implements Initializable{
         Buys.setCellValueFactory(new PropertyValueFactory<PlayerInfo, Integer>("playerBuys"));
         HandWins.setCellValueFactory(new PropertyValueFactory<PlayerInfo, Integer>("playerHandsWon"));
         WinningPrice.setCellValueFactory(new PropertyValueFactory<PlayerInfo, Integer>("playerChips"));
-
     }
 
     public void displayTable(ObservableList<PlayerInfo> pokerPlayers)

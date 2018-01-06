@@ -78,12 +78,8 @@ public class MainUIController implements Initializable {
             if(checkStatus(server.playWithComputer())) {
                 ifCompPlayerIsPlaying();
             }
-
             updateAllBoard();
         }
-
-
-
     }
 
     public boolean checkStatus(Utils.RoundResult resultOfMove)
@@ -306,6 +302,11 @@ public class MainUIController implements Initializable {
         }catch (Exception ex){
 
         }
+    }
+
+    public void statusPlayerNotHasEnoughChips()
+    {
+        loadFileController.statusPlayerNotHasEnoughChips();
     }
 
 }

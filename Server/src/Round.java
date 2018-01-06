@@ -210,7 +210,7 @@ public class Round implements PlayerActionService{
 
 
     public boolean isValidGameMove(Round.GameMoves gameMoves) {
-        setMoveForAmountValidatoin(gameMoves);
+
         if(gameMoves == GameMoves.FOLD){
             return true;
         }
@@ -231,16 +231,45 @@ public class Round implements PlayerActionService{
 
     public Boolean isPlayerHasEnoughChips()
     {
-        if(playersRef.get(currPlayerIndex).getChips() < currBet - playersRef.get(currPlayerIndex).getBet()) {
+        if(playersRef.get(currPlayerIndex).getChips() < currBet - playersRef.get(currPlayerIndex).getBet()
+                || playersRef.get(currPlayerIndex).getChips() == 0) {
             return false;
         }
         return true;
     }
 
-    public boolean isValidAmount(int amount){
-        if(moveForAmountValidatoin == GameMoves.BET && amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox
-                && amount >= currBet){
+    public boolean isValidAmount(int amount)throws Exception{
+        if(moveForAmountValidatoin == GameMoves.BET){
+            if(amount > playersRef.get(currPlayerIndex).getChips())
+                throw new Exception("The amount you entered is bigger then the player's chips");
+            else if(amount > roundCashBox)
+                throw new Exception("The amount you entered is bigger then the round cash box");
+            else if(amount < currBet)
+                throw new Exception("The amount you entered is smaller then the current bet");
+            else
+                return true;
+        }
+        else if(moveForAmountValidatoin == GameMoves.RAISE){
+            if((amount + currBet - playersRef.get(currPlayerIndex).getBet()) > playersRef.get(currPlayerIndex).getChips())
+                throw new Exception("The raise is bigger then the player's chips");
+            else if(amount+currBet > roundCashBox)
+                throw new Exception("The raise you entered is bigger then the round cash box");
+            else if(amount+currBet <= currBet)
+                throw new Exception("The raise you entered is smaller then the current bet");
             return true;
+        }
+        else if((moveForAmountValidatoin != GameMoves.RAISE) && (moveForAmountValidatoin != GameMoves.BET) )
+            return true;
+        else{
+            return false;
+        }
+    }
+
+    public boolean isValidAmountForComp(int amount){
+
+         if(moveForAmountValidatoin == GameMoves.BET && amount <= playersRef.get(currPlayerIndex).getChips() && amount <= roundCashBox
+              && amount >= currBet){
+                return true;
         }
         else if(moveForAmountValidatoin == GameMoves.RAISE &&
                 (amount + currBet - playersRef.get(currPlayerIndex).getBet()) <= playersRef.get(currPlayerIndex).getChips() &&
@@ -274,14 +303,14 @@ public class Round implements PlayerActionService{
              while(!isValidAmountBol) {
                  amount = CPlayerService.generateAmount(playersRef.get(getCurrPlayer()).getChips(),
                          roundCashBox, currBet);
-                 isValidAmountBol = isValidAmount(amount);
+                 isValidAmountBol = isValidAmountForComp(amount);
              }
              lastGenerateAmount = amount;
         }
         Utils.RoundResult result = gameMove(gameMove, amount);
         return result;
     }
-    private void setMoveForAmountValidatoin(GameMoves gameMoves)
+    public void setMoveForAmountValidatoin(GameMoves gameMoves)
     {
         this.moveForAmountValidatoin = gameMoves;
     }

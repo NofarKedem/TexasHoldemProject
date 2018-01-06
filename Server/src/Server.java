@@ -395,7 +395,7 @@ public class Server {
         }
         return res;
     }
-    public boolean validAmount(int amount)
+    public boolean validAmount(int amount) throws Exception
     {
         return currHand.isValidAmount(amount);
     }
@@ -571,5 +571,11 @@ public class Server {
 
     public String  getLastMoveFromRelayList(int listIter){
         return handReplay.get(listIter).getLastGameMove();
+    }
+
+    public void setMoveForAmountValidatoin(Round.GameMoves gameMoves)
+    {
+        currHand.setMoveForAmountValidatoin(gameMoves);
+
     }
 }

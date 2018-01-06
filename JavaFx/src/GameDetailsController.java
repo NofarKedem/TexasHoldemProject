@@ -132,6 +132,7 @@ public class GameDetailsController {
     }
     public void pressOnNextHand(ActionEvent event)
     {
+        mainUIFather.hideGameMoves();
         mainUIFather.StartHand();
     }
     public void pressOnReplay(ActionEvent event)

@@ -90,7 +90,7 @@ public class Server {
             player.initBet();
         }
         currHand.setFirstPlayer();
-        addSnapShotToReplay();
+        //addSnapShotToReplay();
     }
 
     private void initPlayersState(){

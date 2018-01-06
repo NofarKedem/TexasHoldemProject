@@ -308,4 +308,7 @@ public class MainUIController implements Initializable {
         }
     }
 
+    public void hideGameMoves() {
+        playerBoardController.hideGameMoves();
+    }
 }

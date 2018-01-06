@@ -245,10 +245,6 @@ public class Server {
     public PlayerInfo getPlayerInfoFromReplayList(int playerIndex, int listIter){
         List<PlayerInfo> currRepPlayersStatus = handReplay.get(listIter).getPlayerStatus();
         PlayerInfo currRepPlayerStatus = currRepPlayersStatus.get(playerIndex);
-//        PlayerInfo tempPlayerInfo = new PlayerInfo(currRepStatus.getTypeOfPlayer(),currRepStatus.getPlayerState(),
-//                currRepStatus.getPlayerChips(),currRepStatus.getPlayerBuys(),currRepStatus.getPlayerHandsWon(),
-//                currRepStatus.getNumOfPlayer(),currRepStatus.getName(),currRepStatus.getId(),currRepStatus.getIsQuit(),
-//                currRepStatus.getPlayerCards());
         return currRepPlayerStatus;
     }
 
@@ -544,7 +540,7 @@ public class Server {
             tempList.add(i,currPinfo);
         }
         StatusSnapShot result = new StatusSnapShot(tempList,getTableInfo(),
-                getLastMove(),getLastBetOfSpecificPlayer(playerIndex));
+                getLastMove(),getLastBetOfSpecificPlayer(playerIndex),getCurrPlayer());
         return result;
     }
 
@@ -563,5 +559,13 @@ public class Server {
 
     public int getReplayListSize() {
         return handReplay.size();
+    }
+
+    public int getCurrTurnFromReplayList(int listIter){
+        return handReplay.get(listIter).getCurrPlayer();
+    }
+
+    public String  getLastMoveFromRelayList(int listIter){
+        return handReplay.get(listIter).getLastGameMove();
     }
 }

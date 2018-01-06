@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -208,7 +209,7 @@ public class MainUIController implements Initializable {
         List<PlayerInfo> playerList = server.getAllPlayerInfo();
         for(PlayerInfo p: playerList)
             pokerPlayers.add(p);
-        //pokerPlayers.add(po);
+        Collections.sort(pokerPlayers, (PlayerInfo p1, PlayerInfo p2) -> (p2.getPlayerChips() - p1.getPlayerChips()));
         playerTableController.displayTable(pokerPlayers);
     }
 
@@ -280,4 +281,12 @@ public class MainUIController implements Initializable {
         playerBoardController.displayBoardStateFromReplayList(replayListIter);
     }
 
+    public void updateTableWithWinProp() {
+//        ObservableList<PlayerInfo> pokerPlayers = FXCollections.observableArrayList();
+//        List<PlayerInfo> playerList = server.getAllPlayerInfo();
+//        for(PlayerInfo p: playerList)
+//            pokerPlayers.add(p);
+//        playerTableController.updateWinProperties(pokerPlayers);
+        updatePlayersTable();
+    }
 }

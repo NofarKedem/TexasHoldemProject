@@ -288,8 +288,8 @@
       <Label fx:id="currentHandLabel" layoutX="91.0" layoutY="7.0" />
       <Label layoutX="6.0" layoutY="30.0" text="Current round:" />
       <Label fx:id="currentRoundLabel" layoutX="94.0" layoutY="30.0" />
-      <Label fx:id="gameMove3" layoutX="135.0" layoutY="15.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" textOverrun="CLIP" />
-      <Label fx:id="gameMove4" layoutX="502.0" layoutY="13.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" />
+      <Label fx:id="gameMove3" layoutX="136.0" layoutY="82.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" textOverrun="CLIP" />
+      <Label fx:id="gameMove4" layoutX="498.0" layoutY="82.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" />
       <Label fx:id="gameMove2" layoutX="24.0" layoutY="192.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" />
       <Label fx:id="gameMove1" layoutX="140.0" layoutY="314.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" />
       <Label fx:id="gameMove6" layoutX="502.0" layoutY="317.0" prefHeight="16.0" prefWidth="67.0" text="Label" textFill="#d01616" />

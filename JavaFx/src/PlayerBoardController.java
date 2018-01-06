@@ -185,7 +185,7 @@ public class PlayerBoardController {
     private void displayGameMove(int currTurn, int replayListIter) {
         String lastGameMove = refServer.getLastMoveFromRelayList(replayListIter);
         if (currTurn == 0){
-            currTurn = 6;
+            currTurn = (1%Utils.numOfPlayers + 1);
         }
         else{
             currTurn = currTurn - 1;
@@ -412,6 +412,8 @@ public class PlayerBoardController {
         currentBetLabel.setText(Integer.toString(Temp.getPot()));
         totalCashBoxLabel.setText(Integer.toString(Temp.getCashBox()));
         displayCommunityCardsFromReplayList(Temp.getCommunityCards());
+        currentHandLabel.setText(Integer.toString(refServer.getCurrHandFromReplay(listIter)));
+        currentRoundLabel.setText(Integer.toString(refServer.getCurrRoundFromReplay(listIter)));
 
     }
 

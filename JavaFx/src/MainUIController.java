@@ -304,9 +304,15 @@ public class MainUIController implements Initializable {
         }
     }
 
+
     public void statusPlayerNotHasEnoughChips()
     {
         loadFileController.statusPlayerNotHasEnoughChips();
+    }
+
+
+    public void hideGameMoves() {
+        playerBoardController.hideGameMoves();
     }
 
 }

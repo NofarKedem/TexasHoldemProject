@@ -21,7 +21,7 @@ public class MainUIController implements Initializable {
     @FXML private WinnerInfoController winnerInfoController;
 
     Server server = new Server();
-    int numOfCurrHand=2;
+    int numOfCurrHand=0;
     int numOfCurrRound=0;
     boolean isEndHand=false;
     Map<Integer, String> WinnerMap;
@@ -96,7 +96,7 @@ public class MainUIController implements Initializable {
                 System.out.println();
         //for test
 
-        
+
 
         server.addSnapShotToReplay();
         boolean successes = false;

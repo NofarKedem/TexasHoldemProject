@@ -583,11 +583,13 @@ public class UI {
                             while (!isValidAmount) {
                                 System.out.println("You choose to bet, for how much do you want to bet?");
                                 amount = (new Scanner(System.in)).nextInt();
+                                /*
                                 if (isValidAmount = server.validAmount(amount)) {
                                     System.out.println("Your bet worked ");
                                     isValidAmount = true;
                                 } else
                                     System.out.println("The amount you enter is invalid, please try again");
+                                    */
                             }
                             break;
                         case "3":
@@ -600,6 +602,7 @@ public class UI {
                             while (!isValidAmount) {
                                 System.out.println("You choose to Raise,your last bet was "+ server.getLastBetOfTheCurrPlayer() +
                                         " for how much do you want to raise your bet?");
+                                /*
                                 if(isNumeric(amountStr = new Scanner(System.in).next()) && (isValidAmount = server.validAmount(amount = Integer.parseInt(amountStr))))
                                 {
                                         System.out.println("Your raise worked ");
@@ -608,6 +611,7 @@ public class UI {
 
                                  else
                                     System.out.println("The amount you enter is invalid, please try again");
+                                    */
                             }
 
                             break;

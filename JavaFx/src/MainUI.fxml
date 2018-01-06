@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainUIController">
-<center>
-    <fx:include fx:id="playerBoard" source="PlayerBoard.fxml" BorderPane.alignment="CENTER_RIGHT" />
-</center>
-    <bottom>
-        <fx:include fx:id="playerTable" source="PlayerTable.fxml" BorderPane.alignment="BOTTOM_LEFT" />
-    </bottom>
 
-    <left>
-        <fx:include fx:id="gameDetails" source="GameDetails.fxml" BorderPane.alignment="CENTER_RIGHT" />
-    </left>
-   <top>
-       <fx:include fx:id="loadFile" source="LoadFile.fxml" BorderPane.alignment="TOP_LEFT" />
-   </top>
-      <GridPane prefHeight="54.0" prefWidth="1031.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1078.6666564941406" minWidth="10.0" prefWidth="1015.9999694824219" />
-        </columnConstraints>
-      </GridPane>
-</BorderPane>
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainUIController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0">
+      <center>
+          <fx:include fx:id="playerBoard" source="PlayerBoard.fxml" BorderPane.alignment="CENTER_RIGHT" />
+      </center>
+          <bottom>
+              <fx:include fx:id="playerTable" source="PlayerTable.fxml" BorderPane.alignment="BOTTOM_LEFT" />
+          </bottom>
+      
+          <left>
+              <fx:include fx:id="gameDetails" source="GameDetails.fxml" BorderPane.alignment="CENTER_RIGHT" />
+          </left>
+         <top>
+             <fx:include fx:id="loadFile" source="LoadFile.fxml" BorderPane.alignment="TOP_LEFT" />
+         </top>
+            <GridPane prefHeight="54.0" prefWidth="1031.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="574.0" minWidth="10.0" prefWidth="148.00003051757812" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1078.6666564941406" minWidth="10.0" prefWidth="1015.9999694824219" />
+              </columnConstraints>
+            </GridPane>
+      </BorderPane>
+   </content>
+</ScrollPane>

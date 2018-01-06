@@ -304,7 +304,7 @@ public class Server {
         return currHand.getCurrBet();
     }
 
-    int getNumberOfBuys()
+    public int getNumberOfBuys()
     {
         int sumOfBuy =0;
         for(PokerPlayer player : players)
@@ -313,11 +313,14 @@ public class Server {
         }
         return sumOfBuy*numOfChipsPerBuy;
     }
-    int getCurrentNumberOfHand()
+    public int getCurrentNumberOfHand()
     {
         return this.numOfPlayHands;
     }
 
+    public boolean getFixedState(){return this.fixed;}
+
+    public int getAddition(){return this.addition;}
 
     public void callFlop(){
         currHand.flop();

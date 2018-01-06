@@ -1,5 +1,6 @@
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,8 @@ public class GameDetailsController {
     @FXML Label BuysLabel;
     @FXML Label BigSizeLabel;
     @FXML Label SmallSizeLabel;
+    @FXML Label BlindStateLable;
+    @FXML Label AdditionLable;
     @FXML Button ButtonNextHand;
     @FXML Button ButtonReplay;
     @FXML Button ButtonNext;
@@ -34,6 +37,8 @@ public class GameDetailsController {
     private SimpleLongProperty Buys;
     private SimpleLongProperty BigSize;
     private SimpleLongProperty SmallSize;
+    private SimpleLongProperty Addition;
+    private SimpleStringProperty BlindsState;
     Server refServer;
     MainUIController mainUIFather;
 
@@ -53,6 +58,8 @@ public class GameDetailsController {
         Buys = new SimpleLongProperty(0);
         BigSize = new SimpleLongProperty(0);
         SmallSize = new SimpleLongProperty(0);
+        Addition = new SimpleLongProperty(0);
+        BlindsState = new SimpleStringProperty(" ");
     }
 
     @FXML
@@ -61,6 +68,8 @@ public class GameDetailsController {
         BuysLabel.textProperty().bind(Bindings.format("%,d", Buys));
         BigSizeLabel.textProperty().bind(Bindings.format("%,d", BigSize));
         SmallSizeLabel.textProperty().bind(Bindings.format("%,d", SmallSize));
+        BlindStateLable.textProperty().bind(Bindings.concat(BlindsState));
+        AdditionLable.textProperty().bind(Bindings.format("%,d",Addition));
     }
 
 
@@ -75,6 +84,14 @@ public class GameDetailsController {
         Buys.set(refServer.getNumOfChipsPerBuy());
         BigSize.set(refServer.getNumOfChipsForBig());
         SmallSize.set(refServer.getNumOfChipsForsmall());
+        if(refServer.getFixedState()){
+            BlindsState.set("Fixed");
+            Addition.set(0);
+        }
+        else{
+            BlindsState.set("Changes");
+            Addition.set(refServer.getAddition());
+        }
     }
 
     public void pressOnFold(ActionEvent event)

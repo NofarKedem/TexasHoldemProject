@@ -95,7 +95,7 @@ public class MainUIController implements Initializable {
                 System.out.println();
         //for test
 
-        
+
 
         server.addSnapShotToReplay();
         boolean successes = false;

@@ -40,8 +40,8 @@ public class PlayerTableController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Name.setCellValueFactory(new PropertyValueFactory<PlayerInfo, String>("name"));
-        Id.setCellValueFactory(new PropertyValueFactory<PokerPlayer1, Integer>("id"));
-        Type.setCellValueFactory(new PropertyValueFactory<PokerPlayer1, Character>("type"));
+        Id.setCellValueFactory(new PropertyValueFactory<PlayerInfo, Integer>("id"));
+        Type.setCellValueFactory(new PropertyValueFactory<PlayerInfo, Character>("type"));
     }
 
     public void displayTable(ObservableList<PlayerInfo> pokerPlayers)

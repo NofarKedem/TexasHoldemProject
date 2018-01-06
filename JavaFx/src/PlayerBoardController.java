@@ -412,6 +412,8 @@ public class PlayerBoardController {
         currentBetLabel.setText(Integer.toString(Temp.getPot()));
         totalCashBoxLabel.setText(Integer.toString(Temp.getCashBox()));
         displayCommunityCardsFromReplayList(Temp.getCommunityCards());
+        currentHandLabel.setText(Integer.toString(refServer.getCurrHandFromReplay(listIter)));
+        currentRoundLabel.setText(Integer.toString(refServer.getCurrRoundFromReplay(listIter)));
 
     }
 

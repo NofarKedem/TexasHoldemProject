@@ -20,6 +20,8 @@ public class Server {
     private int handTohandCashBox;
     private int numOfChipsForsmall;
     private int numOfChipsForBig;
+    private int originalBig;
+    private int originalSmall;
     private int numOfChipsPerBuy;
     private int maxBig;
     private boolean fixed;
@@ -33,7 +35,6 @@ public class Server {
         players = new ArrayList(Utils.numOfPlayers);
         deck = new Deck();
         handTohandCashBox = 0;
-        dilerRoundsCounter = 0; //might be needed to move to another place
 
     }
 
@@ -198,8 +199,8 @@ public class Server {
         numOfChipsForsmall = tempSmall;
         numOfChipsForBig = tempBig;
         totalnumOfHands = tempHandsCount;
-
-
+        originalBig = tempBig;
+        originalSmall = tempSmall;
     }
 
     private void checkThereIsHumanPlayerAtXml(List<Player> listOfPlayerFromXML) throws Exception
@@ -501,9 +502,10 @@ public class Server {
         numOfPlayHands=0;
         dilerIndex = 0;
         handTohandCashBox=0;
-        numOfChipsForsmall=0;
-        numOfChipsForBig=0;
-        numOfChipsPerBuy=0;
+        numOfChipsForsmall=originalSmall;
+        numOfChipsForBig=originalBig;
+        //numOfChipsPerBuy=0;
+        dilerRoundsCounter = 0;
     }
 
     public int getLastGenerateAmount()
@@ -544,7 +546,8 @@ public class Server {
             tempList.add(i,currPinfo);
         }
         StatusSnapShot result = new StatusSnapShot(tempList,getTableInfo(),
-                getLastMove(),getLastBetOfSpecificPlayer(playerIndex),getCurrPlayer());
+                getLastMove(),getLastBetOfSpecificPlayer(playerIndex),getCurrPlayer(),
+                getCurrentNumberOfHand(),getCurrNumOfRound());
         return result;
     }
 
@@ -571,5 +574,13 @@ public class Server {
 
     public String  getLastMoveFromRelayList(int listIter){
         return handReplay.get(listIter).getLastGameMove();
+    }
+
+    public int getCurrHandFromReplay(int listIter) {
+        return handReplay.get(listIter).getCurrHand();
+    }
+
+    public int getCurrRoundFromReplay(int listIter) {
+        return handReplay.get(listIter).getCurrRound();
     }
 }

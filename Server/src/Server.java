@@ -502,9 +502,9 @@ public class Server {
         numOfPlayHands=0;
         dilerIndex = 0;
         handTohandCashBox=0;
-        numOfChipsForsmall=originalSmall;
-        numOfChipsForBig=originalBig;
-        //numOfChipsPerBuy=0;
+        numOfChipsForsmall=0;
+        numOfChipsForBig=0;
+        numOfChipsPerBuy=0;
         dilerRoundsCounter = 0;
     }
 
@@ -524,6 +524,8 @@ public class Server {
         numOfPlayHands=0;
         dilerIndex = 0;
         handTohandCashBox=0;
+        numOfChipsForsmall=originalSmall;
+        numOfChipsForBig=originalBig;
 
     }
 

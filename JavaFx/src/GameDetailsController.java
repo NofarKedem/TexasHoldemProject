@@ -22,7 +22,7 @@ public class GameDetailsController {
     @FXML Button ButtonNext;
     @FXML Button ButtonPrev;
     @FXML Button ButtonBuyChips;
-
+    @FXML Button QuitFromTheGameButton;
     @FXML TextField textFieldToBet;
     @FXML TextField textFieldToRaise;
     @FXML Label errorBetLabel;
@@ -259,6 +259,8 @@ public class GameDetailsController {
             ShowMyCardButton.setDisable(false);
         else
             ShowMyCardButton.setDisable(true);
+
+        QuitFromTheGameButton.setDisable(false);
         ButtonFold.setDisable(!refServer.validateMove("1"));
         ButtonBet.setDisable(!refServer.validateMove("2"));
         ButtonCall.setDisable(!refServer.validateMove("3"));
@@ -283,6 +285,7 @@ public class GameDetailsController {
         ButtonCheck.setDisable(true);
         ButtonRaise.setDisable(true);
         ShowMyCardButton.setDisable(true);
+        QuitFromTheGameButton.setDisable(true);
     }
 
     public boolean isPlayerHasEnoughChips() {
@@ -291,6 +294,11 @@ public class GameDetailsController {
            return false;
         }
         return true;
+    }
+    public void pressOnQuitFromTheGame(ActionEvent event)
+    {
+        refServer.setQuitFromTheGameToCurrentPlayer();
+        moveAfterPressing(Round.GameMoves.FOLD);
     }
 }
 

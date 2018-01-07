@@ -80,11 +80,13 @@ public class LoadFileController {
         refServer.restartGameForNewGame();
         mainUIFather.reset();
 
+
     }
     public void restartCurrentGame()
     {
         refServer.restartCurrentGame();
         mainUIFather.reset();
+        mainUIFather.updateTableWithWinProp();
         mainUIFather.StartHand();
     }
     public void disableGameButtonAtStartingGame()
@@ -93,7 +95,7 @@ public class LoadFileController {
         menuItemRestartCurrGame.setDisable(true);
         ButtonStartGame.setDisable(true);
         ButtonLoadFile.setDisable(false);
-        resetStatusGameLabel();
+        setStatus("");
     }
 
     public void disableGameButton(boolean bool)
@@ -101,18 +103,17 @@ public class LoadFileController {
         menuItemRestartNewGame.setDisable(bool);
         menuItemRestartCurrGame.setDisable(bool);
     }
-    public void setStatusGameLabelToEndGame()
-    {
-        statusGameLabel.setText("Game was over, you can start new game or restart the current game");
-    }
-    public void resetStatusGameLabel()
-    {
-        statusGameLabel.setText("");
-    }
+
     public void statusPlayerNotHasEnoughChips()
     {
         String msg = refServer.getPlayerInfo(refServer.getCurrPlayer()).getName()+ " doesn't have enough chips to play in this hand, therefor the player quit!";
         statusGameLabel.setText(msg);
         statusGameLabel.setDisable(false);
+    }
+
+    public void setStatus(String msg)
+    {
+        statusGameLabel.setDisable(false);
+        statusGameLabel.setText(msg);
     }
 }

@@ -65,7 +65,7 @@ public class MainUIController implements Initializable {
         playerBoardController.unExposeAllPlayers();
         playerBoardController.hideAllCommunityCard();
         loadFileController.disableGameButton(true);
-        loadFileController.resetStatusGameLabel();
+        loadFileController.setStatus("");
         updateAllBoard();
 
         ifCompPlayerIsPlaying();
@@ -146,13 +146,30 @@ public class MainUIController implements Initializable {
         numOfCurrRound=0;
         server.closeTheHand();
         playerBoardController.stopFrameSparking();
+        validNextHand();
+    }
+
+    public void validNextHand()
+    {
         if(numOfCurrHand == server.getNumberOfHands())
         {
-            //end game
-            loadFileController.setStatusGameLabelToEndGame();
-            gameDetailsController.disableHandFinishButton(true);
-            loadFileController.disableGameButton(false);
+            loadFileController.setStatus("Game was over, you can start new game or restart the current game");
+
         }
+        else if(!server.isThereAreHumanPlayer())
+        {
+            loadFileController.setStatus("Game was over, there are no human player");
+        }
+
+        else if(!server.isThereAreMoreThenOnePlayer())
+        {
+            loadFileController.setStatus("Game was over, there are only one player");
+        }
+        else
+            return;
+
+        gameDetailsController.disableHandFinishButton(true);
+        loadFileController.disableGameButton(false);
     }
 
     public void cardDistribusionInRound()

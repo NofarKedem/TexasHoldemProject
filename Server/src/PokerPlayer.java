@@ -10,6 +10,7 @@ public class PokerPlayer {
     private int handsWon;
     private Card[] cards;
     private boolean isQuit;
+    private boolean finalQuit;
     private int bet;
     private int numOfPlayer=0;
     public PlayerActionService actionService;
@@ -24,6 +25,7 @@ public class PokerPlayer {
         this.id = id;
         this.bet = 0;
         isQuit = false;
+        finalQuit = false;
         handsWon = 0;
         this.numOfPlayer = numOfPlayer;
     }
@@ -111,6 +113,12 @@ public class PokerPlayer {
         this.isQuit = isQuit;
     }
 
+    public boolean getFinalQuit() {return this.finalQuit;}
+
+    public void setFinalQuit(boolean finalQuit){
+        this.finalQuit = finalQuit;
+    }
+
     public void initActionService(Round round)
     {
         this.actionService = round;
@@ -150,6 +158,7 @@ public class PokerPlayer {
         handsWon=0;
         cards=null;
         isQuit=false;
+        finalQuit = false;
         bet=0;
     }
 }

@@ -95,6 +95,7 @@ public class Round implements PlayerActionService{
                 currPlayerIndex = nextTurn(currPlayerIndex);
             } while (playersRef.get(currPlayerIndex).getQuit());
         }
+        closeTheRound = currPlayerIndex;
     }
     public int getCurrPlayer(){
         return currPlayerIndex;

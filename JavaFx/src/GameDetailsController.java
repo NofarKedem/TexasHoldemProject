@@ -162,6 +162,7 @@ public class GameDetailsController {
     }
     public void pressOnReplay(ActionEvent event)
     {
+        ButtonNext.setDisable(false);
         replayListIter=0;
         mainUIFather.updateAllPlayersFromReplayList(replayListIter);
         mainUIFather.updateTheTableFromReplayList(replayListIter);
@@ -273,8 +274,8 @@ public class GameDetailsController {
     {
         ButtonNextHand.setDisable(bool);
         ButtonReplay.setDisable(bool);
-        ButtonNext.setDisable(bool);
-        ButtonPrev.setDisable(bool);
+        //ButtonNext.setDisable(bool);
+        //ButtonPrev.setDisable(bool);
         ButtonBuyChips.setDisable(bool);
     }
 

@@ -54,26 +54,44 @@ public class BuyPopUpController {
                 case 1:
                     player1.setText(players.get(i-1).getName());
                     player1.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player1.setDisable(true);
+                    }
                     break;
                 case 2:
                     player2.setText(players.get(i-1).getName());
                     player2.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player2.setDisable(true);
+                    }
                     break;
                 case 3:
                     player3.setText(players.get(i-1).getName());
                     player3.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player3.setDisable(true);
+                    }
                     break;
                 case 4:
                     player4.setText(players.get(i-1).getName());
                     player4.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player4.setDisable(true);
+                    }
                     break;
                 case 5:
                     player5.setText(players.get(i-1).getName());
                     player5.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player5.setDisable(true);
+                    }
                     break;
                 case 6:
                     player6.setText(players.get(i-1).getName());
                     player6.setVisible(true);
+                    if(players.get(i-1).getTypeOfPlayer() == 'C') {
+                        player6.setDisable(true);
+                    }
                     break;
             }
         }

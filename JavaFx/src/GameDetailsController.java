@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
 public class GameDetailsController {
@@ -21,7 +22,7 @@ public class GameDetailsController {
     @FXML Button ButtonNext;
     @FXML Button ButtonPrev;
     @FXML Button ButtonBuyChips;
-
+    @FXML Button QuitFromTheGameButton;
     @FXML TextField textFieldToBet;
     @FXML TextField textFieldToRaise;
     @FXML Label errorBetLabel;
@@ -64,6 +65,7 @@ public class GameDetailsController {
 
     @FXML
     private void initialize() {
+
         NumOfHandsLabel.textProperty().bind(Bindings.format("%,d", NumOfHands));
         BuysLabel.textProperty().bind(Bindings.format("%,d", Buys));
         BigSizeLabel.textProperty().bind(Bindings.format("%,d", BigSize));
@@ -96,40 +98,63 @@ public class GameDetailsController {
 
     public void pressOnFold(ActionEvent event)
     {
-        humanPlayerMove("1",0);
-        doAfterMove();
+        moveAfterPressing(Round.GameMoves.FOLD);
+
     }
     public void pressOnBet(ActionEvent event)
     {
-        IntHolder amount = new IntHolder();
-        if(checkTextField(textFieldToBet, errorBetLabel,amount))
-            humanPlayerMove("2", amount.value);
-        doAfterMove();
+        moveAfterPressing(Round.GameMoves.BET);
+
     }
     public void pressOnCall(ActionEvent event)
     {
-        humanPlayerMove("3",0);
-        doAfterMove();
+        moveAfterPressing(Round.GameMoves.CALL);
+
     }
     public void pressOnCheck(ActionEvent event)
     {
+        moveAfterPressing(Round.GameMoves.CHECK);
 
-        humanPlayerMove("4",0);
-        doAfterMove();
     }
     public void pressOnRaise(ActionEvent event)
     {
-        IntHolder amount = new IntHolder();
-        if(checkTextField(textFieldToRaise, errorRaiseLabel,amount))
-            humanPlayerMove("5", amount.value);
-        doAfterMove();
+        moveAfterPressing(Round.GameMoves.RAISE);
+
     }
 
-    private void doAfterMove()
+    private void moveAfterPressing(Round.GameMoves GameMove)
     {
+        IntHolder amount = new IntHolder();
+        refServer.setMoveForAmountValidatoin(GameMove);
+        if(!isPlayerHasEnoughChips()) {
+            humanPlayerMove("1", 0);
+            return;
+        }
+        switch (GameMove)
+        {
+            case FOLD:
+                humanPlayerMove("1",0);
+                break;
+            case BET:
+                if (checkTextField(textFieldToBet, errorBetLabel, amount))
+                    humanPlayerMove("2", amount.value);
+                break;
+            case CALL:
+                humanPlayerMove("3",0);
+                break;
+            case CHECK:
+                humanPlayerMove("4",0);
+                break;
+            case RAISE:
+                if (checkTextField(textFieldToRaise, errorRaiseLabel, amount))
+                    humanPlayerMove("5", amount.value);
+
+                break;
+        }
         mainUIFather.updateAllBoard();
 
     }
+
     public void pressOnNextHand(ActionEvent event)
     {
         mainUIFather.hideGameMoves();
@@ -185,6 +210,7 @@ public class GameDetailsController {
     public boolean checkTextField(TextField textField, Label errorLabel, IntHolder amount)
     {
         boolean isSucsses = false;
+        errorLabel.setFont(new Font("Arial", 10));
         String amountStr = textField.getText();
         if(amountStr.equals("")) {
             errorLabel.setText("You have to type amount");
@@ -195,11 +221,25 @@ public class GameDetailsController {
                 //humanPlayerMove("2", Integer.parseInt(amountStr));
                 amount.value = Integer.parseInt(amountStr);
                 //amount =  Integer.parseInt(amountStr);
-                errorLabel.setVisible(false);
-                isSucsses = true;
+
+                if(!refServer.validAmount(amount.value)) {
+                    errorLabel.setText("The amount you enter is invalid");
+                    errorLabel.setVisible(true);
+
+                }
+                else {
+                    errorLabel.setVisible(false);
+                    isSucsses = true;
+                }
+
             } catch (NumberFormatException e) {
                 errorLabel.setVisible(true);
                 errorLabel.setText("Invalid input");
+            }
+            catch (Exception e) {
+                errorLabel.setVisible(true);
+                errorLabel.setText(e.getMessage());
+
             }
         }
         return isSucsses;
@@ -220,6 +260,8 @@ public class GameDetailsController {
             ShowMyCardButton.setDisable(false);
         else
             ShowMyCardButton.setDisable(true);
+
+        QuitFromTheGameButton.setDisable(false);
         ButtonFold.setDisable(!refServer.validateMove("1"));
         ButtonBet.setDisable(!refServer.validateMove("2"));
         ButtonCall.setDisable(!refServer.validateMove("3"));
@@ -244,6 +286,20 @@ public class GameDetailsController {
         ButtonCheck.setDisable(true);
         ButtonRaise.setDisable(true);
         ShowMyCardButton.setDisable(true);
+        QuitFromTheGameButton.setDisable(true);
+    }
+
+    public boolean isPlayerHasEnoughChips() {
+        if (!refServer.isPlayerHasEnoughChips()) {
+            mainUIFather.statusPlayerNotHasEnoughChips();
+           return false;
+        }
+        return true;
+    }
+    public void pressOnQuitFromTheGame(ActionEvent event)
+    {
+        refServer.setQuitFromTheGameToCurrentPlayer();
+        moveAfterPressing(Round.GameMoves.FOLD);
     }
 }
 

@@ -109,7 +109,7 @@ public class Hand {
         return currRound.isPlayerHasEnoughChips();
     }
 
-    public boolean isValidAmount(int amount){
+    public boolean isValidAmount(int amount)throws Exception{
         return currRound.isValidAmount(amount);
     }
 
@@ -192,6 +192,12 @@ public class Hand {
     public int getLastGenerateAmount()
     {
         return currRound.getLastGenerateAmount();
+    }
+
+    public void setMoveForAmountValidatoin(Round.GameMoves gameMoves)
+    {
+        currRound.setMoveForAmountValidatoin(gameMoves);
+
     }
 
 }

@@ -103,7 +103,7 @@ public class Server {
 
     private void initPlayersQuitState(){
         for(PokerPlayer player : players){
-            if(player.getChips() > 0)
+            if(player.getChips() > 0 && player.getFinalQuit() == false)
                 player.setQuit(false);
         }
     }
@@ -396,7 +396,7 @@ public class Server {
         }
         return res;
     }
-    public boolean validAmount(int amount)
+    public boolean validAmount(int amount) throws Exception
     {
         return currHand.isValidAmount(amount);
     }
@@ -578,11 +578,48 @@ public class Server {
         return handReplay.get(listIter).getLastGameMove();
     }
 
+
+    public void setMoveForAmountValidatoin(Round.GameMoves gameMoves) {
+        currHand.setMoveForAmountValidatoin(gameMoves);
+    }
+
     public int getCurrHandFromReplay(int listIter) {
         return handReplay.get(listIter).getCurrHand();
     }
 
     public int getCurrRoundFromReplay(int listIter) {
         return handReplay.get(listIter).getCurrRound();
+
+    }
+
+    public void setQuitFromTheGameToCurrentPlayer()
+    {
+        players.get(getCurrPlayer()).setQuit(true);
+        players.get(getCurrPlayer()).setFinalQuit(true);
+    }
+
+    public boolean isThereAreHumanPlayer()
+    {
+        for(PokerPlayer player : players)
+        {
+            if(player.getFinalQuit()==false && player.getType() == 'H')
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isThereAreMoreThenOnePlayer()
+    {
+        int counter=0;
+        for(PokerPlayer player : players)
+        {
+            if(player.getFinalQuit()==false)
+                counter++;
+        }
+
+        if(counter > 1)
+            return true;
+        else
+            return false;
     }
 }

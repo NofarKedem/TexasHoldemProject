@@ -107,7 +107,7 @@ public class LoadFileController {
     public void statusPlayerNotHasEnoughChips()
     {
         String msg = refServer.getPlayerInfo(refServer.getCurrPlayer()).getName()+ " doesn't have enough chips to play in this hand, therefor the player quit!";
-        statusGameLabel.setText(msg);
+        setStatus(msg);
         statusGameLabel.setDisable(false);
     }
 

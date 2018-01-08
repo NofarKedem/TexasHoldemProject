@@ -332,4 +332,7 @@ public class MainUIController implements Initializable {
         playerBoardController.hideGameMoves();
     }
 
+    public void clearTable() {
+        playerTableController.clearTable();
+    }
 }

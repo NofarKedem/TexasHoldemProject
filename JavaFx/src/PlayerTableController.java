@@ -55,6 +55,10 @@ public class PlayerTableController implements Initializable{
         tableView.getItems().addAll(pokerPlayers);
     }
 
+    public void clearTable() {
+        tableView.getItems().clear();
+    }
+
 //    public void updateWinProperties(ObservableList<PlayerInfo> playersInfoAfterWin){
 //        tableView.setItems(playersInfoAfterWin);
 //    }

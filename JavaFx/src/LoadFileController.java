@@ -1,3 +1,5 @@
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -6,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class LoadFileController {
+public class LoadFileController{
     private Stage primaryStage;
     @FXML
     MenuItem ButtonLoadFile;
@@ -15,6 +17,9 @@ public class LoadFileController {
     @FXML MenuItem menuItemRestartCurrGame;
     @FXML MenuItem ButtonStartGame;
     @FXML Label statusGameLabel;
+    @FXML ProgressBar progressBar = new ProgressBar(0);
+
+
     Server refServer;
     MainUIController mainUIFather;
 
@@ -33,8 +38,9 @@ public class LoadFileController {
         ButtonStartGame.setDisable(true);
 
     }
-    public void PressOnLoadFile()
+    public void PressOnLoadFile() throws Exception
     {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select xml file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml file", "*.xml"));
@@ -44,12 +50,33 @@ public class LoadFileController {
         }
 
         String absolutePath = selectedFile.getAbsolutePath();
+        Task loadFileTask = new Task(refServer, absolutePath);
+
+        /*if(progressBar.getProgress() == 100) {
+            progressBar.setProgress(0);
+        }*/
 
         try {
-            refServer.loadFile(absolutePath);
+            Thread e = new Thread(loadFileTask);
+            progressBar.progressProperty().unbind();
+            progressBar.progressProperty().bind(loadFileTask.progressProperty());
+
+            e.start();
+            loadFileTask.setOnSucceeded( (event) -> {
+
+                if(loadFileTask.getValue().result) {
+                    statusGameLabel.setText("File loaded successfully");
+                    mainUIFather.updateXMLDetails();
+                    ButtonStartGame.setDisable(false);
+                } else {
+                    statusGameLabel.setText(loadFileTask.getValue().msg);
+                    mainUIFather.clearTable();
+                }
+            });
+            /*refServer.loadFile(absolutePath);
             statusGameLabel.setText("File loaded successfully");
             mainUIFather.updateXMLDetails();
-            ButtonStartGame.setDisable(false);
+            ButtonStartGame.setDisable(false);*/
         }
             catch(Exception e)
         {
@@ -57,6 +84,9 @@ public class LoadFileController {
         }
 
     }
+
+
+
 
     public void setPrimaryStage(Stage primaryStage)
     {
@@ -116,4 +146,5 @@ public class LoadFileController {
         statusGameLabel.setDisable(false);
         statusGameLabel.setText(msg);
     }
+
 }

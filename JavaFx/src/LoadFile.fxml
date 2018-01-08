@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -47,5 +48,6 @@
          </children>
       </VBox>
       <Label fx:id="statusGameLabel" layoutX="53.0" layoutY="38.0" prefHeight="17.0" prefWidth="572.0" />
+      <ProgressBar fx:id="progressBar" layoutX="597.0" layoutY="39.0" prefHeight="20.0" prefWidth="335.0" progress="0.0" />
    </children>
 </AnchorPane>

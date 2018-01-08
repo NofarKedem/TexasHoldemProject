@@ -83,7 +83,7 @@ public class GameDetailsController {
     public void displayGameDetails()
     {
         NumOfHands.set(refServer.getNumberOfHands());
-        Buys.set(refServer.getNumOfChipsPerBuy());
+        Buys.set(refServer.getNumberOfBuys());
         BigSize.set(refServer.getNumOfChipsForBig());
         SmallSize.set(refServer.getNumOfChipsForsmall());
         if(refServer.getFixedState()){
@@ -197,6 +197,7 @@ public class GameDetailsController {
     public void pressOnBuyChips(ActionEvent event)
     {
         mainUIFather.showBuyPopUp();
+        displayGameDetails();
     }
 
     private void humanPlayerMove(String numOfMove,int amount)

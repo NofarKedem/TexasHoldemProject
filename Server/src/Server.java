@@ -42,6 +42,7 @@ public class Server {
     public void initializePlayers(List<Player> listOfPlayerFromXML) {
         Utils.numOfPlayers = listOfPlayerFromXML.size();
         int i = 1;
+        players.clear();
         char type;
         for (Player player : listOfPlayerFromXML) {
             if (player.getType().equals("Human"))
@@ -548,7 +549,7 @@ public class Server {
             tempList.add(i,currPinfo);
         }
         StatusSnapShot result = new StatusSnapShot(tempList,getTableInfo(),
-                getLastMove(),getLastBetOfSpecificPlayer(playerIndex),getCurrPlayer(),
+                getLastMove(),getLastBetOfSpecificPlayer(playerIndex),playerIndex,
                 getCurrentNumberOfHand(),getCurrNumOfRound());
         return result;
     }

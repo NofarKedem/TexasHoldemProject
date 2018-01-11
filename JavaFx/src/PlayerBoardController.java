@@ -1,11 +1,9 @@
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
@@ -184,12 +182,14 @@ public class PlayerBoardController {
 
     private void displayGameMove(int currTurn, int replayListIter) {
         String lastGameMove = refServer.getLastMoveFromRelayList(replayListIter);
+        /*
         if (currTurn == 0){
-            currTurn = (1%Utils.numOfPlayers + 1);
+            currTurn = (Utils.numOfPlayers - 1);
         }
         else{
             currTurn = currTurn - 1;
         }
+        */
         switch (currTurn){
             case 0:
                 if(lastGameMove != "NONE") {
@@ -591,5 +591,36 @@ public class PlayerBoardController {
         fadeTransition.setToValue(0.0);
         fadeTransition.setCycleCount(Animation.INDEFINITE);
         fadeTransition.play();
+    }
+
+    public void displayFoldLabelToPlayer(int numOfPlayer)
+    {
+        //int numOfPlayer = refServer.getCurrPlayer();
+        switch (numOfPlayer){
+            case 0:
+                    gameMove1.setText("Fold");
+                    gameMove1.setVisible(true);
+                break;
+            case 1:
+                    gameMove2.setText("Fold");
+                    gameMove2.setVisible(true);
+                break;
+            case 2:
+                    gameMove3.setText("Fold");
+                    gameMove3.setVisible(true);
+                break;
+            case 3:
+                    gameMove4.setText("Fold");
+                    gameMove4.setVisible(true);
+                break;
+            case 4:
+                    gameMove5.setText("Fold");
+                    gameMove5.setVisible(true);
+                break;
+            case 5:
+                    gameMove6.setText("Fold");
+                    gameMove6.setVisible(true);
+                break;
+        }
     }
 }

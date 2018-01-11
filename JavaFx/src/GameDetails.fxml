@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameDetailsController">
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameDetailsController">
    <content>
       <Accordion maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="326.0" prefWidth="297.0">
         <panes>
@@ -95,7 +95,7 @@
                     </rowConstraints>
                      <children>
                         <Button fx:id="ButtonNextHand" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#pressOnNextHand" prefWidth="74.0" text="Next hand" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-                        <Button fx:id="ButtonReplay" disable="true" mnemonicParsing="false" onAction="#pressOnReplay" prefWidth="80.0" text="Replay" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button fx:id="ButtonReplay" disable="true" mnemonicParsing="false" onAction="#pressOnReplay" prefWidth="80.0" text="Start replay" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="ButtonNext" disable="true" mnemonicParsing="false" onAction="#pressOnNext" prefWidth="50.0" text="Next" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="ButtonPrev" disable="true" mnemonicParsing="false" onAction="#pressOnPrev" prefWidth="50.0" text="Prev" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="ButtonBuyChips" disable="true" mnemonicParsing="false" onAction="#pressOnBuyChips" prefWidth="80.0" text="Buy chips" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />

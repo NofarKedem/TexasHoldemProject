@@ -5,8 +5,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -59,8 +57,6 @@ public class PlayerTableController implements Initializable{
         tableView.getItems().clear();
     }
 
-//    public void updateWinProperties(ObservableList<PlayerInfo> playersInfoAfterWin){
-//        tableView.setItems(playersInfoAfterWin);
-//    }
+
 
 }

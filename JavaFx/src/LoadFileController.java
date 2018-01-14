@@ -1,6 +1,4 @@
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;

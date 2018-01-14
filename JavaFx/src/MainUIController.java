@@ -48,17 +48,6 @@ public class MainUIController implements Initializable {
         server.initRound();
         server.blindBetSmall();
         server.blindBetBig();
-        //gameDetailsController.setDisableToMoveButton();
-        /*
-        if(server.blindBetSmall() || server.blindBetBig())
-        {
-
-        }
-        else
-        {
-            System.out.println("The current blind bet player\\s do not have enough chips for bet!");
-        }
-        */
         numOfCurrRound++;
         numOfCurrHand++;
         gameDetailsController.disableHandFinishButton(true);
@@ -74,25 +63,18 @@ public class MainUIController implements Initializable {
     public void ifCompPlayerIsPlaying() //אם זה שחקן ממוחשב הוא משחק
     {
         gameDetailsController.setDisableToMoveButton();
+        int numOfPlayer = server.getCurrPlayer();
         if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
-            if(checkStatus(server.playWithComputer())) {
+            if(checkStatus(server.playWithComputer(),numOfPlayer)) {
                 ifCompPlayerIsPlaying();
             }
             updateAllBoard();
         }
     }
 
-    public boolean checkStatus(Utils.RoundResult resultOfMove)
+    public boolean checkStatus(Utils.RoundResult resultOfMove,int numOfPlayer)
     {
-        //for test
-            System.out.print("last move was: " + server.getLastMove());
-            if (server.getLastMove() == "RAISE")
-                System.out.println(" with amount: " + server.getLastGenerateAmount());
-            else
-                System.out.println();
-        //for test
-
-
+        displayFoldLabelToPlayer(numOfPlayer);
 
         server.addSnapShotToReplay();
         boolean successes = false;
@@ -119,12 +101,10 @@ public class MainUIController implements Initializable {
                 endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
-                //System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
                 WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
                 endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.ALLFOLDED) {
-                // System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
                 WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
                 endHand(resultOfMove);
             }
@@ -146,6 +126,7 @@ public class MainUIController implements Initializable {
         numOfCurrRound=0;
         server.closeTheHand();
         playerBoardController.stopFrameSparking();
+        playerBoardController.hideGameMoves();
         validNextHand();
     }
 
@@ -334,5 +315,11 @@ public class MainUIController implements Initializable {
 
     public void clearTable() {
         playerTableController.clearTable();
+    }
+
+    public void displayFoldLabelToPlayer(int numOfPlayer)
+    {
+        if(server.getLastMove().equals("FOLD"))
+            playerBoardController.displayFoldLabelToPlayer(numOfPlayer);
     }
 }

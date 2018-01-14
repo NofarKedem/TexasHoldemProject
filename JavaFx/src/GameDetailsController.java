@@ -42,6 +42,7 @@ public class GameDetailsController {
     private SimpleStringProperty BlindsState;
     Server refServer;
     MainUIController mainUIFather;
+    boolean isReplayOn = false;
 
     int replayListIter;
 
@@ -162,10 +163,27 @@ public class GameDetailsController {
     }
     public void pressOnReplay(ActionEvent event)
     {
-        ButtonNext.setDisable(false);
-        replayListIter=0;
-        mainUIFather.updateAllPlayersFromReplayList(replayListIter);
-        mainUIFather.updateTheTableFromReplayList(replayListIter);
+        isReplayOn = !isReplayOn;
+        if(isReplayOn==false)
+        {
+            ButtonReplay.setText("Start replay");
+            ButtonNextHand.setDisable(false);
+            ButtonBuyChips.setDisable(false);
+            ButtonNext.setDisable(true);
+            ButtonPrev.setDisable(true);
+
+        }
+        else
+        {
+            ButtonReplay.setText("Stop replay");
+            ButtonNextHand.setDisable(true);
+            ButtonBuyChips.setDisable(true);
+            ButtonNext.setDisable(false);
+            replayListIter=0;
+            mainUIFather.updateAllPlayersFromReplayList(replayListIter);
+            mainUIFather.updateTheTableFromReplayList(replayListIter);
+        }
+
 
     }
     public void pressOnNext(ActionEvent event)
@@ -202,9 +220,10 @@ public class GameDetailsController {
 
     private void humanPlayerMove(String numOfMove,int amount)
     {
+        int numOfPlayer = refServer.getCurrPlayer();
         Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
         mainUIFather.updateAllBoard();
-        if(mainUIFather.checkStatus(moveResult))
+        if(mainUIFather.checkStatus(moveResult,numOfPlayer))
             mainUIFather.ifCompPlayerIsPlaying();
     }
 

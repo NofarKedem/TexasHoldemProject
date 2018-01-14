@@ -185,7 +185,7 @@ public class PlayerBoardController {
     private void displayGameMove(int currTurn, int replayListIter) {
         String lastGameMove = refServer.getLastMoveFromRelayList(replayListIter);
         if (currTurn == 0){
-            currTurn = (1%Utils.numOfPlayers + 1);
+            currTurn = (Utils.numOfPlayers - 1);
         }
         else{
             currTurn = currTurn - 1;

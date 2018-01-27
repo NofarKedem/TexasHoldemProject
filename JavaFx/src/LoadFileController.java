@@ -18,16 +18,16 @@ public class LoadFileController{
     @FXML ProgressBar progressBar = new ProgressBar(0);
 
 
-    Server refServer;
+    GameEngine refGameEngine;
     MainUIController mainUIFather;
 
     public void setFather(MainUIController father)
     {
         mainUIFather = father;
     }
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
     public void PressOnStartGame()
     {
@@ -48,7 +48,7 @@ public class LoadFileController{
         }
 
         String absolutePath = selectedFile.getAbsolutePath();
-        Task loadFileTask = new Task(refServer, absolutePath);
+        Task loadFileTask = new Task(refGameEngine, absolutePath);
 
         /*if(progressBar.getProgress() == 100) {
             progressBar.setProgress(0);
@@ -71,7 +71,7 @@ public class LoadFileController{
                     mainUIFather.clearTable();
                 }
             });
-            /*refServer.loadFile(absolutePath);
+            /*refGameEngine.loadFile(absolutePath);
             statusGameLabel.setText("File loaded successfully");
             mainUIFather.updateXMLDetails();
             ButtonStartGame.setDisable(false);*/
@@ -105,14 +105,14 @@ public class LoadFileController{
     public void restartGameForNewGame()
     {
         disableGameButtonAtStartingGame();
-        refServer.restartGameForNewGame();
+        refGameEngine.restartGameForNewGame();
         mainUIFather.reset();
 
 
     }
     public void restartCurrentGame()
     {
-        refServer.restartCurrentGame();
+        refGameEngine.restartCurrentGame();
         mainUIFather.reset();
         mainUIFather.updateTableWithWinProp();
         mainUIFather.StartHand();
@@ -134,7 +134,7 @@ public class LoadFileController{
 
     public void statusPlayerNotHasEnoughChips()
     {
-        String msg = refServer.getPlayerInfo(refServer.getCurrPlayer()).getName()+ " doesn't have enough chips to play in this hand, therefor the player quit!";
+        String msg = refGameEngine.getPlayerInfo(refGameEngine.getCurrPlayer()).getName()+ " doesn't have enough chips to play in this hand, therefor the player quit!";
         setStatus(msg);
         statusGameLabel.setDisable(false);
     }

@@ -5,6 +5,48 @@
     <title>Texas Holdem</title>
 </head>
 <body>
-    <h1>Games Manager</h1>
+    <div>
+        <div>
+            <div class="dialogButtons">
+                <div class="dialogButton" onclick="joinGameClicked()">Add a Game</div>
+            </div>
+        </div>
+
+        <div class="usersDiv">
+            <table class="usersTable">
+                <thead>
+                <th>Online Users:</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="gamesDiv">
+            <div class="gamesActions">
+                <form id="fileuploads" action="../games" enctype="multipart/form-data" method="post">
+                    <span>Upload Game XML:</span>
+                    <input id="fileInput" type="file" accept="text/xml" name="xml">
+                    <input type="Submit" value="Upload File"><br>
+                </form>
+            </div>
+            <table class="gamesTable">
+                <thead>
+                <th>Game number</th>
+                <th class="xmlTitle">Game Name</th>
+                <th>Creator Name</th>
+                <th>Number of Hands</th>
+                <th>Buy</th>
+                <th>Number of Players</th>
+                <th>Number of subscribed</th>
+                <th>Blinds Type</th>
+                <th>Game Status</th>
+                </thead>
+                <tbody class="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </body>
 </html>

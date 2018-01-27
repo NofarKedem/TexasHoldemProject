@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 
 public class PlayerTableController implements Initializable{
-    Server refServer;
+    GameEngine refGameEngine;
     MainUIController mainUIFather;
     @FXML
     TableView<PlayerInfo> tableView;
@@ -28,9 +28,9 @@ public class PlayerTableController implements Initializable{
 
 
 
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
     public void setFather(MainUIController father)
     {

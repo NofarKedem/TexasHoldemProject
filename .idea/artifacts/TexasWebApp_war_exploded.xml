@@ -10,6 +10,7 @@
         <element id="directory" name="lib">
           <element id="artifact" artifact-name="TexasHoldemProject:jar" />
           <element id="library" level="project" name="HandRank" />
+          <element id="library" level="project" name="gson-2.1" />
         </element>
       </element>
     </root>

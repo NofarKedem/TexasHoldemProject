@@ -12,6 +12,7 @@ public class User {
         this.inGameNumber = EMPTY;
     }
 
+
     public String getName() {
         return this.name;
     }

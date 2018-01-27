@@ -20,7 +20,7 @@ public class MainUIController implements Initializable {
     @FXML private PlayerBoardController playerBoardController;
     @FXML private WinnerInfoController winnerInfoController;
 
-    Server server = new Server();
+    GameEngine gameEngine = new GameEngine();
     int numOfCurrHand=0;
     int numOfCurrRound=0;
     boolean isEndHand=false;
@@ -41,13 +41,13 @@ public class MainUIController implements Initializable {
     {
         isEndHand = false;
         int cashBoxReminder = 0;
-        server.initHandReplay();
-        server.initializeHand();
-        server.setPlayHand();
-        server.cardDistribusionToPlayer();
-        server.initRound();
-        server.blindBetSmall();
-        server.blindBetBig();
+        gameEngine.initHandReplay();
+        gameEngine.initializeHand();
+        gameEngine.setPlayHand();
+        gameEngine.cardDistribusionToPlayer();
+        gameEngine.initRound();
+        gameEngine.blindBetSmall();
+        gameEngine.blindBetBig();
         numOfCurrRound++;
         numOfCurrHand++;
         gameDetailsController.disableHandFinishButton(true);
@@ -63,9 +63,9 @@ public class MainUIController implements Initializable {
     public void ifCompPlayerIsPlaying() //אם זה שחקן ממוחשב הוא משחק
     {
         gameDetailsController.setDisableToMoveButton();
-        int numOfPlayer = server.getCurrPlayer();
-        if (server.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
-            if(checkStatus(server.playWithComputer(),numOfPlayer)) {
+        int numOfPlayer = gameEngine.getCurrPlayer();
+        if (gameEngine.getTypeOfPlayer(Utils.numOfPlayers) == 'C') {
+            if(checkStatus(gameEngine.playWithComputer(),numOfPlayer)) {
                 ifCompPlayerIsPlaying();
             }
             updateAllBoard();
@@ -76,7 +76,7 @@ public class MainUIController implements Initializable {
     {
         displayFoldLabelToPlayer(numOfPlayer);
 
-        server.addSnapShotToReplay();
+        gameEngine.addSnapShotToReplay();
         boolean successes = false;
 
             if (resultOfMove == Utils.RoundResult.CLOSEROUND) {
@@ -87,13 +87,13 @@ public class MainUIController implements Initializable {
 
                 else {
                     cardDistribusionInRound();
-                    server.initRound();
+                    gameEngine.initRound();
                     numOfCurrRound++;
                     successes = true;
                 }
             }  if (resultOfMove == Utils.RoundResult.ENDGAME) {
                 try {
-                    WinnerMap = server.WhoIsTheWinner();
+                    WinnerMap = gameEngine.WhoIsTheWinner();
                 }
                 catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -101,11 +101,11 @@ public class MainUIController implements Initializable {
                 endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
-                WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
+                WinnerMap = gameEngine.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
                 endHand(resultOfMove);
             }
             else if (resultOfMove == Utils.RoundResult.ALLFOLDED) {
-                WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
+                WinnerMap = gameEngine.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
                 endHand(resultOfMove);
             }
             else
@@ -124,7 +124,7 @@ public class MainUIController implements Initializable {
         gameDetailsController.disableHandFinishButton(false);
         gameDetailsController.disablePlayerMove();
         numOfCurrRound=0;
-        server.closeTheHand();
+        gameEngine.closeTheHand();
         playerBoardController.stopFrameSparking();
         playerBoardController.hideGameMoves();
         validNextHand();
@@ -132,17 +132,17 @@ public class MainUIController implements Initializable {
 
     public void validNextHand()
     {
-        if(numOfCurrHand == server.getNumberOfHands())
+        if(numOfCurrHand == gameEngine.getNumberOfHands())
         {
             loadFileController.setStatus("Game was over, you can start new game or restart the current game");
 
         }
-        else if(!server.isThereAreHumanPlayer())
+        else if(!gameEngine.isThereAreHumanPlayer())
         {
             loadFileController.setStatus("Game was over, there are no human player");
         }
 
-        else if(!server.isThereAreMoreThenOnePlayer())
+        else if(!gameEngine.isThereAreMoreThenOnePlayer())
         {
             loadFileController.setStatus("Game was over, there are only one player");
         }
@@ -157,11 +157,11 @@ public class MainUIController implements Initializable {
     {
         switch (numOfCurrRound)
         {
-            case 1: server.callFlop();
+            case 1: gameEngine.callFlop();
                 break;
-            case 2: server.callTurn();
+            case 2: gameEngine.callTurn();
                 break;
-            case 3: server.callRiver();
+            case 3: gameEngine.callRiver();
                 break;
             default: break;
         }
@@ -179,10 +179,10 @@ public class MainUIController implements Initializable {
     public void setServerToContoroller()
     {
 
-        playerTableController.SetServer(server);
-        gameDetailsController.SetServer(server);
-        loadFileController.SetServer(server);
-        playerBoardController.SetServer(server);
+        playerTableController.SetServer(gameEngine);
+        gameDetailsController.SetServer(gameEngine);
+        loadFileController.SetServer(gameEngine);
+        playerBoardController.SetServer(gameEngine);
     }
     public void setPrimaryStage(Stage primaryStage)
     {
@@ -200,7 +200,7 @@ public class MainUIController implements Initializable {
     {
         ObservableList<PlayerInfo> pokerPlayers = FXCollections.observableArrayList();
 
-        List<PlayerInfo> playerList = server.getAllPlayerInfo();
+        List<PlayerInfo> playerList = gameEngine.getAllPlayerInfo();
         for(PlayerInfo p: playerList)
             pokerPlayers.add(p);
         Collections.sort(pokerPlayers, (PlayerInfo p1, PlayerInfo p2) -> (p2.getPlayerChips() - p1.getPlayerChips()));
@@ -231,7 +231,7 @@ public class MainUIController implements Initializable {
             Stage popUpStage = new Stage();
             winnerInfoController.setPrimaryStage(popUpStage);
             winnerInfoController.setFather(this);
-            winnerInfoController.SetServer(server);
+            winnerInfoController.SetServer(gameEngine);
             winnerInfoController.setWinnerDetails(winResult);
             popUpStage.setTitle("Hand Winner");
             popUpStage.setScene(new Scene(root1));
@@ -243,11 +243,11 @@ public class MainUIController implements Initializable {
 
     public void exposeCurrentCardOfHumanPlayer()
     {
-        playerBoardController.exposeCard(server.getCurrPlayer());
+        playerBoardController.exposeCard(gameEngine.getCurrPlayer());
     }
     public void unExposeCurrentCardOfHumanPlayer()
     {
-        playerBoardController.unExposeCard(server.getCurrPlayer());
+        playerBoardController.unExposeCard(gameEngine.getCurrPlayer());
     }
 
     public void changeSkinOption1()
@@ -290,7 +290,7 @@ public class MainUIController implements Initializable {
             Stage popUpStage = new Stage();
             buyPopUpController.setPrimaryStage(popUpStage);
             buyPopUpController.setFather(this);
-            buyPopUpController.SetServer(server);
+            buyPopUpController.SetServer(gameEngine);
             buyPopUpController.setAllNotVisible();
             buyPopUpController.setPlayersDetails();
 
@@ -319,7 +319,7 @@ public class MainUIController implements Initializable {
 
     public void displayFoldLabelToPlayer(int numOfPlayer)
     {
-        if(server.getLastMove().equals("FOLD"))
+        if(gameEngine.getLastMove().equals("FOLD"))
             playerBoardController.displayFoldLabelToPlayer(numOfPlayer);
     }
 }

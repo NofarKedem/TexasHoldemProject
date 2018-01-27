@@ -10,7 +10,7 @@ import java.util.List;
 public class BuyPopUpController {
 
     private Stage primaryStage;
-    private Server refServer;
+    private GameEngine refGameEngine;
     private MainUIController mainUIFather;
 
     @FXML Button okButton;
@@ -23,9 +23,9 @@ public class BuyPopUpController {
     @FXML CheckBox player5;
     @FXML CheckBox player6;
 
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
 
     public void setFather(MainUIController father)
@@ -48,7 +48,7 @@ public class BuyPopUpController {
     }
 
     public void setPlayersDetails(){
-        List<PlayerInfo> players = refServer.getAllPlayerInfo();
+        List<PlayerInfo> players = refGameEngine.getAllPlayerInfo();
         for(int i=1; i <= Utils.numOfPlayers;i++){
             switch (i){
                 case 1:
@@ -98,7 +98,7 @@ public class BuyPopUpController {
     }
 
     public List<PlayerInfo> getCheckBoxInf() {
-        List<PlayerInfo> playersInfo = refServer.getAllPlayerInfo();
+        List<PlayerInfo> playersInfo = refGameEngine.getAllPlayerInfo();
         List<PlayerInfo> selectedPlayers = new ArrayList<>();
         for (int i = 1; i <= Utils.numOfPlayers; i++) {
             switch (i) {
@@ -138,7 +138,7 @@ public class BuyPopUpController {
     }
 
     public void updatePlayersBuys(List<PlayerInfo> players){
-        refServer.addChipsToPlayer(players);
+        refGameEngine.addChipsToPlayer(players);
     }
 
     public void pressOkButton(){

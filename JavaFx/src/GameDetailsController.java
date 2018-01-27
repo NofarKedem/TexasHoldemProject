@@ -40,7 +40,7 @@ public class GameDetailsController {
     private SimpleLongProperty SmallSize;
     private SimpleLongProperty Addition;
     private SimpleStringProperty BlindsState;
-    Server refServer;
+    GameEngine refGameEngine;
     MainUIController mainUIFather;
     boolean isReplayOn = false;
 
@@ -50,9 +50,9 @@ public class GameDetailsController {
     {
         mainUIFather = father;
     }
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
 
     public GameDetailsController() {
@@ -83,17 +83,17 @@ public class GameDetailsController {
 
     public void displayGameDetails()
     {
-        NumOfHands.set(refServer.getNumberOfHands());
-        Buys.set(refServer.getNumberOfBuys());
-        BigSize.set(refServer.getNumOfChipsForBig());
-        SmallSize.set(refServer.getNumOfChipsForsmall());
-        if(refServer.getFixedState()){
+        NumOfHands.set(refGameEngine.getNumberOfHands());
+        Buys.set(refGameEngine.getNumberOfBuys());
+        BigSize.set(refGameEngine.getNumOfChipsForBig());
+        SmallSize.set(refGameEngine.getNumOfChipsForsmall());
+        if(refGameEngine.getFixedState()){
             BlindsState.set("Fixed");
             Addition.set(0);
         }
         else{
             BlindsState.set("Changes");
-            Addition.set(refServer.getAddition());
+            Addition.set(refGameEngine.getAddition());
         }
     }
 
@@ -126,7 +126,7 @@ public class GameDetailsController {
     private void moveAfterPressing(Round.GameMoves GameMove)
     {
         IntHolder amount = new IntHolder();
-        refServer.setMoveForAmountValidatoin(GameMove);
+        refGameEngine.setMoveForAmountValidatoin(GameMove);
         if(!isPlayerHasEnoughChips()) {
             humanPlayerMove("1", 0);
             return;
@@ -191,7 +191,7 @@ public class GameDetailsController {
         if(ButtonPrev.isDisable()){
             ButtonPrev.setDisable(false);
         }
-        if(replayListIter + 1 < refServer.getReplayListSize())
+        if(replayListIter + 1 < refGameEngine.getReplayListSize())
             replayListIter++;
         else{
             ButtonNext.setDisable(true);
@@ -220,8 +220,8 @@ public class GameDetailsController {
 
     private void humanPlayerMove(String numOfMove,int amount)
     {
-        int numOfPlayer = refServer.getCurrPlayer();
-        Utils.RoundResult moveResult= refServer.gameMove(numOfMove, amount);
+        int numOfPlayer = refGameEngine.getCurrPlayer();
+        Utils.RoundResult moveResult= refGameEngine.gameMove(numOfMove, amount);
         mainUIFather.updateAllBoard();
         if(mainUIFather.checkStatus(moveResult,numOfPlayer))
             mainUIFather.ifCompPlayerIsPlaying();
@@ -242,7 +242,7 @@ public class GameDetailsController {
                 amount.value = Integer.parseInt(amountStr);
                 //amount =  Integer.parseInt(amountStr);
 
-                if(!refServer.validAmount(amount.value)) {
+                if(!refGameEngine.validAmount(amount.value)) {
                     errorLabel.setText("The amount you enter is invalid");
                     errorLabel.setVisible(true);
 
@@ -276,17 +276,17 @@ public class GameDetailsController {
 
     public void setDisableToMoveButton() {
 
-        if (refServer.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
+        if (refGameEngine.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
             ShowMyCardButton.setDisable(false);
         else
             ShowMyCardButton.setDisable(true);
 
         QuitFromTheGameButton.setDisable(false);
-        ButtonFold.setDisable(!refServer.validateMove("1"));
-        ButtonBet.setDisable(!refServer.validateMove("2"));
-        ButtonCall.setDisable(!refServer.validateMove("3"));
-        ButtonCheck.setDisable(!refServer.validateMove("4"));
-        ButtonRaise.setDisable(!refServer.validateMove("5"));
+        ButtonFold.setDisable(!refGameEngine.validateMove("1"));
+        ButtonBet.setDisable(!refGameEngine.validateMove("2"));
+        ButtonCall.setDisable(!refGameEngine.validateMove("3"));
+        ButtonCheck.setDisable(!refGameEngine.validateMove("4"));
+        ButtonRaise.setDisable(!refGameEngine.validateMove("5"));
     }
 
     public void disableHandFinishButton(boolean bool)
@@ -310,7 +310,7 @@ public class GameDetailsController {
     }
 
     public boolean isPlayerHasEnoughChips() {
-        if (!refServer.isPlayerHasEnoughChips()) {
+        if (!refGameEngine.isPlayerHasEnoughChips()) {
             mainUIFather.statusPlayerNotHasEnoughChips();
            return false;
         }
@@ -318,7 +318,7 @@ public class GameDetailsController {
     }
     public void pressOnQuitFromTheGame(ActionEvent event)
     {
-        refServer.setQuitFromTheGameToCurrentPlayer();
+        refGameEngine.setQuitFromTheGameToCurrentPlayer();
         moveAfterPressing(Round.GameMoves.FOLD);
     }
 }

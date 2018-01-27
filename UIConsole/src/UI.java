@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class UI {
-    Server server = new Server();
+    GameEngine gameEngine = new GameEngine();
 
     /*
     public static void main(String[] args) throws Exception {
@@ -37,7 +37,7 @@ public class UI {
                     if(!isGameStarted)
                     {
                         loadFile();
-                        //server.initializePlayers(1,3);
+                        //gameEngine.initializePlayers(1,3);
                         isLoadingFile = true;
                         printState();
                     }
@@ -50,7 +50,7 @@ public class UI {
                         System.out.println("You need to load file before starting the game");
                     else if(!isGameStarted)
                     {
-                        server.setTimeOfGame();
+                        gameEngine.setTimeOfGame();
                         printState();
                         isGameStarted = true;
                     }
@@ -60,11 +60,11 @@ public class UI {
                 case "3": printState();
                     break;
                 case "4":
-                    if(server.getNumberOfHands() == server.getCurrentNumberOfHand())
+                    if(gameEngine.getNumberOfHands() == gameEngine.getCurrentNumberOfHand())
                      {
                          System.out.println("You played all your hand, game is over! ");
                      }
-                    else if(!server.humanPlayerHasNoChips())
+                    else if(!gameEngine.humanPlayerHasNoChips())
                         System.out.println("Human player has no chips, if you want to continued to play please buy another chips");
 
                     else {
@@ -111,7 +111,7 @@ public class UI {
             Scanner s = new Scanner(System.in);
             String filePath = s.next();
             try {
-                server.loadFile(filePath);
+                gameEngine.loadFile(filePath);
                 isLoadingSuccess = true;
             }
             catch (Exception e) {
@@ -127,7 +127,7 @@ public class UI {
 
     private void buyChips(List<PlayerInfo> playersForBuy)
     {
-        server.addChipsToPlayer(playersForBuy);
+        gameEngine.addChipsToPlayer(playersForBuy);
         System.out.println("Buying chips success!");
     }
 
@@ -154,13 +154,13 @@ public class UI {
         int numOfStartPlayer =0;
         System.out.println("********************          ********************");
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++) {
-            //System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
-            System.out.print("* Type: " + server.getPlayerInfo(i).getTypeOfPlayer() + "          *          ");
+            //System.out.print("* Type: " + gameEngine.getTypeOfPlayer(i) + "          *          ");
+            System.out.print("* Type: " + gameEngine.getPlayerInfo(i).getTypeOfPlayer() + "          *          ");
         }
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++) {
-            //System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
-            System.out.print("* Number: " + server.getPlayerInfo(i).getNumOfPlayer() + "          *          ");
+            //System.out.print("* Number: " + gameEngine.getNumOfPlayer(i) + "        *          ");
+            System.out.print("* Number: " + gameEngine.getPlayerInfo(i).getNumOfPlayer() + "          *          ");
         }
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
@@ -191,10 +191,10 @@ public class UI {
     {
         System.out.println("********************          ********************");
         for (int i = 3; i > 1; i--)
-            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+            System.out.print("* Type: " + gameEngine.getTypeOfPlayer(i) + "          *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
-            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+            System.out.print("* Number: " + gameEngine.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
         {
@@ -223,21 +223,21 @@ public class UI {
     }
     private void printStateOfPlayer(int i)
     {
-        System.out.print("* State: " + server.getStatePlayer(i) );
+        System.out.print("* State: " + gameEngine.getStatePlayer(i) );
 
-        if(server.getStatePlayer(i)=="S")
+        if(gameEngine.getStatePlayer(i)=="S")
         {
-            System.out.print("-" + server.getNumOfChipsForsmall());
-            int numOfDigit = countDigit(server.getNumOfChipsForsmall());
+            System.out.print("-" + gameEngine.getNumOfChipsForsmall());
+            int numOfDigit = countDigit(gameEngine.getNumOfChipsForsmall());
             for (int j = 0; j < 8 - numOfDigit; j++) {
                 System.out.print(" ");
             }
             System.out.print("*          ");
         }
-        else if(server.getStatePlayer(i)=="B")
+        else if(gameEngine.getStatePlayer(i)=="B")
         {
-            System.out.print("-" + server.getNumOfChipsForBig());
-            int numOfDigit = countDigit(server.getNumOfChipsForBig());
+            System.out.print("-" + gameEngine.getNumOfChipsForBig());
+            int numOfDigit = countDigit(gameEngine.getNumOfChipsForBig());
             for (int j = 0; j < 8 - numOfDigit; j++) {
                 System.out.print(" ");
             }
@@ -248,7 +248,7 @@ public class UI {
     }
     private void printBuys(int i)
     {
-        int numberOfBuys = server.getBuysPlayer(i);
+        int numberOfBuys = gameEngine.getBuysPlayer(i);
         System.out.print("* Buys: " + numberOfBuys);
         int numOfDigit = countDigit(numberOfBuys);
         for (int j = 0; j < 11 - numOfDigit; j++) {
@@ -259,8 +259,8 @@ public class UI {
 
     private void printHandWon(int i)
     {
-        int numberOfHandWon = server.getHandWonPlayer(i);
-        int numberOfHands = server.getNumberOfHands();
+        int numberOfHandWon = gameEngine.getHandWonPlayer(i);
+        int numberOfHands = gameEngine.getNumberOfHands();
 
         System.out.print("* Hand won: " + numberOfHandWon);
         System.out.print("/" + numberOfHands);
@@ -277,17 +277,17 @@ public class UI {
         printDetailsOfTwoFirstPlayer(0);
         System.out.println(System.lineSeparator());
         displayAllCommunityCards();
-        System.out.print("Current bet: " + server.getCurrBet()+ "    ");
-        //System.out.print("Total cash box: " + server.getCashBox());
-        System.out.print("Total cash box: " + server.getTableInfo().getCashBox());
+        System.out.print("Current bet: " + gameEngine.getCurrBet()+ "    ");
+        //System.out.print("Total cash box: " + gameEngine.getCashBox());
+        System.out.print("Total cash box: " + gameEngine.getTableInfo().getCashBox());
         System.out.println(System.lineSeparator());
         printDetailsOfTwoLastPlayer(2);
         System.out.println(System.lineSeparator());
     }
     private void displayAllCommunityCards()
     {
-        //List<Card> arrOfTempCards = server.getCommunityCards();
-        List<Card> arrOfTempCards = server.getTableInfo().getCommunityCards();
+        //List<Card> arrOfTempCards = gameEngine.getCommunityCards();
+        List<Card> arrOfTempCards = gameEngine.getTableInfo().getCommunityCards();
         if(arrOfTempCards.size() != 0) {
             for (Card cardTemp : arrOfTempCards)
                 System.out.print(cardTemp.toString() + " | ");
@@ -301,12 +301,12 @@ public class UI {
     {
         for(int i = 0; i<Utils.numOfPlayers; i++)
         {
-            System.out.println("PokerPlayer number: " + (i+1) + " cards are:" + server.getCardsPlayer(i));
+            System.out.println("PokerPlayer number: " + (i+1) + " cards are:" + gameEngine.getCardsPlayer(i));
         }
     }
     private void printChips(int numOfPlayer)
     {
-        int numberOfChips = server.getChipsPlayer(numOfPlayer);
+        int numberOfChips = gameEngine.getChipsPlayer(numOfPlayer);
         System.out.print("* Chips: " + numberOfChips);
         int numOfDigit = countDigit(numberOfChips);
         for (int j = 0; j < 10 - numOfDigit; j++) {
@@ -318,13 +318,13 @@ public class UI {
     {
         System.out.println("********************          ********************");
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+            System.out.print("* Type: " + gameEngine.getTypeOfPlayer(i) + "          *          ");
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+            System.out.print("* Number: " + gameEngine.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
-            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+            System.out.print("* State: " + gameEngine.getStatePlayer(i) + "         *          ");
         System.out.println();
 
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
@@ -344,7 +344,7 @@ public class UI {
         System.out.println();
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
-            if(server.getIfPlayerQuit(i))
+            if(gameEngine.getIfPlayerQuit(i))
                 System.out.print("* PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
@@ -358,13 +358,13 @@ public class UI {
     {
         System.out.println("********************          ********************");
         for (int i = 3; i > 1; i--)
-            System.out.print("* Type: " + server.getTypeOfPlayer(i) + "          *          ");
+            System.out.print("* Type: " + gameEngine.getTypeOfPlayer(i) + "          *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
-            System.out.print("* Number: " + server.getNumOfPlayer(i) + "        *          ");
+            System.out.print("* Number: " + gameEngine.getNumOfPlayer(i) + "        *          ");
         System.out.println();
         for (int i = 3; i > 1; i--)
-            System.out.print("* State: " + server.getStatePlayer(i) + "         *          ");
+            System.out.print("* State: " + gameEngine.getStatePlayer(i) + "         *          ");
         System.out.println();
 
         for (int i = 3; i > 1; i--)
@@ -383,7 +383,7 @@ public class UI {
         System.out.println();
         for (int i = 3; i > 1; i--)
         {
-            if(server.getIfPlayerQuit(i))
+            if(gameEngine.getIfPlayerQuit(i))
                 System.out.print("* PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
@@ -395,7 +395,7 @@ public class UI {
 
     private void printBet(int numOfPlayer)
     {
-        int numberOfBets = server.getLastBetOfSpecificPlayer(numOfPlayer);
+        int numberOfBets = gameEngine.getLastBetOfSpecificPlayer(numOfPlayer);
         if(numberOfBets ==0)
         {
             System.out.print("* Bet: ??          ");
@@ -414,9 +414,9 @@ public class UI {
     }
     private void printCards(int numOfPlayer)
     {
-        if(server.getTypeOfPlayer(numOfPlayer) == 'H')
+        if(gameEngine.getTypeOfPlayer(numOfPlayer) == 'H')
         {
-            String CardsOfPlayer = server.getCardsPlayer(numOfPlayer);
+            String CardsOfPlayer = gameEngine.getCardsPlayer(numOfPlayer);
             System.out.print("* Cards: " + CardsOfPlayer);
             System.out.print("     *          ");
         }
@@ -425,14 +425,14 @@ public class UI {
     }
     private void StartHand() //פקודה מספר 4
     {
-        server.initHandReplay(); //clear the replay list
+        gameEngine.initHandReplay(); //clear the replay list
         int cashBoxReminder = 0;
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
-        server.initializeHand();
-        server.setPlayHand();
-        server.cardDistribusionToPlayer();
+        gameEngine.initializeHand();
+        gameEngine.setPlayHand();
+        gameEngine.cardDistribusionToPlayer();
         initRound();
-        if(server.blindBet()) {
+        if(gameEngine.blindBet()) {
             int i = 0;
             for (i = 0; i < 4; i++) {
                 if (resultOfMove != Utils.RoundResult.ENDGAME && resultOfMove != Utils.RoundResult.HUMANFOLD
@@ -460,17 +460,17 @@ public class UI {
                 Map<Integer, String> WinnerMap;
                 if (resultOfMove == Utils.RoundResult.HUMANFOLD) {
                     System.out.println("Human fold from choice or he didn't has chips, therefor the computer player has Technical victory");
-                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
+                    WinnerMap = gameEngine.setTechniqWinners(Utils.RoundResult.HUMANFOLD);
                 } else if (resultOfMove == Utils.RoundResult.ALLFOLDED) {
                     System.out.println("All the three computer player were quit, therefor the human player has Technical victory");
-                    WinnerMap = server.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
+                    WinnerMap = gameEngine.setTechniqWinners(Utils.RoundResult.ALLFOLDED);
                 } else {
-                    WinnerMap = server.WhoIsTheWinner();
+                    WinnerMap = gameEngine.WhoIsTheWinner();
                 }
                 for (Integer numOfPlayer : WinnerMap.keySet()) {
                     System.out.print("The winner is player number: " + numOfPlayer + " he has " + WinnerMap.get(numOfPlayer)
                             + " the prize money is: ");
-                    int cashBoxBeforeDivide = server.getCashBox();
+                    int cashBoxBeforeDivide = gameEngine.getCashBox();
                     int numOfWinners = WinnerMap.size();
                     if (cashBoxBeforeDivide % numOfWinners == 0) {
                         System.out.println(cashBoxBeforeDivide / numOfWinners);
@@ -489,13 +489,13 @@ public class UI {
         }
 
         System.out.println("End of hand, buy buy!");
-        server.closeTheHand();
+        gameEngine.closeTheHand();
 
     }
     private void initRound()
     {
-        server.initRound();
-        System.out.println("Round number " + server.getCurrNumOfRound() + " is starting");
+        gameEngine.initRound();
+        System.out.println("Round number " + gameEngine.getCurrNumOfRound() + " is starting");
     }
     private void cardDistribusionInRound(int numOfRound)
     {
@@ -503,11 +503,11 @@ public class UI {
         /*
         switch (numOfRound)
         {
-            case 0: server.callFlop();
+            case 0: gameEngine.callFlop();
                 break;
-            case 1: server.callTurn();
+            case 1: gameEngine.callTurn();
                 break;
-            case 2: server.callRiver();
+            case 2: gameEngine.callRiver();
                 break;
             default: break;
 
@@ -523,23 +523,23 @@ public class UI {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         while(resultOfMove == Utils.RoundResult.NOTHINGHAPPEN)
         {
-            if(server.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
+            if(gameEngine.getTypeOfPlayer(Utils.numOfPlayers) == 'H')
             {
                 //System.out.println("Before Humen player will play");
                 //printDetailsInTheGame();
                 resultOfMove = playWithHumen(); //if the game was over
-                server.addSnapShotToReplay();
+                gameEngine.addSnapShotToReplay();
                 System.out.println("after Humen player play");
                 printDetailsInTheGame();
 
             }
             else
             {
-                resultOfMove = server.playWithComputer();
-                server.addSnapShotToReplay();
-                System.out.print("Computer move was: " + server.getLastMove());
-                if(server.getLastMove() == "RAISE")
-                    System.out.println(" with amount: " + server.getLastGenerateAmount());
+                resultOfMove = gameEngine.playWithComputer();
+                gameEngine.addSnapShotToReplay();
+                System.out.print("Computer move was: " + gameEngine.getLastMove());
+                if(gameEngine.getLastMove() == "RAISE")
+                    System.out.println(" with amount: " + gameEngine.getLastGenerateAmount());
                 else
                     System.out.println();
                 System.out.println("after computer player play");
@@ -554,9 +554,9 @@ public class UI {
         Utils.RoundResult resultOfMove = Utils.RoundResult.NOTHINGHAPPEN;
         boolean isValidMove = false;
         boolean isValidAmount = false;
-        if(!server.isPlayerHasEnoughChips()) {
+        if(!gameEngine.isPlayerHasEnoughChips()) {
             System.out.println("This player don't have enough chips to play in this hand, therefor the player quit!");
-            resultOfMove = server.gameMove("1", 0);
+            resultOfMove = gameEngine.gameMove("1", 0);
         }
         else {
             while (!isValidMove) {
@@ -568,7 +568,7 @@ public class UI {
                 System.out.println("5. Raise");
                 Scanner s = new Scanner(System.in);
                 String numOfMove = s.next();
-                if (!server.validateMove(numOfMove))
+                if (!gameEngine.validateMove(numOfMove))
                     System.out.println("Invalid move for this PokerPlayer, please try again");
 
                 else {
@@ -584,7 +584,7 @@ public class UI {
                                 System.out.println("You choose to bet, for how much do you want to bet?");
                                 amount = (new Scanner(System.in)).nextInt();
                                 /*
-                                if (isValidAmount = server.validAmount(amount)) {
+                                if (isValidAmount = gameEngine.validAmount(amount)) {
                                     System.out.println("Your bet worked ");
                                     isValidAmount = true;
                                 } else
@@ -600,10 +600,10 @@ public class UI {
                             break;
                         case "5":
                             while (!isValidAmount) {
-                                System.out.println("You choose to Raise,your last bet was "+ server.getLastBetOfTheCurrPlayer() +
+                                System.out.println("You choose to Raise,your last bet was "+ gameEngine.getLastBetOfTheCurrPlayer() +
                                         " for how much do you want to raise your bet?");
                                 /*
-                                if(isNumeric(amountStr = new Scanner(System.in).next()) && (isValidAmount = server.validAmount(amount = Integer.parseInt(amountStr))))
+                                if(isNumeric(amountStr = new Scanner(System.in).next()) && (isValidAmount = gameEngine.validAmount(amount = Integer.parseInt(amountStr))))
                                 {
                                         System.out.println("Your raise worked ");
                                         isValidAmount = true;
@@ -617,7 +617,7 @@ public class UI {
                             break;
                     }
                     if (resultOfMove != Utils.RoundResult.ENDGAME)
-                        resultOfMove = server.gameMove(numOfMove, amount);
+                        resultOfMove = gameEngine.gameMove(numOfMove, amount);
                 }
             }
         }
@@ -627,9 +627,9 @@ public class UI {
     void printStatistics()
     {
         System.out.println("The statistics in the game are: ");
-        System.out.println("The time in seconds from starting the game is: " + server.calcTimeFromStartingGame());
-        System.out.println(server.getCurrentNumberOfHand() + "/" + server.getNumberOfHands()+ " hand was play");
-        System.out.println("The maximum buys for the game is: " + server.getNumberOfBuys());
+        System.out.println("The time in seconds from starting the game is: " + gameEngine.calcTimeFromStartingGame());
+        System.out.println(gameEngine.getCurrentNumberOfHand() + "/" + gameEngine.getNumberOfHands()+ " hand was play");
+        System.out.println("The maximum buys for the game is: " + gameEngine.getNumberOfBuys());
         printState();
     }
 
@@ -648,12 +648,12 @@ public class UI {
 
     public void restartGameForNewGame()
     {
-        server.restartGameForNewGame();
+        gameEngine.restartGameForNewGame();
 
     }
     public void restartCurrentGame()
     {
-        server.restartCurrentGame();
+        gameEngine.restartCurrentGame();
     }
 
 

@@ -85,7 +85,7 @@ public class PlayerBoardController {
     @FXML Label gameMove5;
     @FXML Label gameMove6;
 
-    Server refServer;
+    GameEngine refGameEngine;
     MainUIController mainUIFather;
     FadeTransition fadeTransition = new FadeTransition();
 
@@ -131,15 +131,15 @@ public class PlayerBoardController {
     {
         mainUIFather = father;
     }
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
 
     public void updateAllBoard()
     {
-        currentRoundLabel.setText(Integer.toString(refServer.getCurrNumOfRound()));
-        currentHandLabel.setText(Integer.toString(refServer.getCurrentNumberOfHand()));
+        currentRoundLabel.setText(Integer.toString(refGameEngine.getCurrNumOfRound()));
+        currentHandLabel.setText(Integer.toString(refGameEngine.getCurrentNumberOfHand()));
         displayCurrBetAndCashBoxOnBoard();
         displayPlayerDetailsOnTheBoard();
     }
@@ -150,7 +150,7 @@ public class PlayerBoardController {
 
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
-            PlayerInfo player =  refServer.getPlayerInfo(i);
+            PlayerInfo player =  refGameEngine.getPlayerInfo(i);
             if(!player.getIsQuit()) {
                 displayPlayerByIndex(player, i);
                 if(!mainUIFather.getIsEndHand()){frameSpark();}
@@ -166,7 +166,7 @@ public class PlayerBoardController {
         stopFrameSparking();
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
-            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,replayListIter);
+            PlayerInfo player =  refGameEngine.getPlayerInfoFromReplayList(i,replayListIter);
 
             if(!player.getIsQuit()) {
                 displayPlayerByIndex(player, i);
@@ -174,14 +174,14 @@ public class PlayerBoardController {
             else
                 visiblePlayerByIndex(player,i);
         }
-        int currTurn = refServer.getCurrTurnFromReplayList(replayListIter);
+        int currTurn = refGameEngine.getCurrTurnFromReplayList(replayListIter);
         frameSparkForReplayMode(currTurn);
         displayGameMove(currTurn,replayListIter);
 
     }
 
     private void displayGameMove(int currTurn, int replayListIter) {
-        String lastGameMove = refServer.getLastMoveFromRelayList(replayListIter);
+        String lastGameMove = refGameEngine.getLastMoveFromRelayList(replayListIter);
         /*
         if (currTurn == 0){
             currTurn = (utils.numOfPlayers - 1);
@@ -340,9 +340,9 @@ public class PlayerBoardController {
     {
         String state = player.getPlayerState();
         if(state == "S")
-            return state + " - "+refServer.getNumOfChipsForsmall();
+            return state + " - "+ refGameEngine.getNumOfChipsForsmall();
         else if(state == "B")
-            return state + " - "+refServer.getNumOfChipsForBig();
+            return state + " - "+ refGameEngine.getNumOfChipsForBig();
         else if(state == "D")
             return state;
 
@@ -352,7 +352,7 @@ public class PlayerBoardController {
 
     public void displayCommunityCards(int numOfRound)
     {
-        List<Card> listOfCard =  refServer.getCommunityCards();
+        List<Card> listOfCard =  refGameEngine.getCommunityCards();
         int indexOfCard =1;
         for(Card card : listOfCard)
         {
@@ -402,18 +402,18 @@ public class PlayerBoardController {
 
     public void displayCurrBetAndCashBoxOnBoard()
     {
-        currentBetLabel.setText(Integer.toString(refServer.getCurrBet()));
-        totalCashBoxLabel.setText(Integer.toString(refServer.getTableInfo().getCashBox()));
+        currentBetLabel.setText(Integer.toString(refGameEngine.getCurrBet()));
+        totalCashBoxLabel.setText(Integer.toString(refGameEngine.getTableInfo().getCashBox()));
     }
 
     public void displayBoardStateFromReplayList(int listIter)
     {
-        TableInfo Temp = refServer.getTableInfoFromReplayList(listIter);
+        TableInfo Temp = refGameEngine.getTableInfoFromReplayList(listIter);
         currentBetLabel.setText(Integer.toString(Temp.getPot()));
         totalCashBoxLabel.setText(Integer.toString(Temp.getCashBox()));
         displayCommunityCardsFromReplayList(Temp.getCommunityCards());
-        currentHandLabel.setText(Integer.toString(refServer.getCurrHandFromReplay(listIter)));
-        currentRoundLabel.setText(Integer.toString(refServer.getCurrRoundFromReplay(listIter)));
+        currentHandLabel.setText(Integer.toString(refGameEngine.getCurrHandFromReplay(listIter)));
+        currentRoundLabel.setText(Integer.toString(refGameEngine.getCurrRoundFromReplay(listIter)));
 
     }
 
@@ -423,7 +423,7 @@ public class PlayerBoardController {
     {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
-            PlayerInfo player =  refServer.getPlayerInfo(i);
+            PlayerInfo player =  refGameEngine.getPlayerInfo(i);
             if(!player.getIsQuit())
             {
                 exposeCard(i);
@@ -437,7 +437,7 @@ public class PlayerBoardController {
     {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
-            PlayerInfo player =  refServer.getPlayerInfoFromReplayList(i,listIter);
+            PlayerInfo player =  refGameEngine.getPlayerInfoFromReplayList(i,listIter);
             if(!player.getIsQuit())
             {
                 exposeCard(i);
@@ -447,7 +447,7 @@ public class PlayerBoardController {
 
     public void exposeCard(int numOfPlayer)
     {
-        PlayerInfo player =  refServer.getPlayerInfo(numOfPlayer);
+        PlayerInfo player =  refGameEngine.getPlayerInfo(numOfPlayer);
         Card[] playerCards = player.getPlayerCards();
         switch(numOfPlayer)
         {
@@ -482,7 +482,7 @@ public class PlayerBoardController {
     {
         for(int i=0;i<Utils.numOfPlayers;i++)
         {
-            PlayerInfo player =  refServer.getPlayerInfo(i);
+            PlayerInfo player =  refGameEngine.getPlayerInfo(i);
             if(!player.getIsQuit())
             {
                 unExposeCard(i);
@@ -524,7 +524,7 @@ public class PlayerBoardController {
 
     public void frameSpark()
     {
-        int numOfPlayer = refServer.getCurrPlayer();
+        int numOfPlayer = refGameEngine.getCurrPlayer();
         ImageView frame = null;
         switch(numOfPlayer)
         {
@@ -595,7 +595,7 @@ public class PlayerBoardController {
 
     public void displayFoldLabelToPlayer(int numOfPlayer)
     {
-        //int numOfPlayer = refServer.getCurrPlayer();
+        //int numOfPlayer = refGameEngine.getCurrPlayer();
         switch (numOfPlayer){
             case 0:
                     gameMove1.setText("Fold");

@@ -72,7 +72,7 @@ public class MainUIController implements Initializable {
         }
     }
 
-    public boolean checkStatus(Utils.RoundResult resultOfMove,int numOfPlayer)
+    public boolean checkStatus(Utils.RoundResult resultOfMove, int numOfPlayer)
     {
         displayFoldLabelToPlayer(numOfPlayer);
 

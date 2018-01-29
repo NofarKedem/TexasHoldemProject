@@ -1,5 +1,3 @@
-import users.User;
-
 import java.util.HashMap;
 
 public class GamesManager {

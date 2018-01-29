@@ -3,6 +3,8 @@ package utility;
 import users.UserManager;
 import javax.servlet.ServletContext;
 
+
+
 public class ServletUtils {
 
     private static final String USER_MANAGER_ATTRIBUTE_NAME = "userManager";
@@ -13,4 +15,6 @@ public class ServletUtils {
         }
         return (UserManager) servletContext.getAttribute(USER_MANAGER_ATTRIBUTE_NAME);
     }
+
+
 }

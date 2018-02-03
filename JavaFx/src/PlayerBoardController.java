@@ -1,3 +1,4 @@
+import GameLogic.*;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -148,7 +149,7 @@ public class PlayerBoardController {
     {
         stopFrameSparking();
 
-        for(int i=0;i<Utils.numOfPlayers;i++)
+        for(int i = 0; i< Utils.numOfPlayers; i++)
         {
             PlayerInfo player =  refGameEngine.getPlayerInfo(i);
             if(!player.getIsQuit()) {

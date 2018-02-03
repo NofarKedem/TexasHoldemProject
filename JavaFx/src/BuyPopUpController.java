@@ -1,3 +1,7 @@
+import GameLogic.BlindsHelper;
+import GameLogic.GameEngine;
+import GameLogic.PlayerInfo;
+import GameLogic.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -49,7 +53,7 @@ public class BuyPopUpController {
 
     public void setPlayersDetails(){
         List<PlayerInfo> players = refGameEngine.getAllPlayerInfo();
-        for(int i=1; i <= Utils.numOfPlayers;i++){
+        for(int i = 1; i <= Utils.numOfPlayers; i++){
             switch (i){
                 case 1:
                     player1.setText(players.get(i-1).getName());

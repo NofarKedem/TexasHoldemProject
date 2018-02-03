@@ -1,3 +1,7 @@
+import GameLogic.BlindsHelper;
+import GameLogic.GameEngine;
+import GameLogic.PlayerInfo;
+import GameLogic.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -233,7 +237,7 @@ public class MainUIController implements Initializable {
             winnerInfoController.setFather(this);
             winnerInfoController.SetServer(gameEngine);
             winnerInfoController.setWinnerDetails(winResult);
-            popUpStage.setTitle("Hand Winner");
+            popUpStage.setTitle("GameLogic.GameLogic.BlindsHelper.GameLogic.Hand Winner");
             popUpStage.setScene(new Scene(root1));
             popUpStage.showAndWait();
         }catch (Exception ex){

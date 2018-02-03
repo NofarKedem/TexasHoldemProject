@@ -1,3 +1,5 @@
+import GameLogic.*;
+
 import java.util.*;
 
 public class UI {
@@ -150,7 +152,7 @@ public class UI {
     }
     private void printTowFirstPlayerState()
     {
-        //PlayerInfo tempPlayerInfo = new PlayerInfo();
+        //GameLogic.GameLogic.BlindsHelper.GameLogic.PlayerInfo tempPlayerInfo = new GameLogic.GameLogic.BlindsHelper.GameLogic.PlayerInfo();
         int numOfStartPlayer =0;
         System.out.println("********************          ********************");
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++) {
@@ -262,7 +264,7 @@ public class UI {
         int numberOfHandWon = gameEngine.getHandWonPlayer(i);
         int numberOfHands = gameEngine.getNumberOfHands();
 
-        System.out.print("* Hand won: " + numberOfHandWon);
+        System.out.print("* GameLogic.GameLogic.BlindsHelper.GameLogic.Hand won: " + numberOfHandWon);
         System.out.print("/" + numberOfHands);
 
         int numOfDigit = countDigit(numberOfHandWon) + countDigit(numberOfHands) + 1;
@@ -286,7 +288,7 @@ public class UI {
     }
     private void displayAllCommunityCards()
     {
-        //List<Card> arrOfTempCards = gameEngine.getCommunityCards();
+        //List<GameLogic.GameLogic.BlindsHelper.GameLogic.Card> arrOfTempCards = gameEngine.getCommunityCards();
         List<Card> arrOfTempCards = gameEngine.getTableInfo().getCommunityCards();
         if(arrOfTempCards.size() != 0) {
             for (Card cardTemp : arrOfTempCards)
@@ -299,9 +301,9 @@ public class UI {
 
     private void displayPlayerCard()
     {
-        for(int i = 0; i<Utils.numOfPlayers; i++)
+        for(int i = 0; i< Utils.numOfPlayers; i++)
         {
-            System.out.println("PokerPlayer number: " + (i+1) + " cards are:" + gameEngine.getCardsPlayer(i));
+            System.out.println("GameLogic.GameLogic.BlindsHelper.GameLogic.PokerPlayer number: " + (i+1) + " cards are:" + gameEngine.getCardsPlayer(i));
         }
     }
     private void printChips(int numOfPlayer)
@@ -345,7 +347,7 @@ public class UI {
         for (int i = numOfStartPlayer; i < numOfStartPlayer+2; i++)
         {
             if(gameEngine.getIfPlayerQuit(i))
-                System.out.print("* PokerPlayer quit      *          ");
+                System.out.print("* GameLogic.GameLogic.BlindsHelper.GameLogic.PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
         }
@@ -384,7 +386,7 @@ public class UI {
         for (int i = 3; i > 1; i--)
         {
             if(gameEngine.getIfPlayerQuit(i))
-                System.out.print("* PokerPlayer quit      *          ");
+                System.out.print("* GameLogic.GameLogic.BlindsHelper.GameLogic.PokerPlayer quit      *          ");
             else
                 System.out.print("*                  *          ");
         }
@@ -495,7 +497,7 @@ public class UI {
     private void initRound()
     {
         gameEngine.initRound();
-        System.out.println("Round number " + gameEngine.getCurrNumOfRound() + " is starting");
+        System.out.println("GameLogic.GameLogic.BlindsHelper.GameLogic.Round number " + gameEngine.getCurrNumOfRound() + " is starting");
     }
     private void cardDistribusionInRound(int numOfRound)
     {
@@ -569,7 +571,7 @@ public class UI {
                 Scanner s = new Scanner(System.in);
                 String numOfMove = s.next();
                 if (!gameEngine.validateMove(numOfMove))
-                    System.out.println("Invalid move for this PokerPlayer, please try again");
+                    System.out.println("Invalid move for this GameLogic.GameLogic.BlindsHelper.GameLogic.PokerPlayer, please try again");
 
                 else {
                     isValidMove = true;

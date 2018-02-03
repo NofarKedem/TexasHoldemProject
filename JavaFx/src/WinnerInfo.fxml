@@ -29,7 +29,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Text fx:id="cardsCombText" layoutX="128.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="His Card Combination is:" wrappingWidth="213.86328125">
+      <Text fx:id="cardsCombText" layoutX="128.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="His GameLogic.Card Combination is:" wrappingWidth="213.86328125">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>

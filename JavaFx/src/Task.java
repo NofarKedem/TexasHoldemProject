@@ -1,3 +1,5 @@
+import GameLogic.BlindsHelper;
+import GameLogic.GameEngine;
 
 public class Task extends javafx.concurrent.Task<Task.ActionResult> {
 

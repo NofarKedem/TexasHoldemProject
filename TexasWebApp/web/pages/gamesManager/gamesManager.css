@@ -1,0 +1,74 @@
+body{
+    background: url('https://images4.alphacoders.com/418/thumb-1920-41814.jpg');
+    background-size: cover;
+    margin: 0;
+    min-width: 400px;
+    color: #fff;
+}
+
+.mainDiv{
+    margin: 10px 10px 0 10px;
+    display: flex;
+}
+
+.loadGames{
+    margin: 10px 10px 0 10px;
+    display: flex;
+}
+
+.usersTable{
+    border: black 1px solid;
+    border-radius: 6px;
+    width: 200px;
+    margin-top: 30px;
+}
+
+.gamesTable {
+    border: 1px black solid;
+    border-radius: 6px;
+    width: 1000px;
+}
+
+.gamesDiv {
+    margin: 0 auto;
+    /*flex: 2 0 0;*/
+}
+
+.usersDiv {
+    margin-left: 30px;
+    /*flex: 0.4 0 0;*/
+}
+
+th {
+    padding: 0% 5% 2% 1%;
+}
+
+.gamesTable th,
+.gamesTable tr{
+    min-width: 120px;
+}
+
+.xmlTitle th,
+.txtTitle th {
+    min-width: 200px;
+}
+
+.gamesDiv tr {
+    background: #DA3404;
+    color: #fff;
+}
+
+.usersDiv tr{
+    background: #DA3404;
+    color: #fff;
+    height: 55px;
+    text-align: center;
+}
+
+.gamesDiv td {
+    height: 40px;
+}
+
+.usersDiv td {
+    height: 40px;
+}

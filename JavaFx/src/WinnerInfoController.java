@@ -1,3 +1,6 @@
+import GameLogic.BlindsHelper;
+import GameLogic.GameEngine;
+import GameLogic.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,13 +20,13 @@ public class WinnerInfoController {
     @FXML Text cardsCombText;
     @FXML Text prizeText;
 
-    private Server refServer;
+    private GameEngine refGameEngine;
     private MainUIController mainUIFather;
     private Map<Integer, String> WinnerMapRef;
 
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
 
     public void setFather(MainUIController father)
@@ -37,7 +40,7 @@ public class WinnerInfoController {
     }
 
     public void setWinnerDetails(Utils.RoundResult winResult){
-        WinnerMapRef = refServer.getWinnerMap();
+        WinnerMapRef = refGameEngine.getWinnerMap();
         String WinnersNames = "";
         String cardsComb = "";
         if(winResult == Utils.RoundResult.ENDGAME) {
@@ -53,36 +56,36 @@ public class WinnerInfoController {
 
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
                 //need to find the player index
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
+                WinnersNames = WinnersNames + refGameEngine.getPlayerName(numOfPlayer - 1) + "  ";
                 cardsComb = cardsComb + WinnerMapRef.get(numOfPlayer) + "  ";
             }
             winnerLable.setText(WinnersNames);
             cardCombinationLable.setText(cardsComb);
-            prizeLable.setText(String.valueOf(refServer.calcWinnersChipPrize()));
+            prizeLable.setText(String.valueOf(refGameEngine.calcWinnersChipPrize()));
         }
         else if(winResult == Utils.RoundResult.ALLFOLDED){
             theWinnerText.setText("All the other players folded, " +
                             "this is a Technical victory to:");
             prizeText.setText("The winning prize:");
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
+                WinnersNames = WinnersNames + refGameEngine.getPlayerName(numOfPlayer - 1) + "  ";
             }
             winnerLable.setText(WinnersNames);
             cardsCombText.setVisible(false);
             cardCombinationLable.setVisible(false);
-            prizeLable.setText(String.valueOf(refServer.calcWinnersChipPrize()));
+            prizeLable.setText(String.valueOf(refGameEngine.calcWinnersChipPrize()));
         }
         else{
             theWinnerText.setText("All the Human players folded, " +
                     "this is a Technical victory to computer players:");
             prizeText.setText("The winning prize:");
             for (Integer numOfPlayer : WinnerMapRef.keySet()) {
-                WinnersNames = WinnersNames + refServer.getPlayerName(numOfPlayer - 1) + "  ";
+                WinnersNames = WinnersNames + refGameEngine.getPlayerName(numOfPlayer - 1) + "  ";
             }
             winnerLable.setText(WinnersNames);
             cardsCombText.setVisible(false);
             cardCombinationLable.setVisible(false);
-            prizeLable.setText(String.valueOf(refServer.calcWinnersChipPrize()));
+            prizeLable.setText(String.valueOf(refGameEngine.calcWinnersChipPrize()));
         }
     }
 

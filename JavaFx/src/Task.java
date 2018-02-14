@@ -1,7 +1,9 @@
+import GameLogic.BlindsHelper;
+import GameLogic.GameEngine;
 
 public class Task extends javafx.concurrent.Task<Task.ActionResult> {
 
-    private Server refServer;
+    private GameEngine refGameEngine;
     private String file;
 
     public class ActionResult {
@@ -15,14 +17,14 @@ public class Task extends javafx.concurrent.Task<Task.ActionResult> {
     }
 
 
-    public Task(Server ser ,String file) {
+    public Task(GameEngine ser , String file) {
         SetServer(ser);
         this.file = file;
     }
 
-    public void SetServer(Server ser)
+    public void SetServer(GameEngine ser)
     {
-        refServer = ser;
+        refGameEngine = ser;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class Task extends javafx.concurrent.Task<Task.ActionResult> {
             if(this.file != null) {
                 Thread.sleep(700);
                 this.updateProgress(50, 100);
-                refServer.loadFile(this.file);
+                refGameEngine.loadFile(this.file);
                 Thread.sleep(2300);
                 this.updateProgress(100, 100);
                 Thread.sleep(1000);

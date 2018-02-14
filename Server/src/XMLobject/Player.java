@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
     "name",
     "type"
 })
-@XmlRootElement(name = "PokerPlayer")
+@XmlRootElement(name = "GameLogic.GameLogic.BlindsHelper.GameLogic.PokerPlayer")
 public class Player {
 
     @XmlElement(name = "Name", required = true)

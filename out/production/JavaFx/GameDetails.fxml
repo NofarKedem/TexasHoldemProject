@@ -80,7 +80,7 @@
                   </GridPane>
                </content>
           </TitledPane>
-          <TitledPane animated="false" text="Hand finish action">
+          <TitledPane animated="false" text="GameLogic.BlindsHelper.Hand finish action">
                <content>
                   <GridPane>
                     <columnConstraints>

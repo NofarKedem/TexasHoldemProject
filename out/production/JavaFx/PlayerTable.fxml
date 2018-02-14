@@ -24,7 +24,7 @@
           <TableColumn fx:id="Id" minWidth="175.0" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="Type" minWidth="175.0" prefWidth="75.0" text="Type" />
             <TableColumn fx:id="Buys" minWidth="175.0" prefWidth="75.0" text="Buys" />
-            <TableColumn fx:id="HandWins" minWidth="175.0" prefWidth="85.0" text="Hand wins" />
+            <TableColumn fx:id="HandWins" minWidth="175.0" prefWidth="85.0" text="GameLogic.BlindsHelper.Hand wins" />
             <TableColumn fx:id="WinningPrice" minWidth="175.0" prefWidth="95.0" text="Winning price" />
         </columns>
       </TableView>

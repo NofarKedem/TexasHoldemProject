@@ -8,5 +8,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="module" module-name="Server" />
+    <orderEntry type="library" name="HandRank" level="project" />
   </component>
 </module>

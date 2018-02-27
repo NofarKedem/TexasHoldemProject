@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet{
                 //no username in session and no username in parameter -
                 //redirect back to the index page
                 //this return an HTTP code back to the browser telling it to load
-                response.sendRedirect(SIGN_UP_URL);
+                response.sendRedirect(SIGN_UP_URL); //Need To Add Error message
             } else {
                 //normalize the username value
                 usernameFromParameter = usernameFromParameter.trim();

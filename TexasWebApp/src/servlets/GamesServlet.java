@@ -4,6 +4,8 @@ import Games.GameController;
 import Games.GamesManager;
 import Games.Games;
 import com.google.gson.Gson;
+import users.User;
+import users.UserManager;
 import utility.ServletUtils;
 import utility.SessionUtils;
 
@@ -53,9 +55,12 @@ public class GamesServlet extends HttpServlet {
                 } catch (ScriptException e) {
                     e.printStackTrace();
                 }
+
+
         }
 
     }
+
 
     private void gameListAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {

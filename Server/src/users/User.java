@@ -1,10 +1,13 @@
 package users;
 
+import Games.GameController;
+
 public class User {
     private final int EMPTY = -1;
     private String name;
     private boolean isComputer;
     private int inGameNumber;
+    private Games.GameController gameController;
 
     public User(String name, boolean isComputer) {
         this.name = name;
@@ -27,5 +30,10 @@ public class User {
 
     public void setInGameNumber(int inGameNumber) {
         this.inGameNumber = inGameNumber;
+    }
+
+    public void setGameController(GameController game)
+    {
+        gameController = game;
     }
 }

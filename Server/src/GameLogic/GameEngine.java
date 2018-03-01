@@ -190,6 +190,7 @@ public class GameEngine {
             throw new Exception("Invalid file, small is bigger or equal to big");
 
         numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
+
         Players playersFromXML = gameDescriptor.getPlayers();
         List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
         if (listOfPlayerFromXML.size() < 3 || listOfPlayerFromXML.size() > 6)

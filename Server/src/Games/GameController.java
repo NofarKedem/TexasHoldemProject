@@ -2,6 +2,9 @@ package Games;
 
 
 import GameLogic.GameEngine;
+import users.User;
+
+import java.util.List;
 
 public class GameController {
     private transient GameEngine game;
@@ -12,6 +15,7 @@ public class GameController {
     private int numOfHands;
     private int buy;
     private int numOfPlayers;
+    private List<User> users;
 
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
@@ -42,5 +46,10 @@ public class GameController {
     }
     public int getnumOfPlayers() {
         return numOfPlayers;
+    }
+
+    public void addUser(User user)
+    {
+        users.add(user);
     }
 }

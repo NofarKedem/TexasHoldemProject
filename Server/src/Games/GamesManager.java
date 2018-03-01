@@ -2,7 +2,6 @@ package Games;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GamesManager {
     private HashMap<String, GameController> openGames = new HashMap();

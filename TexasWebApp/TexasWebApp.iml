@@ -19,8 +19,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Examples Tomcat " level="application_server_libraries" />
     <orderEntry type="library" name="gson-2.1" level="project" />
     <orderEntry type="module" module-name="Server" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.23" level="application_server_libraries" />
+    <orderEntry type="module" module-name="JavaFx" />
   </component>
 </module>

@@ -1,6 +1,5 @@
 package servlets;
 
-import games.GamesManager;
 import utility.ServletUtils;
 import utility.SessionUtils;
 import users.User;

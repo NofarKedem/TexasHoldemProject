@@ -13,8 +13,6 @@ public class GameController {
     private int buy;
     private int numOfPlayers;
 
-
-
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
         this.nameOfUserOwner = nameOfUserOwner;
@@ -37,5 +35,12 @@ public class GameController {
         this.numOfHands = game.getNumberOfHands();
         this.buy = game.getNumOfChipsPerBuy();
         this.numOfPlayers = game.getNumberOfMaxPlayersInGame();
+    }
+
+    public int getnumOfSubscribers() {
+        return numOfSubscribers;
+    }
+    public int getnumOfPlayers() {
+        return numOfPlayers;
     }
 }

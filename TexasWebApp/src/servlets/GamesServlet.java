@@ -56,11 +56,9 @@ public class GamesServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
-
         }
 
     }
-
 
     private void gameListAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {

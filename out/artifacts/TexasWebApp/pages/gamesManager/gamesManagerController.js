@@ -154,26 +154,32 @@ function refreshUserListCallback(json) {
 
         var tr = $('.tableBody tr.enabled .btn');
         for (var i = 0; i < tr.length; i++) {
-            tr[i].onclick = createGameDialog;
+            tr[i].onclick= createGameDialog;
         }
     }
 
-function createGameDialog(event)
-{
+function createGameDialog(event) {
+    if (event != null) {
+        var name = event.currentTarget.parentElement.parentElement.childNodes["0"].childNodes["0"].data;
+        $.ajax(
+            {
+                url: 'getStarted',
+                data: {
+                    action: "createGameDialog",
+                    nameGame: name
+                },
+                type: 'GET',
+                success: joinGameClickedCallback
+            }
+        );
+    }
+    function joinGameClickedCallback() {
 
-    var td = event.currentTarget.children[0];
-    var name = td.innerText;
-    $.ajax(
-        {
-            url: 'upload',
-            data: {
-                action: "createGameDialog",
-                nameGame: name
-            },
-            type: 'GET',
+            window.location = "/pages/OneGame/OneGame.html";
 
-        }
-    );
+    }
+
+    
 }
 
 function onLogoutClick() {
@@ -192,4 +198,5 @@ function onLogoutClick() {
 function logoutCallback(json) {
     didUserCloseWindow = false;
     window.location = "/";
+
 }

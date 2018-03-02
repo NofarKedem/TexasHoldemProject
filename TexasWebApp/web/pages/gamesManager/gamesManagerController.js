@@ -175,3 +175,21 @@ function createGameDialog(event)
         }
     );
 }
+
+function onLogoutClick() {
+    $.ajax(
+        {
+            url: '/pages/signup/login',
+            data: {
+                action: "logout"
+            },
+            type: 'GET',
+            success: logoutCallback
+        }
+    );
+}
+
+function logoutCallback(json) {
+    didUserCloseWindow = false;
+    window.location = "/";
+}

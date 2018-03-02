@@ -157,3 +157,39 @@ function refreshUserListCallback(json) {
             tr[i].onclick = createGameDialog;
         }
     }
+
+function createGameDialog(event)
+{
+
+    var td = event.currentTarget.children[0];
+    var name = td.innerText;
+    $.ajax(
+        {
+            url: 'upload',
+            data: {
+                action: "createGameDialog",
+                nameGame: name
+            },
+            type: 'GET',
+
+        }
+    );
+}
+
+function onLogoutClick() {
+    $.ajax(
+        {
+            url: '/pages/signup/login',
+            data: {
+                action: "logout"
+            },
+            type: 'GET',
+            success: logoutCallback
+        }
+    );
+}
+
+function logoutCallback(json) {
+    didUserCloseWindow = false;
+    window.location = "/";
+}

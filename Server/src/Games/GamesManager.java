@@ -20,7 +20,9 @@ public class GamesManager {
     }
 
     public GameController getGame(String key) {
-        return (GameController)this.openGames.get(Integer.valueOf(key));
+        GameController game = openGames.get(key);
+        return game;
+                //(GameController)this.openGames.get(Integer.valueOf(key));
     }
 
     public List<GameController> getLobbyGameList() {

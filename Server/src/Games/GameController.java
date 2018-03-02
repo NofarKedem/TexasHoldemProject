@@ -4,6 +4,7 @@ package Games;
 import GameLogic.GameEngine;
 import users.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -26,6 +27,7 @@ public class GameController {
         this.numOfSubscribers = 0;
         this.isActive = false;
         this.game = new GameEngine();
+        users = new ArrayList<>();
     }
 
     public String getName() {
@@ -61,5 +63,9 @@ public class GameController {
 
     public List<User> getUsers() {
         return users;
+    }
+    public GameEngine getGameEngine()
+    {
+        return game;
     }
 }

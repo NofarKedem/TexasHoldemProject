@@ -436,7 +436,10 @@ public class GameEngine {
     }
     public int getCurrNumOfRound()
     {
-        return currHand.getCurrNumOfRound();
+        if(currHand != null)
+         return currHand.getCurrNumOfRound();
+        else
+            return 0;
     }
 
     public String getLastMove()
@@ -642,5 +645,11 @@ public class GameEngine {
 
     public int getNumberOfMaxPlayersInGame() {
         return numberOfMaxPlayersInGame;
+    }
+
+    public GameDetailsInfo getGameDetailsInfo(){
+        GameDetailsInfo tempGameDetailsInfo = new GameDetailsInfo(getCurrentNumberOfHand(),
+                getCurrNumOfRound(),numOfChipsForsmall,numOfChipsForBig);
+        return tempGameDetailsInfo;
     }
 }

@@ -15,6 +15,9 @@ public class GameController {
     private int numOfHands;
     private int buy;
     private int numOfPlayers;
+    private int SmallBlind;
+    private int BigBlind;
+    private boolean fixedBlind;
     private List<User> users;
 
     public GameController(String gameName, String nameOfUserOwner){
@@ -39,6 +42,9 @@ public class GameController {
         this.numOfHands = game.getNumberOfHands();
         this.buy = game.getNumOfChipsPerBuy();
         this.numOfPlayers = game.getNumberOfMaxPlayersInGame();
+        this.SmallBlind = game.getNumOfChipsForsmall();
+        this.BigBlind = game.getNumOfChipsForBig();
+        this.fixedBlind = game.getFixedState();
     }
 
     public int getnumOfSubscribers() {
@@ -51,5 +57,9 @@ public class GameController {
     public void addUser(User user)
     {
         users.add(user);
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 }

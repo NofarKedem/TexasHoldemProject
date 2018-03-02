@@ -13,7 +13,7 @@ function refreshUserList() {
         {
             url: 'userManager',
             data: {
-                action: "users"
+                action: "gameUsers"
             },
             type: 'GET',
             success: refreshUserListCallback

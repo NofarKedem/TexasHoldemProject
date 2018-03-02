@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <title>Texas Holdem</title>
+
+</head>
+<body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="signup.js"></script>
+    <div>
+        <h1>Welcome to Texas Holdem Game</h1>
+        <br/>
+        <h2>Please enter a unique user name:</h2>
+        <form name="formLogin" onsubmit="loginClick()">
+        <!--<form id="myform" method="GET" action="login">-->
+            <input type="text" id="UserNameInput" name="username"/>
+            <br/>
+            <input type="radio" id ="human" name="userType" value="Human Player" checked> Human Player <br>
+            <input type="radio" id="computer" name="userType" value="Computer Player"> Computer Player <br>
+            <input type="submit" value="Login"/>
+        </form>
+    </div>
+    <div id="userNameError" style="color: #DA3404;"></div>
+</body>
+
+</html>

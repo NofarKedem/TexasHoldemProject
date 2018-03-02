@@ -48,11 +48,15 @@ public class LoginServlet extends HttpServlet{
                     e.printStackTrace();
                 }
                 break;
+            case "logout":
+                try {
+                    this.logoutAction(request, response, usersManager);
+                } catch (ScriptException e) {
+                    e.printStackTrace();
+                }
+                break;
 
         }
-
-
-
     }
 
     private void loginAction(HttpServletRequest request, HttpServletResponse response)
@@ -119,6 +123,21 @@ public class LoginServlet extends HttpServlet{
             out.println(gson.toJson(new LoginStatus(true, (String)null, userName, isComputer, user.getInGameNumber())));
         } else {
             out.println(gson.toJson(new LoginStatus(false)));
+        }
+
+    }
+
+    private void logoutAction(HttpServletRequest request, HttpServletResponse response, UserManager usersManager)
+            throws ScriptException, IOException {
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        if(SessionUtils.hasSession(request) && SessionUtils.isLoggedIn(request.getSession())) {
+            usersManager.removeUser(SessionUtils.getUsername(request));
+            SessionUtils.logoutUser(request.getSession());
+            out.println(gson.toJson(new LoginStatus(false)));
+        } else {
+            out.println(gson.toJson(new LoginStatus(false, "User is allready logged out..")));
         }
 
     }

@@ -94,9 +94,9 @@ public class GamesServlet extends HttpServlet {
         response.setContentType("application/json");
         String errorMsg = null;
         try {
-//            if(gamesManager.isGameExists(xmlTitle)){
-//                errorMsg = "";
-//            }
+            if(gamesManager.isGameExists(xmlTitle)){
+                errorMsg = "This game name already taken! Please upload a game with a different name";
+            }
             GameController game = new GameController(xmlTitle,gameCreator);
             game.loadXmlFile(xmlContent.toString());
             gamesManager.addGame(game);

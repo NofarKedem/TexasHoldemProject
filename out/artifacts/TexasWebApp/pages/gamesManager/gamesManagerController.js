@@ -154,6 +154,49 @@ function refreshUserListCallback(json) {
 
         var tr = $('.tableBody tr.enabled .btn');
         for (var i = 0; i < tr.length; i++) {
-            tr[i].onclick = createGameDialog;
+            tr[i].onclick= createGameDialog;
         }
     }
+
+function createGameDialog(event) {
+    if (event != null) {
+        var name = event.currentTarget.parentElement.parentElement.childNodes["0"].childNodes["0"].data;
+        $.ajax(
+            {
+                url: 'getStarted',
+                data: {
+                    action: "createGameDialog",
+                    nameGame: name
+                },
+                type: 'GET',
+                success: joinGameClickedCallback
+            }
+        );
+    }
+    function joinGameClickedCallback() {
+
+            window.location = "/pages/OneGame/OneGame.html";
+
+    }
+
+    
+}
+
+function onLogoutClick() {
+    $.ajax(
+        {
+            url: '/pages/signup/login',
+            data: {
+                action: "logout"
+            },
+            type: 'GET',
+            success: logoutCallback
+        }
+    );
+}
+
+function logoutCallback(json) {
+    didUserCloseWindow = false;
+    window.location = "/";
+
+}

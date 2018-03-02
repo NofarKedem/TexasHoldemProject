@@ -11,13 +11,13 @@ public class TableInfo {
     private int currHand;
     private int currRound;
 
-
     TableInfo(int cashBox, int pot, List<Card> communityCrads, int currHand, int currRound){
         this.cashBox = cashBox;
         this.pot = pot;
         this.communityCrads = communityCrads;
         this.currHand = currHand;
         this.currRound = currRound;
+
     }
 
     public int getCashBox() {

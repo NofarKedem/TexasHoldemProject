@@ -179,7 +179,7 @@ function createGameDialog(event) {
 
     }
 
-    
+
 }
 
 function onLogoutClick() {

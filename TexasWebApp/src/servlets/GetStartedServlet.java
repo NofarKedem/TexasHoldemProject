@@ -1,8 +1,12 @@
 package servlets;
 
 
+import GameLogic.GameDetailsInfo;
+import GameLogic.TableInfo;
 import Games.GameController;
+import Games.Games;
 import Games.GamesManager;
+import com.google.gson.Gson;
 import users.User;
 import users.UserManager;
 import utility.ServletUtils;
@@ -15,6 +19,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.String;
+import java.lang.Object;
+
+import static jdk.nashorn.internal.objects.NativeString.substring;
 
 @WebServlet(
         name = "GetStartedServlet",
@@ -41,12 +50,13 @@ public class GetStartedServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
+
         }
 
     }
     private void GameDialogAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
-/*
+
         String nameOfGame = request.getParameter("nameGame");
         GameController game = gamesManager.getGame(nameOfGame);
 
@@ -54,11 +64,16 @@ public class GetStartedServlet extends HttpServlet {
         UserManager usersManager = ServletUtils.getUserManager(getServletContext());
         User user = usersManager.getUser(username);
 
-        user.setGameController(game);
-        game.addUser(user);
-*/
+        request.getSession().setAttribute("user",user);
+        request.getSession().setAttribute("game",game);
+
+        //user.setGameController(game);
+       //game.addUser(user);
+
         response.sendRedirect("/pages/OneGame/OneGame.html");
     }
+
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

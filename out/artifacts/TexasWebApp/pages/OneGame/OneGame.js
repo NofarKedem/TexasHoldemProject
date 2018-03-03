@@ -1,9 +1,11 @@
 window.onload = function()
 {
+    hidePlayers();
     refreshUserList();
     setInterval(refreshUserList, 2000);
-    //checkNumOfUserToStartGame();
-   // setInterval(checkNumOfUserToStartGame, 2000);
+    checkNumOfUserToStartGame();
+    setInterval(checkNumOfUserToStartGame, 2000);
+    startGame();
     refreshGameDetails();
     setInterval(refreshGameDetails, 2000);
 };
@@ -23,7 +25,7 @@ function refreshUserList() {
 }
 
 function refreshGameUserListCallback(json) {
-    var gameUsersTable = $('.onlineGamePlayerTable');
+    var gameUsersTable = $('.onlineGamePlayerTable tbody');
     gameUsersTable.empty();
     var userListFromGame = json.users;
 
@@ -35,7 +37,7 @@ function refreshGameUserListCallback(json) {
 
         td.appendTo(tr);
 
-        tr.appendTo(usersTable);
+        tr.appendTo(gameUsersTable);
 
     });
 }
@@ -65,13 +67,58 @@ function refreshGameDetailsCallback(json) {
 
 }
 
-/*
+
 function checkNumOfUserToStartGame(){
-    GameController gameController = new GameController();
-    if(gameController.getnumOfSubscribers()== gameController.getnumOfPlayers)
+   $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'ifThereAreEnoughUser'
+            },
+            type: 'GET',
+            success: checkNumOfUserToStartGameCallBack,
+        }
+    )
+}
+
+function checkNumOfUserToStartGameCallBack(json)
+{
+    if(json === true)
     {
-        startGame();
-        clearInterval();
+        //alert("The game start");
+        //clearInterval(hadar);
+        //startGame();
+
     }
 }
-*/
+function startGame() {
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'StartGame'
+            },
+            type: 'GET',
+            success: StartGameCallBack,
+            error:hhh,
+        }
+    )
+
+}
+function hidePlayers() {
+   // $("player1:hidden");
+}
+function StartGameCallBack(json) {
+  //  $("player1:hidden").show();
+    document.getElementById("nameForPlayer1").innerHTML = json[0].PlayerName;
+    document.getElementById("statePlayer1").innerHTML = json[0].playerState;
+    document.getElementById("chipsPlayer1").innerHTML = json[0].playerChips;
+    document.getElementById("buysPlayer1").innerHTML = json[0].playerBuys;
+    document.getElementById("wonPlayer1").innerHTML = json[0].playerHandsWon;
+}
+
+function hhh() {
+    var i=0;
+}

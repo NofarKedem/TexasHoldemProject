@@ -33,7 +33,7 @@ body {
 
 .player1 {
     grid-area: player1;
-    visibility: hidden;
+    display:none;
 }
 
 .player2 {
@@ -157,7 +157,7 @@ body {
     color: #030303;
 }
 
-.onlinePlayerTable{
+.onlinePlayer{
     border: black 1px solid;
     border-radius: 6px;
     width: 200px;

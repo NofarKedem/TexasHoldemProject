@@ -447,7 +447,7 @@ public class PlayerBoardController {
     }
 
     public void exposeCard(int numOfPlayer)
-    {
+    {/*
         PlayerInfo player =  refGameEngine.getPlayerInfo(numOfPlayer);
         Card[] playerCards = player.getPlayerCards();
         switch(numOfPlayer)
@@ -477,6 +477,7 @@ public class PlayerBoardController {
                 card62.setImage(playerCards[1].getImagecard());
                 break;
         }
+        */
     }
 
     public void unExposeAllPlayers()

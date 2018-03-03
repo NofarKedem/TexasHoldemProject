@@ -48,7 +48,7 @@ public class GetStartedServlet extends HttpServlet {
                     this.GameDialogAction(request, response, gamesManager);
                 } catch (ScriptException e) {
                     e.printStackTrace();
-                }
+                } break;
 
 
         }

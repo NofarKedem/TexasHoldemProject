@@ -47,6 +47,7 @@ public class UsersServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
 //            case "gameUsers":
 //                try{
 //                    this.getGameUsersAction(request,response);

@@ -120,7 +120,7 @@ public class LoginServlet extends HttpServlet{
             String userName = SessionUtils.getUsername(request);
             boolean isComputer = SessionUtils.isComputer(request.getSession(false));
             User user = usersManager.getUser(userName);
-            out.println(gson.toJson(new LoginStatus(true, (String)null, userName, isComputer, user.getInGameNumber())));
+            out.println(gson.toJson(new LoginStatus(true, (String)null, userName, isComputer)));
         } else {
             out.println(gson.toJson(new LoginStatus(false)));
         }

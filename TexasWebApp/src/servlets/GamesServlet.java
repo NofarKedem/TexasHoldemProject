@@ -55,7 +55,7 @@ public class GamesServlet extends HttpServlet {
                     this.gameListAction(request, response, gamesManager);
                 } catch (ScriptException e) {
                     e.printStackTrace();
-                }
+                } break;
 //            case "joinGame":
 //                try{
 //                    this.joinGameAction(request,response,gamesManager);

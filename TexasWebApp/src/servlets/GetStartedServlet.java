@@ -68,9 +68,10 @@ public class GetStartedServlet extends HttpServlet {
         request.getSession().setAttribute("game",game);
 
         //user.setGameController(game);
-       //game.addUser(user);
+        game.addUser(user);
 
         response.sendRedirect("/pages/OneGame/OneGame.html");
+
     }
 
 

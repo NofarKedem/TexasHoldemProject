@@ -119,14 +119,23 @@ function refreshUserListCallback(json) {
             tdNumberOfPlayers.appendChild(document.createTextNode(game.numOfPlayers));
             var tdNumberOfSubscribers = document.createElement('td');
             tdNumberOfSubscribers.appendChild(document.createTextNode(game.numOfSubscribers));
+
+            var tdSmallBlind = document.createElement('td');
+            tdSmallBlind.appendChild(document.createTextNode(game.SmallBlind));
+            var tdBigBlind = document.createElement('td');
+            tdBigBlind.appendChild(document.createTextNode(game.BigBlind));
+            var tdFixBlind = document.createElement('td');
+            if(game.fixedBlind === "true"){tdFixBlind.appendChild(document.createTextNode("Fixed Blinds"));}
+            else{tdFixBlind.appendChild(document.createTextNode("Not Fixed Blinds"));}
+
             var tdGameStatus = document.createElement('td');
-            tdGameStatus.appendChild(document.createTextNode(game.isActive));
+            if(game.isActive === "true"){tdGameStatus.appendChild(document.createTextNode("Active"));}
+            else{tdGameStatus.appendChild(document.createTextNode("Not Active"));}
             var tdJoinGame = document.createElement('td');
             var tdJoinGamebtn = document.createElement('button');
             tdJoinGamebtn.classList.add('btn');
             tdJoinGamebtn.appendChild(document.createTextNode("Get Started"));
             tdJoinGame.appendChild(tdJoinGamebtn);
-
 
             tr.appendChild(tdGameName);
             tr.appendChild(tdCreatorName);
@@ -134,6 +143,9 @@ function refreshUserListCallback(json) {
             tr.appendChild(tdBuy);
             tr.appendChild(tdNumberOfPlayers);
             tr.appendChild(tdNumberOfSubscribers);
+            tr.appendChild(tdSmallBlind);
+            tr.appendChild(tdBigBlind);
+            tr.appendChild(tdFixBlind);
             tr.appendChild(tdGameStatus);
             tr.appendChild(tdJoinGame);
 
@@ -154,7 +166,7 @@ function refreshUserListCallback(json) {
 
         var tr = $('.tableBody tr.enabled .btn');
         for (var i = 0; i < tr.length; i++) {
-            tr[i].onclick= createGameDialog;
+            tr[i].onclick = createGameDialog;
         }
     }
 
@@ -169,15 +181,16 @@ function createGameDialog(event) {
                     nameGame: name
                 },
                 type: 'GET',
-                success: joinGameClickedCallback
+                success: joinGameClickedCallback,
+
             }
         );
     }
-    function joinGameClickedCallback() {
+}
 
-            window.location = "/pages/OneGame/OneGame.html";
+function joinGameClickedCallback() {
 
-    }
+    window.location = "/pages/OneGame/OneGame.html";
 
 
 }

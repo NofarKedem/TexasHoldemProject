@@ -3,6 +3,7 @@ package servlets;
 import Games.GameController;
 import Games.GamesManager;
 import Games.Games;
+import Games.LoadGameStatus;
 import com.google.gson.Gson;
 import users.User;
 import users.UserManager;
@@ -55,10 +56,41 @@ public class GamesServlet extends HttpServlet {
                 } catch (ScriptException e) {
                     e.printStackTrace();
                 }
+//            case "joinGame":
+//                try{
+//                    this.joinGameAction(request,response,gamesManager);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
 
         }
 
     }
+
+//    private void joinGameAction(HttpServletRequest request, HttpServletResponse response,GamesManager gamesManager)
+//            throws ScriptException, IOException{
+//
+//        String nameOfGame = request.getParameter("nameGame");
+//        GameController game = gamesManager.getGame(nameOfGame);
+//
+//        String username = SessionUtils.getUsername(request);
+//        UserManager usersManager = ServletUtils.getUserManager(getServletContext());
+//        User user = usersManager.getUser(username);
+//
+//        request.getSession().setAttribute("user",user);
+//        request.getSession().setAttribute("game",game);
+//
+//        //user.setGameController(game);
+//        game.addUser(user);
+//
+//        PrintWriter out = response.getWriter();
+//        Gson gson = new Gson();
+//        out.print(gson.toJson(new LoadGameStatus(true, "", "/pages/OneGame/OneGame.html")));
+
+        //need to add if statment to check if user can join the game
+        //out.print(gson.toJson(new Games.LoadGameStatus(false, "Couldn't join game.", "/LobbyPage.html")));
+
+//    }
 
     private void gameListAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
@@ -96,13 +128,14 @@ public class GamesServlet extends HttpServlet {
         try {
             if(gamesManager.isGameExists(xmlTitle)){
                 errorMsg = "This game name already taken! Please upload a game with a different name";
+                response.sendRedirect("gamesManager.html?isLoaded=false&error=" + errorMsg + "");
             }
-            GameController game = new GameController(xmlTitle,gameCreator);
-            game.loadXmlFile(xmlContent.toString());
-            gamesManager.addGame(game);
-
-
-            response.sendRedirect("gamesManager.html?isLoaded=true&error=" + errorMsg + "");
+            else {
+                GameController game = new GameController(xmlTitle, gameCreator);
+                game.loadXmlFile(xmlContent.toString());
+                gamesManager.addGame(game);
+                response.sendRedirect("gamesManager.html?isLoaded=true&error=" + errorMsg + "");
+            }
         } catch (Exception e) {
             errorMsg = e.getMessage();
             response.sendRedirect("gamesManager.html?isLoaded=false&error=" + errorMsg + "");

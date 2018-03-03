@@ -1,5 +1,6 @@
 package servlets;
 
+import Games.GameController;
 import com.google.gson.Gson;
 import users.User;
 import users.UserManager;
@@ -46,8 +47,15 @@ public class UsersServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+//            case "gameUsers":
+//                try{
+//                    this.getGameUsersAction(request,response);
+//                } catch (Exception e){
+//                    e.printStackTrace();
+//                }
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -82,4 +90,12 @@ public class UsersServlet extends HttpServlet {
         boolean isComputer = user.isComputer();
         out.println(gson.toJson(new User( userName, isComputer)));
     }
+
+//    private void getGameUsersAction(HttpServletRequest request, HttpServletResponse response) throws IOException{
+//        response.setContentType("application/json");
+//        Gson gson = new Gson();
+//        PrintWriter out = response.getWriter();
+//        //GameController gameFromSession = (GameController)request.getSession().getAttribute("game");
+//        //out.println(gson.toJson(new Users(gameFromSession.getUsers())));
+//    }
 }

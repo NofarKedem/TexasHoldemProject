@@ -137,7 +137,6 @@ function refreshUserListCallback(json) {
             tdJoinGamebtn.appendChild(document.createTextNode("Get Started"));
             tdJoinGame.appendChild(tdJoinGamebtn);
 
-
             tr.appendChild(tdGameName);
             tr.appendChild(tdCreatorName);
             tr.appendChild(tdNumberOfHands);
@@ -167,7 +166,7 @@ function refreshUserListCallback(json) {
 
         var tr = $('.tableBody tr.enabled .btn');
         for (var i = 0; i < tr.length; i++) {
-            tr[i].onclick= createGameDialog;
+            tr[i].onclick = createGameDialog;
         }
     }
 
@@ -182,15 +181,16 @@ function createGameDialog(event) {
                     nameGame: name
                 },
                 type: 'GET',
-                success: joinGameClickedCallback
+                success: joinGameClickedCallback,
+
             }
         );
     }
-    function joinGameClickedCallback() {
+}
 
-            window.location = "/pages/OneGame/OneGame.html";
+function joinGameClickedCallback() {
 
-    }
+    window.location = "/pages/OneGame/OneGame.html";
 
 
 }

@@ -1,7 +1,7 @@
 window.onload = function()
 {
-    //refreshUserList();
-    //setInterval(refreshUserList, 2000);
+    refreshUserList();
+    setInterval(refreshUserList, 2000);
     //checkNumOfUserToStartGame();
    // setInterval(checkNumOfUserToStartGame, 2000);
     refreshGameDetails();
@@ -11,22 +11,23 @@ window.onload = function()
 function refreshUserList() {
     $.ajax(
         {
-            url: 'userManager',
+            url: 'OneGame',
             data: {
                 action: "gameUsers"
             },
             type: 'GET',
-            success: refreshUserListCallback
+            success: refreshGameUserListCallback,
+            error:  function() {console.log("No Game Users list Available")}
         }
     );
 }
 
-function refreshUserListCallback(json) {
-    var usersTable = $('.onlinePlayerTable');
-    usersTable.empty();
-    var userList = json.users;
+function refreshGameUserListCallback(json) {
+    var gameUsersTable = $('.onlineGamePlayerTable');
+    gameUsersTable.empty();
+    var userListFromGame = json.users;
 
-    userList.forEach(function (user) {
+    userListFromGame.forEach(function (user) {
 
         var tr = $(document.createElement('tr'));
 

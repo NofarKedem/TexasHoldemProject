@@ -3,11 +3,11 @@ package servlets;
 import Games.LoadGameStatus;
 import Games.GameController;
 import Games.GamesManager;
-import com.google.gson.Gson;
 import users.User;
 import users.UserManager;
 import utility.ServletUtils;
 import utility.SessionUtils;
+import com.google.gson.Gson;
 
 import javax.script.ScriptException;
 import javax.servlet.ServletException;
@@ -53,7 +53,9 @@ public class GetStartedServlet extends HttpServlet {
     }
     private void GameDialogAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
-
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
         String nameOfGame = request.getParameter("nameGame");
         GameController game = gamesManager.getGame(nameOfGame);
 
@@ -66,8 +68,8 @@ public class GetStartedServlet extends HttpServlet {
 
         //user.setGameController(game);
         game.addUser(user);
-
-        response.sendRedirect("/pages/OneGame/OneGame.html");
+        out.println(gson.toJson(true));
+        //response.sendRedirect("/pages/OneGame/OneGame.html");
 
 
     }

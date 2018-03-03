@@ -3,7 +3,6 @@ var checkNumOfUser = 0;
 
 window.onload = function()
 {
-    hidePlayers();
     refreshUserList();
     checkNumOfUserToStartGame();
     refreshPlayerInfo();

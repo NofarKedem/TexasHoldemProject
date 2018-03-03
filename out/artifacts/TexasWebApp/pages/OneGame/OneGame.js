@@ -1,15 +1,17 @@
-var stopInterval;
+
+var checkNumOfUser = 0;
 
 window.onload = function()
 {
     hidePlayers();
     refreshUserList();
-    setInterval(refreshUserList, 2000);
     checkNumOfUserToStartGame();
-    stopInterval = setInterval(function(){ checkNumOfUserToStartGame() }, 2000);
-    startGame();
+    refreshPlayerInfo();
     refreshGameDetails();
+    setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
+    setInterval(refreshPlayerInfo, 2000);
+    checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
 };
 
 function refreshUserList() {
@@ -89,12 +91,10 @@ function checkNumOfUserToStartGameCallBack(json)
     if(json === true)
     {
         alert("The game start");
-        clearInterval(stopInterval);
-        //startGame();
-
+        clearInterval(checkNumOfUser);
     }
 }
-function startGame() {
+function refreshPlayerInfo() {
     $.ajax
     (
         {
@@ -103,15 +103,14 @@ function startGame() {
                 action: 'StartGame'
             },
             type: 'GET',
-            success: StartGameCallBack,
 
+            success: refreshPlayerInfoCallBack,
+            error:refreshPlayerInfoError,
         }
     )
 
 }
-function hidePlayers() {
-   // $("player1:hidden");
-}
+
 
 function StartGameCallBack(json) {
   //  $("player1:hidden").show();
@@ -120,11 +119,10 @@ function StartGameCallBack(json) {
     document.getElementById("chipsPlayer1").innerHTML = json[0].playerChips;
     document.getElementById("buysPlayer1").innerHTML = json[0].playerBuys;
     document.getElementById("wonPlayer1").innerHTML = json[0].playerHandsWon;
-    checkIfMyTurn();
+
 }
 
-function checkIfMyTurn()
-{
+function checkIfMyTurn() {
     $.ajax
     (
         {
@@ -138,16 +136,29 @@ function checkIfMyTurn()
         }
     )
 }
-function checkIfMyTurnCallBack(json)
-{
-    document.getElementsByClassName("action-button")[0].disabled = true;
-    //document.getElementsByClassName("action-button")[0].style.background='#858585';
-    document.getElementsByClassName("action-button")[1].disabled = json.calll;
+function refreshPlayerInfoCallBack(json) {
+  //  $("player1:hidden").show();
+
+    for(elem in json) {
+
+        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
+        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
+        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
+        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
+        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
+    }
+
+}
+function checkIfMyTurnCallBack(json) {
+    document.getElementsByClassName("action-button")[0].disabled = !json.fold;
+    document.getElementsByClassName("action-button")[1].disabled = !json.calll;
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
-    /*
-    document.getElementById("callButton").disabled = json.calll;
-    document.getElementById("CheckButton").disabled = json.check;
-    document.getElementById("betButton").disabled = json.bet;
-    document.getElementById("raiseButton").disabled = json.raise;
-    */
+    document.getElementsByClassName("action-button")[3].disabled = !json.bet;
+    document.getElementsByClassName("action-button")[4].disabled = !json.raise;
+
+}
+
+function refreshPlayerInfoError() {
+    console.log("Error: refreshPlayerInfo");
 }

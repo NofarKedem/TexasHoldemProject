@@ -1,13 +1,16 @@
+var checkNumOfUser = 0;
+
 window.onload = function()
 {
     hidePlayers();
     refreshUserList();
-    setInterval(refreshUserList, 2000);
     checkNumOfUserToStartGame();
-    setInterval(checkNumOfUserToStartGame, 2000);
-    startGame();
+    refreshPlayerInfo();
     refreshGameDetails();
+    setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
+    setInterval(refreshPlayerInfo, 2000);
+    checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
 };
 
 function refreshUserList() {
@@ -86,13 +89,13 @@ function checkNumOfUserToStartGameCallBack(json)
 {
     if(json === true)
     {
-        //alert("The game start");
-        //clearInterval(hadar);
-        //startGame();
+
+        alert("The game start");
+        clearInterval(checkNumOfUser);
 
     }
 }
-function startGame() {
+function refreshPlayerInfo() {
     $.ajax
     (
         {
@@ -101,8 +104,8 @@ function startGame() {
                 action: 'StartGame'
             },
             type: 'GET',
-            success: StartGameCallBack,
-            error:hhh,
+            success: refreshPlayerInfoCallBack,
+            error:refreshPlayerInfoError,
         }
     )
 
@@ -110,15 +113,21 @@ function startGame() {
 function hidePlayers() {
    // $("player1:hidden");
 }
-function StartGameCallBack(json) {
+function refreshPlayerInfoCallBack(json) {
   //  $("player1:hidden").show();
-    document.getElementById("nameForPlayer1").innerHTML = json[0].PlayerName;
-    document.getElementById("statePlayer1").innerHTML = json[0].playerState;
-    document.getElementById("chipsPlayer1").innerHTML = json[0].playerChips;
-    document.getElementById("buysPlayer1").innerHTML = json[0].playerBuys;
-    document.getElementById("wonPlayer1").innerHTML = json[0].playerHandsWon;
+
+    for(elem in json) {
+
+        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
+        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
+        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
+        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
+        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
+    }
+
 }
 
-function hhh() {
-    var i=0;
+function refreshPlayerInfoError() {
+    console.log("Error: refreshPlayerInfo");
 }

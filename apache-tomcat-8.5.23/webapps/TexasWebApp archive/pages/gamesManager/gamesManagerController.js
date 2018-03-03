@@ -182,13 +182,18 @@ function createGameDialog(event) {
                 },
                 type: 'GET',
                 success: joinGameClickedCallback,
+                error: error
 
             }
         );
     }
 }
 
-function joinGameClickedCallback(json) {
+function error(){
+    console.log("Fail to Join Game!!!!")
+}
+
+function joinGameClickedCallback() {
     //window.location = "/pages/OneGame/OneGame.html";
     window.location = buildUrlWithContextPath("/pages/OneGame/OneGame.html");
 

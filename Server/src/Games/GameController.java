@@ -41,6 +41,7 @@ public class GameController {
         this.numOfHands = game.getNumberOfHands();
         this.buy = game.getNumOfChipsPerBuy();
         this.numOfPlayers = game.getNumberOfMaxPlayersInGame();
+        this.gameName = game.getNameOfGame();
     }
 
     public int getnumOfSubscribers() {

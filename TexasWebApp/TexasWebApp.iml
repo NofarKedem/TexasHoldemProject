@@ -22,10 +22,6 @@
     <orderEntry type="library" name="gson-2.1" level="project" />
     <orderEntry type="module" module-name="Server" />
     <orderEntry type="module" module-name="JavaFx" />
-<<<<<<< HEAD
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.23" level="application_server_libraries" />
-=======
     <orderEntry type="library" scope="PROVIDED" name="Examples Tomcat " level="application_server_libraries" />
->>>>>>> 70f96a5f6fc6c38f9745986f07f2d725318da38f
   </component>
 </module>

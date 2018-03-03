@@ -104,6 +104,10 @@ body {
     color: white;
     background: black;
 }
+.action-button:disabled
+{
+    color: #818181;
+}
 
 .card {
     width: 60px;

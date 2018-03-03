@@ -78,14 +78,17 @@ public class GameEngine {
     {
         Utils.numOfPlayers = userList.size();
         int i = 1;
+        int id=0;
         players.clear();
         char type;
         for (users.User user : userList) {
+            user.setId(id);
             if (user.isComputer())
                 type = 'C';
             else
                 type = 'H';
-            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1,i, user.getName(), user.getId()));
+            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1,i, user.getName(), id));
+            id++;
         }
         dilerIndex = calculateDilerIndex(dilerIndex);
         ancorDindex = dilerIndex;
@@ -698,4 +701,22 @@ public class GameEngine {
 
     public String getNameOfGame()
     {return nameOfGame;}
+
+    public int getPlayerIndexByName(String name)
+    {
+        for(int i=0;i<players.size();i++)
+        {
+            if(players.get(i).getName() == name)
+                return i;
+        }
+        return -1;
+    }
+
+    public movesInfo getMovesInfo()
+    {
+        return new movesInfo (validateMove("1"),validateMove("2"),validateMove("3")
+        ,validateMove("4"),validateMove("5"));
+
+
+    }
 }

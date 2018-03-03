@@ -2,6 +2,7 @@ package servlets;
 
 import GameLogic.GameDetailsInfo;
 import GameLogic.PlayerInfo;
+import GameLogic.movesInfo;
 import Games.GameController;
 import Games.GamesManager;
 import com.google.gson.Gson;
@@ -61,6 +62,13 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
+
+                case "checkIfMyTurn":
+                    try {
+                        this.checkIfMyTurnAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
             }
 
         }
@@ -105,6 +113,19 @@ public class GameDetails  extends HttpServlet {
         //out.println(gson.toJson(new PlayerInfo(game.getGameEngine().getPlayerInfo(0))));
     }
 
+    private void checkIfMyTurnAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
+        movesInfo moveInfo = game.getGameEngine().getMovesInfo();
+        if(game.getGameEngine().getCurrPlayer() != game.getGameEngine().getPlayerIndexByName(user.getName()))
+            moveInfo.setAllFalse();
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(moveInfo));
+
+    }
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {

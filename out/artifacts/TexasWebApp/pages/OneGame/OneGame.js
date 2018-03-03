@@ -1,10 +1,12 @@
+var stopInterval;
+
 window.onload = function()
 {
     hidePlayers();
     refreshUserList();
     setInterval(refreshUserList, 2000);
     checkNumOfUserToStartGame();
-    setInterval(checkNumOfUserToStartGame, 2000);
+    stopInterval = setInterval(function(){ checkNumOfUserToStartGame() }, 2000);
     startGame();
     refreshGameDetails();
     setInterval(refreshGameDetails, 2000);
@@ -86,8 +88,8 @@ function checkNumOfUserToStartGameCallBack(json)
 {
     if(json === true)
     {
-        //alert("The game start");
-        //clearInterval(hadar);
+        alert("The game start");
+        clearInterval(stopInterval);
         //startGame();
 
     }
@@ -102,7 +104,7 @@ function startGame() {
             },
             type: 'GET',
             success: StartGameCallBack,
-            error:hhh,
+
         }
     )
 
@@ -110,6 +112,7 @@ function startGame() {
 function hidePlayers() {
    // $("player1:hidden");
 }
+
 function StartGameCallBack(json) {
   //  $("player1:hidden").show();
     document.getElementById("nameForPlayer1").innerHTML = json[0].PlayerName;
@@ -117,8 +120,34 @@ function StartGameCallBack(json) {
     document.getElementById("chipsPlayer1").innerHTML = json[0].playerChips;
     document.getElementById("buysPlayer1").innerHTML = json[0].playerBuys;
     document.getElementById("wonPlayer1").innerHTML = json[0].playerHandsWon;
+    checkIfMyTurn();
 }
 
-function hhh() {
-    var i=0;
+function checkIfMyTurn()
+{
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'checkIfMyTurn'
+            },
+            type: 'GET',
+            success: checkIfMyTurnCallBack,
+
+        }
+    )
+}
+function checkIfMyTurnCallBack(json)
+{
+    document.getElementsByClassName("action-button")[0].disabled = true;
+    //document.getElementsByClassName("action-button")[0].style.background='#858585';
+    document.getElementsByClassName("action-button")[1].disabled = json.calll;
+    document.getElementsByClassName("action-button")[2].disabled = !json.check;
+    /*
+    document.getElementById("callButton").disabled = json.calll;
+    document.getElementById("CheckButton").disabled = json.check;
+    document.getElementById("betButton").disabled = json.bet;
+    document.getElementById("raiseButton").disabled = json.raise;
+    */
 }

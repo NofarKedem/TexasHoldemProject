@@ -4,7 +4,7 @@ package users;
 public class User {
     private String name;
     private boolean isComputer;
-    private int id;
+    private int id=0;
 
     public User(String name, boolean isComputer) {
         this.name = name;
@@ -23,5 +23,8 @@ public class User {
     public int getId()
     {
          return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 }

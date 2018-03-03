@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="gamesManager.css">
+    <title>Texas Holdem</title>
+    <script
+            src="http://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="gamesManagerController.js"></script>
+</head>
+<body>
+    <div class="toolBar">
+        <div class="toolbarContent">
+            <button class="logoutSpan" onclick="onLogoutClick()">Logout</button>
+            <span class="userNameSpan"></span>
+            <span class="emptySpan"></span>
+        </div>
+    </div>
+    <div class="mainDiv">
+        <div class="usersDiv">
+            <table class="usersTable">
+                <thead>
+                <th>Online Users:</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="gamesDiv">
+            <div class="loadGames">
+                <form id="fileuploads" action="../upload" enctype="multipart/form-data" method="post">
+                    <span>Upload Game XML:</span>
+                    <input id="fileInput" type="file" accept="text/xml" name="xml">
+                    <input type="Submit" value="Upload File"><br>
+                </form>
+            </div>
+            <table class="gamesTable">
+                <thead>
+                <th class="xmlTitle">Game Name</th>
+                <th>Creator Name</th>
+                <th>Number of Hands</th>
+                <th>Buy</th>
+                <th>Number of Players</th>
+                <th>Number of subscribed</th>
+                <th>Small Blind</th>
+                <th>Big Blind</th>
+                <th>Blinds Status</th>
+                <th>Game Status</th>
+                <th>Join Game</th>
+                </thead>
+                <tbody class="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

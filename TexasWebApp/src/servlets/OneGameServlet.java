@@ -63,7 +63,8 @@ public class OneGameServlet extends HttpServlet {
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
         GameController gameFromSession = (GameController)request.getSession().getAttribute("game");
-        out.println(gson.toJson(new Users(gameFromSession.getUsers())));
+        Users gameUsers = new Users(gameFromSession.getUsers());
+        out.println(gson.toJson(gameUsers));
     }
 
 }

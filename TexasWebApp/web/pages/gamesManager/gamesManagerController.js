@@ -188,9 +188,12 @@ function createGameDialog(event) {
     }
 }
 
-function joinGameClickedCallback() {
-
+function joinGameClickedCallback(json) {
+    //var redirect = json.redirect;
     window.location = "/pages/OneGame/OneGame.html";
+    // if(isLoaded === "true"){
+    //     window.location = redirect;
+    // }
 
 
 }

@@ -1,10 +1,7 @@
 package servlets;
 
-
-import GameLogic.GameDetailsInfo;
-import GameLogic.TableInfo;
+import Games.LoadGameStatus;
 import Games.GameController;
-import Games.Games;
 import Games.GamesManager;
 import com.google.gson.Gson;
 import users.User;
@@ -71,6 +68,7 @@ public class GetStartedServlet extends HttpServlet {
         game.addUser(user);
 
         response.sendRedirect("/pages/OneGame/OneGame.html");
+
 
     }
 

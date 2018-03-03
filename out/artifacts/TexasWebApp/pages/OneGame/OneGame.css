@@ -33,26 +33,32 @@ body {
 
 .player1 {
     grid-area: player1;
+    visibility: hidden;
 }
 
 .player2 {
     grid-area: player2;
+    visibility:hidden;
 }
 
 .player3 {
     grid-area: player3;
+    visibility:hidden;
 }
 
 .player4 {
     grid-area: player4;
+    visibility:hidden;
 }
 
 .player5 {
     grid-area: player5;
+    visibility:hidden;
 }
 
 .player6 {
     grid-area: player6;
+    visibility:hidden;
 }
 .rtl .player-data, .rtl .player-cards{
     float:right;

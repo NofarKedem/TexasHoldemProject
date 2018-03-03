@@ -1,5 +1,6 @@
 package GameLogic;
 
+import XMLobject.DynamicPlayers;
 import XMLobject.GameDescriptor;
 import XMLobject.Player;
 import XMLobject.Players;
@@ -29,7 +30,8 @@ public class GameEngine {
     private int numOfChipsPerBuy;
     private int maxBig;
     private boolean fixed;
-    private int numberOfMaxPlayersInGame = 6; //Temp For Tests!
+    private int numberOfMaxPlayersInGame;
+    private String nameOfGame; //temp for one game, not use it!
     private Map<Integer,String> WinnerMap;
 
     private List<StatusSnapShot> handReplay = new ArrayList<>();
@@ -191,6 +193,8 @@ public class GameEngine {
 
         numOfChipsPerBuy = gameDescriptor.getStructure().getBuy().intValue();
 
+        //need to remove - targil3
+/*
         Players playersFromXML = gameDescriptor.getPlayers();
         List<Player> listOfPlayerFromXML = playersFromXML.getPlayer();
         if (listOfPlayerFromXML.size() < 3 || listOfPlayerFromXML.size() > 6)
@@ -198,9 +202,15 @@ public class GameEngine {
         checkThereIsHumanPlayerAtXml(listOfPlayerFromXML); //throw exception
         checkThereIsNoPlayerWithSameId(listOfPlayerFromXML); //throw exception
         initializePlayers(listOfPlayerFromXML);
+*/
+//need to remove - targil3
+
+        int tempNumOfPlayer = gameDescriptor.getDynamicPlayers().getTotalPlayers();
+        if (tempNumOfPlayer < 3 || tempNumOfPlayer > 6)
+            throw new Exception("Invalid player number, supposed to be between 3-6");
 
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
-        if (tempHandsCount % Utils.numOfPlayers != 0)
+        if (tempHandsCount % tempNumOfPlayer != 0)
             throw new Exception("Invalid file, GameLogic.Hand count is not divided to the number of player");
 
         fixed = gameDescriptor.getStructure().getBlindes().isFixed();
@@ -213,11 +223,13 @@ public class GameEngine {
                 throw new Exception("Invalid file,the max possible big is higher then half of buy value");
             }
         }
+        nameOfGame = gameDescriptor.getDynamicPlayers().getGameTitle();
         numOfChipsForsmall = tempSmall;
         numOfChipsForBig = tempBig;
         totalnumOfHands = tempHandsCount;
         originalBig = tempBig;
         originalSmall = tempSmall;
+        numberOfMaxPlayersInGame = tempNumOfPlayer;
     }
 
     private void checkThereIsHumanPlayerAtXml(List<Player> listOfPlayerFromXML) throws Exception
@@ -652,4 +664,7 @@ public class GameEngine {
                 getCurrNumOfRound(),numOfChipsForsmall,numOfChipsForBig);
         return tempGameDetailsInfo;
     }
+
+    public String getNameOfGame()
+    {return nameOfGame;}
 }

@@ -2,6 +2,7 @@ package Games;
 
 
 import GameLogic.GameEngine;
+import GameLogic.PlayerInfo;
 import users.User;
 
 import java.util.ArrayList;
@@ -59,7 +60,9 @@ public class GameController {
 
     public void addUser(User user)
     {
+
         users.add(user);
+        numOfSubscribers++;
     }
 
     public List<User> getUsers() {
@@ -68,5 +71,16 @@ public class GameController {
     public GameEngine getGameEngine()
     {
         return game;
+    }
+
+    public void startGame()
+    {
+           game.stratGame(users);
+
+    }
+
+    public List<PlayerInfo> getAllPlayerInfo()
+    {
+        return game.getAllPlayerInfo();
     }
 }

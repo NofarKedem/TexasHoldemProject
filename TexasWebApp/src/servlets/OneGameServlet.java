@@ -39,6 +39,7 @@ public class OneGameServlet extends HttpServlet {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+                break;
         }
     }
 

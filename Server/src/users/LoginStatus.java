@@ -6,11 +6,9 @@ public class LoginStatus {
     private String userName;
     private boolean isComputer;
     private boolean isLoaded;
-    private int gameNumber;
 
     public LoginStatus(boolean isConnected) {
         this.isConnected = isConnected;
-        this.gameNumber = -1;
     }
 
     public LoginStatus(boolean isConnected, String errorMessage) {
@@ -18,11 +16,10 @@ public class LoginStatus {
         this.errorMessage = errorMessage;
     }
 
-    public LoginStatus(boolean isConnected, String errorMessage, String userName, boolean isComputer, int gameNumber) {
+    public LoginStatus(boolean isConnected, String errorMessage, String userName, boolean isComputer) {
         this(isConnected, errorMessage);
         this.userName = userName;
         this.isComputer = isComputer;
-        this.gameNumber = gameNumber;
     }
 
     public boolean isComputer() {

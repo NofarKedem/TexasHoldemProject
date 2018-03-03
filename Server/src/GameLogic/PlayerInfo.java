@@ -9,11 +9,12 @@ public class PlayerInfo {
     private int playerChips;
     private int playerBuys;
     private int playerHandsWon;
-    private Card[] playerCards;
+    //private Card[] playerCards;
     private boolean isQuit;
 
-    PlayerInfo(char typeOfPlayer, String playerState, int playerChips, int playerBuys,
-               int playerHandsWon, int playerIndex, String PlayerName, int PlayerId, boolean isQuit, Card[] playerCards){
+    public PlayerInfo(char typeOfPlayer, String playerState, int playerChips, int playerBuys,
+               int playerHandsWon, int playerIndex, String PlayerName, int PlayerId, boolean isQuit){
+            //, Card[] playerCards){
         this.typeOfPlayer = typeOfPlayer;
         this.playerState = playerState;
         this.playerChips = playerChips;
@@ -23,7 +24,7 @@ public class PlayerInfo {
         this.PlayerName = PlayerName;
         this.PlayerId = PlayerId;
         this.isQuit = isQuit;
-        this.playerCards = playerCards;
+       // this.playerCards = playerCards;
     }
 
     public String getName()
@@ -59,10 +60,10 @@ public class PlayerInfo {
         return this.playerHandsWon;
     }
 
-
+/*
     public Card[] getPlayerCards(){
         return this.playerCards;
-    }
+    }*/
 
     public boolean getIsQuit()
     {

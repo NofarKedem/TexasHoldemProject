@@ -27,7 +27,7 @@ public class UserManager {
     }
 
 
-
+/*
     public void userJoinGame(String userName, int gameId) {
         User user = (User)this.loggedInUsers.get(userName);
         user.setInGameNumber(gameId);
@@ -40,15 +40,12 @@ public class UserManager {
         }
 
     }
-
+*/
     public User getUser(String userName) {
         return (User)this.loggedInUsers.get(userName);
     }
 
-    public boolean isUserInGame(String userName) {
-        User user = (User)this.loggedInUsers.get(userName);
-        return user.getInGameNumber() != -1;
-    }
+
 
 
 }

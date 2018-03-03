@@ -1,9 +1,11 @@
 package servlets;
 
 import GameLogic.GameDetailsInfo;
+import GameLogic.PlayerInfo;
 import Games.GameController;
 import Games.GamesManager;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import users.User;
 import users.UserManager;
 import utility.ServletUtils;
@@ -17,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet(
@@ -43,8 +48,19 @@ public class GameDetails  extends HttpServlet {
                         this.GameDetailsAction(request, response, gamesManager);
                     } catch (ScriptException e) {
                         e.printStackTrace();
-                    }
-
+                    }break;
+                case "ifThereAreEnoughUser":
+                    try {
+                        this.ifThereAreEnoughUserAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+                case "StartGame":
+                    try {
+                        this.StartGameAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
             }
 
         }
@@ -59,6 +75,35 @@ public class GameDetails  extends HttpServlet {
             GameDetailsInfo gameDetailsInfo = game.getGameEngine().getGameDetailsInfo();
             out.println(gson.toJson(gameDetailsInfo));
         }
+    private void ifThereAreEnoughUserAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        if(game.getnumOfPlayers() == game.getnumOfSubscribers())
+        {
+            out.println(gson.toJson(true));
+        }
+        else
+        {
+            out.println(gson.toJson(false));
+        }
+    }
+    private void StartGameAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        game.startGame();
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+       // List<PlayerInfo> playerInfoList = game.getAllPlayerInfo();
+       // Type listType = new TypeToken<List<PlayerInfo>>() {}.getType();
+        out.println(gson.toJson(game.getAllPlayerInfo()));
+        //out.println(gson.toJson(new PlayerInfo(game.getGameEngine().getPlayerInfo(0))));
+    }
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)

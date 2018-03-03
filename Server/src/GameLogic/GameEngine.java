@@ -45,7 +45,18 @@ public class GameEngine {
 
     }
 
-
+    public void stratGame(List<users.User> userList)
+    {
+        initializePlayers(userList);
+        initHandReplay();
+        initializeHand();
+        setPlayHand();
+        cardDistribusionToPlayer();
+        initRound();
+        blindBetSmall();
+        blindBetBig();
+    }
+/*
     public void initializePlayers(List<Player> listOfPlayerFromXML) {
         Utils.numOfPlayers = listOfPlayerFromXML.size();
         int i = 1;
@@ -62,7 +73,24 @@ public class GameEngine {
         ancorDindex = dilerIndex;
         initPlayersState();
     }
-
+    */
+    public void initializePlayers(List<users.User> userList)
+    {
+        Utils.numOfPlayers = userList.size();
+        int i = 1;
+        players.clear();
+        char type;
+        for (users.User user : userList) {
+            if (user.isComputer())
+                type = 'C';
+            else
+                type = 'H';
+            players.add(new PokerPlayer(type, " ", numOfChipsPerBuy, 1,i, user.getName(), user.getId()));
+        }
+        dilerIndex = calculateDilerIndex(dilerIndex);
+        ancorDindex = dilerIndex;
+        initPlayersState();
+    }
 
     public void closeTheHand(){
         for(PokerPlayer P : players){
@@ -206,8 +234,10 @@ public class GameEngine {
 //need to remove - targil3
 
         int tempNumOfPlayer = gameDescriptor.getDynamicPlayers().getTotalPlayers();
+        /*
         if (tempNumOfPlayer < 3 || tempNumOfPlayer > 6)
             throw new Exception("Invalid player number, supposed to be between 3-6");
+            */ //just for test
 
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if (tempHandsCount % tempNumOfPlayer != 0)
@@ -267,8 +297,9 @@ public class GameEngine {
         PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
                 getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
-                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex)
-                ,getCardsPlayerobjCard(playerIndex));
+                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex));
+
+                //,getCardsPlayerobjCard(playerIndex));
         return tempPlayerInfo;
     }
 

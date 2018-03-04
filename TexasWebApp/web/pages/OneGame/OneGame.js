@@ -10,6 +10,8 @@ window.onload = function()
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
+    checkIfClickButton();
+    setInterval(checkIfClickButton, 2000);
 };
 
 function refreshUserList() {

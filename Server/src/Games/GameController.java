@@ -75,7 +75,8 @@ public class GameController {
 
     public void startGame()
     {
-           game.stratGame(users);
+        this.isActive = true;
+        game.stratGame(users);
 
     }
 

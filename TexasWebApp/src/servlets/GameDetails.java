@@ -93,6 +93,7 @@ public class GameDetails  extends HttpServlet {
         GameController game = (GameController)request.getSession().getAttribute("game");
         if(game.getnumOfPlayers() == game.getnumOfSubscribers())
         {
+            game.startGame();
             out.println(gson.toJson(true));
         }
         else
@@ -103,14 +104,10 @@ public class GameDetails  extends HttpServlet {
     private void StartGameAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
-        game.startGame();
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-       // List<PlayerInfo> playerInfoList = game.getAllPlayerInfo();
-       // Type listType = new TypeToken<List<PlayerInfo>>() {}.getType();
         out.println(gson.toJson(game.getAllPlayerInfo()));
-        //out.println(gson.toJson(new PlayerInfo(game.getGameEngine().getPlayerInfo(0))));
     }
 
     private void checkIfMyTurnAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)

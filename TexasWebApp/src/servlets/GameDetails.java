@@ -1,9 +1,13 @@
 package servlets;
 
+
 import GameLogic.Card;
 import GameLogic.GameDetailsInfo;
 import GameLogic.PlayerInfo;
 import GameLogic.movesInfo;
+
+import GameLogic.*;
+
 import Games.GameController;
 import Games.GamesManager;
 import com.google.gson.Gson;
@@ -82,6 +86,12 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
+                case "buttonActionClicked":
+                    try {
+                        this.buttonActionClickedAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
             }
 
         }
@@ -128,7 +138,7 @@ public class GameDetails  extends HttpServlet {
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
         User user = (User)request.getSession().getAttribute("user");
-        movesInfo moveInfo = game.getGameEngine().getMovesInfo();
+        movesInfo moveInfo = game.getMovesInfo();
         if(game.getGameEngine().getCurrPlayer() != game.getGameEngine().getPlayerIndexByName(user.getName()))
             moveInfo.setAllFalse();
         response.setContentType("application/json");
@@ -171,6 +181,22 @@ public class GameDetails  extends HttpServlet {
         }
         out.println(gson.toJson(communityCardsAsString));
 
+    }
+
+
+    private void buttonActionClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        String amount = request.getParameter("amount");
+        GameEngine gameEngine = game.getGameEngine();
+        GameMoveStatus gameMoveStatus = gameEngine.getGameMoveStatus(amount);
+        String numOfMove = request.getParameter("move");
+        game.getGameEngine().gameMove(numOfMove,Integer.parseInt(amount));
+
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(gameMoveStatus));
     }
 
         @Override

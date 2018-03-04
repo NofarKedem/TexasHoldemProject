@@ -450,6 +450,27 @@ public class GameEngine {
     {
         return currHand.isValidAmount(amount);
     }
+    public GameMoveStatus getGameMoveStatus(String amount)
+    {
+        GameMoveStatus gameMoveStatus = new GameMoveStatus();
+        try{
+            if(amount == "")
+                throw new Exception("Empty field");
+            int amountInt = Integer.parseInt(amount);
+            if(validAmount(amountInt))
+                gameMoveStatus.setValidAmount(true);
+        }
+        catch (NumberFormatException e) {
+            gameMoveStatus.setValidAmount(false);
+            gameMoveStatus.setError("Invalid input");
+        }
+        catch (Exception e) {
+            gameMoveStatus.setValidAmount(false);
+            gameMoveStatus.setError(e.getMessage());
+
+        }
+        return gameMoveStatus;
+    }
     public int getLastBetOfTheCurrPlayer()
     {
         return currHand.getLastBetOfTheCurrPlayer();
@@ -699,11 +720,10 @@ public class GameEngine {
         return -1;
     }
 
-    public movesInfo getMovesInfo()
-    {
-        return new movesInfo (validateMove("1"),validateMove("2"),validateMove("3")
-        ,validateMove("4"),validateMove("5"));
+   public movesInfo getMoveInfo()
+   {
+       return new movesInfo (validateMove("1"),validateMove("2"),validateMove("3")
+               ,validateMove("4"),validateMove("5"));
+   }
 
-
-    }
 }

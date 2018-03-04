@@ -126,13 +126,15 @@ public class GamesServlet extends HttpServlet {
         response.setContentType("application/json");
         String errorMsg = null;
         try {
-            if(gamesManager.isGameExists(xmlTitle)){
+            GameController game = new GameController(xmlTitle, gameCreator);
+            String gameTitle = game.loadXmlFile(xmlContent.toString());
+            if(gamesManager.isGameExists(gameTitle)){
                 errorMsg = "This game name already taken! Please upload a game with a different name";
                 response.sendRedirect("gamesManager.html?isLoaded=false&error=" + errorMsg + "");
             }
             else {
-                GameController game = new GameController(xmlTitle, gameCreator);
-                game.loadXmlFile(xmlContent.toString());
+
+                //game.loadXmlFile(xmlContent.toString());
                 gamesManager.addGame(game);
                 response.sendRedirect("gamesManager.html?isLoaded=true&error=" + errorMsg + "");
             }

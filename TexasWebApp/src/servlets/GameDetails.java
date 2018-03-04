@@ -190,7 +190,7 @@ public class GameDetails  extends HttpServlet {
         String amount = request.getParameter("amount");
         GameEngine gameEngine = game.getGameEngine();
         GameMoveStatus gameMoveStatus = gameEngine.getGameMoveStatus(amount);
-        if(gameMoveStatus.getIsValidAmount() != false )
+        if(gameMoveStatus.getIsValidAmount())
         {
             String numOfMove = request.getParameter("move");
             game.getGameEngine().gameMove(numOfMove,Integer.parseInt(amount));

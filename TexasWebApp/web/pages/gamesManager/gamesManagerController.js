@@ -209,7 +209,7 @@ function joinGameClickedCallback() {
 function onLogoutClick() {
     $.ajax(
         {
-            url: '/pages/signup/login',
+            url: '../../pages/signup/login',
             data: {
                 action: "logout"
             },
@@ -221,7 +221,8 @@ function onLogoutClick() {
 
 function logoutCallback(json) {
     didUserCloseWindow = false;
-    window.location = "/";
+    //window.location = "/";
+    window.location = buildUrlWithContextPath("/");
 
 }
 

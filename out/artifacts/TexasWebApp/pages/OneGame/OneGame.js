@@ -11,6 +11,8 @@ window.onload = function()
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
     //revealCommunityCards(); just for test - need to put it the correct place
+    checkIfClickButton();
+    setInterval(checkIfClickButton , 2000);
 };
 
 function refreshUserList() {

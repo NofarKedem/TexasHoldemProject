@@ -32,6 +32,7 @@ public class SessionUtils {
     }
 
     public static void logoutUser(HttpSession session) {
+
         session.invalidate();
     }
 

@@ -132,7 +132,7 @@ public class LoginServlet extends HttpServlet{
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        if(SessionUtils.hasSession(request) && SessionUtils.isLoggedIn(request.getSession())) {
+        if(SessionUtils.hasSession(request)) {
             usersManager.removeUser(SessionUtils.getUsername(request));
             SessionUtils.logoutUser(request.getSession());
             out.println(gson.toJson(new LoginStatus(false)));

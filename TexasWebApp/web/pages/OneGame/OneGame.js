@@ -13,7 +13,6 @@ window.onload = function()
     checkIfClickButton();
     setInterval(checkIfClickButton, 2000);
     //revealCommunityCards(); just for test - need to put it the correct place
-
 };
 
 function refreshUserList() {

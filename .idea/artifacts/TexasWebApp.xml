@@ -1,18 +1,19 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="TexasWebApp">
+  <artifact type="exploded-war" name="TexasWebApp">
     <output-path>$PROJECT_DIR$/out/artifacts/TexasWebApp</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="TexasWebApp/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="TexasWebApp" />
+          <element id="module-output" name="Server" />
+          <element id="module-output" name="JavaFx" />
         </element>
         <element id="directory" name="lib">
-          <element id="artifact" artifact-name="TexasHoldemProject:jar" />
-          <element id="library" level="project" name="HandRank" />
           <element id="library" level="project" name="gson-2.1" />
+          <element id="library" level="project" name="HandRank" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="TexasWebApp/web/Web" />
     </root>
   </artifact>
 </component>

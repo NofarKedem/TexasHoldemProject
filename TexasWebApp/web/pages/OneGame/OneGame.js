@@ -9,6 +9,7 @@ window.onload = function()
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
+    //revealCommunityCards(); just for test - need to put it the correct place
 };
 
 function refreshUserList() {
@@ -53,13 +54,11 @@ function refreshGameDetails() {
             },
             type: 'GET',
             success: refreshGameDetailsCallback,
-            error:onError
+
         }
     )
 }
-function onError() {
-    alert("ff");
-}
+
 function refreshGameDetailsCallback(json) {
     document.getElementsByClassName("handNumber")[0].innerHTML = json.currHand;
     document.getElementsByClassName("roundNumber")[0].innerHTML = json.currRound;
@@ -91,6 +90,7 @@ function checkNumOfUserToStartGameCallBack(json)
         clearInterval(checkNumOfUser);
         refreshPlayerInfo();
         setInterval(refreshPlayerInfo, 2000);
+
     }
 }
 function refreshPlayerInfo() {
@@ -110,15 +110,18 @@ function refreshPlayerInfo() {
 
 }
 
+function refreshPlayerInfoCallBack(json) {
 
-function StartGameCallBack(json) {
-  //  $("player1:hidden").show();
-    document.getElementById("nameForPlayer1").innerHTML = json[0].PlayerName;
-    document.getElementById("statePlayer1").innerHTML = json[0].playerState;
-    document.getElementById("chipsPlayer1").innerHTML = json[0].playerChips;
-    document.getElementById("buysPlayer1").innerHTML = json[0].playerBuys;
-    document.getElementById("wonPlayer1").innerHTML = json[0].playerHandsWon;
+    for(elem in json) {
 
+        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
+        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
+        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
+        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
+        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
+    }
+    revealPlayerCards(); //need to re-think one we will have a hands
 }
 
 function checkIfMyTurn() {
@@ -135,20 +138,7 @@ function checkIfMyTurn() {
         }
     )
 }
-function refreshPlayerInfoCallBack(json) {
-  //  $("player1:hidden").show();
 
-    for(elem in json) {
-
-        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
-        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
-        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
-        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
-        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
-        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
-    }
-
-}
 function checkIfMyTurnCallBack(json) {
     document.getElementsByClassName("action-button")[0].disabled = !json.fold;
     document.getElementsByClassName("action-button")[1].disabled = !json.calll;
@@ -160,4 +150,80 @@ function checkIfMyTurnCallBack(json) {
 
 function refreshPlayerInfoError() {
     console.log("Error: refreshPlayerInfo");
+}
+
+function revealPlayerCards() {
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'getPlayerCards'
+            },
+            type: 'GET',
+            success: revealPlayerCardsCallBack,
+            error:revealPlayerCardsError,
+
+        }
+    )
+}
+
+function revealPlayerCardsCallBack(json) {
+    var playersData = document.getElementsByClassName("player-data");
+    for(elem in playersData) {
+        if(playersData[elem].querySelector("ul li span:nth-child(2)").innerHTML == json[2]) {
+            var player = playersData[elem].querySelector("ul li span:nth-child(2)");
+            updatePlayerCards(player, json);
+            break;
+        }
+
+
+    }
+
+}
+
+function revealPlayerCardsError(json) {
+    console.log("Reveal Cards Error");
+
+}
+
+function updatePlayerCards(player, cards) {
+
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[0].src =
+            "cardsImgs/" + cards[0] + ".png";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[0].style.width = 60+"px";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[1].src =
+            "cardsImgs/" + cards[1] + ".png";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[1].style.width = 60+"px";
+}
+
+function revealCommunityCards() {
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'getComunityCardsAction'
+            },
+            type: 'GET',
+            success: revealComunityCardsCallBack,
+            error: revealComunityCardsError,
+
+        }
+    )
+}
+
+function revealComunityCardsCallBack(json) {
+    var communityCarrds = document.getElementsByClassName("card");
+    var i = 0;
+    for(card in json){
+        communityCarrds[i].src = "cardsImgs/" + json[card] + ".png";
+        i++;
+    }
+
+}
+
+function revealComunityCardsError(json) {
+    console.log("Reveal Community Cards Error");
+
 }

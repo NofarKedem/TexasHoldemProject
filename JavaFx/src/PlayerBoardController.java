@@ -357,7 +357,7 @@ public class PlayerBoardController {
         int indexOfCard =1;
         for(Card card : listOfCard)
         {
-            displayCommunityCard(card.getImagecard(),indexOfCard);
+            //displayCommunityCard(card.getImagecard(),indexOfCard);
             indexOfCard++;
         }
     }
@@ -367,7 +367,7 @@ public class PlayerBoardController {
         int indexOfCard =1;
         for(Card card : communityCradsFromReplayList)
         {
-            displayCommunityCard(card.getImagecard(),indexOfCard);
+            //displayCommunityCard(card.getImagecard(),indexOfCard);
             indexOfCard++;
         }
     }

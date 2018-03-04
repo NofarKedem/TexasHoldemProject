@@ -27,7 +27,8 @@ public class Card {
     private final Rank rank;
     private final Suit suit;
     private boolean isUsed;
-    Image imagecard;
+    private String cardAsString;
+    //Image imagecard;
 
     public Card()
     {
@@ -41,6 +42,7 @@ public class Card {
         this.rank = rank;
         this.suit = suit;
         this.isUsed = false;
+        this.cardAsString = rank.toString() + suit.toString();
 
         //this line was relevant for JAVAFX and cause exception in web app
         //imagecard = new Image( rank.value + suit.value + ".png"); //שרשור של השם הכרטיס + png
@@ -58,10 +60,10 @@ public class Card {
         this.isUsed = val;
     }
 
-    public Image getImagecard()
+    /*public Image getImagecard()
     {
         return imagecard;
-    }
+    }*/
 
 
 }

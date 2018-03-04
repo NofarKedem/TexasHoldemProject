@@ -288,9 +288,8 @@ public class GameEngine {
         PlayerInfo tempPlayerInfo = new PlayerInfo(getTypeOfPlayer(playerIndex),
                 getStatePlayer(playerIndex),getChipsPlayer(playerIndex),
                 getBuysPlayer(playerIndex),getHandWonPlayer(playerIndex),
-                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex));
-
-                //,getCardsPlayerobjCard(playerIndex));
+                getNumOfPlayer(playerIndex),getPlayerName(playerIndex),getPlayerId(playerIndex),getIsPlayerQuit(playerIndex),
+                getCardsPlayerobjCard(playerIndex));
         return tempPlayerInfo;
     }
 

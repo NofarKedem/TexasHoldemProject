@@ -13,4 +13,9 @@ public class GameMoveStatus {
     {
         this.error = error;
     }
+
+    public boolean getIsValidAmount()
+    {
+        return isValidAmount;
+    }
 }

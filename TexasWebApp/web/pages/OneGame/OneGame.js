@@ -1,6 +1,7 @@
 
 var checkNumOfUser = 0;
-
+var betValue;
+var raiseValuse;
 window.onload = function()
 {
     refreshUserList();
@@ -121,6 +122,22 @@ function StartGameCallBack(json) {
 
 }
 
+
+function refreshPlayerInfoCallBack(json) {
+  //  $("player1:hidden").show();
+
+    for(elem in json) {
+
+        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
+        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
+        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
+        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
+        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
+    }
+
+
+}
 function checkIfMyTurn() {
     $.ajax
     (
@@ -135,22 +152,8 @@ function checkIfMyTurn() {
         }
     )
 }
-function refreshPlayerInfoCallBack(json) {
-  //  $("player1:hidden").show();
-
-    for(elem in json) {
-
-        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
-        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
-        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
-        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
-        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
-        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
-    }
-
-}
 function checkIfMyTurnCallBack(json) {
-    document.getElementsByClassName("action-button")[0].disabled = !json.fold;
+    document.getElementsByClassName("action-button")[0].disabled = json.fold;
     document.getElementsByClassName("action-button")[1].disabled = !json.calll;
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
@@ -160,4 +163,123 @@ function checkIfMyTurnCallBack(json) {
 
 function refreshPlayerInfoError() {
     console.log("Error: refreshPlayerInfo");
+}
+
+function checkIfClickButton()
+{
+    document.getElementsByClassName("action-button")[0].onclick = foldClicked;
+    document.getElementsByClassName("action-button")[1].onclick = callClicked;
+    document.getElementsByClassName("action-button")[2].onclick = checkClicked;
+    betValue = document.getElementById("betInput").value;
+    document.getElementsByClassName("action-button")[3].onclick = betClicked;
+    raiseValuse = document.getElementById("raiseInput").value;
+    document.getElementsByClassName("action-button")[4].onclick = raiseClicked;
+
+}
+
+function foldClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'buttonActionClicked',
+                    move: '1',
+                    amount: 0
+                },
+                type: 'GET',
+                success: statusCallBack,
+
+            }
+        )
+    }
+}
+
+function callClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'buttonActionClicked',
+                    move: '3',
+                    amount: 0
+                },
+                type: 'GET',
+                success: statusCallBack,
+
+            }
+        )
+    }
+}
+
+function checkClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'buttonActionClicked',
+                    move: '4',
+                    amount: 0
+                },
+                type: 'GET',
+                success: statusCallBack,
+
+            }
+        )
+    }
+}
+
+function betClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'buttonActionClicked',
+                    move: '2',
+                    amount:betValue
+
+                },
+                type: 'GET',
+                success: statusCallBack,
+
+            }
+        )
+    }
+}
+
+function raiseClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'buttonActionClicked',
+                    move: '5',
+                    amount:raiseValuse
+                },
+                type: 'GET',
+                success: statusCallBack,
+
+            }
+        )
+    }
+}
+function statusCallBack(json) {
+    if(json.isValidAmount === false)
+    {
+        document.getElementById("inputError").value = json.error;
+    }
 }

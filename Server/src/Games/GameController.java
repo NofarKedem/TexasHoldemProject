@@ -3,6 +3,7 @@ package Games;
 
 import GameLogic.GameEngine;
 import GameLogic.PlayerInfo;
+import GameLogic.movesInfo;
 import users.User;
 
 import java.util.ArrayList;
@@ -82,5 +83,9 @@ public class GameController {
     public List<PlayerInfo> getAllPlayerInfo()
     {
         return game.getAllPlayerInfo();
+    }
+    public movesInfo getMovesInfo()
+    {
+        return game.getMoveInfo();
     }
 }

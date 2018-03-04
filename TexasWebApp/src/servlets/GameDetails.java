@@ -1,6 +1,13 @@
 package servlets;
 
+
+import GameLogic.Card;
+import GameLogic.GameDetailsInfo;
+import GameLogic.PlayerInfo;
+import GameLogic.movesInfo;
+
 import GameLogic.*;
+
 import Games.GameController;
 import Games.GamesManager;
 import com.google.gson.Gson;
@@ -67,6 +74,18 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
+                case "getPlayerCards":
+                    try {
+                        this.getPlayerCardsAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+                case "getComunityCardsAction":
+                    try {
+                        this.getComunityCardsAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
                 case "buttonActionClicked":
                     try {
                         this.buttonActionClickedAction(request, response, gamesManager);
@@ -111,7 +130,8 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        out.println(gson.toJson(game.getAllPlayerInfo()));
+        List<PlayerInfo> testGame = game.getAllPlayerInfo();
+        out.println(gson.toJson(/*game.getAllPlayerInfo()*/testGame));
     }
 
     private void checkIfMyTurnAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
@@ -128,6 +148,42 @@ public class GameDetails  extends HttpServlet {
 
     }
 
+    private void getPlayerCardsAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
+        int playerIndex = game.getGameEngine().getPlayerIndexByName(user.getName());
+        PlayerInfo playerInfo = game.getGameEngine().getPlayerInfo(playerIndex);
+        List<String> cardsAsString =  playerInfo.getPlayerCardsAsString();
+        cardsAsString.add(user.getName()); // adding name of the card holder for client identification
+        out.println(gson.toJson(cardsAsString));
+
+    }
+
+    private void getComunityCardsAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        GameController game = (GameController)request.getSession().getAttribute("game");
+
+        //game.getGameEngine().initializeHand();//just for test, need to be removed
+        //game.getGameEngine().callFlop(); //just for test, need to be removed
+        //game.getGameEngine().callTurn(); //just for test, need to be removed
+        //game.getGameEngine().callRiver(); //just for test, need to be removed
+        List<Card> communityCards = game.getGameEngine().getCommunityCards();
+        List<String> communityCardsAsString = new ArrayList<>();
+        for (Card card:communityCards) {
+            communityCardsAsString.add(card.toString());
+        }
+        out.println(gson.toJson(communityCardsAsString));
+
+    }
+
+
     private void buttonActionClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
@@ -142,6 +198,7 @@ public class GameDetails  extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println(gson.toJson(gameMoveStatus));
     }
+
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {

@@ -1,5 +1,9 @@
 package GameLogic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class PlayerInfo {
     private String PlayerName;
     private int PlayerId;
@@ -9,12 +13,12 @@ public class PlayerInfo {
     private int playerChips;
     private int playerBuys;
     private int playerHandsWon;
-    //private Card[] playerCards;
+    private List<Card> playerCards;
     private boolean isQuit;
 
     public PlayerInfo(char typeOfPlayer, String playerState, int playerChips, int playerBuys,
-               int playerHandsWon, int playerIndex, String PlayerName, int PlayerId, boolean isQuit){
-            //, Card[] playerCards){
+               int playerHandsWon, int playerIndex, String PlayerName, int PlayerId, boolean isQuit,
+                      Card[] playerCards){
         this.typeOfPlayer = typeOfPlayer;
         this.playerState = playerState;
         this.playerChips = playerChips;
@@ -24,7 +28,7 @@ public class PlayerInfo {
         this.PlayerName = PlayerName;
         this.PlayerId = PlayerId;
         this.isQuit = isQuit;
-       // this.playerCards = playerCards;
+       this.playerCards = convertToArrayList(playerCards);
     }
 
     public String getName()
@@ -60,10 +64,24 @@ public class PlayerInfo {
         return this.playerHandsWon;
     }
 
-/*
-    public Card[] getPlayerCards(){
+
+    public List<Card> getPlayerCards(){
         return this.playerCards;
-    }*/
+    }
+
+    public List<Card> convertToArrayList(Card[] cards) {
+        List<Card> playerCards = new ArrayList<>(Arrays.asList(cards));
+        return playerCards;
+    }
+
+    public List<String> getPlayerCardsAsString(){
+        List<String> TempPlayerCards = new ArrayList<>();
+        for (Card card: playerCards) {
+            TempPlayerCards.add(card.toString());
+        }
+
+        return TempPlayerCards;
+    }
 
     public boolean getIsQuit()
     {

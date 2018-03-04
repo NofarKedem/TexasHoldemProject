@@ -85,8 +85,12 @@ public class GameController {
     {
         return game.getAllPlayerInfo();
     }
+
+
+
     public movesInfo getMovesInfo()
     {
         return game.getMoveInfo();
     }
+
 }

@@ -7,14 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b0fe516-6d60-45ca-9f27-e28df59361d5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasHoldemProject_jar/TexasHoldemProject.jar" afterPath="$PROJECT_DIR$/out/artifacts/TexasHoldemProject_jar/TexasHoldemProject.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasWebApp/WEB-INF/classes/servlets/GameDetails.class" afterPath="$PROJECT_DIR$/out/artifacts/TexasWebApp/WEB-INF/classes/servlets/GameDetails.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasWebApp/WEB-INF/lib/TexasHoldemProject.jar" afterPath="$PROJECT_DIR$/out/artifacts/TexasWebApp/WEB-INF/lib/TexasHoldemProject.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasWebApp_war_exploded/WEB-INF/lib/TexasHoldemProject.jar" afterPath="$PROJECT_DIR$/out/artifacts/TexasWebApp_war_exploded/WEB-INF/lib/TexasHoldemProject.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/GameLogic/GameEngine.class" afterPath="$PROJECT_DIR$/out/production/Server/GameLogic/GameEngine.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Server/GameLogic/GameMoveStatus.class" afterPath="$PROJECT_DIR$/out/production/Server/GameLogic/GameMoveStatus.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/TexasWebApp/servlets/GameDetails.class" afterPath="$PROJECT_DIR$/out/production/TexasWebApp/servlets/GameDetails.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/TexasHoldemProject_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/TexasHoldemProject_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/TexasWebApp.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/TexasWebApp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/GameLogic/GameEngine.java" afterPath="$PROJECT_DIR$/Server/src/GameLogic/GameEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/src/GameLogic/GameMoveStatus.java" afterPath="$PROJECT_DIR$/Server/src/GameLogic/GameMoveStatus.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/TexasWebApp.iml" afterPath="$PROJECT_DIR$/TexasWebApp/TexasWebApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/src/servlets/LoginServlet.java" afterPath="$PROJECT_DIR$/TexasWebApp/src/servlets/LoginServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/src/utility/SessionUtils.java" afterPath="$PROJECT_DIR$/TexasWebApp/src/utility/SessionUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/src/servlets/GameDetails.java" afterPath="$PROJECT_DIR$/TexasWebApp/src/servlets/GameDetails.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/web/pages/OneGame/OneGame.js" afterPath="$PROJECT_DIR$/TexasWebApp/web/pages/OneGame/OneGame.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TexasWebApp/web/pages/gamesManager/gamesManagerController.js" afterPath="$PROJECT_DIR$/TexasWebApp/web/pages/gamesManager/gamesManagerController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasWebApp/pages/OneGame/OneGame.js" afterPath="$PROJECT_DIR$/out/artifacts/TexasWebApp/pages/OneGame/OneGame.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +36,8 @@
       <file leaf-file-name="gamesManagerController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TexasWebApp/web/pages/gamesManager/gamesManagerController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="211" column="44" lean-forward="true" selection-start-line="211" selection-start-column="44" selection-end-line="211" selection-end-column="44" />
+            <state relative-caret-position="3165">
+              <caret line="211" column="44" lean-forward="false" selection-start-line="211" selection-start-column="44" selection-end-line="211" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -39,8 +46,8 @@
       <file leaf-file-name="LoginServlet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TexasWebApp/src/servlets/LoginServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="641">
-              <caret line="142" column="5" lean-forward="true" selection-start-line="142" selection-start-column="5" selection-end-line="142" selection-end-column="5" />
+            <state relative-caret-position="550">
+              <caret line="142" column="5" lean-forward="false" selection-start-line="142" selection-start-column="5" selection-end-line="142" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -49,7 +56,7 @@
       <file leaf-file-name="SessionUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TexasWebApp/src/utility/SessionUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
+            <state relative-caret-position="390">
               <caret line="35" column="12" lean-forward="false" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
               <folding />
             </state>
@@ -172,7 +179,30 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="HandRank" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="HandRank" type="70bed36:NamedLibraryElementNode" />
+              <item name="HandRank.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -286,30 +316,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="HandRank" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="HandRank" type="70bed36:NamedLibraryElementNode" />
-              <item name="HandRank.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -521,15 +528,15 @@
       <option name="presentableId" value="Default" />
       <updated>1520185217443</updated>
       <workItem from="1520185220568" duration="4025000" />
+      <workItem from="1520191655191" duration="63000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71522000" />
+    <option name="totallyTimeSpent" value="71585000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="19" y="22" width="1239" height="722" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -541,7 +548,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1323764" sideWeight="0.50292397" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28389156" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28389156" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -722,9 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="340" column="0" lean-forward="true" selection-start-line="340" selection-start-column="0" selection-end-line="340" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -789,7 +793,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-10">
           <caret line="543" column="6" lean-forward="false" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -805,7 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="369" column="14" lean-forward="false" selection-start-line="369" selection-start-column="14" selection-end-line="369" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -842,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-930">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,7 +911,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,7 +918,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -926,7 +925,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="15" column="61" lean-forward="false" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -942,15 +940,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TexasWebApp/web/pages/gamesManager/gamesManagerController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="211" column="44" lean-forward="true" selection-start-line="211" selection-start-column="44" selection-end-line="211" selection-end-column="44" />
+        <state relative-caret-position="3165">
+          <caret line="211" column="44" lean-forward="false" selection-start-line="211" selection-start-column="44" selection-end-line="211" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TexasWebApp/src/utility/SessionUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
+        <state relative-caret-position="390">
           <caret line="35" column="12" lean-forward="false" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
           <folding />
         </state>
@@ -958,8 +956,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TexasWebApp/src/servlets/LoginServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="142" column="5" lean-forward="true" selection-start-line="142" selection-start-column="5" selection-end-line="142" selection-end-column="5" />
+        <state relative-caret-position="550">
+          <caret line="142" column="5" lean-forward="false" selection-start-line="142" selection-start-column="5" selection-end-line="142" selection-end-column="5" />
           <folding />
         </state>
       </provider>

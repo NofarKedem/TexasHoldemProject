@@ -190,9 +190,11 @@ public class GameDetails  extends HttpServlet {
         String amount = request.getParameter("amount");
         GameEngine gameEngine = game.getGameEngine();
         GameMoveStatus gameMoveStatus = gameEngine.getGameMoveStatus(amount);
-        String numOfMove = request.getParameter("move");
-        game.getGameEngine().gameMove(numOfMove,Integer.parseInt(amount));
-
+        if(gameMoveStatus.getIsValidAmount() != false )
+        {
+            String numOfMove = request.getParameter("move");
+            game.getGameEngine().gameMove(numOfMove,Integer.parseInt(amount));
+        }
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();

@@ -452,10 +452,10 @@ public class GameEngine {
     }
     public GameMoveStatus getGameMoveStatus(String amount)
     {
+
         GameMoveStatus gameMoveStatus = new GameMoveStatus();
+
         try{
-            if(amount == "")
-                throw new Exception("Empty field");
             int amountInt = Integer.parseInt(amount);
             if(validAmount(amountInt))
                 gameMoveStatus.setValidAmount(true);
@@ -469,6 +469,7 @@ public class GameEngine {
             gameMoveStatus.setError(e.getMessage());
 
         }
+
         return gameMoveStatus;
     }
     public int getLastBetOfTheCurrPlayer()

@@ -10,9 +10,9 @@ window.onload = function()
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
-    //revealCommunityCards(); just for test - need to put it the correct place
     checkIfClickButton();
-    setInterval(checkIfClickButton , 2000);
+    setInterval(checkIfClickButton, 2000);
+    //revealCommunityCards(); just for test - need to put it the correct place
 };
 
 function refreshUserList() {

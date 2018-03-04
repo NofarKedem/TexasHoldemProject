@@ -6,11 +6,9 @@ window.onload = function()
 {
     refreshUserList();
     checkNumOfUserToStartGame();
-    refreshPlayerInfo();
     refreshGameDetails();
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
-    setInterval(refreshPlayerInfo, 2000);
     checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
 };
 
@@ -92,6 +90,8 @@ function checkNumOfUserToStartGameCallBack(json)
     {
         alert("The game start");
         clearInterval(checkNumOfUser);
+        refreshPlayerInfo();
+        setInterval(refreshPlayerInfo, 2000);
     }
 }
 function refreshPlayerInfo() {

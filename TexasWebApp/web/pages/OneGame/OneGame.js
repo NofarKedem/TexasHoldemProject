@@ -2,19 +2,40 @@
 var checkNumOfUser = 0;
 var betValue;
 var raiseValuse;
+var stopReadyInterval;
+var endHand;
+var stopNewHandInterval;
+var stopDisplayMoveInterval;
 window.onload = function()
 {
+    disableActionMove(true);
     refreshUserList();
-    checkNumOfUserToStartGame();
+    checkIfStartGame();
     refreshGameDetails();
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
-    checkNumOfUser = setInterval(checkNumOfUserToStartGame, 2000);
-    checkIfClickButton();
-    setInterval(checkIfClickButton, 2000);
+    checkNumOfUser = setInterval(checkIfStartGame, 2000);
     //revealCommunityCards(); just for test - need to put it the correct place
 };
 
+function disableActionMove(bool)
+{
+    disableMoveButton(bool);
+    disableChipAReadyButton(bool);
+}
+function disableChipAReadyButton(bool)
+{
+    document.getElementsByClassName("action-button")[6].disabled = bool;
+    document.getElementsByClassName("action-button")[7].disabled = bool;
+}
+function disableMoveButton(bool)
+{
+    document.getElementsByClassName("action-button")[0].disabled = bool;
+    document.getElementsByClassName("action-button")[1].disabled = bool;
+    document.getElementsByClassName("action-button")[2].disabled = bool;
+    document.getElementsByClassName("action-button")[3].disabled = bool;
+    document.getElementsByClassName("action-button")[4].disabled = bool;
+}
 function refreshUserList() {
     $.ajax(
         {
@@ -71,21 +92,21 @@ function refreshGameDetailsCallback(json) {
 }
 
 
-function checkNumOfUserToStartGame(){
+function checkIfStartGame(){
    $.ajax
     (
         {
             url: 'OneGameDetails',
             data: {
-                action: 'ifThereAreEnoughUser'
+                action: 'ifStartGame'
             },
             type: 'GET',
-            success: checkNumOfUserToStartGameCallBack,
+            success: checkIfStartGameCallBack,
         }
     )
 }
 
-function checkNumOfUserToStartGameCallBack(json)
+function checkIfStartGameCallBack(json)
 {
     if(json === true)
     {
@@ -93,7 +114,12 @@ function checkNumOfUserToStartGameCallBack(json)
         clearInterval(checkNumOfUser);
         refreshPlayerInfo();
         setInterval(refreshPlayerInfo, 2000);
-
+        displayMoveButtonAccordingToMyTurn();
+        stopDisplayMoveInterval = setInterval(displayMoveButtonAccordingToMyTurn, 2000);
+        checkIfClickButton();
+        setInterval(checkIfClickButton, 2000);
+        checkIfHandEnd;
+        endHand = setInterval(checkIfHandEnd, 2000);
     }
 }
 function refreshPlayerInfo() {
@@ -127,23 +153,27 @@ function refreshPlayerInfoCallBack(json) {
     revealPlayerCards(); //need to re-think one we will have a hands
 
 }
-function checkIfMyTurn() {
+function refreshPlayerInfoError() {
+    console.log("Error: refreshPlayerInfo");
+}
+
+function displayMoveButtonAccordingToMyTurn() {
     $.ajax
     (
         {
             url: 'OneGameDetails',
             data: {
-                action: 'checkIfMyTurn'
+                action: 'displayMoveButtonAccordingToMyTurn'
             },
             type: 'GET',
-            success: checkIfMyTurnCallBack,
+            success: displayMoveButtonAccordingToMyToMyTurnCallBack,
 
         }
     )
 }
 
-function checkIfMyTurnCallBack(json) {
-    document.getElementsByClassName("action-button")[0].disabled = json.fold;
+function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
+    document.getElementsByClassName("action-button")[0].disabled = !json.fold;
     document.getElementsByClassName("action-button")[1].disabled = !json.calll;
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
@@ -151,9 +181,7 @@ function checkIfMyTurnCallBack(json) {
 
 }
 
-function refreshPlayerInfoError() {
-    console.log("Error: refreshPlayerInfo");
-}
+
 
 
 function revealPlayerCards() {
@@ -346,6 +374,103 @@ function raiseClicked(event)
 function statusCallBack(json) {
     if(json.isValidAmount === false)
     {
-        document.getElementById("inputError").value = json.error;
+        document.getElementById("inputError").innerHTML = json.error;
+    }
+    else
+    {
+        document.getElementById("inputError").innerHTML = "";
+    }
+    /*
+    else if(json.isRoundEnd === true)
+    {
+        //commuinty cards per json.numRound
+    }
+    */
+}
+
+function checkIfHandEnd()
+{
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'checkIfHandEnd',
+            },
+            type: 'GET',
+            success: checkIfHandEndCallBack,
+
+        }
+    )
+}
+function checkIfHandEndCallBack(json)
+{
+    if(json===true)
+    {
+        //pop-up to winners
+        alert("end hand");
+        clearInterval(endHand);
+        clearInterval(stopDisplayMoveInterval);
+        disableMoveButton(true);
+        disableChipAReadyButton(false);
+        stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
+        stopNewHandInterval = setInterval(ifNewHand, 2000);
     }
 }
+
+function ifReadyButtonCliked()
+{
+    document.getElementsByClassName("action-button")[7].onclick = readyClicked;
+}
+function readyClicked(event)
+{
+    if(event != null) {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'readyClicked',
+                },
+                type: 'GET',
+                success: readyClickedCallBack,
+
+            }
+        )
+    }
+}
+
+function readyClickedCallBack(json)
+{
+    disableChipAReadyButton(true);
+    clearInterval(stopReadyInterval);
+}
+
+function ifNewHand()
+{
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'ifNewHand',
+            },
+            type: 'GET',
+            success: ifNewHandCallBack,
+
+        }
+    )
+}
+function ifNewHandCallBack(json)
+{
+    if(json===true)
+    {
+        clearInterval(stopNewHandInterval);
+        alert("New Hand Start");
+        displayMoveButtonAccordingToMyTurn();
+        stopDisplayMoveInterval = setInterval(displayMoveButtonAccordingToMyTurn, 2000);
+        checkIfHandEnd;
+        endHand = setInterval(checkIfHandEnd, 2000);
+    }
+}
+

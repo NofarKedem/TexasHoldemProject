@@ -55,9 +55,9 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
-                case "ifThereAreEnoughUser":
+                case "ifStartGame":
                     try {
-                        this.ifThereAreEnoughUserAction(request, response, gamesManager);
+                        this.ifStartGameAction(request, response, gamesManager);
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
@@ -68,9 +68,9 @@ public class GameDetails  extends HttpServlet {
                         e.printStackTrace();
                     }break;
 
-                case "checkIfMyTurn":
+                case "displayMoveButtonAccordingToMyTurn":
                     try {
-                        this.checkIfMyTurnAction(request, response, gamesManager);
+                        this.displayMoveButtonAccordingToMyTurn(request, response, gamesManager);
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
@@ -92,6 +92,28 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
+                case "readyClicked":
+                    try {
+                        this.readyClickedAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+
+                case "checkIfHandEnd":
+                    try {
+                        this.checkIfHandEndAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+
+                case "ifNewHand":
+                    try {
+                        this.ifNewHandAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+
+
             }
 
         }
@@ -101,12 +123,11 @@ public class GameDetails  extends HttpServlet {
             response.setContentType("application/json");
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
-
             GameController game = (GameController)request.getSession().getAttribute("game");
             GameDetailsInfo gameDetailsInfo = game.getGameEngine().getGameDetailsInfo();
             out.println(gson.toJson(gameDetailsInfo));
         }
-    private void ifThereAreEnoughUserAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+    private void ifStartGameAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
 
         response.setContentType("application/json");
@@ -114,9 +135,8 @@ public class GameDetails  extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         GameController game = (GameController)request.getSession().getAttribute("game");
-        if(game.getnumOfPlayers() == game.getnumOfSubscribers())
+        if(game.getIsActive())
         {
-            game.startGame();
             out.println(gson.toJson(true));
         }
         else
@@ -134,7 +154,7 @@ public class GameDetails  extends HttpServlet {
         out.println(gson.toJson(/*game.getAllPlayerInfo()*/testGame));
     }
 
-    private void checkIfMyTurnAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+    private void displayMoveButtonAccordingToMyTurn(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
         User user = (User)request.getSession().getAttribute("user");
@@ -193,13 +213,47 @@ public class GameDetails  extends HttpServlet {
         if(gameMoveStatus.getIsValidAmount())
         {
             String numOfMove = request.getParameter("move");
-            game.getGameEngine().gameMove(numOfMove,Integer.parseInt(amount));
+            game.gameMove(numOfMove,Integer.parseInt(amount),gameMoveStatus);
         }
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
         out.println(gson.toJson(gameMoveStatus));
     }
+
+    private void readyClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        game.userClickedReady();
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(true));
+    }
+
+
+    private void checkIfHandEndAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson( game.isEndHand()));
+    }
+
+
+    private void ifNewHandAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson( !game.isEndHand()));
+    }
+
+
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)

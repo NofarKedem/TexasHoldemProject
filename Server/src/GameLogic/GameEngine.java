@@ -48,9 +48,12 @@ public class GameEngine {
     public void stratGame(List<users.User> userList)
     {
         initializePlayers(userList);
+        startHand();
+    }
+    public void startHand()
+    {
         initHandReplay();
         initializeHand();
-        setPlayHand();
         cardDistribusionToPlayer();
         initRound();
         blindBetSmall();
@@ -116,6 +119,7 @@ public class GameEngine {
     }
 
     public void initializeHand(){
+        numOfPlayHands++;
         deck.InitCardInDeck();
         currHand = new Hand(deck, handTohandCashBox);
 

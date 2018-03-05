@@ -1,9 +1,7 @@
 package Games;
 
 
-import GameLogic.GameEngine;
-import GameLogic.PlayerInfo;
-import GameLogic.movesInfo;
+import GameLogic.*;
 import users.User;
 
 import java.util.ArrayList;
@@ -22,6 +20,9 @@ public class GameController {
     private int BigBlind;
     private boolean fixedBlind;
     private List<User> users;
+    private int numOfPlayerClickedready;
+    private boolean isEndHand;
+    private boolean isNewHand;
 
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
@@ -30,6 +31,8 @@ public class GameController {
         this.isActive = false;
         this.game = new GameEngine();
         users = new ArrayList<>();
+        numOfPlayerClickedready=0;
+        isEndHand= false;
     }
 
     public String getName() {
@@ -64,6 +67,10 @@ public class GameController {
 
         users.add(user);
         numOfSubscribers++;
+        if(numOfPlayers == numOfSubscribers)
+        {
+            startGame();
+        }
     }
 
     public List<User> getUsers() {
@@ -93,4 +100,59 @@ public class GameController {
         return game.getMoveInfo();
     }
 
+    public boolean getIsActive()
+    {
+        return isActive;
+    }
+
+    public void gameMove(String LastGameMove, int amount, GameMoveStatus gameMoveStatus)
+    {
+        Utils.RoundResult result = game.gameMove(LastGameMove,amount);
+        if(result == Utils.RoundResult.CLOSEROUND)
+        {
+            if(game.getCurrNumOfRound() == 4)
+            {
+                //end hand
+                isEndHand = true;
+                game.closeTheHand();
+               // gameMoveStatus.setEndHand(true);
+            }
+            else
+            {
+                game.initRound();
+               // gameMoveStatus.setRoundEnd(true);
+                gameMoveStatus.setNumRound(game.getCurrNumOfRound());
+            }
+        }
+    }
+
+    public void userClickedReady()
+    {
+        numOfPlayerClickedready++;
+        if(numOfPlayerClickedready == numOfSubscribers)
+        {
+            if(numOfHands == game.getCurrentNumberOfHand())
+            {
+                //endGame and return to lobby
+            }
+            else {
+                numOfPlayerClickedready = 0;
+                isEndHand = false;
+                game.startHand();
+                isNewHand = true;
+            }
+        }
+    }
+
+    public boolean isNewHand() {
+        return isNewHand;
+    }
+
+    public boolean isEndHand() {
+        return isEndHand;
+    }
+
+    public void setNewHand(boolean newHand) {
+        isNewHand = newHand;
+    }
 }

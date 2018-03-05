@@ -182,3 +182,6 @@ body {
     height: 40px;
     color: #030303;
 }
+#dialog {
+    display: none;
+}

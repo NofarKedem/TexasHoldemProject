@@ -15,7 +15,6 @@ window.onload = function()
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkIfStartGame, 2000);
-    //revealCommunityCards(); just for test - need to put it the correct place
 };
 
 function disableActionMove(bool)
@@ -405,9 +404,33 @@ function checkIfHandEnd()
 }
 function checkIfHandEndCallBack(json)
 {
-    if(json===true)
+    if(json.isHandEnd === true)
     {
         //pop-up to winners
+
+        for(var i = 0; i < json.winnersDetails.length; i++) {
+            if(json.winnersDetails[i].cardCombination.indexOf("Technical victory") > - 1) {
+                // For loop to Display All Names
+                json.winnersDetails.forEach(function (item) {
+                   document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + item.name;
+                });
+                // Display Winning details
+                document.getElementsByClassName("cardComb")[0].innerHTML += json.winnersDetails[i].cardCombination;
+                // Display Prize
+                document.getElementsByClassName("prize")[0].innerHTML += json.winnersDetails[i].prize;
+                i = json.winnersDetails.length;
+            } else {
+                // Display All Names
+                document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
+                // Display Card Comb All Players
+                document.getElementsByClassName("cardComb")[0].innerHTML +=  "<br>" + json.winnersDetails[i].cardCombination;
+                // Display Prize
+                if(i == 0) {
+                    document.getElementsByClassName("prize")[0].innerHTML +=  "<br>" + json.winnersDetails[i].prize;
+                }
+            }
+        }
+        $( "#dialog" ).dialog();
         alert("end hand");
         clearInterval(endHand);
         clearInterval(stopDisplayMoveInterval);
@@ -415,6 +438,9 @@ function checkIfHandEndCallBack(json)
         disableChipAReadyButton(false);
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
         stopNewHandInterval = setInterval(ifNewHand, 2000);
+    }
+    else{
+        revealCommunityCards();
     }
 }
 

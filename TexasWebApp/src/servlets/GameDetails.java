@@ -190,10 +190,6 @@ public class GameDetails  extends HttpServlet {
         PrintWriter out = response.getWriter();
         GameController game = (GameController)request.getSession().getAttribute("game");
 
-        //game.getGameEngine().initializeHand();//just for test, need to be removed
-        //game.getGameEngine().callFlop(); //just for test, need to be removed
-        //game.getGameEngine().callTurn(); //just for test, need to be removed
-        //game.getGameEngine().callRiver(); //just for test, need to be removed
         List<Card> communityCards = game.getGameEngine().getCommunityCards();
         List<String> communityCardsAsString = new ArrayList<>();
         for (Card card:communityCards) {
@@ -239,7 +235,8 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        out.println(gson.toJson( game.isEndHand()));
+        HandResult handResult = new HandResult(game.isEndHand(),game.getWinResults());
+        out.println(gson.toJson(handResult));
     }
 
 

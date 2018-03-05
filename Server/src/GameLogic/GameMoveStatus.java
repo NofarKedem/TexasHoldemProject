@@ -1,11 +1,15 @@
 package GameLogic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameMoveStatus {
     private boolean isValidAmount;
     private String error;
    // private boolean isHandEnd;
     private boolean isRoundEnd;
     private int numRound;
+
 
     public void setValidAmount(boolean isValidAmount)
     {
@@ -41,4 +45,8 @@ public class GameMoveStatus {
     public void setRoundEnd(boolean roundEnd) {
         isRoundEnd = roundEnd;
     }
+
+
+
+
 }

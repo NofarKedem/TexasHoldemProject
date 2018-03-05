@@ -9,6 +9,7 @@ public class GamesManager {
 
     public boolean isGameExists(String gameName) {
         return this.openGames.containsKey(gameName);
+
     }
 
     public void addGame(GameController newGame) {

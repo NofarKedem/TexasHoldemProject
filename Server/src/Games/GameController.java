@@ -40,9 +40,10 @@ public class GameController {
     }
 
 
-    public void loadXmlFile(String xmlDescription) throws Exception{
-        game.loadGameFile(xmlDescription);
+    public String loadXmlFile(String xmlDescription) throws Exception{
+        String gameTitle = game.loadGameFile(xmlDescription);
         updateGameDetails();
+        return gameTitle;
     }
 
     public void updateGameDetails(){

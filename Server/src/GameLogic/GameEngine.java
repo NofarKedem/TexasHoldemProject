@@ -213,14 +213,14 @@ public class GameEngine {
     }
 
     //this function is For the Web-App application xml file load
-    public void loadGameFile(String xmlDescription) throws Exception{
+    public String loadGameFile(String xmlDescription) throws Exception{
 
             GameDescriptor gameDescriptor = SimpleJAXBMain.fromXmlFileToObject(xmlDescription);
-            checkFileValidation(gameDescriptor);
+            return checkFileValidation(gameDescriptor);
 
     }
 
-    private void checkFileValidation(GameDescriptor gameDescriptor) throws Exception{
+    private String checkFileValidation(GameDescriptor gameDescriptor) throws Exception{
         int tempSmall = (gameDescriptor.getStructure().getBlindes().getSmall()).intValue();
         int tempBig = (gameDescriptor.getStructure().getBlindes().getBig()).intValue();
         if (tempSmall >= tempBig)
@@ -255,6 +255,7 @@ public class GameEngine {
         originalBig = tempBig;
         originalSmall = tempSmall;
         numberOfMaxPlayersInGame = tempNumOfPlayer;
+        return nameOfGame; //return the game title to check if it already exists (by the servlet)
     }
 
     private void checkThereIsHumanPlayerAtXml(List<Player> listOfPlayerFromXML) throws Exception

@@ -172,6 +172,7 @@ public class GameDetails  extends HttpServlet {
                 moveInfo.setAllFalse();
                 game.gameMoveComputer();
             }
+            moveInfo.setIfMyTurn(true);
         }
         else
             moveInfo.setAllFalse();

@@ -7,6 +7,8 @@ var endHand;
 var stopNewHandInterval;
 var stopDisplayMoveInterval;
 var stopifQuitClickedInterval;
+var stopsparkBorderInterval;
+
 window.onload = function()
 {
     disableActionMove(true);
@@ -66,6 +68,12 @@ function refreshGameUserListCallback(json) {
         var tr = $(document.createElement('tr'));
 
         var td = $(document.createElement('td')).text(user.name);
+        if(user.isMyTurn === true)
+        {
+            td[0].style.fontWeight = "900"
+            td[0].style.color = "red";
+        }
+
 
         td.appendTo(tr);
 
@@ -153,6 +161,7 @@ function refreshPlayerInfoCallBack(json) {
     for(elem in json) {
         if(json[elem].isQuit == false) {
             document.getElementById("nameForPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+            document.getElementById("typePlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].typeOfPlayer;
             document.getElementById("statePlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerState;
             document.getElementById("chipsPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
             document.getElementById("buysPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
@@ -192,8 +201,8 @@ function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
     document.getElementsByClassName("action-button")[4].disabled = !json.raise;
-
 }
+
 
 function revealPlayerCards() {
     $.ajax

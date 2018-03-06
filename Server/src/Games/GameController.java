@@ -78,6 +78,16 @@ public class GameController {
     }
 
     public List<User> getUsers() {
+        if(isActive && (isEndHand==false)) {
+            int currPlayer = game.getCurrPlayer();
+            for (User user : users) {
+                int index = game.getPlayerIndexByName(user.getName());
+                if(currPlayer == index)
+                    user.setIsMyTurn(true);
+                else
+                    user.setIsMyTurn(false);
+            }
+        }
         return users;
     }
     public GameEngine getGameEngine()
@@ -88,6 +98,7 @@ public class GameController {
     public void startGame()
     {
         this.isActive = true;
+        isAllHandsEnd = false;
         game.stratGame(users);
 
     }
@@ -133,7 +144,7 @@ public class GameController {
                 {
                     //endGame and return to lobby
                     endAllHand();
-                    isAllHandsEnd = true;
+
                 }
             }
             else
@@ -255,18 +266,13 @@ public class GameController {
 
     public void endAllHand()
     {
-        //check about engine
-        //this.game = new GameEngine();
-
+        game.restartCurrentGame();
         numOfSubscribers = 0;
         isActive = false;
-
-        //check about buy
-
         users.clear();
         numOfPlayerClickedready=0;
         isEndHand = false;
-        isAllHandsEnd = false;
+        isAllHandsEnd = true;
     }
 
     public boolean isEndHand() {

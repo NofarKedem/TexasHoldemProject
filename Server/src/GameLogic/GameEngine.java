@@ -607,10 +607,13 @@ public class GameEngine {
     public void restartCurrentGame()
     {
         deck.InitCardInDeck();
+        players.clear();
+        /*
         for(PokerPlayer player : players)
         {
             player.resetPlayer(numOfChipsPerBuy);
         }
+        */
         currHand= null;
         numOfPlayHands=0;
         dilerIndex = 0;

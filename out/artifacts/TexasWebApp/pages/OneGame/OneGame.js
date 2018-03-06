@@ -8,6 +8,7 @@ var stopNewHandInterval;
 var stopDisplayMoveInterval;
 var stopifQuitClickedInterval;
 var stopsparkBorderInterval;
+var stopButChipsInterval;
 
 window.onload = function()
 {
@@ -464,6 +465,8 @@ function checkIfHandEndCallBack(json)
         disableChipAReadyButton(false);
         disableQuitButton(false);
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
+        stopButChipsInterval = setInterval(buyChipsCliked, 2000);
+
         stopNewHandInterval = setInterval(ifNewHand, 2000);
     }
     else{
@@ -498,6 +501,7 @@ function readyClickedCallBack(json)
     disableChipAReadyButton(true);
     disableQuitButton(true);
     clearInterval(stopReadyInterval);
+    clearInterval(stopButChipsInterval);
 }
 
 function ifNewHand()
@@ -566,4 +570,29 @@ function calculateContextPath() {
     var pathWithoutLeadingSlash = window.location.pathname.substring(1);
     var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
     return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
+}
+
+function buyChipsCliked()
+{
+    document.getElementsByClassName("action-button")[6].onclick = ChipsCliked;
+}
+function ChipsCliked(event) {
+    if(event != null)
+    {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'ChipsCliked',
+                },
+                type: 'GET',
+                success: ChipsClikedCallBack,
+
+            }
+        )
+    }
+}
+function ChipsClikedCallBack(json) {
+    alert("Your purchase was successful");
 }

@@ -282,4 +282,10 @@ public class GameController {
     public boolean isAllHandsEnd() {
         return isAllHandsEnd;
     }
+
+    public void ChipsCliked(User user)
+    {
+        int index = game.getPlayerIndexByName(user.getName());
+        game.addChipsToIndexPlayer(index);
+    }
 }

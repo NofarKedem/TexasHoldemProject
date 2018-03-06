@@ -120,6 +120,13 @@ public class GameDetails  extends HttpServlet {
                         e.printStackTrace();
                     }break;
 
+                case "ChipsCliked":
+                    try {
+                        this.ChipsClikedAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+
             }
 
         }
@@ -281,6 +288,17 @@ public class GameDetails  extends HttpServlet {
     }
 
 
+    private void ChipsClikedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
+        game.ChipsCliked(user);
+
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson( true));
+    }
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {

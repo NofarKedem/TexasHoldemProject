@@ -752,5 +752,9 @@ public class GameEngine {
        player.setQuit(true);
        player.setFinalQuit(true);
    }
+   public void addChipsToIndexPlayer(int index)
+   {
+       players.get(index).setBuysAndChips(numOfChipsPerBuy);
+   }
 
 }

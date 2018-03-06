@@ -22,7 +22,6 @@ public class GameController {
     private List<User> users;
     private int numOfPlayerClickedready;
     private boolean isEndHand;
-    private boolean isNewHand;
 
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
@@ -106,23 +105,29 @@ public class GameController {
         return isActive;
     }
 
-    public void gameMove(String LastGameMove, int amount, GameMoveStatus gameMoveStatus)
+    public void gameMoveComputer()
+    {
+        Utils.RoundResult result = game.playWithComputer();
+        status(result);
+    }
+    public void gameMoveHuman(String LastGameMove, int amount)
     {
         Utils.RoundResult result = game.gameMove(LastGameMove,amount);
+        status(result);
+    }
+
+    private void status(Utils.RoundResult result)
+    {
         if(result == Utils.RoundResult.CLOSEROUND)
         {
             if(game.getCurrNumOfRound() == 4)
             {
-                //end hand
                 isEndHand = true;
                 game.closeTheHand();
-               // gameMoveStatus.setEndHand(true);
             }
             else
             {
                 game.initRound();
-               // gameMoveStatus.setRoundEnd(true);
-                gameMoveStatus.setNumRound(game.getCurrNumOfRound());
             }
         }
     }
@@ -140,20 +145,19 @@ public class GameController {
                 numOfPlayerClickedready = 0;
                 isEndHand = false;
                 game.startHand();
-                isNewHand = true;
+
             }
         }
     }
 
-    public boolean isNewHand() {
-        return isNewHand;
-    }
 
     public boolean isEndHand() {
         return isEndHand;
     }
 
-    public void setNewHand(boolean newHand) {
-        isNewHand = newHand;
+    public void setMove(String numOfMove)
+    {
+        game.setMoveForAmountValidatoin(game.convertIntToMove(numOfMove));
     }
+
 }

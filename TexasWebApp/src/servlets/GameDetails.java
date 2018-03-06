@@ -159,7 +159,15 @@ public class GameDetails  extends HttpServlet {
         GameController game = (GameController)request.getSession().getAttribute("game");
         User user = (User)request.getSession().getAttribute("user");
         movesInfo moveInfo = game.getMovesInfo();
-        if(game.getGameEngine().getCurrPlayer() != game.getGameEngine().getPlayerIndexByName(user.getName()))
+        if(game.getGameEngine().getCurrPlayer() == game.getGameEngine().getPlayerIndexByName(user.getName()))
+        {
+            if(user.isComputer())
+            {
+                moveInfo.setAllFalse();
+                game.gameMoveComputer();
+            }
+        }
+        else
             moveInfo.setAllFalse();
         response.setContentType("application/json");
         Gson gson = new Gson();
@@ -207,13 +215,14 @@ public class GameDetails  extends HttpServlet {
     private void buttonActionClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
+        String numOfMove = request.getParameter("move");
+        game.setMove(numOfMove);
         String amount = request.getParameter("amount");
-        GameEngine gameEngine = game.getGameEngine();
-        GameMoveStatus gameMoveStatus = gameEngine.getGameMoveStatus(amount);
+        GameMoveStatus gameMoveStatus = game.getGameEngine().getGameMoveStatus(amount);
         if(gameMoveStatus.getIsValidAmount())
         {
-            String numOfMove = request.getParameter("move");
-            game.gameMove(numOfMove,Integer.parseInt(amount),gameMoveStatus);
+
+            game.gameMoveHuman(numOfMove,Integer.parseInt(amount));
         }
         response.setContentType("application/json");
         Gson gson = new Gson();

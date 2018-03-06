@@ -88,6 +88,8 @@ function refreshGameDetailsCallback(json) {
     document.getElementsByClassName("roundNumber")[0].innerHTML = json.currRound;
     document.getElementsByClassName("bigBlind")[0].innerHTML = json.numOfChipsForBig;
     document.getElementsByClassName("smallBlind")[0].innerHTML = json.numOfChipsForsmall;
+    document.getElementsByClassName("currentBet")[0].innerHTML = json.currentBet;
+    document.getElementsByClassName("totalCashBox")[0].innerHTML = json.cashBox;
 
 }
 
@@ -142,13 +144,18 @@ function refreshPlayerInfo() {
 function refreshPlayerInfoCallBack(json) {
 
     for(elem in json) {
-
-        document.getElementById("nameForPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
-        document.getElementById("statePlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerState;
-        document.getElementById("chipsPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
-        document.getElementById("buysPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
-        document.getElementById("wonPlayer"+(parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
-        document.getElementsByClassName("player"+(parseInt(elem) + 1))[0].style.visibility = "visible";
+        if(json[elem].isQuit == false) {
+            document.getElementById("nameForPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+            document.getElementById("statePlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerState;
+            document.getElementById("chipsPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
+            document.getElementById("buysPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
+            document.getElementById("wonPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerHandsWon;
+            document.getElementsByClassName("player" + (parseInt(elem) + 1))[0].style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementsByClassName("player" + (parseInt(elem) + 1))[0].style.visibility = "hidden";
+        }
     }
     revealPlayerCards(); //need to re-think one we will have a hands
 
@@ -181,9 +188,6 @@ function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
 
 }
 
-
-
-
 function revealPlayerCards() {
     $.ajax
     (
@@ -208,10 +212,7 @@ function revealPlayerCardsCallBack(json) {
             updatePlayerCards(player, json);
             break;
         }
-
-
     }
-
 }
 
 function revealPlayerCardsError(json) {

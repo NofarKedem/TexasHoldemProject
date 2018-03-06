@@ -357,7 +357,10 @@ public class GameEngine {
     }
     public int getCurrBet()
     {
-        return currHand.getCurrBet();
+        if(currHand != null)
+            return currHand.getCurrBet();
+
+        return 0;
     }
 
     public int getNumberOfBuys()
@@ -431,7 +434,7 @@ public class GameEngine {
             }
         }
     }
-    private Round.GameMoves convertIntToMove(String numOfMove)
+    public Round.GameMoves convertIntToMove(String numOfMove)
     {
         Round.GameMoves res = null;
         switch(numOfMove)
@@ -520,7 +523,10 @@ public class GameEngine {
     }
     public int getCashBox()
     {
-        return currHand.getCashBox();
+        if(currHand != null)
+            return currHand.getCashBox();
+
+        return 0;
     }
     public int getNumOfPlayer(int indexOfPlayer)
     {
@@ -709,7 +715,7 @@ public class GameEngine {
 
     public GameDetailsInfo getGameDetailsInfo(){
         GameDetailsInfo tempGameDetailsInfo = new GameDetailsInfo(getCurrentNumberOfHand(),
-                getCurrNumOfRound(),numOfChipsForsmall,numOfChipsForBig);
+                getCurrNumOfRound(),numOfChipsForsmall,numOfChipsForBig,getCurrBet(),getCashBox());
         return tempGameDetailsInfo;
     }
 

@@ -6,6 +6,7 @@ var stopReadyInterval;
 var endHand;
 var stopNewHandInterval;
 var stopDisplayMoveInterval;
+var stopifQuitClickedInterval;
 window.onload = function()
 {
     disableActionMove(true);
@@ -15,6 +16,8 @@ window.onload = function()
     setInterval(refreshUserList, 2000);
     setInterval(refreshGameDetails, 2000);
     checkNumOfUser = setInterval(checkIfStartGame, 2000);
+    ifQuitClicked();
+    stopifQuitClickedInterval = setInterval(ifQuitClicked, 2000);
 };
 
 function disableActionMove(bool)
@@ -26,6 +29,10 @@ function disableChipAReadyButton(bool)
 {
     document.getElementsByClassName("action-button")[6].disabled = bool;
     document.getElementsByClassName("action-button")[7].disabled = bool;
+}
+function disableQuitButton(bool)
+{
+    document.getElementsByClassName("action-button")[5].disabled = bool;
 }
 function disableMoveButton(bool)
 {
@@ -112,6 +119,7 @@ function checkIfStartGameCallBack(json)
     if(json === true)
     {
         alert("The game start");
+        disableQuitButton(true);
         clearInterval(checkNumOfUser);
         refreshPlayerInfo();
         setInterval(refreshPlayerInfo, 2000);
@@ -405,7 +413,15 @@ function checkIfHandEnd()
 }
 function checkIfHandEndCallBack(json)
 {
-    if(json.isHandEnd === true)
+    if(json.isAllHandsEnd === true)
+    {
+        //show winner
+
+        //return to lobby
+        alert("All the hand was end, goodbye!");
+        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+    }
+    else if(json.isHandEnd === true)
     {
         //pop-up to winners
 
@@ -437,6 +453,7 @@ function checkIfHandEndCallBack(json)
         clearInterval(stopDisplayMoveInterval);
         disableMoveButton(true);
         disableChipAReadyButton(false);
+        disableQuitButton(false);
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
         stopNewHandInterval = setInterval(ifNewHand, 2000);
     }
@@ -470,6 +487,7 @@ function readyClicked(event)
 function readyClickedCallBack(json)
 {
     disableChipAReadyButton(true);
+    disableQuitButton(true);
     clearInterval(stopReadyInterval);
 }
 
@@ -500,4 +518,43 @@ function ifNewHandCallBack(json)
         endHand = setInterval(checkIfHandEnd, 2000);
     }
 }
+function ifQuitClicked()
+{
+    document.getElementsByClassName("action-button")[5].onclick = quitClicked;
+}
 
+function quitClicked()
+{
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'quitClicked',
+            },
+            type: 'GET',
+            success: quitClickedReturnActiveCallBack,
+
+        }
+    )
+}
+function quitClickedReturnActiveCallBack(json)
+{
+    clearInterval(stopifQuitClickedInterval);
+    window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+}
+function wrapBuildingURLWithContextPath() {
+    var contextPath = calculateContextPath();
+    return function(resource) {
+        return "/" + contextPath + "/" + resource;
+    };
+}
+
+// call the wrapper method and expose a final method to be used to build complete resource names (buildUrlWithContextPath)
+var buildUrlWithContextPath = wrapBuildingURLWithContextPath();
+
+function calculateContextPath() {
+    var pathWithoutLeadingSlash = window.location.pathname.substring(1);
+    var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
+    return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
+}

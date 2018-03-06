@@ -113,6 +113,12 @@ public class GameDetails  extends HttpServlet {
                         e.printStackTrace();
                     }break;
 
+                case "quitClicked":
+                    try {
+                        this.quitClickedAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
 
             }
 
@@ -244,7 +250,7 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        HandResult handResult = new HandResult(game.isEndHand(),game.getWinResults());
+        HandResult handResult = new HandResult(game.isEndHand(),game.isAllHandsEnd(),game.getWinResults());
         out.println(gson.toJson(handResult));
     }
 
@@ -259,6 +265,19 @@ public class GameDetails  extends HttpServlet {
         out.println(gson.toJson( !game.isEndHand()));
     }
 
+    private void quitClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+
+        game.quitClicked(user);
+        out.println(gson.toJson( true));
+
+
+    }
 
 
         @Override

@@ -462,7 +462,12 @@ public class GameEngine {
     {
 
         GameMoveStatus gameMoveStatus = new GameMoveStatus();
-
+        if(amount == "")
+        {
+            gameMoveStatus.setValidAmount(false);
+            gameMoveStatus.setError("Empty field");
+            return gameMoveStatus;
+        }
         try{
             int amountInt = Integer.parseInt(amount);
             if(validAmount(amountInt))
@@ -736,6 +741,13 @@ public class GameEngine {
    {
        return new movesInfo (validateMove("1"),validateMove("2"),validateMove("3")
                ,validateMove("4"),validateMove("5"));
+   }
+
+   public void setQuitToPlayerByName(String name)
+   {
+       PokerPlayer player = players.get(getPlayerIndexByName(name));
+       player.setQuit(true);
+       player.setFinalQuit(true);
    }
 
 }

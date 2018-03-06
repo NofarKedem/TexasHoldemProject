@@ -3,12 +3,14 @@ package GameLogic;
 import java.util.List;
 
 public class HandResult {
-    boolean isHandEnd;
+    private boolean isHandEnd;
+    private boolean isAllHandsEnd;
     List<WinnersDetails> winnersDetails;
 
-    public HandResult(boolean isHandEnd, List winnersDetails){
+    public HandResult(boolean isHandEnd,boolean isAllHandsEnd, List winnersDetails){
         this.isHandEnd = isHandEnd;
         this.winnersDetails = winnersDetails;
+        this.isAllHandsEnd = isAllHandsEnd;
     }
 
     public boolean isHandEnd() {

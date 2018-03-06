@@ -22,8 +22,9 @@ public class GameController {
     private boolean fixedBlind;
     private List<User> users;
     private int numOfPlayerClickedready;
-    private boolean isEndHand;
     private List<WinnersDetails> winResults = new ArrayList();
+    private boolean isEndHand;
+    private boolean isAllHandsEnd;
 
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
@@ -33,7 +34,8 @@ public class GameController {
         this.game = new GameEngine();
         users = new ArrayList<>();
         numOfPlayerClickedready=0;
-        isEndHand= false;
+        isEndHand = false;
+        isAllHandsEnd = false;
     }
 
     public String getName() {
@@ -127,6 +129,12 @@ public class GameController {
             {
                 isEndHand = true;
                 game.closeTheHand();
+                if(numOfHands == game.getCurrentNumberOfHand())
+                {
+                    //endGame and return to lobby
+                    endAllHand();
+                    isAllHandsEnd = true;
+                }
             }
             else
             {
@@ -201,23 +209,26 @@ public class GameController {
         numOfPlayerClickedready++;
         if(numOfPlayerClickedready == numOfSubscribers)
         {
+            /*
             if(numOfHands == game.getCurrentNumberOfHand())
             {
                 //endGame and return to lobby
+                endAllHand();
+                isAllHandsEnd = true;
             }
             else {
                 numOfPlayerClickedready = 0;
                 isEndHand = false;
                 game.startHand();
-
             }
+            */
+            numOfPlayerClickedready = 0;
+            isEndHand = false;
+            game.startHand();
         }
     }
 
 
-    public boolean isEndHand() {
-        return isEndHand;
-    }
 
     public void setMove(String numOfMove)
     {
@@ -231,5 +242,38 @@ public class GameController {
 
     public List<WinnersDetails> getWinResults() {
         return winResults;
+    }
+    public void quitClicked(User user)
+    {
+        users.remove(user);
+        numOfSubscribers--;
+        if(isActive)
+        {
+            game.setQuitToPlayerByName(user.getName());
+        }
+    }
+
+    public void endAllHand()
+    {
+        //check about engine
+        //this.game = new GameEngine();
+
+        numOfSubscribers = 0;
+        isActive = false;
+
+        //check about buy
+
+        users.clear();
+        numOfPlayerClickedready=0;
+        isEndHand = false;
+        isAllHandsEnd = false;
+    }
+
+    public boolean isEndHand() {
+        return isEndHand;
+    }
+
+    public boolean isAllHandsEnd() {
+        return isAllHandsEnd;
     }
 }

@@ -10,6 +10,7 @@ import GameLogic.*;
 
 import Games.GameController;
 import Games.GamesManager;
+import XMLobject.Player;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import users.User;
@@ -77,6 +78,12 @@ public class GameDetails  extends HttpServlet {
                 case "getPlayerCards":
                     try {
                         this.getPlayerCardsAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
+                case "getAllPlayersCards":
+                    try {
+                        this.getAllPlayersCardsAction(request, response, gamesManager);
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
@@ -193,6 +200,23 @@ public class GameDetails  extends HttpServlet {
         PlayerInfo playerInfo = game.getGameEngine().getPlayerInfo(playerIndex);
         List<String> cardsAsString =  playerInfo.getPlayerCardsAsString();
         cardsAsString.add(user.getName()); // adding name of the card holder for client identification
+        out.println(gson.toJson(cardsAsString));
+
+    }
+
+    private void getAllPlayersCardsAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        List <PlayerInfo> playersInfo = game.getGameEngine().getAllPlayerInfo();
+        List<String> cardsAsString =  new ArrayList<>();
+        for(PlayerInfo player : playersInfo){
+            cardsAsString.add(player.getName());
+            cardsAsString.addAll(player.getPlayerCardsAsString());
+        }
+
         out.println(gson.toJson(cardsAsString));
 
     }

@@ -63,14 +63,18 @@ public class GetStartedServlet extends HttpServlet {
         UserManager usersManager = ServletUtils.getUserManager(getServletContext());
         User user = usersManager.getUser(username);
 
-        request.getSession().setAttribute("user",user);
-        request.getSession().setAttribute("game",game);
+        if(game.isUserAllreadyExsist(user.getName()))
+        {
+            out.println(gson.toJson(false));
 
-        //user.setGameController(game);
-        game.addUser(user);
-        out.println(gson.toJson(true));
-        //response.sendRedirect("/pages/OneGame/OneGame.html");
+        }
+        else {
+            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("game", game);
 
+            game.addUser(user);
+            out.println(gson.toJson(true));
+        }
 
     }
 

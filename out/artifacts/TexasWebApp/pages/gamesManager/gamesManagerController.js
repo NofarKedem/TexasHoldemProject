@@ -199,10 +199,12 @@ function error(){
     console.log("Fail to Join Game!!!!")
 }
 
-function joinGameClickedCallback() {
+function joinGameClickedCallback(json) {
     //window.location = "/pages/OneGame/OneGame.html";
-    window.location = buildUrlWithContextPath("/pages/OneGame/OneGame.html");
-
+    if(json===true)
+        window.location = buildUrlWithContextPath("/pages/OneGame/OneGame.html");
+    else
+        alert("This user already in this game");
 
 }
 

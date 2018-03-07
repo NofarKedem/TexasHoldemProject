@@ -2,6 +2,10 @@ window.onload = function()
 {
     checkLoginStatus();
     setInterval(checkLoginStatus, 2000);
+    ifSignInClicked();
+    setInterval(ifSignInClicked, 2000);
+    ifLoginClicked();
+    setInterval(ifLoginClicked, 2000);
 };
 
 
@@ -29,10 +33,12 @@ function statusCallback(json)
     }
 }
 
+
+function ifLoginClicked() {
+    document.getElementsByClassName("LoginButton")[0].onclick = loginClick;
+}
 function loginClick()
 {
-    event.preventDefault();
-
     var userName = $('#UserNameInput').val();
     if(userName == "") {
         document.getElementById("userNameError").innerHTML = "User Name must contain at least one character";
@@ -89,3 +95,40 @@ function wrapBuildingURLWithContextPath() {
 
 // call the wrapper method and expose a final method to be used to build complete resource names (buildUrlWithContextPath)
 var buildUrlWithContextPath = wrapBuildingURLWithContextPath();
+
+function ifSignInClicked() {
+
+    document.getElementsByClassName("signInButton")[0].onclick = signInClicked;
+}
+function signInClicked()
+{
+    var userName = $('#UserNameInput').val();
+    if(userName == "") {
+        document.getElementById("userNameError").innerHTML = "User Name must contain at least one character";
+    }
+    else {
+        $.ajax
+        ({
+            url: 'login',
+            data:
+                {
+                    action: "signIn",
+                    userName: userName,
+                },
+            type: 'GET',
+            success: signInClickedCallback
+        });
+    }
+}
+
+function signInClickedCallback(json)
+{
+    if (json.isConnected)
+    {
+        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+    }
+    else
+    {
+        document.getElementById("userNameError").innerHTML = json.errorMessage;
+    }
+}

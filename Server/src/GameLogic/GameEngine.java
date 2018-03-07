@@ -757,4 +757,8 @@ public class GameEngine {
        players.get(index).setBuysAndChips(numOfChipsPerBuy);
    }
 
+   public boolean checkIfAllQuit(){
+       return currHand.checkIfAllQuit();
+   }
+
 }

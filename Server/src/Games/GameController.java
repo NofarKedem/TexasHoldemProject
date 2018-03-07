@@ -25,6 +25,7 @@ public class GameController {
     private List<WinnersDetails> winResults = new ArrayList();
     private boolean isEndHand;
     private boolean isAllHandsEnd;
+    private int numOfRefresh;
 
     public GameController(String gameName, String nameOfUserOwner){
         this.gameName = gameName;
@@ -36,6 +37,7 @@ public class GameController {
         numOfPlayerClickedready=0;
         isEndHand = false;
         isAllHandsEnd = false;
+        numOfRefresh = 0;
     }
 
     public String getName() {
@@ -214,9 +216,27 @@ public class GameController {
                 addWinResults(WinnerName,cardsComb,prize);
             }
         }
+//        else{
+//            if(game.checkIfAllQuit()){
+//                isEndHand = true;
+//                Map<Integer, String> winnersMapRef = null;
+//                try {
+//                    winnersMapRef = game.setTechniqWinners(result);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//                for (Integer numOfPlayer : winnersMapRef.keySet()) {
+//                    //need to find the player index
+//                    String WinnerName = game.getPlayerName(numOfPlayer - 1);
+//                    String cardsComb =   "All the other players quited,this is a Technical victory";
+//                    String prize = String.valueOf(game.calcWinnersChipPrize());
+//                    addWinResults(WinnerName,cardsComb,prize);
+//                }
+//            }
+//        }
     }
 
-    public void userClickedReady()
+    public boolean userClickedReady()
     {
         numOfPlayerClickedready++;
         if(numOfPlayerClickedready == numOfSubscribers)
@@ -234,13 +254,29 @@ public class GameController {
                 game.startHand();
             }
             */
-            numOfPlayerClickedready = 0;
+            //numOfPlayerClickedready = 0;
             isEndHand = false;
+            clearWinResults();
             game.startHand();
+            return true;
         }
+        return false;
     }
 
+    public boolean refreshNewHand()
+    {
+        if(numOfPlayerClickedready == numOfSubscribers)
+        {
+            numOfRefresh++;
+            if(numOfRefresh == numOfSubscribers) {
+                numOfPlayerClickedready = 0;
+                numOfRefresh = 0;
+            }
 
+            return true;
+        }
+        return false;
+    }
 
     public void setMove(String numOfMove)
     {
@@ -248,8 +284,12 @@ public class GameController {
     }
 
     public void addWinResults(String name, String cardComb, String prize){
-        winResults.clear();
+
         winResults.add(new GameLogic.WinnersDetails(name,cardComb,prize));
+    }
+
+    public void clearWinResults(){
+        winResults.clear();
     }
 
     public List<WinnersDetails> getWinResults() {

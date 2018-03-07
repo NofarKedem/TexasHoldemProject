@@ -1,0 +1,116 @@
+07-Mar-2018 23:20:56.649 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.23
+07-Mar-2018 23:20:56.651 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 28 2017 10:30:11 UTC
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.23.0
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.9.5
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_152.jdk/Contents/Home/jre
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_152-b16
+07-Mar-2018 23:20:56.652 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/conf/logging.properties
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+07-Mar-2018 23:20:56.653 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+07-Mar-2018 23:20:56.654 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:20:56.654 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:20:56.654 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/temp
+07-Mar-2018 23:20:56.654 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/nofarkedemzada/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+07-Mar-2018 23:20:56.787 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:20:56.810 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+07-Mar-2018 23:20:56.812 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:20:56.814 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+07-Mar-2018 23:20:56.815 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 576 ms
+07-Mar-2018 23:20:56.841 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+07-Mar-2018 23:20:56.841 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.23
+07-Mar-2018 23:20:56.866 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/TexasWebApp archive.war]
+07-Mar-2018 23:20:57.255 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+07-Mar-2018 23:20:57.390 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/TexasWebApp archive.war] has finished in [525] ms
+07-Mar-2018 23:20:57.391 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/docs]
+07-Mar-2018 23:20:57.408 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/docs] has finished in [17] ms
+07-Mar-2018 23:20:57.409 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/examples]
+07-Mar-2018 23:20:57.682 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/examples] has finished in [273] ms
+07-Mar-2018 23:20:57.682 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/host-manager]
+07-Mar-2018 23:20:57.711 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/host-manager] has finished in [29] ms
+07-Mar-2018 23:20:57.711 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/manager]
+07-Mar-2018 23:20:57.740 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/manager] has finished in [29] ms
+07-Mar-2018 23:20:57.741 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/ROOT]
+07-Mar-2018 23:20:57.757 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/ROOT] has finished in [17] ms
+07-Mar-2018 23:20:57.759 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:20:57.766 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:20:57.769 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 954 ms
+07-Mar-2018 23:27:04.403 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+07-Mar-2018 23:27:04.404 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:27:04.459 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:27:04.511 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+07-Mar-2018 23:27:04.565 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:27:04.567 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:27:04.568 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:27:04.569 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:27:10.731 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.23
+07-Mar-2018 23:27:10.734 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 28 2017 10:30:11 UTC
+07-Mar-2018 23:27:10.734 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.23.0
+07-Mar-2018 23:27:10.734 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.9.5
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          x86_64
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Library/Java/JavaVirtualMachines/jdk1.8.0_152.jdk/Contents/Home/jre
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_152-b16
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+07-Mar-2018 23:27:10.735 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/conf/logging.properties
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+07-Mar-2018 23:27:10.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:27:10.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23
+07-Mar-2018 23:27:10.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/temp
+07-Mar-2018 23:27:10.737 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/nofarkedemzada/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+07-Mar-2018 23:27:10.876 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:27:10.898 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+07-Mar-2018 23:27:10.901 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:27:10.902 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+07-Mar-2018 23:27:10.903 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 592 ms
+07-Mar-2018 23:27:10.935 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+07-Mar-2018 23:27:10.935 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.23
+07-Mar-2018 23:27:10.966 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/TexasWebApp archive.war]
+07-Mar-2018 23:27:10.996 INFO [localhost-startStop-1] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/TexasWebApp archive] was found with a last modified time that did not match the associated WAR. It will be deleted.
+07-Mar-2018 23:27:11.525 INFO [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+07-Mar-2018 23:27:11.679 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/TexasWebApp archive.war] has finished in [712] ms
+07-Mar-2018 23:27:11.680 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/docs]
+07-Mar-2018 23:27:11.698 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/docs] has finished in [18] ms
+07-Mar-2018 23:27:11.698 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/examples]
+07-Mar-2018 23:27:11.927 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/examples] has finished in [229] ms
+07-Mar-2018 23:27:11.927 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/host-manager]
+07-Mar-2018 23:27:11.954 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/host-manager] has finished in [27] ms
+07-Mar-2018 23:27:11.954 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/manager]
+07-Mar-2018 23:27:11.977 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/manager] has finished in [23] ms
+07-Mar-2018 23:27:11.977 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/ROOT]
+07-Mar-2018 23:27:11.991 INFO [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/Users/nofarkedemzada/Documents/Computer Science/SemesterA/TexasHoldem/apache-tomcat-8.5.23/webapps/ROOT] has finished in [13] ms
+07-Mar-2018 23:27:11.994 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:27:12.002 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:27:12.004 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 1101 ms
+07-Mar-2018 23:29:20.583 WARNING [main] org.apache.catalina.core.StandardServer.await StandardServer.await: Invalid command '' received
+07-Mar-2018 23:29:24.896 INFO [http-nio-8080-exec-2] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header
+ Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.
+ java.lang.IllegalArgumentException: Invalid character found in the HTTP protocol
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:533)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:687)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+
+07-Mar-2018 23:29:59.689 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+07-Mar-2018 23:29:59.689 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:29:59.743 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:29:59.796 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+07-Mar-2018 23:29:59.838 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:29:59.840 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+07-Mar-2018 23:29:59.841 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+07-Mar-2018 23:29:59.842 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]

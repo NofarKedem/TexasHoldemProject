@@ -133,6 +133,12 @@ public class GameDetails  extends HttpServlet {
                     } catch (ScriptException e) {
                         e.printStackTrace();
                     }break;
+                case "refreshNewHand":
+                    try {
+                        this.refreshNewHandAction(request, response, gamesManager);
+                    } catch (ScriptException e) {
+                        e.printStackTrace();
+                    }break;
 
             }
 
@@ -267,11 +273,24 @@ public class GameDetails  extends HttpServlet {
     private void readyClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
-        game.userClickedReady();
+        boolean flag =  game.userClickedReady();
+        List<Boolean> flags = new ArrayList<>();
+        flags.add(true);
+        flags.add(flag);
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        out.println(gson.toJson(true));
+        out.println(gson.toJson(flags));
+    }
+
+    private void refreshNewHandAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
+            throws ScriptException, IOException {
+        GameController game = (GameController)request.getSession().getAttribute("game");
+        boolean flag =  game.refreshNewHand();
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(flag));
     }
 
 
@@ -282,6 +301,7 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
+        //game.clearWinResults();
         HandResult handResult = new HandResult(game.isEndHand(),game.isAllHandsEnd(),game.getWinResults());
         out.println(gson.toJson(handResult));
     }

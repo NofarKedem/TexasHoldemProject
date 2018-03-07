@@ -33,7 +33,7 @@ body {
 
 .player1 {
     grid-area: player1;
-    display:none;
+    visibility: hidden;
 }
 
 .player2 {
@@ -103,6 +103,11 @@ body {
     font-family: sans-serif;
     color: white;
     background: black;
+
+}
+.action-button:disabled
+{
+    color: #818181;
 }
 
 .card {
@@ -113,6 +118,7 @@ body {
 .player-data {
     float: left;
     width: 160px;
+    height: 145px;
     border: 1px solid #0b0202;
 }
 
@@ -176,4 +182,7 @@ body {
     padding:5px;
     height: 40px;
     color: #030303;
+}
+#dialog {
+    display: none;
 }

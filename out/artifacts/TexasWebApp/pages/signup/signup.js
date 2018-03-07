@@ -33,25 +33,25 @@ function loginClick()
 {
     event.preventDefault();
 
-    var userName = $('#UserNameInput').val();
-    if(userName == "") {
-        document.getElementById("userNameError").innerHTML = "User Name must contain at least one character";
-    } else {
-        var computerFlag = $('#computer').is(':checked');
+        var userName = $('#UserNameInput').val();
+        if(userName == "") {
+            document.getElementById("userNameError").innerHTML = "User Name must contain at least one character";
+        } else {
+            var computerFlag = $('#computer').is(':checked');
 
-        $.ajax
-        ({
-            url: 'login',
-            data:
-                {
-                    action: "login",
-                    userName: userName,
-                    userType: computerFlag
-                },
-            type: 'GET',
-            success: loginCallback
-        });
-    }
+            $.ajax
+            ({
+                url: 'login',
+                data:
+                    {
+                        action: "login",
+                        userName: userName,
+                        userType: computerFlag
+                    },
+                type: 'GET',
+                success: loginCallback
+            });
+        }
 
 }
 

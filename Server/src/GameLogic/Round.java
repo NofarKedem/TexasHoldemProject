@@ -310,8 +310,8 @@ public class Round implements PlayerActionService {
              }
              lastGenerateAmount = amount;
         }
-        Utils.RoundResult result = gameMove(gameMove, amount);
-        //Utils.RoundResult result = gameMove(GameMoves.CALL,0); //FOR TEST!
+        //Utils.RoundResult result = gameMove(gameMove, amount);
+        Utils.RoundResult result = gameMove(GameMoves.CALL,0); //FOR TEST!
         return result;
     }
     public void setMoveForAmountValidatoin(GameMoves gameMoves)

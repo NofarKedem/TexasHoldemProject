@@ -607,10 +607,13 @@ public class GameEngine {
     public void restartCurrentGame()
     {
         deck.InitCardInDeck();
+        players.clear();
+        /*
         for(PokerPlayer player : players)
         {
             player.resetPlayer(numOfChipsPerBuy);
         }
+        */
         currHand= null;
         numOfPlayHands=0;
         dilerIndex = 0;
@@ -748,6 +751,10 @@ public class GameEngine {
        PokerPlayer player = players.get(getPlayerIndexByName(name));
        player.setQuit(true);
        player.setFinalQuit(true);
+   }
+   public void addChipsToIndexPlayer(int index)
+   {
+       players.get(index).setBuysAndChips(numOfChipsPerBuy);
    }
 
 }

@@ -7,6 +7,9 @@ var endHand;
 var stopNewHandInterval;
 var stopDisplayMoveInterval;
 var stopifQuitClickedInterval;
+var stopsparkBorderInterval;
+var stopButChipsInterval;
+
 window.onload = function()
 {
     disableActionMove(true);
@@ -66,6 +69,12 @@ function refreshGameUserListCallback(json) {
         var tr = $(document.createElement('tr'));
 
         var td = $(document.createElement('td')).text(user.name);
+        if(user.isMyTurn === true)
+        {
+            td[0].style.fontWeight = "900"
+            td[0].style.color = "red";
+        }
+
 
         td.appendTo(tr);
 
@@ -153,6 +162,7 @@ function refreshPlayerInfoCallBack(json) {
     for(elem in json) {
         if(json[elem].isQuit == false) {
             document.getElementById("nameForPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].PlayerName;
+            document.getElementById("typePlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].typeOfPlayer;
             document.getElementById("statePlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerState;
             document.getElementById("chipsPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerChips;
             document.getElementById("buysPlayer" + (parseInt(elem) + 1)).innerHTML = json[elem].playerBuys;
@@ -192,8 +202,8 @@ function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
     document.getElementsByClassName("action-button")[4].disabled = !json.raise;
-
 }
+
 
 function revealPlayerCards() {
     $.ajax
@@ -508,6 +518,8 @@ function checkIfHandEndCallBack(json)
         disableChipAReadyButton(false);
         disableQuitButton(false);
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
+        stopButChipsInterval = setInterval(buyChipsCliked, 2000);
+
         stopNewHandInterval = setInterval(ifNewHand, 2000);
     }
     else{
@@ -542,6 +554,7 @@ function readyClickedCallBack(json)
     disableChipAReadyButton(true);
     disableQuitButton(true);
     clearInterval(stopReadyInterval);
+    clearInterval(stopButChipsInterval);
 }
 
 function ifNewHand()
@@ -610,4 +623,29 @@ function calculateContextPath() {
     var pathWithoutLeadingSlash = window.location.pathname.substring(1);
     var contextPathEndIndex = pathWithoutLeadingSlash.indexOf('/');
     return pathWithoutLeadingSlash.substr(0, contextPathEndIndex)
+}
+
+function buyChipsCliked()
+{
+    document.getElementsByClassName("action-button")[6].onclick = ChipsCliked;
+}
+function ChipsCliked(event) {
+    if(event != null)
+    {
+        $.ajax
+        (
+            {
+                url: 'OneGameDetails',
+                data: {
+                    action: 'ChipsCliked',
+                },
+                type: 'GET',
+                success: ChipsClikedCallBack,
+
+            }
+        )
+    }
+}
+function ChipsClikedCallBack(json) {
+    alert("Your purchase was successful");
 }

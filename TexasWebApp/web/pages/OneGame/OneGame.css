@@ -118,6 +118,7 @@ body {
 .player-data {
     float: left;
     width: 160px;
+    height: 145px;
     border: 1px solid #0b0202;
 }
 

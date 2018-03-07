@@ -145,6 +145,7 @@ public class GameController {
             int numOfCurrRound = game.getCurrNumOfRound();
             if(numOfCurrRound == 4)
             {
+                result = Utils.RoundResult.ENDGAME;
                 isEndHand = true;
                 game.closeTheHand();
                 if(numOfHands == game.getCurrentNumberOfHand())

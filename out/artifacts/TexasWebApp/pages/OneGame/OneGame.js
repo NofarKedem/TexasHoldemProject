@@ -222,6 +222,7 @@ function revealPlayerCards() {
 }
 
 function revealPlayerCardsCallBack(json) {
+
     var playersData = document.getElementsByClassName("player-data");
     for(elem in playersData) {
         if(playersData[elem].querySelector("ul li span:nth-child(2)").innerHTML == json[2]) {
@@ -235,6 +236,43 @@ function revealPlayerCardsCallBack(json) {
 function revealPlayerCardsError(json) {
     console.log("Reveal Cards Error");
 
+}
+
+function revealAllPlayersCards() {
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'getAllPlayersCards'
+            },
+            type: 'GET',
+            success: revealAllPlayersCardsCallBack,
+            error:revealPlayerCardsError,
+
+        }
+    )
+}
+
+function revealAllPlayersCardsCallBack(json) {
+    var playersData = document.getElementsByClassName("player-data");
+    for(var i = 0; i < playersData.length; i++) {
+        for(var j = 0; j < json.length; j+=3) {
+            if(playersData[i].querySelector("ul li span:nth-child(2)").innerHTML == json[j]) {
+                var player = playersData[i].querySelector("ul li span:nth-child(2)");
+                revealCards(player, json[j+1], json[j+2]);
+            }
+        }
+    }
+}
+
+function revealCards(player, first, second) {
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[0].src =
+        "cardsImgs/" + first + ".png";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[0].style.width = 60+"px";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[1].src =
+        "cardsImgs/" + second + ".png";
+    player.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("player-cards")[0].children[1].style.width = 60+"px";
 }
 
 function updatePlayerCards(player, cards) {
@@ -434,18 +472,32 @@ function checkIfHandEndCallBack(json)
     else if(json.isHandEnd === true)
     {
         //pop-up to winners
-
+        document.getElementsByClassName("name")[0].innerHTML = "The Winner/s : ";
+        document.getElementsByClassName("cardComb")[0].innerHTML = "Winning Details : ";
+        document.getElementsByClassName("prize")[0].innerHTML = "Winner/s Prize :";
         for(var i = 0; i < json.winnersDetails.length; i++) {
             if(json.winnersDetails[i].cardCombination.indexOf("Technical victory") > - 1) {
-                // For loop to Display All Names
-                json.winnersDetails.forEach(function (item) {
-                   document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + item.name;
-                });
-                // Display Winning details
-                document.getElementsByClassName("cardComb")[0].innerHTML += json.winnersDetails[i].cardCombination;
-                // Display Prize
-                document.getElementsByClassName("prize")[0].innerHTML += json.winnersDetails[i].prize;
-                i = json.winnersDetails.length;
+                if(json.winnersDetails[i].cardCombination.indexOf("All the Human players") > - 1){
+                    // Display All Names
+                    document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
+                    // Display Card Comb All Players
+                    document.getElementsByClassName("cardComb")[0].innerHTML +=  "<br>" + json.winnersDetails[i].cardCombination;
+                    // Display Prize
+                    if(i == 0) {
+                        document.getElementsByClassName("prize")[0].innerHTML +=  "<br>" + json.winnersDetails[i].prize;
+                    }
+                }
+                else {
+                    // For loop to Display All Names
+                    json.winnersDetails.forEach(function (item) {
+                        document.getElementsByClassName("name")[0].innerHTML += "<br>" + item.name;
+                    });
+                    // Display Winning details
+                    document.getElementsByClassName("cardComb")[0].innerHTML += json.winnersDetails[i].cardCombination;
+                    // Display Prize
+                    document.getElementsByClassName("prize")[0].innerHTML += json.winnersDetails[i].prize;
+                    i = json.winnersDetails.length;
+                }
             } else {
                 // Display All Names
                 document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
@@ -457,6 +509,7 @@ function checkIfHandEndCallBack(json)
                 }
             }
         }
+        revealAllPlayersCards();
         $( "#dialog" ).dialog();
         alert("end hand");
         clearInterval(endHand);

@@ -73,12 +73,19 @@ public class GameController {
 
         users.add(user);
         numOfSubscribers++;
-        if(numOfPlayers == numOfSubscribers)
+        if(numOfPlayers <= numOfSubscribers && leastOneHumanPlayer())
         {
             startGame();
         }
     }
-
+    public boolean leastOneHumanPlayer()
+    {
+        for (User user: users) {
+            if(user.isComputer() == false)
+                return true;
+        }
+        return false;
+    }
     public List<User> getUsers() {
         if(isActive && (isEndHand==false)) {
             int currPlayer = game.getCurrPlayer();
@@ -328,5 +335,14 @@ public class GameController {
     {
         int index = game.getPlayerIndexByName(user.getName());
         game.addChipsToIndexPlayer(index);
+    }
+
+    public boolean isUserAllreadyExsist(String name)
+    {
+        for (User user:users) {
+            if(name.equals(user.getName()))
+                return true;
+        }
+        return false;
     }
 }

@@ -6,11 +6,12 @@ public class User {
     private boolean isComputer;
     private int id=0;
     private boolean isMyTurn;
-
+    private boolean duplicate;
     public User(String name, boolean isComputer) {
         this.name = name;
         this.isComputer = isComputer;
         isMyTurn=false;
+        this.duplicate = false;
     }
 
 
@@ -36,5 +37,13 @@ public class User {
 
     public boolean isIfMyTurn() {
         return isMyTurn;
+    }
+
+    public void setDuplicate(boolean duplicate) {
+        this.duplicate = duplicate;
+    }
+
+    public boolean isDuplicate() {
+        return duplicate;
     }
 }

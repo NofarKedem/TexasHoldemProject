@@ -55,6 +55,14 @@ public class LoginServlet extends HttpServlet{
                     e.printStackTrace();
                 }
                 break;
+            case "signIn":
+                try {
+                    this.signInAction(request, response, usersManager);
+                } catch (ScriptException e) {
+                    e.printStackTrace();
+                }
+                break;
+
 
         }
     }
@@ -108,6 +116,26 @@ public class LoginServlet extends HttpServlet{
             //user is already logged in
             //response.sendRedirect(GAMES_MANAGER_URL);
             out.println(gson.toJson(new LoginStatus(true, "User is allready logged in.")));
+        }
+    }
+    private void signInAction(HttpServletRequest request, HttpServletResponse response, UserManager userManager)
+            throws ScriptException, IOException {
+        response.setContentType("application/json");
+        Gson gson = new Gson();
+        PrintWriter out = response.getWriter();
+
+        String usernameFromParameter = request.getParameter("userName");
+        if(userManager.isUserExists(usernameFromParameter) == false)
+        {
+            out.println(gson.toJson(new LoginStatus(false, "User not exist in the system")));
+        }
+        else
+        {
+            User user = new User(usernameFromParameter, userManager.getUser(usernameFromParameter).isComputer());
+            userManager.addUser(user);
+            user.setDuplicate(true);
+            request.getSession(true).setAttribute("username", usernameFromParameter);
+            out.println(gson.toJson(new LoginStatus(true, null)));
         }
     }
 

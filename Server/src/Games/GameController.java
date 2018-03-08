@@ -341,4 +341,13 @@ public class GameController {
             return false;
         }
     }
+    public boolean checkPlayerHasEnoughChips()
+    {
+        if(!game.isPlayerHasEnoughChips())
+        {
+            gameMoveHuman("1",0);
+            return false;
+        }
+        return true;
+    }
 }

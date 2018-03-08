@@ -2,6 +2,7 @@ package GameLogic;
 
 public class movesInfo {
     private boolean ifMyTurn;
+    private boolean enoughChips;
     private boolean calll; //3 L
     private boolean fold;
     private boolean bet;
@@ -15,6 +16,7 @@ public class movesInfo {
         this.bet = bet;
         this.check = check;
         this.raise = raise;
+        this.enoughChips = true;
     }
 
     public void setIfMyTurn(boolean ifMyTurn) {

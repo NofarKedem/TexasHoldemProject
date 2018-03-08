@@ -203,6 +203,10 @@ function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
     document.getElementsByClassName("action-button")[4].disabled = !json.raise;
+    if(json.enoughChips === false)
+    {
+        document.getElementById("inputError").innerHTML = "Player does'nt have enough chips,therefor he quit."
+    }
 }
 
 
@@ -504,7 +508,7 @@ function checkIfHandEndCallBack(json)
         }
         revealAllPlayersCards();
         $( "#dialog" ).dialog();
-        //alert("end hand");
+        alert("end hand");
         clearInterval(endHand);
         clearInterval(stopDisplayMoveInterval);
         disableMoveButton(true);
@@ -515,7 +519,7 @@ function checkIfHandEndCallBack(json)
         stopNewHandInterval = setInterval(ifNewHand, 2000);
         if(json.isAllHandsEnd === true)
         {
-            //alert("All the hand was end, goodbye!");
+            alert("All the hand was end, goodbye!");
             window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
         }
     }

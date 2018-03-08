@@ -187,12 +187,14 @@ public class GameDetails  extends HttpServlet {
         movesInfo moveInfo = game.getMovesInfo();
         if(game.getGameEngine().getCurrPlayer() == game.getGameEngine().getPlayerIndexByName(user.getName()))
         {
+            moveInfo.setIfMyTurn(true);
             if(user.isComputer())
             {
                 moveInfo.setAllFalse();
                 game.gameMoveComputer();
             }
-            moveInfo.setIfMyTurn(true);
+            else if(!game.checkPlayerHasEnoughChips())
+                moveInfo.setAllFalse();
         }
         else
             moveInfo.setAllFalse();

@@ -203,6 +203,10 @@ function displayMoveButtonAccordingToMyToMyTurnCallBack(json) {
     document.getElementsByClassName("action-button")[2].disabled = !json.check;
     document.getElementsByClassName("action-button")[3].disabled = !json.bet;
     document.getElementsByClassName("action-button")[4].disabled = !json.raise;
+    if(json.enoughChips === false)
+    {
+        document.getElementById("inputError").innerHTML = "Player does'nt have enough chips,therefor he quit."
+    }
 }
 
 

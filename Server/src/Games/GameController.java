@@ -175,6 +175,7 @@ public class GameController {
         }
         if(result == Utils.RoundResult.ENDGAME){
             isEndHand = true;
+            game.closeTheHand();
             Map<Integer, String> winnersMapRef = null;
             //Map<Integer, String> winnersMapRef = game.getWinnerMap();
             try {
@@ -192,6 +193,7 @@ public class GameController {
         }
         if(result == Utils.RoundResult.HUMANFOLD){
             isEndHand = true;
+            game.closeTheHand();
             Map<Integer, String> winnersMapRef = null;
             //Map<Integer, String> winnersMapRef = game.getWinnerMap();
             try {
@@ -209,6 +211,7 @@ public class GameController {
         }
         if(result == Utils.RoundResult.ALLFOLDED){
             isEndHand = true;
+            game.closeTheHand();
             Map<Integer, String> winnersMapRef = null;
             //Map<Integer, String> winnersMapRef = game.getWinnerMap();
             try {
@@ -224,24 +227,7 @@ public class GameController {
                 addWinResults(WinnerName,cardsComb,prize);
             }
         }
-//        else{
-//            if(game.checkIfAllQuit()){
-//                isEndHand = true;
-//                Map<Integer, String> winnersMapRef = null;
-//                try {
-//                    winnersMapRef = game.setTechniqWinners(result);
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                for (Integer numOfPlayer : winnersMapRef.keySet()) {
-//                    //need to find the player index
-//                    String WinnerName = game.getPlayerName(numOfPlayer - 1);
-//                    String cardsComb =   "All the other players quited,this is a Technical victory";
-//                    String prize = String.valueOf(game.calcWinnersChipPrize());
-//                    addWinResults(WinnerName,cardsComb,prize);
-//                }
-//            }
-//        }
+
     }
 
     public boolean userClickedReady()

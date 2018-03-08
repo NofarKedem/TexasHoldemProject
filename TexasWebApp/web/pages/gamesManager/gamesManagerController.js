@@ -125,8 +125,12 @@ function refreshUserListCallback(json) {
             var tdBigBlind = document.createElement('td');
             tdBigBlind.appendChild(document.createTextNode(game.BigBlind));
             var tdFixBlind = document.createElement('td');
-            if(game.fixedBlind === "true"){tdFixBlind.appendChild(document.createTextNode("Fixed Blinds"));}
-            else{tdFixBlind.appendChild(document.createTextNode("Not Fixed Blinds"));}
+            if(game.fixedBlind === true){
+                tdFixBlind.appendChild(document.createTextNode("Fixed Blinds"));
+            }
+            else{
+                tdFixBlind.appendChild(document.createTextNode("Not Fixed Blinds"));
+            }
 
             var tdGameStatus = document.createElement('td');
             if(game.isActive === true) {

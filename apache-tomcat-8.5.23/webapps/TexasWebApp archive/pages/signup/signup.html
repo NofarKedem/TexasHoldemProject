@@ -12,14 +12,12 @@
         <h1>Welcome to Texas Holdem Game</h1>
         <br/>
         <h2>Please enter a unique user name:</h2>
-        <form name="formLogin" onsubmit="loginClick()">
-        <!--<form id="myform" method="GET" action="login">-->
             <input type="text" id="UserNameInput" name="username"/>
             <br/>
             <input type="radio" id ="human" name="userType" value="Human Player" checked> Human Player <br>
             <input type="radio" id="computer" name="userType" value="Computer Player"> Computer Player <br>
-            <input type="submit" value="Login"/>
-        </form>
+            <button class="LoginButton">Login</button>
+            <button class="signInButton">Sign in</button>
     </div>
     <div id="userNameError" style="color: #DA3404;"></div>
 </body>

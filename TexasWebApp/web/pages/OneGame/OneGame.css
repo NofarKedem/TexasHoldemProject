@@ -135,6 +135,8 @@ body {
     padding: 5px;
     list-style-type: none;
     font-size:15px;
+    line-height: 20px;
+
 }
 
 .player-data-label {

@@ -21,7 +21,7 @@ window.onload = function()
     checkNumOfUser = setInterval(checkIfStartGame, 2000);
     ifQuitClicked();
     stopifQuitClickedInterval = setInterval(ifQuitClicked, 2000);
-    setInterval(refreshNewHand, 2000);
+    //setInterval(refreshNewHand, 2000);
 };
 
 function disableActionMove(bool)
@@ -227,15 +227,16 @@ function revealPlayerCards() {
 }
 
 function revealPlayerCardsCallBack(json) {
-
+if(json != false) {
     var playersData = document.getElementsByClassName("player-data");
-    for(elem in playersData) {
-        if(playersData[elem].querySelector("ul li span:nth-child(2)").innerHTML == json[2]) {
+    for (elem in playersData) {
+        if (playersData[elem].querySelector("ul li span:nth-child(2)").innerHTML == json[2]) {
             var player = playersData[elem].querySelector("ul li span:nth-child(2)");
             updatePlayerCards(player, json);
             break;
         }
     }
+}
 }
 
 function revealPlayerCardsError(json) {
@@ -466,7 +467,12 @@ function checkIfHandEnd()
 }
 function checkIfHandEndCallBack(json)
 {
-    if(json.isHandEnd === true)
+    if(json.isAllHandsEnd === true)
+    {
+        alert("All the hand was end, goodbye!");
+        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+    }
+    else if(json.isHandEnd === true)
     {
         //pop-up to winners
         document.getElementsByClassName("name")[0].innerHTML = "The Winner/s : ";
@@ -517,14 +523,10 @@ function checkIfHandEndCallBack(json)
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
         stopButChipsInterval = setInterval(buyChipsCliked, 2000);
         stopNewHandInterval = setInterval(ifNewHand, 2000);
-        if(json.isPlayerHasEnoughChips === false)
+        if(json.isPlayerHasEnoughChips === false) {
             document.getElementsByClassName("action-button")[7].disabled = true;
-
-        if(json.isAllHandsEnd === true)
-        {
-            alert("All the hand was end, goodbye!");
-            window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
         }
+
     }
     else{
         revealCommunityCards();
@@ -601,6 +603,12 @@ function ifNewHand()
 }
 function ifNewHandCallBack(json)
 {
+    /*
+    if(json.isAllHandsEnd === true)
+    {
+        alert("All the hand was end, goodbye!");
+        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+    }*/
     if(json.isPlayerHasEnoughChips === true)
         document.getElementsByClassName("action-button")[7].disabled = false;
     if(json.isEnoughPlayer === false)

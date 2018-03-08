@@ -282,6 +282,8 @@ public class GameEngine {
 
     public List<PlayerInfo> getAllPlayerInfo()
     {
+        if(players.size()==0 || players==null)
+            return null;
         List<PlayerInfo> listOfPlayersInfo = new ArrayList<>();
         for(int i = 0; i< Utils.numOfPlayers; i++)
             listOfPlayersInfo.add(getPlayerInfo(i));
@@ -759,6 +761,14 @@ public class GameEngine {
 
    public boolean checkIfAllQuit(){
        return currHand.checkIfAllQuit();
+   }
+
+   public boolean ifThereIsPlayerAtEngine()
+   {
+       if(players.size()== 0 || players==null)
+           return false;
+
+       return true;
    }
 
 }

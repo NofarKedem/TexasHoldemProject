@@ -185,19 +185,18 @@ public class GameDetails  extends HttpServlet {
         GameController game = (GameController)request.getSession().getAttribute("game");
         User user = (User)request.getSession().getAttribute("user");
         movesInfo moveInfo = game.getMovesInfo();
-        if(game.getGameEngine().getCurrPlayer() == game.getGameEngine().getPlayerIndexByName(user.getName()))
-        {
-            moveInfo.setIfMyTurn(true);
-            if(user.isComputer())
-            {
-                moveInfo.setAllFalse();
-                game.gameMoveComputer();
-            }
-            else if(!game.checkPlayerHasEnoughChips())
+        if(game.getGameEngine().ifThereIsPlayerAtEngine()) {
+            moveInfo = game.getMovesInfo();
+            if (game.getGameEngine().getCurrPlayer() == game.getGameEngine().getPlayerIndexByName(user.getName())) {
+                moveInfo.setIfMyTurn(true);
+                if (user.isComputer()) {
+                    moveInfo.setAllFalse();
+                    game.gameMoveComputer();
+                } else if (!game.checkPlayerHasEnoughChips())
+                    moveInfo.setAllFalse();
+            } else
                 moveInfo.setAllFalse();
         }
-        else
-            moveInfo.setAllFalse();
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
@@ -212,12 +211,15 @@ public class GameDetails  extends HttpServlet {
         PrintWriter out = response.getWriter();
         GameController game = (GameController)request.getSession().getAttribute("game");
         User user = (User)request.getSession().getAttribute("user");
-        int playerIndex = game.getGameEngine().getPlayerIndexByName(user.getName());
-        PlayerInfo playerInfo = game.getGameEngine().getPlayerInfo(playerIndex);
-        List<String> cardsAsString =  playerInfo.getPlayerCardsAsString();
-        cardsAsString.add(user.getName()); // adding name of the card holder for client identification
-        out.println(gson.toJson(cardsAsString));
-
+        if(game.getGameEngine().ifThereIsPlayerAtEngine()) {
+            int playerIndex = game.getGameEngine().getPlayerIndexByName(user.getName());
+            PlayerInfo playerInfo = game.getGameEngine().getPlayerInfo(playerIndex);
+            List<String> cardsAsString = playerInfo.getPlayerCardsAsString();
+            cardsAsString.add(user.getName()); // adding name of the card holder for client identification
+            out.println(gson.toJson(cardsAsString));
+        }
+        else
+            out.println(gson.toJson(false));
     }
 
     private void getAllPlayersCardsAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
@@ -263,7 +265,6 @@ public class GameDetails  extends HttpServlet {
         GameMoveStatus gameMoveStatus = game.getGameEngine().getGameMoveStatus(amount);
         if(gameMoveStatus.getIsValidAmount())
         {
-
             game.gameMoveHuman(numOfMove,Integer.parseInt(amount));
         }
         response.setContentType("application/json");
@@ -305,8 +306,14 @@ public class GameDetails  extends HttpServlet {
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
         //game.clearWinResults();
-        HandResult handResult = new HandResult(game.isEndHand(),game.isAllHandsEnd(),game.getWinResults());
-        handResult.setPlayerHasEnoughChips(game.isPlayerHasEnoughChipsByName(user.getName()));
+        HandResult handResult;
+        if(game.getGameEngine().ifThereIsPlayerAtEngine()) {
+             handResult = new HandResult(game.isEndHand(), game.isAllHandsEnd(), game.getWinResults());
+            handResult.setPlayerHasEnoughChips(game.isPlayerHasEnoughChipsByName(user.getName()));
+        }
+        else {
+             handResult = new HandResult(game.isEndHand(), game.isAllHandsEnd(), null);
+        }
         out.println(gson.toJson(handResult));
     }
 
@@ -319,7 +326,7 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        HandResult handResult = new HandResult();
+        HandResult handResult = new HandResult(game.isEndHand(),game.isAllHandsEnd(),null);
         handResult.setNewHand(!game.isEndHand());
         handResult.setEnoughPlayer(game.enoughPlayerInTheGame());
         handResult.setPlayerHasEnoughChips(game.isPlayerHasEnoughChipsByName(user.getName()));

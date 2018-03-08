@@ -122,7 +122,9 @@ public class GameController {
 
     public movesInfo getMovesInfo()
     {
-        return game.getMoveInfo();
+        if(game.ifThereIsPlayerAtEngine())
+            return game.getMoveInfo();
+        else return new movesInfo(false,false,false,false,false);
     }
 
     public boolean getIsActive()
@@ -143,6 +145,7 @@ public class GameController {
 
     private void status(Utils.RoundResult result)
     {
+
         if(result == Utils.RoundResult.CLOSEROUND)
         {
             int numOfCurrRound = game.getCurrNumOfRound();
@@ -151,12 +154,7 @@ public class GameController {
                 result = Utils.RoundResult.ENDGAME;
                 isEndHand = true;
                 game.closeTheHand();
-                if(numOfHands == game.getCurrentNumberOfHand())
-                {
-                    //endGame and return to lobby
-                    endAllHand();
-
-                }
+                ifAllHandEnd();
             }
             else
             {
@@ -190,6 +188,7 @@ public class GameController {
                 String prize = String.valueOf(game.calcWinnersChipPrize());
                 addWinResults(WinnerName,cardsComb,prize);
             }
+            ifAllHandEnd();
         }
         if(result == Utils.RoundResult.HUMANFOLD){
             isEndHand = true;
@@ -208,10 +207,10 @@ public class GameController {
                 String prize = String.valueOf(game.calcWinnersChipPrize());
                 addWinResults(WinnerName,cardsComb,prize);
             }
+            ifAllHandEnd();
         }
         if(result == Utils.RoundResult.ALLFOLDED){
-            isEndHand = true;
-            game.closeTheHand();
+
             Map<Integer, String> winnersMapRef = null;
             //Map<Integer, String> winnersMapRef = game.getWinnerMap();
             try {
@@ -226,8 +225,22 @@ public class GameController {
                 String prize = String.valueOf(game.calcWinnersChipPrize());
                 addWinResults(WinnerName,cardsComb,prize);
             }
+            game.closeTheHand();
+            ifAllHandEnd();
+            isEndHand = true;
+
         }
 
+
+    }
+    public void ifAllHandEnd()
+    {
+        if(numOfHands == game.getCurrentNumberOfHand())
+        {
+            //endGame and return to lobby
+            endAllHand();
+            //isAllHandsEnd = true;
+        }
     }
 
     public boolean userClickedReady()
@@ -248,7 +261,7 @@ public class GameController {
                 game.startHand();
             }
             */
-            //numOfPlayerClickedready = 0;
+            numOfPlayerClickedready = 0;
             isEndHand = false;
             clearWinResults();
             game.startHand();

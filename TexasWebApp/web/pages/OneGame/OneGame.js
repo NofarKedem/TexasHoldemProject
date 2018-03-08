@@ -325,9 +325,7 @@ function checkIfClickButton()
     document.getElementsByClassName("action-button")[0].onclick = foldClicked;
     document.getElementsByClassName("action-button")[1].onclick = callClicked;
     document.getElementsByClassName("action-button")[2].onclick = checkClicked;
-    betValue = document.getElementById("betInput").value;
     document.getElementsByClassName("action-button")[3].onclick = betClicked;
-    raiseValuse = document.getElementById("raiseInput").value;
     document.getElementsByClassName("action-button")[4].onclick = raiseClicked;
 
 }
@@ -395,6 +393,7 @@ function checkClicked(event)
 function betClicked(event)
 {
     if(event != null) {
+        betValue = document.getElementById("betInput").value;
         $.ajax
         (
             {
@@ -416,6 +415,7 @@ function betClicked(event)
 function raiseClicked(event)
 {
     if(event != null) {
+        raiseValuse = document.getElementById("raiseInput").value;
         $.ajax
         (
             {
@@ -517,6 +517,9 @@ function checkIfHandEndCallBack(json)
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
         stopButChipsInterval = setInterval(buyChipsCliked, 2000);
         stopNewHandInterval = setInterval(ifNewHand, 2000);
+        if(json.isPlayerHasEnoughChips === false)
+            document.getElementsByClassName("action-button")[7].disabled = true;
+
         if(json.isAllHandsEnd === true)
         {
             alert("All the hand was end, goodbye!");
@@ -598,6 +601,8 @@ function ifNewHand()
 }
 function ifNewHandCallBack(json)
 {
+    if(json.isPlayerHasEnoughChips === true)
+        document.getElementsByClassName("action-button")[7].disabled = false;
     if(json.isEnoughPlayer === false)
     {
         alert("Not enough player to continue, goodbey!");

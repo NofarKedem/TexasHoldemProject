@@ -8,6 +8,7 @@ public class HandResult {
     List<WinnersDetails> winnersDetails;
     private boolean isNewHand;
     private boolean isEnoughPlayer;
+    private boolean isPlayerHasEnoughChips;
 
 
     public HandResult(boolean isHandEnd,boolean isAllHandsEnd, List winnersDetails){
@@ -16,6 +17,7 @@ public class HandResult {
         this.isAllHandsEnd = isAllHandsEnd;
         this.isNewHand = false;
         this.isEnoughPlayer = true;
+        isPlayerHasEnoughChips=true;
     }
     public HandResult()
     {
@@ -40,5 +42,9 @@ public class HandResult {
 
     public void setEnoughPlayer(boolean enoughPlayer) {
         isEnoughPlayer = enoughPlayer;
+    }
+
+    public void setPlayerHasEnoughChips(boolean playerHasEnoughChips) {
+        isPlayerHasEnoughChips = playerHasEnoughChips;
     }
 }

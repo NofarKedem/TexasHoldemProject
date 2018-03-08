@@ -350,4 +350,12 @@ public class GameController {
         }
         return true;
     }
+
+    public boolean isPlayerHasEnoughChipsByName(String name)
+    {
+        if(game.getChipsPlayer(game.getPlayerIndexByName(name)) > 0)
+            return true;
+
+        return false;
+    }
 }

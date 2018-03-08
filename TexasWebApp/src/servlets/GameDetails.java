@@ -299,12 +299,14 @@ public class GameDetails  extends HttpServlet {
     private void checkIfHandEndAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
 
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
         //game.clearWinResults();
         HandResult handResult = new HandResult(game.isEndHand(),game.isAllHandsEnd(),game.getWinResults());
+        handResult.setPlayerHasEnoughChips(game.isPlayerHasEnoughChipsByName(user.getName()));
         out.println(gson.toJson(handResult));
     }
 
@@ -312,6 +314,7 @@ public class GameDetails  extends HttpServlet {
     private void ifNewHandAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)
             throws ScriptException, IOException {
         GameController game = (GameController)request.getSession().getAttribute("game");
+        User user = (User)request.getSession().getAttribute("user");
 
         response.setContentType("application/json");
         Gson gson = new Gson();
@@ -319,6 +322,7 @@ public class GameDetails  extends HttpServlet {
         HandResult handResult = new HandResult();
         handResult.setNewHand(!game.isEndHand());
         handResult.setEnoughPlayer(game.enoughPlayerInTheGame());
+        handResult.setPlayerHasEnoughChips(game.isPlayerHasEnoughChipsByName(user.getName()));
         out.println(gson.toJson( handResult));
     }
 

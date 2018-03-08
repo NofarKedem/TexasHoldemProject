@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Noto+Sans');
+body{
+    background: url('https://images4.alphacoders.com/418/thumb-1920-41814.jpg');
+    background-size: cover;
+    font-family: 'Merriweather|Noto+Sans';
+    margin: 0;
+    min-width: 400px;
+    color: #fff;
+}

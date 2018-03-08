@@ -504,7 +504,7 @@ function checkIfHandEndCallBack(json)
         }
         revealAllPlayersCards();
         $( "#dialog" ).dialog();
-        alert("end hand");
+        //alert("end hand");
         clearInterval(endHand);
         clearInterval(stopDisplayMoveInterval);
         disableMoveButton(true);
@@ -515,7 +515,7 @@ function checkIfHandEndCallBack(json)
         stopNewHandInterval = setInterval(ifNewHand, 2000);
         if(json.isAllHandsEnd === true)
         {
-            alert("All the hand was end, goodbye!");
+            //alert("All the hand was end, goodbye!");
             window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
         }
     }

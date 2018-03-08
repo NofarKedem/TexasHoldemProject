@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="OneGame.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,6 +11,7 @@
             src="http://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="OneGame.js"></script>
 </head>
 
@@ -37,6 +39,14 @@
                     <td>Small blind: </td>
                     <td class="smallBlind"></td>
                 </tr>
+                <tr>
+                    <td>Current bet: </td>
+                    <td class="currentBet"></td>
+                </tr>
+                <tr>
+                    <td>Total cash box: </td>
+                    <td class="totalCashBox"></td>
+                </tr>
             </table>
         </div>
         <div class="onlinePlayer">
@@ -56,6 +66,10 @@
                     <li>
                         <span class="player-data-label">Name: </span>
                         <span id="nameForPlayer1"></span>
+                    </li>
+                    <li>
+                        <span class="player-data-label">Type: </span>
+                        <span id="typePlayer1"></span>
                     </li>
                     <li>
                         <span class="player-data-label">State: </span>
@@ -85,23 +99,27 @@
                 <ul>
                     <li>
                         <span class="player-data-label">Name: </span>
-                        <span>John</span>
+                        <span id="nameForPlayer2"></span>
+                    </li>
+                    <li>
+                        <span class="player-data-label">Type: </span>
+                        <span id="typePlayer2"></span>
                     </li>
                     <li>
                         <span class="player-data-label">State: </span>
-                        <span>B - 10</span>
+                        <span id="statePlayer2"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Chips: </span>
-                        <span>100</span>
+                        <span id="chipsPlayer2"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Buys: </span>
-                        <span>5</span>
+                        <span id="buysPlayer2"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Won: </span>
-                        <span>2</span>
+                        <span id="wonPlayer2"></span>
                     </li>
                 </ul>
             </div>
@@ -115,23 +133,27 @@
                 <ul>
                     <li>
                         <span class="player-data-label">Name: </span>
-                        <span>John</span>
+                        <span id="nameForPlayer3"></span>
+                    </li>
+                    <li>
+                        <span class="player-data-label">Type: </span>
+                        <span id="typePlayer3"></span>
                     </li>
                     <li>
                         <span class="player-data-label">State: </span>
-                        <span>B - 10</span>
+                        <span id="statePlayer3"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Chips: </span>
-                        <span>100</span>
+                        <span id="chipsPlayer3"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Buys: </span>
-                        <span>5</span>
+                        <span id="buysPlayer3"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Won: </span>
-                        <span>2</span>
+                        <span id="wonPlayer3"></span>
                     </li>
                 </ul>
             </div>
@@ -144,23 +166,27 @@
             <ul>
                 <li>
                     <span class="player-data-label">Name: </span>
-                    <span>John</span>
+                    <span id="nameForPlayer4"></span>
+                </li>
+                <li>
+                    <span class="player-data-label">Type: </span>
+                    <span id="typePlayer4"></span>
                 </li>
                 <li>
                     <span class="player-data-label">State: </span>
-                    <span>B - 10</span>
+                    <span id="statePlayer4"></span>
                 </li>
                 <li>
                     <span class="player-data-label">Chips: </span>
-                    <span>100</span>
+                    <span id="chipsPlayer4"></span>
                 </li>
                 <li>
                     <span class="player-data-label">Buys: </span>
-                    <span>5</span>
+                    <span id="buysPlayer4"></span>
                 </li>
                 <li>
                     <span class="player-data-label">Won: </span>
-                    <span>2</span>
+                    <span id="wonPlayer4"></span>
                 </li>
             </ul>
         </div>
@@ -174,23 +200,27 @@
                 <ul>
                     <li>
                         <span class="player-data-label">Name: </span>
-                        <span>John</span>
+                        <span id="nameForPlayer5"></span>
+                    </li>
+                    <li>
+                        <span class="player-data-label">Type: </span>
+                        <span id="typePlayer5"></span>
                     </li>
                     <li>
                         <span class="player-data-label">State: </span>
-                        <span>B - 10</span>
+                        <span id="statePlayer5"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Chips: </span>
-                        <span>100</span>
+                        <span id="chipsPlayer5"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Buys: </span>
-                        <span>5</span>
+                        <span id="buysPlayer5"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Won: </span>
-                        <span>2</span>
+                        <span id="wonPlayer5"></span>
                     </li>
                 </ul>
             </div>
@@ -204,23 +234,27 @@
                 <ul>
                     <li>
                         <span class="player-data-label">Name: </span>
-                        <span>John</span>
+                        <span id="nameForPlayer6"></span>
+                    </li>
+                    <li>
+                        <span class="player-data-label">Type: </span>
+                        <span id="typePlayer6"></span>
                     </li>
                     <li>
                         <span class="player-data-label">State: </span>
-                        <span>B - 10</span>
+                        <span id="statePlayer6"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Chips: </span>
-                        <span>100</span>
+                        <span id="chipsPlayer6"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Buys: </span>
-                        <span>5</span>
+                        <span id="buysPlayer6"></span>
                     </li>
                     <li>
                         <span class="player-data-label">Won: </span>
-                        <span>2</span>
+                        <span id="wonPlayer6"></span>
                     </li>
                 </ul>
             </div>
@@ -236,26 +270,33 @@
             <img src="closeCard.png" alt="" class="card">
             <img src="closeCard.png" alt="" class="card">
             <img src="closeCard.png" alt="" class="card">
-
         </div>
         <div class="actions">
             <div>
-                <button class="action-button">Fold</button>
-                <button class="action-button">Call</button>
-                <button class="action-button">Check</button>
+                <button class="action-button",id="foldButton">Fold</button>
+                <button class="action-button",id="callButton">Call</button>
+                <button class="action-button",id="CheckButton">Check</button>
             </div>
             <div>
-                <button class="action-button">Bet</button>
-                <input type="text" placeholder="bet amount">
-                <button class="action-button">Raise</button>
-                <input type="text" placeholder="raise amount">
+                <button class="action-button",id="betButton">Bet</button>
+                <input type="text" placeholder="bet amount" id="betInput">
+                <button class="action-button",id="raiseButton">Raise</button>
+                <input type="text" placeholder="raise amount" id="raiseInput">
+                <span id="inputError"></span>
             </div>
+
             <div>
                 <button class="action-button">Quit from the game</button>
                 <button class="action-button">Buy chips</button>
+                <button class="action-button">Ready to next hand</button>
             </div>
         </div>
     </div>
+</div>
+<div id="dialog" title="Winners List">
+    <span class="name"></span> <br>
+    <span class="cardComb"></span> <br>
+    <span class="prize">Winner/s Prize :</span>
 </div>
 </body>
 

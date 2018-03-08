@@ -129,8 +129,12 @@ function refreshUserListCallback(json) {
             else{tdFixBlind.appendChild(document.createTextNode("Not Fixed Blinds"));}
 
             var tdGameStatus = document.createElement('td');
-            if(game.isActive === "true"){tdGameStatus.appendChild(document.createTextNode("Active"));}
-            else{tdGameStatus.appendChild(document.createTextNode("Not Active"));}
+            if(game.isActive === true) {
+                tdGameStatus.appendChild(document.createTextNode("Active"));
+            }
+            else {
+                tdGameStatus.appendChild(document.createTextNode("Not Active"));
+            }
             var tdJoinGame = document.createElement('td');
             var tdJoinGamebtn = document.createElement('button');
             tdJoinGamebtn.classList.add('btn');
@@ -151,15 +155,17 @@ function refreshUserListCallback(json) {
 
             gamesTable.appendChild(tr);
 
-            if(game.isActive === "true") {
+            if(game.isActive === true) {
                 if(tr.classList.contains('enabled')) {
                     tr.classList.add('disabled');
                     tr.classList.remove('enabled');
+                    tr.lastElementChild.firstChild.disabled = true;
                 }
             } else {
                 if(tr.classList.contains('disabled')) {
                     tr.classList.remove('disabled');
                     tr.classList.add('enabled');
+                    tr.lastElementChild.firstChild.disabled = false;
                 }
             }
         });
@@ -203,7 +209,7 @@ function joinGameClickedCallback() {
 function onLogoutClick() {
     $.ajax(
         {
-            url: '/pages/signup/login',
+            url: '../../pages/signup/login',
             data: {
                 action: "logout"
             },
@@ -215,7 +221,8 @@ function onLogoutClick() {
 
 function logoutCallback(json) {
     didUserCloseWindow = false;
-    window.location = "/";
+    //window.location = "/";
+    window.location = buildUrlWithContextPath("/");
 
 }
 

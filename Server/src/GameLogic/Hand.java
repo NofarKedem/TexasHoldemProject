@@ -141,6 +141,20 @@ public class Hand {
         return WinnerMap;
     }
 
+    public boolean checkIfAllQuit(){
+        int quitCounter = 0;
+        for(PokerPlayer player : handPlayers){
+            if(player.getFinalQuit()){
+                quitCounter++;
+            }
+        }
+        if(handPlayers.size() - quitCounter <=1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public Map<Integer,String> setTechniqWinners(Utils.RoundResult roundResult) {
         Map<Integer,String> WinnerMap = new HashMap<>();
@@ -149,6 +163,7 @@ public class Hand {
             WinnerMap =  winner.setTechniqWinnersForCompPlayer(handPlayers);
         else if(roundResult == Utils.RoundResult.ALLFOLDED)
             WinnerMap =  winner.setTechniqWinnersForHumanPlayer(handPlayers);
+
         updateTheWinnerWithCashBox(WinnerMap);
         return WinnerMap;
 

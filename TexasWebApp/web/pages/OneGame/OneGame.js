@@ -21,6 +21,7 @@ window.onload = function()
     checkNumOfUser = setInterval(checkIfStartGame, 2000);
     ifQuitClicked();
     stopifQuitClickedInterval = setInterval(ifQuitClicked, 2000);
+    setInterval(refreshNewHand, 2000);
 };
 
 function disableActionMove(bool)
@@ -469,17 +470,17 @@ function checkIfHandEndCallBack(json)
         document.getElementsByClassName("prize")[0].innerHTML = "Winner/s Prize :";
         for(var i = 0; i < json.winnersDetails.length; i++) {
             if(json.winnersDetails[i].cardCombination.indexOf("Technical victory") > - 1) {
-                if(json.winnersDetails[i].cardCombination.indexOf("All the Human players") > - 1){
-                    // Display All Names
-                    document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
-                    // Display Card Comb All Players
-                    document.getElementsByClassName("cardComb")[0].innerHTML +=  "<br>" + json.winnersDetails[i].cardCombination;
-                    // Display Prize
-                    if(i == 0) {
-                        document.getElementsByClassName("prize")[0].innerHTML +=  "<br>" + json.winnersDetails[i].prize;
-                    }
-                }
-                else {
+                // if(json.winnersDetails[i].cardCombination.indexOf("All the Human players") > - 1){
+                //     // Display All Names
+                //     document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
+                //     // Display Card Comb All Players
+                //     document.getElementsByClassName("cardComb")[0].innerHTML +=  "<br>" + json.winnersDetails[i].cardCombination;
+                //     // Display Prize
+                //     if(i == 0) {
+                //         document.getElementsByClassName("prize")[0].innerHTML +=  "<br>" + json.winnersDetails[i].prize;
+                //     }
+                // }
+               // else {
                     // For loop to Display All Names
                     json.winnersDetails.forEach(function (item) {
                         document.getElementsByClassName("name")[0].innerHTML += "<br>" + item.name;
@@ -489,7 +490,7 @@ function checkIfHandEndCallBack(json)
                     // Display Prize
                     document.getElementsByClassName("prize")[0].innerHTML += json.winnersDetails[i].prize;
                     i = json.winnersDetails.length;
-                }
+               // }
             } else {
                 // Display All Names
                 document.getElementsByClassName("name")[0].innerHTML +=  "<br>" + json.winnersDetails[i].name;
@@ -551,6 +552,29 @@ function readyClickedCallBack(json)
     disableQuitButton(true);
     clearInterval(stopReadyInterval);
     clearInterval(stopButChipsInterval);
+}
+
+function refreshNewHand()
+{
+    $.ajax
+    (
+        {
+            url: 'OneGameDetails',
+            data: {
+                action: 'refreshNewHand',
+            },
+            type: 'GET',
+            success: refreshNewHandCallBack,
+
+        }
+    )
+}
+
+function refreshNewHandCallBack(json)
+{
+    if(json) {
+        window.location.href = window.location.href;
+    }
 }
 
 function ifNewHand()

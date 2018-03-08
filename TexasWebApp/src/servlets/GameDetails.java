@@ -314,7 +314,10 @@ public class GameDetails  extends HttpServlet {
         response.setContentType("application/json");
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();
-        out.println(gson.toJson( !game.isEndHand()));
+        HandResult handResult = new HandResult();
+        handResult.setNewHand(!game.isEndHand());
+        handResult.setEnoughPlayer(game.enoughPlayerInTheGame());
+        out.println(gson.toJson( handResult));
     }
 
     private void quitClickedAction(HttpServletRequest request, HttpServletResponse response, GamesManager gamesManager)

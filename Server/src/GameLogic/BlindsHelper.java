@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 public class BlindsHelper {
 
 
-    public static int calcTotalRounds(int totalHands){
-        int totalRounds = totalHands / Utils.numOfPlayers;
+    public static int calcTotalRounds(int totalHands, int numOfPlayers){
+        int totalRounds = totalHands / numOfPlayers;
         return totalRounds;
     }
 

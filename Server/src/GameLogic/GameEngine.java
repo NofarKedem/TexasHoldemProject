@@ -237,12 +237,12 @@ public class GameEngine {
         int tempHandsCount = (gameDescriptor.getStructure().getHandsCount()).intValue();
         if (tempHandsCount % tempNumOfPlayer != 0)
             throw new Exception("Invalid file, GameLogic.Hand count is not divided to the number of player");
-
+        numberOfMaxPlayersInGame = tempNumOfPlayer;
         fixed = gameDescriptor.getStructure().getBlindes().isFixed();
         if (!fixed) {
             max_total_rounds = gameDescriptor.getStructure().getBlindes().getMaxTotalRounds().intValue();
             addition = gameDescriptor.getStructure().getBlindes().getAdditions().intValue();
-            maxBig = BlindsHelper.calcMaxBig(BlindsHelper.calcTotalRounds(tempHandsCount),
+            maxBig = BlindsHelper.calcMaxBig(BlindsHelper.calcTotalRounds(tempHandsCount,numberOfMaxPlayersInGame),
                     addition, max_total_rounds, tempBig);
             if (maxBig > numOfChipsPerBuy / 2) {
                 throw new Exception("Invalid file,the max possible big is higher then half of buy value");
@@ -254,7 +254,7 @@ public class GameEngine {
         totalnumOfHands = tempHandsCount;
         originalBig = tempBig;
         originalSmall = tempSmall;
-        numberOfMaxPlayersInGame = tempNumOfPlayer;
+        //numberOfMaxPlayersInGame = tempNumOfPlayer;
         return nameOfGame; //return the game title to check if it already exists (by the servlet)
     }
 

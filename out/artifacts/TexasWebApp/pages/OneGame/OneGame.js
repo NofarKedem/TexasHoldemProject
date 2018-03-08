@@ -461,15 +461,7 @@ function checkIfHandEnd()
 }
 function checkIfHandEndCallBack(json)
 {
-    if(json.isAllHandsEnd === true)
-    {
-        //show winner
-
-        //return to lobby
-        alert("All the hand was end, goodbye!");
-        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
-    }
-    else if(json.isHandEnd === true)
+    if(json.isHandEnd === true)
     {
         //pop-up to winners
         document.getElementsByClassName("name")[0].innerHTML = "The Winner/s : ";
@@ -519,8 +511,12 @@ function checkIfHandEndCallBack(json)
         disableQuitButton(false);
         stopReadyInterval = setInterval(ifReadyButtonCliked, 2000);
         stopButChipsInterval = setInterval(buyChipsCliked, 2000);
-
         stopNewHandInterval = setInterval(ifNewHand, 2000);
+        if(json.isAllHandsEnd === true)
+        {
+            alert("All the hand was end, goodbye!");
+            window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+        }
     }
     else{
         revealCommunityCards();
@@ -574,7 +570,12 @@ function ifNewHand()
 }
 function ifNewHandCallBack(json)
 {
-    if(json===true)
+    if(json.isEnoughPlayer === false)
+    {
+        alert("Not enough player to continue, goodbey!");
+        window.location = buildUrlWithContextPath("pages/gamesManager/gamesManager.html");
+    }
+    else if(json.isNewHand === true)
     {
         clearInterval(stopNewHandInterval);
         alert("New Hand Start");

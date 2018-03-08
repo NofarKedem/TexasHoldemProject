@@ -105,6 +105,7 @@ public class GameController {
     public void startGame()
     {
         this.isActive = true;
+        isEndHand = false;
         isAllHandsEnd = false;
         game.stratGame(users);
 
@@ -279,7 +280,7 @@ public class GameController {
         isActive = false;
         users.clear();
         numOfPlayerClickedready=0;
-        isEndHand = false;
+        isEndHand = true;
         isAllHandsEnd = true;
     }
 
@@ -304,5 +305,14 @@ public class GameController {
                 return true;
         }
         return false;
+    }
+    public boolean enoughPlayerInTheGame()
+    {
+        if(users.size() >1)
+            return true;
+        else {
+            endAllHand();
+            return false;
+        }
     }
 }
